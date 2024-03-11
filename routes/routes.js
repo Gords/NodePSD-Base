@@ -25,6 +25,7 @@ module.exports = (User) => {
           .map(
             (user) => `
         <div class="user">
+          <p>ID: ${user.id}</p>
           <p>Name: ${user.name}</p>
           <p>Email: ${user.email}</p>
         </div>
