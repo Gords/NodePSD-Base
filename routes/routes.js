@@ -15,5 +15,27 @@ module.exports = (User) => {
       })
   })
 
+  // GET Request - Fetch all users
+  router.get('/users', (req, res) => {
+    User.findAll()
+      .then((users) => {
+        const usersHtml = users
+          .map(
+            (user) => `
+        <div class="user">
+          <p>Name: ${user.name}</p>
+          <p>Email: ${user.email}</p>
+        </div>
+      `
+          )
+          .join('')
+        res.send(`<div>${usersHtml}</div>`)
+      })
+      .catch((error) => {
+        console.error('Error fetching users:', error)
+        res.status(500).send('Error fetching users')
+      })
+  })
+
   return router
 }
