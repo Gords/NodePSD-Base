@@ -1,3 +1,5 @@
+// Routes for the Application
+
 module.exports = (User) => {
   const express = require('express')
   const router = express.Router()
@@ -34,6 +36,33 @@ module.exports = (User) => {
       .catch((error) => {
         console.error('Error fetching users:', error)
         res.status(500).send('Error fetching users')
+      })
+  })
+
+  // PUT Request - Update a user
+  router.put('/update/:id', (req, res) => {
+    const { email, password, name } = req.body
+    User.update({ email, password, name }, { where: { id: req.params.id } })
+      .then(() => {
+        res.send('User updated successfully')
+      })
+      .catch((error) => {
+        console.error('Error updating user:', error)
+        res.status(500).send('Error updating user')
+      })
+  })
+
+  // DELETE Request - Delete a user
+  router.delete('/delete/:id', (req, res) => {
+    User.destroy({
+      where: { id: req.params.id },
+    })
+      .then(() => {
+        res.send('User deleted successfully')
+      })
+      .catch((error) => {
+        console.error('Error deleting user:', error)
+        res.status(500).send('Error deleting user')
       })
   })
 

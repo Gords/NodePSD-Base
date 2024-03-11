@@ -18,8 +18,9 @@
       <br />
       <button type="submit">Register</button>
     </form>
-    <div id="user-list" hx-get="/users" hx-trigger="load" hx-swap="outerHTML">
-      Loading users...
-    </div>
+    <button hx-get="/users" hx-target="#user-list" hx-swap="outerHTML">
+      Get all users
+    </button>
+    <div id="user-list">Click the button to load users.</div>
   </body>
 </html>

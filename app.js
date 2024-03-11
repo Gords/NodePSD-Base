@@ -5,8 +5,9 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 const app = express()
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true })) // To parse the incoming requests with urlencoded payloads
+app.use(express.static('public')) // To serve static files
+app.use(express.json()) // To parse the incoming requests with JSON payloads
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
