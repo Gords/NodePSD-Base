@@ -1,9 +1,16 @@
 // Routes for the Application
 
-module.exports = (User) => {
-  const express = require('express')
-  const router = express.Router()
+const express = require('express')
+const router = express.Router()
+const multer = require('multer')
 
+// Configure Multer to store files in 'uploads/' directory
+const upload = multer({ dest: 'uploads/' })
+
+// Define supported file formats
+// const supportedFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/tiff']
+
+module.exports = (User) => {
   // POST Request - Create a new user
   router.post('/register', (req, res) => {
     const { email, password, name } = req.body
@@ -65,6 +72,11 @@ module.exports = (User) => {
         console.error('Error deleting user:', error)
         res.status(500).send('Error deleting user')
       })
+  })
+
+  // POST Request - Upload an image
+  router.post('/files/upload', upload.single('image'), (req, res) => {
+    res.send('File uploaded successfully')
   })
 
   return router

@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 const {
   Model
-} = require('sequelize');
+} = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Image extends Model {
     /**
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate (models) {
       Image.belongsTo(models.User, {
         foreignKey: 'userId'
       })
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     path: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Image',
-  });
-  return Image;
-};
+    modelName: 'Image'
+  })
+  return Image
+}
