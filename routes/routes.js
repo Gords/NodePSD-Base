@@ -56,7 +56,7 @@ module.exports = (User) => {
   // DELETE Request - Delete a user
   router.delete('/delete/:id', (req, res) => {
     User.destroy({
-      where: { id: req.params.id },
+      where: { id: req.params.id }
     })
       .then(() => {
         res.send('User deleted successfully')
