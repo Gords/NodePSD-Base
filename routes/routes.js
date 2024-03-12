@@ -15,12 +15,12 @@ const storage = multer.diskStorage({
   }
 })
 
-const upload = multer({ storage: storage })
+const upload = multer({ storage })
 
 // Define supported file formats
 // const supportedFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/tiff']
 
-module.exports = (User) => {
+module.exports = (User, Image) => {
   // POST Request - Create a new user
   router.post('/register', (req, res) => {
     const { email, password, name } = req.body
@@ -86,7 +86,22 @@ module.exports = (User) => {
 
   // POST Request - Upload an image
   router.post('/files/upload', upload.single('file'), (req, res) => {
-    res.json(req.file)
+  // Assuming the user ID is stored in req.userId
+    const userId = req.body.userId
+
+    // Create a new image record in the database
+    Image.create({
+      userId,
+      path: req.file.path
+    })
+      .then((image) => {
+        // Send the image details back to the client
+        res.json(image)
+      })
+      .catch((error) => {
+        console.error('Error saving image:', error)
+        res.status(500).send('Error saving image')
+      })
   })
 
   return router

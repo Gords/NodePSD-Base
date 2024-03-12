@@ -1,3 +1,5 @@
+// Model for the Image Table in the Database
+
 'use strict'
 const {
   Model

@@ -24,8 +24,9 @@ const sequelize = new Sequelize(
 )
 
 const User = require('./models/User.js')(sequelize, DataTypes)
+const Image = require('./models/Image.js')(sequelize, DataTypes)
 
-const routes = require('./routes/routes.js')(User)
+const routes = require('./routes/routes.js')(User,Image)
 
 app.use('/', routes)
 
