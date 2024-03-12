@@ -1,3 +1,5 @@
+// Server setup and database connection
+
 const express = require('express')
 const { Sequelize, DataTypes } = require('sequelize')
 const dotenv = require('dotenv')

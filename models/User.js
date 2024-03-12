@@ -1,3 +1,5 @@
+// Model for the User Table in the Database
+
 const { DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
