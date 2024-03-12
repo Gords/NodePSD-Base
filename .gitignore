@@ -6,3 +6,7 @@ tmp/
 temp/
 .env
 .history
+
+# Ignore contents of uploads directory but keep the directory itself
+uploads/*
+!uploads/.gitkeep

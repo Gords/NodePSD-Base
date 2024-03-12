@@ -4,8 +4,18 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer')
 
-// Configure Multer to store files in 'uploads/' directory
-const upload = multer({ dest: 'uploads/' })
+// Configure Multer to store files in 'uploads/' directory and keep the original file name + a unique suffix
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/') // You must create the 'uploads/' directory before running the app
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, file.originalname + '-' + uniqueSuffix)
+  }
+})
+
+const upload = multer({ storage: storage })
 
 // Define supported file formats
 // const supportedFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/tiff']
@@ -75,8 +85,8 @@ module.exports = (User) => {
   })
 
   // POST Request - Upload an image
-  router.post('/files/upload', upload.single('image'), (req, res) => {
-    res.send('File uploaded successfully')
+  router.post('/files/upload', upload.single('file'), (req, res) => {
+    res.json(req.file)
   })
 
   return router
