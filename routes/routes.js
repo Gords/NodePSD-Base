@@ -42,6 +42,24 @@ module.exports = (User, Image) => {
       })
   })
 
+  router.get('/register', (req, res) => {
+    res.send(`
+    <h1>Register</h1>
+    <form hx-post="/register" hx-target="#main-content">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <br>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <br>
+      <button type="submit">Register</button>
+    </form>
+    `)
+  })
+
   // GET Request - Fetch all users
   router.get('/users', (req, res) => {
     User.findAll()
