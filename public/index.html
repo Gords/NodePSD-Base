@@ -2,17 +2,21 @@
 <html>
 
   <head>
+    <!-- CSS file -->
+    <link rel="stylesheet" type="text/css" href="styles.css">
 
     <title>Flash Center</title>
 
+    <!-- HTMX -->
     <script src="https://unpkg.com/htmx.org@1.6.0"></script>
+    <!-- TailwindCSS -->
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
   </head>
 
   <body>
     <div id="navbar">
-      <a href="/" hx-get="/home" hx-target="#main-content">Home</a>
+      <a href="/home" hx-get="/home" hx-target="#main-content">Home</a>
       <a href="/register" hx-get="/register" hx-target="#main-content">Registration</a>
       <a href="/users" hx-get="/users" hx-target="#main-content">User List</a>
     </div>
@@ -22,9 +26,9 @@
     </div>
 
 
-    
-    <!-- Script to update the browser's URL without refreshing the page. 
-      Must be placed before closing </body> to ensure that all elements are fully loaded -->
+
+<!-- Script to update the browser's URL without refreshing the page. 
+  Must be placed before closing </body> to ensure that all elements are fully loaded -->
     <script>
       document.body.addEventListener('htmx:afterOnLoad', function(event) {
 

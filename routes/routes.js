@@ -3,6 +3,7 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
+const path = require('path') // Required to serve the full HTML page
 
 // Configure Multer to store files in 'uploads/' directory and keep the original file name + a unique suffix
 const storage = multer.diskStorage({
@@ -22,10 +23,17 @@ const upload = multer({ storage })
 
 // Home route
 router.get('/home', (req, res) => {
-  res.send(`
+  const isHtmxRequest = req.headers['hx-request']
+  if (isHtmxRequest) {
+    // Serve only the HTML requested by htmx
+    res.send(`
     <h1>Welcome to the home page!</h1>
     <p>This is the home page. You can navigate to this page from other pages on the website.</p>
   `)
+  } else {
+    // Serve the full HTML page (depends on declaring "const path = require('path')" at the top of the file)
+    res.sendFile(path.join(__dirname, '../public/index.html'))
+  }
 })
 
 module.exports = (User, Image) => {
@@ -72,6 +80,7 @@ module.exports = (User, Image) => {
           <button hx-delete="/delete/${user.id}" hx-target="#user-item-${user.id}" hx-swap="outerHTML">Delete</button>
         </div>
         `).join('')
+        // Add id to the div element for specific targeting
         res.send(`<div id="user-list">${usersHtml}</div>`)
       })
       .catch((error) => {
