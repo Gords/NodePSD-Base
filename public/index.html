@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>User Registration</title>
     <script src="https://unpkg.com/htmx.org@1.6.0"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
+
   <body>
-    <h1>User Registration</h1>
-    <form hx-post="/register">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required />
-      <br />
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required />
-      <br />
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required />
-      <br />
-      <button type="submit">Register</button>
-    </form>
-    <button hx-get="/users" hx-target="#user-list" hx-swap="outerHTML">
-      Get all users
-    </button>
-    <div id="user-list">Click the button to load users.</div>
+    <div id="navbar">
+      <a href="/" hx-get="/home" hx-target="#main-content">Home</a>
+      <a href="/register" hx-get="/register" hx-target="#main-content">Registration</a>
+      <a href="/users" hx-get="/users" hx-target="#main-content">User List</a>
+    </div>
+    <div id="main-content">
+      <h1>Welcome to the home page!</h1>
+      <p>This is the home page. You can navigate to this page from other pages on the website.</p>
+    </div>
+
   </body>
+
 </html>

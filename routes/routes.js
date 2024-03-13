@@ -64,17 +64,14 @@ module.exports = (User, Image) => {
   router.get('/users', (req, res) => {
     User.findAll()
       .then((users) => {
-        const usersHtml = users
-          .map(
-            (user) => `
-        <div class="user">
+        const usersHtml = users.map(user => `
+        <div id="user-item-${user.id}">
           <p>ID: ${user.id}</p>
           <p>Name: ${user.name}</p>
           <p>Email: ${user.email}</p>
+          <button hx-delete="/delete/${user.id}" hx-target="#user-item-${user.id}" hx-swap="outerHTML">Delete</button>
         </div>
-      `
-          )
-          .join('')
+        `).join('')
         res.send(`<div>${usersHtml}</div>`)
       })
       .catch((error) => {
