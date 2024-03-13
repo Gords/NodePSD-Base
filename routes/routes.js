@@ -20,6 +20,14 @@ const upload = multer({ storage })
 // Define supported file formats
 // const supportedFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/tiff']
 
+// Home route
+router.get('/home', (req, res) => {
+  res.send(`
+    <h1>Welcome to the home page!</h1>
+    <p>This is the home page. You can navigate to this page from other pages on the website.</p>
+  `)
+})
+
 module.exports = (User, Image) => {
   // POST Request - Create a new user
   router.post('/register', (req, res) => {
