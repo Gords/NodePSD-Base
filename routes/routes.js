@@ -72,7 +72,7 @@ module.exports = (User, Image) => {
           <button hx-delete="/delete/${user.id}" hx-target="#user-item-${user.id}" hx-swap="outerHTML">Delete</button>
         </div>
         `).join('')
-        res.send(`<div>${usersHtml}</div>`)
+        res.send(`<div id="user-list">${usersHtml}</div>`)
       })
       .catch((error) => {
         console.error('Error fetching users:', error)

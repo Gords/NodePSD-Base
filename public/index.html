@@ -2,9 +2,12 @@
 <html>
 
   <head>
-    <title>User Registration</title>
+
+    <title>Flash Center</title>
+
     <script src="https://unpkg.com/htmx.org@1.6.0"></script>
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
   </head>
 
   <body>
@@ -17,6 +20,24 @@
       <h1>Welcome to the home page!</h1>
       <p>This is the home page. You can navigate to this page from other pages on the website.</p>
     </div>
+
+
+    
+    <!-- Script to update the browser's URL without refreshing the page. 
+      Must be placed before closing </body> to ensure that all elements are fully loaded -->
+    <script>
+      document.body.addEventListener('htmx:afterOnLoad', function(event) {
+
+        // Check if the triggered element (navbar element) has an 'href' attribute
+        var target = event.detail.elt; // 'elt' is the element that triggered the HTMX request
+        var url = target.getAttribute('hx-get'); // href also works instead of hx-get
+
+        if (url) {
+          // Update the browser's URL without refreshing the page
+          window.history.pushState({path: url}, '', url);
+        }
+      });
+    </script>
 
   </body>
 
