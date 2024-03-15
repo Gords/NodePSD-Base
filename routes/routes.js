@@ -204,7 +204,8 @@ module.exports = (User, Image) => {
   })
 
   // TODO no way this is the best method?
-  // Code checks if the request is an hx-request, if so, fetch images and send as response. If it's not an hx-request (i.e. a refresh), serve the full HTML page again, fetches the images and replaces the placeholder in 
+  // Code checks if the request is an hx-request, if so, fetch images and send as response. If it's not an hx-request (i.e. a refresh), serve the full HTML page again, fetches the images and replaces the main-content-placeholder with the images.
+  // Without this method, the refresh is not considered an htmx request, so it would just load the html within the route without adding back the navbar and footer.
   // GET Request - Fetch all images
   router.get('/images', (req, res) => {
     const isHtmxRequest = req.headers['hx-request']
