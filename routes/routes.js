@@ -4,6 +4,7 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer')
 const path = require('path') // Required to serve the full HTML page
+const fs = require('fs') // Reads static file content
 
 // Configure Multer to store files in 'uploads/' directory and keep the original file name + a unique suffix
 const storage = multer.diskStorage({
@@ -40,8 +41,27 @@ router.get('/home', (req, res) => {
 
 // About route
 router.get('/about', (req, res) => {
-  // Serve the HTML whether it's an htmx request or not
-  res.sendFile(path.join(__dirname, '../public/about.html'))
+  const isHtmxRequest = req.headers['hx-request']
+  if (isHtmxRequest) {
+    res.sendFile(path.join(__dirname, '../public/about.html'))
+  } else {
+    fs.readFile(path.join(__dirname, '../public/index.html'), 'utf8', (err, data) => {
+      if (err) {
+        console.error(err)
+        res.status(500).send('An error occurred')
+        return
+      }
+      fs.readFile(path.join(__dirname, '../public/about.html'), 'utf8', (err, aboutContent) => {
+        if (err) {
+          console.error(err)
+          res.status(500).send('An error occurred')
+          return
+        }
+        const modifiedData = data.replace('<!-- main-content-placeholder -->', aboutContent);
+        res.send(modifiedData);
+      })
+    })
+  }
 })
 
 // // About route test
