@@ -22,9 +22,20 @@ const upload = multer({ storage })
 // const supportedFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/tiff']
 
 // Home route
+// router.get('/home', (req, res) => {
+//   // Serve the HTML whether it's an htmx request or not
+//   res.sendFile(path.join(__dirname, '../public/home.html'))
+// })
+
+// TODO en este ejemplo, si hago refresh la pagina, puedo volver a servir el html completo
 router.get('/home', (req, res) => {
-  // Serve the HTML whether it's an htmx request or not
-  res.sendFile(path.join(__dirname, '../public/home.html'))
+  const isHtmxRequest = req.headers['hx-request']
+  if (isHtmxRequest) {
+    res.sendFile(path.join(__dirname, '../public/home.html'))
+  } else {
+    // Serve the full HTML page on refresh (depends on declaring "const path = require('path')" at the top of the file)
+    res.sendFile(path.join(__dirname, '../public/index.html'))
+  }
 })
 
 // About route
@@ -32,6 +43,17 @@ router.get('/about', (req, res) => {
   // Serve the HTML whether it's an htmx request or not
   res.sendFile(path.join(__dirname, '../public/about.html'))
 })
+
+// // About route test
+// router.get('/about', (req, res) => {
+//   const isHtmxRequest = req.headers['hx-request']
+//   if (isHtmxRequest) {
+//     res.sendFile(path.join(__dirname, '../public/about.html'))
+//   } else {
+//     // Serve the full HTML page on refresh (depends on declaring "const path = require('path')" at the top of the file)
+//     res.sendFile(path.join(__dirname, '../public/about.html'))
+//   }
+// })
 
 module.exports = (User, Image) => {
   // POST Request - Create a new user
