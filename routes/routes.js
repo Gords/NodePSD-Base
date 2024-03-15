@@ -23,17 +23,14 @@ const upload = multer({ storage })
 
 // Home route
 router.get('/home', (req, res) => {
-  const isHtmxRequest = req.headers['hx-request']
-  if (isHtmxRequest) {
-    // Serve only the HTML requested by htmx
-    res.send(`
-    <h1>Welcome to the home page!</h1>
-    <p>This is the home page. You can navigate to this page from other pages on the website.</p>
-  `)
-  } else {
-    // Serve the full HTML page (depends on declaring "const path = require('path')" at the top of the file)
-    res.sendFile(path.join(__dirname, '../public/index.html'))
-  }
+  // Serve the HTML whether it's an htmx request or not
+  res.sendFile(path.join(__dirname, '../public/home.html'))
+})
+
+// About route
+router.get('/about', (req, res) => {
+  // Serve the HTML whether it's an htmx request or not
+  res.sendFile(path.join(__dirname, '../public/about.html'))
 })
 
 module.exports = (User, Image) => {
