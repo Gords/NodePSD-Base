@@ -135,6 +135,9 @@ module.exports = (User, Image) => {
       })
   })
 
+
+  /* --- USER FILES ROUTES --- */
+  
   // POST Request - Upload an image
   router.post('/files/upload', upload.single('file'), (req, res) => {
   // Assuming the user ID is stored in req.userId
@@ -154,6 +157,26 @@ module.exports = (User, Image) => {
         res.status(500).send('Error saving image')
       })
   })
+
+  // TODO here if I refresh, the navbar dissapears and the image is loaded full sized D:
+  // GET Request - Fetch all images
+router.get('/images', (req, res) => {
+  Image.findAll()
+    .then((images) => {
+      const imagesHtml = images.map(image => `
+        <div>
+          <p>Image ID: ${image.id}</p>
+          <p>User ID: ${image.userId}</p>
+          <img class="thumbnail" src="${image.path}" alt="Image ${image.id}">
+        </div>
+      `).join('')
+      res.send(`<div id="image-list">${imagesHtml}</div>`)
+    })
+    .catch((error) => {
+      console.error('Error fetching images:', error)
+      res.status(500).send('Error fetching images')
+    })
+})
 
   return router
 }

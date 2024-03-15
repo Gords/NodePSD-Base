@@ -9,6 +9,8 @@ dotenv.config()
 const app = express()
 app.use(express.urlencoded({ extended: true })) // To parse the incoming requests with urlencoded payloads
 app.use(express.static('public')) // To serve static files
+// TODO: no se si hacer surface el uploads es necesario mas adelante?
+app.use('/uploads', express.static('uploads')) // Serve the uploaded images
 app.use(express.json()) // To parse the incoming requests with JSON payloads
 
 const sequelize = new Sequelize(

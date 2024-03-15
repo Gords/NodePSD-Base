@@ -26,3 +26,8 @@ body {
 .dark footer {
     background-color: #171717; /* Same as .dark header background-color */
 }
+
+.thumbnail {
+    width: 100px; /* adjust as needed */
+    height: auto;
+}
