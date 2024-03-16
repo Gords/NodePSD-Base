@@ -133,6 +133,23 @@ module.exports = (User, Image) => {
     `)
   })
 
+  // Login POST request to check if user exists in DB
+  router.post('/login', (req, res) => {
+    const { email, password } = req.body
+    User.findOne({ where: { email, password } })
+      .then((user) => {
+        if (user) {
+          // Simulate login by sending a success message
+          res.send('User logged in successfully')
+        } else {
+          res.status(401).send('Login failed: Invalid email or password')
+        }
+      })
+      .catch((error) => {
+        console.error('Error logging in:', error)
+        res.status(500).send('An error ocurred when logging in')
+      })
+
   // GET Request - Fetch all users
   router.get('/users', (req, res) => {
     User.findAll()
