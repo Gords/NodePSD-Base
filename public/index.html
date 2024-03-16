@@ -22,11 +22,12 @@
         <div class="container mx-auto px-4 max-w-4xl flex justify-between items-center">
             <nav class="mt-4">
                 <ul class="flex space-x-4">
-                    <li><a href="/home" hx-get="/home" hx-target="#main-content" class="hover:text-gray-300">Inicio</a></li>
-                    <li><a href="/register" hx-get="/register" hx-target="#main-content" class="hover:text-gray-300">Registro</a></li>
-                    <li><a href="/users" hx-get="/users" hx-target="#main-content" class="hover:text-gray-300">Listas</a></li>
-                    <li><a href="/about" hx-get="/about" hx-target="#main-content" class="hover:text-gray-300">Acerca de</a></li>
-                    <li><a href="/images" hx-get="/images" hx-target="#main-content" class="hover:text-gray-300">Imágenes</a></li>
+                    <li><a href="/home" hx-get="/home" hx-target="#main-content" hx-push-url="true" class="hover:text-gray-300">Inicio</a></li>
+                    <li><a href="/register" hx-get="/register" hx-target="#main-content" hx-push-url="true" class="hover:text-gray-300">Registro</a></li>
+                    <li><a href="/login" hx-get="/login" hx-target="#main-content" hx-push-url="true" class="hover:text-gray-300">Iniciar sesión</a></li>
+                    <li><a href="/users" hx-get="/users" hx-target="#main-content" hx-push-url="true" class="hover:text-gray-300">Listas</a></li>
+                    <li><a href="/about" hx-get="/about" hx-target="#main-content" hx-push-url="true" class="hover:text-gray-300">Acerca de</a></li>
+                    <li><a href="/images" hx-get="/images" hx-target="#main-content" hx-push-url="true" class="hover:text-gray-300">Imágenes</a></li>
                 </ul>
             </nav>
         </div>
