@@ -44,17 +44,6 @@ router.get('/about', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/about.html'))
 })
 
-// // About route test
-// router.get('/about', (req, res) => {
-//   const isHtmxRequest = req.headers['hx-request']
-//   if (isHtmxRequest) {
-//     res.sendFile(path.join(__dirname, '../public/about.html'))
-//   } else {
-//     // Serve the full HTML page on refresh (depends on declaring "const path = require('path')" at the top of the file)
-//     res.sendFile(path.join(__dirname, '../public/about.html'))
-//   }
-// })
-
 module.exports = (User, Image) => {
   // POST Request - Create a new user
   router.post('/register', (req, res) => {
@@ -69,23 +58,53 @@ module.exports = (User, Image) => {
       })
   })
 
+  // GET Request - Fetch registration form
   router.get('/register', (req, res) => {
     res.send(`
-    <h1>Register</h1>
-    <form hx-post="/register" hx-target="#main-content">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-      <br>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-      <br>
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
-      <br>
-      <button type="submit">Register</button>
+    <h1 class="text-2xl font-bold mb-4">Register</h1>
+    <form class="flex flex-col" hx-post="/register" hx-target="#main-content">
+      <label for="email" class="mb-2">Email:</label>
+      <input type="email" id="email" name="email" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
+      <label for="password" class="mb-2">Password:</label>
+      <input type="password" id="password" name="password" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
+      <label for="name" class="mb-2">Name:</label>
+      <input type="text" id="name" name="name" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Register</button>
     </form>
     `)
   })
+
+  // GET Request - Fetch login form
+  router.get('/login', (req, res) => {
+    res.send(`
+    <h1 class="text-2xl font-bold mb-4">Login</h1>
+    <form class="flex flex-col" hx-post="/login" hx-target="#main-content" hx-swap-oob="true">
+      <label for="email" class="mb-2">Email:</label>
+      <input type="email" id="email" name="email" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
+      <label for="password" class="mb-2">Password:</label>
+      <input type="password" id="password" name="password" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Login</button>
+    </form>
+    `)
+  })
+
+  // POST Request - Login a user
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body
+
+    try {
+      const user = await User.findOne({ where: { name: email, password } })
+      if (user) {
+        res.redirect('/home').send({ message: 'Login successful', success: true })
+        setLoginState(true); // Save the login state
+      } else {
+        res.status(401).send({ message: 'Invalid email or password', success: false })
+      }
+    } catch (error) {
+      console.error('Error during login:', error)
+      res.status(500).send({ message: 'An error occurred during login', success: false })
+    }
+})
 
   // GET Request - Fetch all users
   router.get('/users', (req, res) => {
@@ -135,9 +154,8 @@ module.exports = (User, Image) => {
       })
   })
 
-
   /* --- USER FILES ROUTES --- */
-  
+
   // POST Request - Upload an image
   router.post('/files/upload', upload.single('file'), (req, res) => {
   // Assuming the user ID is stored in req.userId
@@ -160,23 +178,23 @@ module.exports = (User, Image) => {
 
   // TODO here if I refresh, the navbar dissapears and the image is loaded full sized D:
   // GET Request - Fetch all images
-router.get('/images', (req, res) => {
-  Image.findAll()
-    .then((images) => {
-      const imagesHtml = images.map(image => `
+  router.get('/images', (req, res) => {
+    Image.findAll()
+      .then((images) => {
+        const imagesHtml = images.map(image => `
         <div>
           <p>Image ID: ${image.id}</p>
           <p>User ID: ${image.userId}</p>
           <img class="thumbnail" src="${image.path}" alt="Image ${image.id}">
         </div>
       `).join('')
-      res.send(`<div id="image-list">${imagesHtml}</div>`)
-    })
-    .catch((error) => {
-      console.error('Error fetching images:', error)
-      res.status(500).send('Error fetching images')
-    })
-})
+        res.send(`<div id="image-list">${imagesHtml}</div>`)
+      })
+      .catch((error) => {
+        console.error('Error fetching images:', error)
+        res.status(500).send('Error fetching images')
+      })
+  })
 
   return router
 }
