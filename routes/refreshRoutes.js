@@ -4,6 +4,7 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer')
 const path = require('path') // Required to serve the full HTML page
+const fs = require('fs') // Reads static file content
 
 // Configure Multer to store files in 'uploads/' directory and keep the original file name + a unique suffix
 const storage = multer.diskStorage({
@@ -27,21 +28,66 @@ const upload = multer({ storage })
 //   res.sendFile(path.join(__dirname, '../public/home.html'))
 // })
 
-// TODO en este ejemplo, si hago refresh la pagina, puedo volver a servir el html completo
+// // TODO en este ejemplo, si hago refresh la pagina, puedo volver a servir el html completo
+// router.get('/home', (req, res) => {
+//   const isHtmxRequest = req.headers['hx-request']
+//   if (isHtmxRequest) {
+//     res.sendFile(path.join(__dirname, '../public/home.html'))
+//   } else {
+//     // Serve the full HTML page on refresh (depends on declaring "const path = require('path')" at the top of the file)
+//     res.sendFile(path.join(__dirname, '../public/index.html'))
+//   }
+// })
+
+// Home route
 router.get('/home', (req, res) => {
   const isHtmxRequest = req.headers['hx-request']
   if (isHtmxRequest) {
     res.sendFile(path.join(__dirname, '../public/home.html'))
   } else {
-    // Serve the full HTML page on refresh (depends on declaring "const path = require('path')" at the top of the file)
-    res.sendFile(path.join(__dirname, '../public/index.html'))
+    fs.readFile(path.join(__dirname, '../public/index.html'), 'utf8', (err, data) => {
+      if (err) {
+        console.error(err)
+        res.status(500).send('An error occurred')
+        return
+      }
+      fs.readFile(path.join(__dirname, '../public/home.html'), 'utf8', (err, homeContent) => {
+        if (err) {
+          console.error(err)
+          res.status(500).send('An error occurred')
+          return
+        }
+        const modifiedData = data.replace('<!-- main-content-placeholder -->', homeContent)
+        res.send(modifiedData)
+      })
+    })
   }
 })
 
+// TODO: Potential fix for the refresh issue?
 // About route
 router.get('/about', (req, res) => {
-  // Serve the HTML whether it's an htmx request or not
-  res.sendFile(path.join(__dirname, '../public/about.html'))
+  const isHtmxRequest = req.headers['hx-request']
+  if (isHtmxRequest) {
+    res.sendFile(path.join(__dirname, '../public/about.html'))
+  } else {
+    fs.readFile(path.join(__dirname, '../public/index.html'), 'utf8', (err, data) => {
+      if (err) {
+        console.error(err)
+        res.status(500).send('An error occurred')
+        return
+      }
+      fs.readFile(path.join(__dirname, '../public/about.html'), 'utf8', (err, aboutContent) => {
+        if (err) {
+          console.error(err)
+          res.status(500).send('An error occurred')
+          return
+        }
+        const modifiedData = data.replace('<!-- main-content-placeholder -->', aboutContent)
+        res.send(modifiedData)
+      })
+    })
+  }
 })
 
 // // About route test
@@ -135,9 +181,8 @@ module.exports = (User, Image) => {
       })
   })
 
-
   /* --- USER FILES ROUTES --- */
-  
+
   // POST Request - Upload an image
   router.post('/files/upload', upload.single('file'), (req, res) => {
   // Assuming the user ID is stored in req.userId
@@ -158,25 +203,54 @@ module.exports = (User, Image) => {
       })
   })
 
-  // TODO here if I refresh, the navbar dissapears and the image is loaded full sized D:
+  // TODO no way this is the best method?
+  // Code checks if the request is an hx-request, if so, fetch images and send as response. If it's not an hx-request (i.e. a refresh), serve the full HTML page again, fetches the images and replaces the main-content-placeholder with the images.
+  // Without this method, the refresh is not considered an htmx request, so it would just load the html within the route without adding back the navbar and footer.
   // GET Request - Fetch all images
-router.get('/images', (req, res) => {
-  Image.findAll()
-    .then((images) => {
-      const imagesHtml = images.map(image => `
-        <div>
-          <p>Image ID: ${image.id}</p>
-          <p>User ID: ${image.userId}</p>
-          <img class="thumbnail" src="${image.path}" alt="Image ${image.id}">
-        </div>
-      `).join('')
-      res.send(`<div id="image-list">${imagesHtml}</div>`)
-    })
-    .catch((error) => {
-      console.error('Error fetching images:', error)
-      res.status(500).send('Error fetching images')
-    })
-})
+  router.get('/images', (req, res) => {
+    const isHtmxRequest = req.headers['hx-request']
+    if (isHtmxRequest) {
+      Image.findAll()
+        .then((images) => {
+          const imagesHtml = images.map(image => `
+          <div>
+            <p>Image ID: ${image.id}</p>
+            <p>User ID: ${image.userId}</p>
+            <img class="thumbnail" src="${image.path}" alt="Image ${image.id}">
+          </div>
+        `).join('')
+          res.send(`<div id="image-list">${imagesHtml}</div>`)
+        })
+        .catch((error) => {
+          console.error('Error fetching images:', error)
+          res.status(500).send('Error fetching images')
+        })
+    } else {
+      fs.readFile(path.join(__dirname, '../public/index.html'), 'utf8', (err, data) => {
+        if (err) {
+          console.error(err)
+          res.status(500).send('An error occurred while fetching the page content')
+          return
+        }
+        Image.findAll()
+          .then((images) => {
+            const imagesHtml = images.map(image => `
+            <div>
+              <p>Image ID: ${image.id}</p>
+              <p>User ID: ${image.userId}</p>
+              <img class="thumbnail" src="${image.path}" alt="Image ${image.id}">
+            </div>
+          `).join('')
+            const modifiedData = data.replace('<!-- main-content-placeholder -->', `<div id="image-list">${imagesHtml}</div>`)
+            res.send(modifiedData)
+          })
+          .catch((error) => {
+            console.error('Error fetching images:', error)
+            res.status(500).send('Error fetching images')
+          })
+      })
+    }
+  })
 
   return router
 }
