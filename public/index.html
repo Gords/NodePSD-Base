@@ -2,29 +2,44 @@
 <html>
 
   <head>
-    <!-- CSS file -->
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLASH CENTER</title>
 
-    <title>Flash Center</title>
-
-    <!-- HTMX -->
-    <script src="https://unpkg.com/htmx.org@1.6.0"></script>
-    <!-- TailwindCSS -->
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-
+    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
   </head>
 
-  <body>
-    <div id="navbar">
-      <a href="/home" hx-get="/home" hx-target="#main-content">Home</a>
-      <a href="/register" hx-get="/register" hx-target="#main-content">Registration</a>
-      <a href="/users" hx-get="/users" hx-target="#main-content">User List</a>
-    </div>
-    <div id="main-content">
-      <h1>Welcome to the home page!</h1>
-      <p>This is the home page. You can navigate to this page from other pages on the website.</p>
-    </div>
 
+<body class="flex flex-col min-h-screen dark:bg-gray-800 dark:text-gray-300" style="font-family: 'Playfair Display', serif;">
+    <header class="bg-gray-900 dark:bg-gray-800 text-white py-4">
+        <div class="container mx-auto px-4 max-w-4xl flex justify-between items-center">
+            <h1 class="text-2xl font-bold">FLASH CENTER</h1>
+        </div>
+        <div class="container mx-auto px-4 max-w-4xl flex justify-between items-center">
+            <nav class="mt-4">
+                <ul class="flex space-x-4">
+                    <li><a href="/home" hx-get="/home" hx-target="#main-content" hx-push-url="true" ="hover:text-gray-300">Inicio</a></li>
+                    <li><a href="/register" hx-get="/register" hx-target="#main-content" class="hover:text-gray-300">Registro</a></li>
+                    <li><a href="#/users" hx-get="/users" hx-target="#main-content" class="hover:text-gray-300">Listas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" class="container mx-auto px-4 py-8 flex-grow max-w-4xl dark:bg-gray-800" hx-get="/home" hx-trigger="load">
+        
+    </main>
+
+    <footer class="bg-gray-900 dark:bg-gray-800 text-white py-4 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 FLASH CENTER. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
 
 <!-- Script to update the browser's URL without refreshing the page. 

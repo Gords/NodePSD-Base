@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add any custom styles or Tailwind CSS overrides here */
+
+
+body {
+    font-family: 'Playfair Display', serif;
+    font-style: normal;
+}
+
+.dark {
+    background-color: #2b2b2b; /* Converted from #1f2937 */
+    color: #f5f5f5; /* Converted from #f3f4f6 */
+}
+
+.dark header {
+    background-color: #171717; /* Converted from #111827 */
+}
+
+.dark main {
+    background-color: #2b2b2b; /* Same as .dark background-color */
+}
+
+.dark footer {
+    background-color: #171717; /* Same as .dark header background-color */
+}
