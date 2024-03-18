@@ -16,60 +16,53 @@
 
 <body class="flex flex-col min-h-screen dark:bg-gray-800 dark:text-gray-300" style="font-family: 'Playfair Display', serif;">
 <!--
-// This example was created by:
+// This navbar was created by:
 // v0 by Vercel.
 // https://v0.dev/t/9sd2n3SfEnL
 -->
-<header class="flex items-center h-14 px-4 border-b bg-white md:px-6 dark:bg-gray-950">
-  <div class="flex items-center">
-    <a class="flex items-center gap-2 font-semibold" href="#">
-    </a>
-  </div>
-  <nav class="ml-auto space-x-4">
-    <a class="font-medium transition-colors hover:underline [&amp;:focus]:outline-none" href="/home" hx-get="/home" hx-target="#main-content" hx-push-url="true">
-      Inicio
-    </a>
-    <a class="font-medium transition-colors hover:underline [&amp;:focus]:outline-none" href="/about" hx-get="/about" hx-target="#main-content" hx-push-url="true">
-      Acerca de
-    </a>
-    <a class="font-medium transition-colors hover:underline [&amp;:focus]:outline-none" href="/register" hx-get="/register" hx-target="#main-content" hx-push-url="true">
-      Registro
-    </a>
-    <a class="font-medium transition-colors hover:underline [&amp;:focus]:outline-none" href="/login" hx-get="/login" hx-target="#main-content" hx-push-url="true">
-      Iniciar sesión
-    </a>
-    <a class="font-medium transition-colors hover:underline [&amp;:focus]:outline-none" href="/users" hx-get="/users" hx-target="#main-content" hx-push-url="true">
-      Listas
-    </a>
-    <a class="font-medium transition-colors hover:underline [&amp;:focus]:outline-none" href="/images" hx-get="/images" hx-target="#main-content" hx-push-url="true">
-      Imagenes
-    </a>
-  </nav>
-  <div class="ml-auto flex items-center gap-4 md:gap-2">
-    <a
-      class="inline-flex h-8 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white px-3 text-xs font-medium text-gray-500 shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:shadow-sm dark:hover:bg-gray-800 dark:hover:text-gray-50"
-      href="/login" hx-get="/login" hx-target="#main-content" hx-push-url="true">
-      Iniciar sesión
-    </a>
-    <a
-      class="inline-flex h-8 items-center justify-center rounded-md bg-gray-900 px-3 text-xs font-medium text-gray-50 shadow-sm transition-colors hover:bg-gray-900 hover:text-gray-50 dark:bg-gray-50 dark:hover:bg-gray-50 dark:text-gray-950 dark:hover:text-gray-950 dark:shadow-sm dark:hover:shadow-sm"
-      href="/register" hx-get="/register" hx-target="#main-content" hx-push-url="true">
-      Registro
-    </a>
-  </div>
-</header>
+  <header class="flex items-center h-14 px-4 border-b bg-white md:px-6 dark:bg-gray-950">
+    <div class="flex items-center">
+      <a class="flex items-center gap-2 font-semibold" href="#">
+      </a>
+    </div>
+    <nav class="ml-auto space-x-4">
+      <a class="font-medium transition-colors hover:underline [&amp;:focus]:outline-none" href="/home" hx-get="/home" hx-target="#main-content" hx-push-url="true">
+        Inicio
+      </a>
+      <a class="font-medium transition-colors hover:underline [&amp;:focus]:outline-none" href="/about" hx-get="/about" hx-target="#main-content" hx-push-url="true">
+        Acerca de
+      </a>
+      <a class="font-medium transition-colors hover:underline [&amp;:focus]:outline-none" href="/users" hx-get="/users" hx-target="#main-content" hx-push-url="true">
+        Listas
+      </a>
+      <a class="font-medium transition-colors hover:underline [&amp;:focus]:outline-none" href="/images" hx-get="/images" hx-target="#main-content" hx-push-url="true">
+        Imagenes
+      </a>
+    </nav>
+    <div class="ml-auto flex items-center gap-4 md:gap-2">
+      <a
+        class="inline-flex h-8 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white px-3 text-xs font-medium text-gray-500 shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:shadow-sm dark:hover:bg-gray-800 dark:hover:text-gray-50"
+        href="/login" hx-get="/login" hx-target="#main-content" hx-push-url="true">
+        Iniciar sesión
+      </a>
+      <a
+        class="inline-flex h-8 items-center justify-center rounded-md bg-gray-900 px-3 text-xs font-medium text-gray-50 shadow-sm transition-colors hover:bg-gray-900 hover:text-gray-50 dark:bg-gray-50 dark:hover:bg-gray-50 dark:text-gray-950 dark:hover:text-gray-950 dark:shadow-sm dark:hover:shadow-sm"
+        href="/register" hx-get="/register" hx-target="#main-content" hx-push-url="true">
+        Registro
+      </a>
+    </div>
+  </header>
 
 
     <main id="main-content" class="container mx-auto px-4 py-8 flex-grow max-w-4xl dark:bg-gray-800">
       <!-- main-content-placeholder -->
     </main>
 
-    <footer class="bg-gray-900 dark:bg-gray-800 text-white py-4 mt-auto">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2024 FLASH CENTER. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
+  <footer class="flex items-center h-14 px-4 border-t bg-white md:px-6 dark:bg-gray-950">
+      <div class="container mx-auto px-4 text-center">
+          <p>&copy; 2024 FLASH CENTER. Todos los derechos reservados.</p>
+      </div>
+  </footer>
 
     <!-- Script to update the browser's URL without refreshing the page. Must be placed before closing </body> to ensure that all elements are fully loaded -->
     <script>
