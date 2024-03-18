@@ -50,6 +50,12 @@
         href="/register" hx-get="/register" hx-target="#main-content" hx-push-url="true">
         Registro
       </a>
+      <!-- TODO: add rerouting to home after logout -->
+      <a
+        class="inline-flex h-8 items-center justify-center rounded-md bg-gray-900 px-3 text-xs font-medium text-gray-50 shadow-sm transition-colors hover:bg-gray-900 hover:text-gray-50 dark:bg-gray-50 dark:hover:bg-gray-50 dark:text-gray-950 dark:hover:text-gray-950 dark:shadow-sm dark:hover:shadow-sm"
+        href="/home" hx-get="/home" id="logout-button" onclick="logout()" style="display: none;" hx-target="#main-content" hx-push-url="true">
+        Cerrar sesión
+      </a>
     </div>
   </header>
 
@@ -64,20 +70,8 @@
       </div>
   </footer>
 
-    <!-- Script to update the browser's URL without refreshing the page. Must be placed before closing </body> to ensure that all elements are fully loaded -->
-    <script>
-      document.body.addEventListener('htmx:afterOnLoad', function(event) {
-
-        // Check if the triggered element (navbar element) has an 'href' attribute
-        var target = event.detail.elt; // 'elt' is the element that triggered the HTMX request
-        var url = target.getAttribute('hx-get'); // href also works instead of hx-get
-
-        if (url) {
-          // Update the browser's URL without refreshing the page
-          window.history.pushState({path: url}, '', url);
-        }
-      });
-    </script>
+    <script src="js/login.js"></script>
+    <script src="js/updateUrl.js"></script>
 
   </body>
 

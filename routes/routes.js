@@ -95,7 +95,13 @@ module.exports = (User, Image) => {
     try {
       const user = await User.findOne({ where: { email, password } })
       if (user) {
-        res.send('<p>Login successful</p>')
+        res.send(`
+          <p> Login successful</p>
+          <script>
+            localStorage.setItem('loggedIn', 'true');
+            window.location.href = '/'; // Redirect to home or another page
+          </script>
+          `)
       } else {
         res.send('<p>Invalid email or password</p>').status(401)
       }
