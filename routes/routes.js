@@ -78,7 +78,7 @@ module.exports = (User, Image) => {
   router.get('/login', (req, res) => {
     res.send(`
     <h1 class="text-2xl font-bold mb-4">Login</h1>
-    <form class="flex flex-col" hx-post="/login" hx-target="#main-content" hx-swap-oob="true">
+    <form class="flex flex-col" hx-post="/login" hx-target="#main-content">
       <label for="email" class="mb-2">Email:</label>
       <input type="email" id="email" name="email" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
       <label for="password" class="mb-2">Password:</label>
@@ -89,22 +89,21 @@ module.exports = (User, Image) => {
   })
 
   // POST Request - Login a user
-router.post('/login', async (req, res) => {
+  router.post('/login', async (req, res) => {
     const { email, password } = req.body
 
     try {
-      const user = await User.findOne({ where: { name: email, password } })
+      const user = await User.findOne({ where: { email, password } })
       if (user) {
-        res.redirect('/home').send({ message: 'Login successful', success: true })
-        setLoginState(true); // Save the login state
+        res.send('<p>Login successful</p>')
       } else {
-        res.status(401).send({ message: 'Invalid email or password', success: false })
+        res.send('<p>Invalid email or password</p>').status(401)
       }
     } catch (error) {
       console.error('Error during login:', error)
-      res.status(500).send({ message: 'An error occurred during login', success: false })
+      res.status(500).send('<p>An error occurred during login</p>')
     }
-})
+  })
 
   // GET Request - Fetch all users
   router.get('/users', (req, res) => {
