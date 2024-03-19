@@ -6,7 +6,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const loggedIn = localStorage.getItem('loggedIn');
   const loginButton = document.querySelector('a[href="/login"]');
-  const registerButton = document.querySelector('a[href="/register"]');
+  const registerButton = document.querySelector('a[href="/registro"]');
   const logoutButton = document.getElementById('logout-button');
   
   if (loggedIn === 'true') {

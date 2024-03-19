@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     
-    <link href="./output.css" rel="stylesheet">
+    <link href="./css/output.css" rel="stylesheet">
 
   </head>
 <body>
@@ -24,17 +24,18 @@
     <div>
       <nav>
         <ul>
-          <li><a href="/home" hx-get="/home" hx-target="#main-content" hx-push-url="true">Inicio</a></li>
-          <li><a href="/users" hx-get="/users" hx-target="#main-content" hx-push-url="true">Listas</a></li>
-          <li><a href="/about" hx-get="/about" hx-target="#main-content" hx-push-url="true">Acerca de</a></li>
+          <li><a href="/inicio" hx-target="#main-content" hx-push-url="true">Inicio</a></li>
+          <li><a href="/usuarios" hx-get="/usuarios" hx-target="#main-content" hx-push-url="true">Listas</a></li>
+          <li><a href="/nosotros" hx-get="/nosotros" hx-target="#main-content" hx-push-url="true">Acerca de</a></li>
           <li><a href="/images" hx-get="/images" hx-target="#main-content" hx-push-url="true">Imágenes</a></li>
+          <li><a href="/contacto" hx-get="/contacto" hx-target="#main-content" hx-push-url="true">Contacto</a></li>
         </ul>
       </nav>
     <div>
       <a href="/login" hx-get="/login" hx-target="#main-content" hx-push-url="true">
         Iniciar sesión
       </a>
-      <a href="/register" hx-get="/register" hx-target="#main-content" hx-push-url="true">
+      <a href="/registro" hx-get="/registro" hx-target="#main-content" hx-push-url="true">
         Registro
       </a>
       <a href="/home" hx-get="/home" id="logout-button" onclick="logout()" hx-target="#main-content" hx-push-url="true">
