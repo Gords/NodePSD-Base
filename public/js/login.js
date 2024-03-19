@@ -29,3 +29,4 @@ function logout() {
 // Attach the logout function to the window object to make it accessible from the onclick attribute in the HTML
 window.logout = logout;
 
+// TODO: there has to be a way to replace some of this functions with pure htmx attributes
