@@ -3,9 +3,9 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
-const path = require('path') // Required to serve the full HTML page
 
-// Configure Multer to store files in 'uploads/' directory and keep the original file name + a unique suffix
+
+// Configure Multer to store files in '/uploads/' directory and keep the original file name + a unique suffix
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/') // You must create the 'uploads/' directory before running the app
@@ -21,8 +21,8 @@ const upload = multer({ storage })
 // Define supported file formats
 // const supportedFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/tiff']
 
-// Home routes
 
+// Home routes
 router.get('/', (req, res) => {
   res.send(`
     <section class="mb-8">
@@ -39,8 +39,7 @@ router.get('/', (req, res) => {
   `)
 })
 
-router.get('/home', (req, res) => {
-  // Serve the HTML whether it's an htmx request or not
+router.get('/inicio', (req, res) => {
   res.send(`
     <section class="mb-8">
         <h2 class="text-3xl font-bold mb-4">Bienvenido a FLASH CENTER</h2>
@@ -57,8 +56,8 @@ router.get('/home', (req, res) => {
 })
 
 
-// About route
-router.get('/about', (req, res) => {
+// Nosotros route
+router.get('/nosotros', (req, res) => {
   // Serve the HTML whether it's an htmx request or not
   res.send(`
     <h2 class="text-3xl font-bold mb-4">Acerca de Flash Center</h2>
@@ -66,12 +65,21 @@ router.get('/about', (req, res) => {
   `)
 })
 
+// Contacto route
+router.get('/contacto', (req, res) => {
+  res.send(`
+    <section class="mb-8">
+        <h2 class="text-3xl font-bold mb-4">Contactanos</h2>
+        <p class="text-lg">Y te vamos a estar avisando!</p>
+    </section>
+  `)
+})
 
 // Routes that use the User and Image models
 
 module.exports = (User, Image) => {
   // POST Request - Create a new user
-  router.post('/register', (req, res) => {
+  router.post('/registro', (req, res) => {
     const { email, password, name } = req.body
     User.create({ email, password, name })
       .then(() => {
@@ -84,17 +92,17 @@ module.exports = (User, Image) => {
   })
 
   // Fetch registration form
-  router.get('/register', (req, res) => {
+  router.get('/registro', (req, res) => {
     res.send(`
-    <h1 class="text-2xl font-bold mb-4">Register</h1>
-    <form class="flex flex-col" hx-post="/register" hx-target="#main-content">
+    <h1 class="text-2xl font-bold mb-4">Registro</h1>
+    <form class="flex flex-col" hx-post="/registro" hx-target="#main-content">
       <label for="email" class="mb-2">Email:</label>
       <input type="email" id="email" name="email" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
       <label for="password" class="mb-2">Password:</label>
       <input type="password" id="password" name="password" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
       <label for="name" class="mb-2">Name:</label>
       <input type="text" id="name" name="name" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Register</button>
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Registro</button>
     </form>
     `)
   })
@@ -139,7 +147,7 @@ module.exports = (User, Image) => {
   })
 
   // Fetch all users
-  router.get('/users', (req, res) => {
+  router.get('/usuarios', (req, res) => {
     User.findAll()
       .then((users) => {
         const usersHtml = users.map(user => `
