@@ -21,28 +21,53 @@ const upload = multer({ storage })
 // Define supported file formats
 // const supportedFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/tiff']
 
-// Home route
-// router.get('/home', (req, res) => {
-//   // Serve the HTML whether it's an htmx request or not
-//   res.sendFile(path.join(__dirname, '../public/home.html'))
-// })
+// Home routes
 
-// TODO en este ejemplo, si hago refresh la pagina, puedo volver a servir el html completo
-router.get('/home', (req, res) => {
-  const isHtmxRequest = req.headers['hx-request']
-  if (isHtmxRequest) {
-    res.sendFile(path.join(__dirname, '../public/home.html'))
-  } else {
-    // Serve the full HTML page on refresh (depends on declaring "const path = require('path')" at the top of the file)
-    res.sendFile(path.join(__dirname, '../public/index.html'))
-  }
+router.get('/', (req, res) => {
+  res.send(`
+    <section class="mb-8">
+        <h2 class="text-3xl font-bold mb-4">Bienvenido a FLASH CENTER</h2>
+        <p class="text-lg">Impulsamos la innovación financiera y tecnológica en Paraguay</p>
+    </section>
+
+    <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4">Nuestros Servicios</h2>
+        <ul class="list-disc list-inside">
+            <li>Servicio 1</li>
+        </ul>
+    </section>
+  `)
 })
+
+router.get('/home', (req, res) => {
+  // Serve the HTML whether it's an htmx request or not
+  res.send(`
+    <section class="mb-8">
+        <h2 class="text-3xl font-bold mb-4">Bienvenido a FLASH CENTER</h2>
+        <p class="text-lg">Impulsamos la innovación financiera y tecnológica en Paraguay</p>
+    </section>
+
+    <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4">Nuestros Servicios</h2>
+        <ul class="list-disc list-inside">
+            <li>Servicio 1</li>
+        </ul>
+    </section>
+  `)
+})
+
 
 // About route
 router.get('/about', (req, res) => {
   // Serve the HTML whether it's an htmx request or not
-  res.sendFile(path.join(__dirname, '../public/about.html'))
+  res.send(`
+    <h2 class="text-3xl font-bold mb-4">Acerca de Flash Center</h2>
+    <p class="mb-4">Cupcake ipsum dolor sit amet. Sweet roll jelly beans toffee tootsie roll. 
+  `)
 })
+
+
+// Routes that use the User and Image models
 
 module.exports = (User, Image) => {
   // POST Request - Create a new user
@@ -58,7 +83,7 @@ module.exports = (User, Image) => {
       })
   })
 
-  // GET Request - Fetch registration form
+  // Fetch registration form
   router.get('/register', (req, res) => {
     res.send(`
     <h1 class="text-2xl font-bold mb-4">Register</h1>
@@ -74,7 +99,7 @@ module.exports = (User, Image) => {
     `)
   })
 
-  // GET Request - Fetch login form
+  // Fetch login form
   router.get('/login', (req, res) => {
     res.send(`
     <h1 class="text-2xl font-bold mb-4">Login</h1>
@@ -88,7 +113,7 @@ module.exports = (User, Image) => {
     `)
   })
 
-  // POST Request - Login a user
+  // Login a user
   router.post('/login', async (req, res) => {
     const { email, password } = req.body
 
@@ -99,7 +124,9 @@ module.exports = (User, Image) => {
           <p> Login successful</p>
           <script>
             localStorage.setItem('loggedIn', 'true');
-            window.location.href = '/'; // Redirect to home or another page
+            setTimeout(function() {
+              window.location.href = '/'; // Redirect to home or another page
+            }, 2000); // Delay of 2 seconds
           </script>
           `)
       } else {
@@ -111,7 +138,7 @@ module.exports = (User, Image) => {
     }
   })
 
-  // GET Request - Fetch all users
+  // Fetch all users
   router.get('/users', (req, res) => {
     User.findAll()
       .then((users) => {
@@ -132,7 +159,7 @@ module.exports = (User, Image) => {
       })
   })
 
-  // PUT Request - Update a user
+  // Update a user
   router.put('/update/:id', (req, res) => {
     const { email, password, name } = req.body
     User.update({ email, password, name }, { where: { id: req.params.id } })
@@ -145,7 +172,7 @@ module.exports = (User, Image) => {
       })
   })
 
-  // DELETE Request - Delete a user
+  // Delete a user
   router.delete('/delete/:id', (req, res) => {
     User.destroy({
       where: { id: req.params.id }
@@ -159,9 +186,9 @@ module.exports = (User, Image) => {
       })
   })
 
-  /* --- USER FILES ROUTES --- */
+  /* --- FILE UPLOAD ROUTES --- */
 
-  // POST Request - Upload an image
+  // Upload an image
   router.post('/files/upload', upload.single('file'), (req, res) => {
   // Assuming the user ID is stored in req.userId
     const userId = req.body.userId
