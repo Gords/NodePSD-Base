@@ -91,6 +91,7 @@ module.exports = (User, Image) => {
       })
   })
 
+  // TODO: is there no workaround to serving the raw HTML here?
   // Fetch registration form
   router.get('/registro', (req, res) => {
     res.send(`
@@ -225,7 +226,7 @@ module.exports = (User, Image) => {
         <div>
           <p>Image ID: ${image.id}</p>
           <p>User ID: ${image.userId}</p>
-          <img class="thumbnail" src="${image.path}" alt="Image ${image.id}">
+          <img src="${image.path}" alt="Image ${image.id}">
         </div>
       `).join('')
         res.send(`<div id="image-list">${imagesHtml}</div>`)
