@@ -22,64 +22,11 @@ const upload = multer({ storage })
 // const supportedFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/tiff']
 
 
-// Home routes
-router.get('/', (req, res) => {
-  res.send(`
-    <section class="mb-8">
-        <h2 class="text-3xl font-bold mb-4">Bienvenido a FLASH CENTER</h2>
-        <p class="text-lg">Impulsamos la innovación financiera y tecnológica en Paraguay</p>
-    </section>
-
-    <section class="mb-8">
-        <h2 class="text-2xl font-bold mb-4">Nuestros Servicios</h2>
-        <ul class="list-disc list-inside">
-            <li>Servicio 1</li>
-        </ul>
-    </section>
-  `)
-})
-
-router.get('/inicio', (req, res) => {
-  res.send(`
-    <section class="mb-8">
-        <h2 class="text-3xl font-bold mb-4">Bienvenido a FLASH CENTER</h2>
-        <p class="text-lg">Impulsamos la innovación financiera y tecnológica en Paraguay</p>
-    </section>
-
-    <section class="mb-8">
-        <h2 class="text-2xl font-bold mb-4">Nuestros Servicios</h2>
-        <ul class="list-disc list-inside">
-            <li>Servicio 1</li>
-        </ul>
-    </section>
-  `)
-})
-
-
-// Nosotros route
-router.get('/nosotros', (req, res) => {
-  // Serve the HTML whether it's an htmx request or not
-  res.send(`
-    <h2 class="text-3xl font-bold mb-4">Acerca de Flash Center</h2>
-    <p class="mb-4">Cupcake ipsum dolor sit amet. Sweet roll jelly beans toffee tootsie roll. 
-  `)
-})
-
-// Contacto route
-router.get('/contacto', (req, res) => {
-  res.send(`
-    <section class="mb-8">
-        <h2 class="text-3xl font-bold mb-4">Contactanos</h2>
-        <p class="text-lg">Y te vamos a estar avisando!</p>
-    </section>
-  `)
-})
-
 // Routes that use the User and Image models
 
 module.exports = (User, Image) => {
   // POST Request - Create a new user
-  router.post('/registro', (req, res) => {
+  router.post('/register', (req, res) => {
     const { email, password, name } = req.body
     User.create({ email, password, name })
       .then(() => {
@@ -93,10 +40,10 @@ module.exports = (User, Image) => {
 
   // TODO: is there no workaround to serving the raw HTML here?
   // Fetch registration form
-  router.get('/registro', (req, res) => {
+  router.get('/register', (req, res) => {
     res.send(`
       <h1>Registro</h1>
-      <form hx-post="/registro" hx-target="#main-content">
+      <form hx-post="/register" hx-target="#main-content">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
         <label for="password">Password:</label>
@@ -105,20 +52,6 @@ module.exports = (User, Image) => {
         <input type="text" id="name" name="name" required>
         <button type="submit">Registro</button>
       </form>
-    `)
-  })
-
-  // Fetch login form
-  router.get('/login', (req, res) => {
-    res.send(`
-    <h1>Login</h1>
-    <form hx-post="/login" hx-target="#main-content">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-      <button type="submit">Login</button>
-    </form>
     `)
   })
 
@@ -148,7 +81,7 @@ module.exports = (User, Image) => {
   })
 
   // Fetch all users
-  router.get('/usuarios', (req, res) => {
+  router.get('/users', (req, res) => {
     User.findAll()
       .then((users) => {
         const usersHtml = users.map(user => `

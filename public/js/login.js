@@ -5,7 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   const loggedIn = localStorage.getItem('loggedIn')
-  const registerButton = document.querySelector('a[href="/registro"]')
+  const registerButton = document.querySelector('a[href="/register"]')
   const loginButton = document.querySelector('a[href="/login"]')
   const perfilDropdown = document.querySelector('details')
 
