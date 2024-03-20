@@ -3,30 +3,30 @@
 //
 //          The 'loggedIn' key is set to 'true' when the user logs in and set to 'false' when the user logs out.
 
-document.addEventListener('DOMContentLoaded', function() {
-  const loggedIn = localStorage.getItem('loggedIn');
-  const loginButton = document.querySelector('a[href="/login"]');
-  const registerButton = document.querySelector('a[href="/registro"]');
-  const logoutButton = document.getElementById('logout-button');
-  
+document.addEventListener('DOMContentLoaded', function () {
+  const loggedIn = localStorage.getItem('loggedIn')
+  const registerButton = document.querySelector('a[href="/registro"]')
+  const loginButton = document.querySelector('a[href="/login"]')
+  const perfilDropdown = document.querySelector('details')
+
   if (loggedIn === 'true') {
-    loginButton.style.display = 'none';
-    registerButton.style.display = 'none';
-    logoutButton.style.display = 'inline-flex'; // Show logout button
+    registerButton.style.display = 'none'
+    loginButton.style.display = 'none'
+    perfilDropdown.style.display = 'block' // Show "Perfil" dropdown
   } else {
-    loginButton.style.display = 'inline-flex';
-    registerButton.style.display = 'inline-flex';
-    logoutButton.style.display = 'none'; // Hide logout button
+    loginButton.style.display = 'inline-flex'
+    registerButton.style.display = 'inline-flex'
+    perfilDropdown.style.display = 'none' // Show "Perfil" dropdown
   }
-});
+})
 
 // Logout function
-function logout() {
-  localStorage.removeItem('loggedIn');
-  window.location.reload(); // Refresh the page to reflect the change in UI
+function logout () {
+  localStorage.removeItem('loggedIn')
+  window.location.reload() // Refresh the page to reflect the change in UI
 }
 
 // Attach the logout function to the window object to make it accessible from the onclick attribute in the HTML
-window.logout = logout;
+window.logout = logout
 
 // TODO: there has to be a way to replace some of this functions with pure htmx attributes
