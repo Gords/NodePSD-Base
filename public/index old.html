@@ -20,43 +20,45 @@
 <body>
 
 <header>
-<div class="navbar bg-base-100">
-  <div class="flex-1">
-    <a class="btn btn-ghost text-xl">Flash-Center</a>
+
+  <div>
+      <h1>FLASH CENTER</h1>
   </div>
-  <div class="flex-none">
-    <ul class="menu menu-horizontal px-1">
-      <li><a href="/inicio" hx-get="/inicio" hx-target="#main-content" hx-push-url="true">Inicio</a></li>
+  <div>
+    <nav>
+      <ul>
+        <li><a href="/inicio" hx-target="#main-content" hx-push-url="true">Inicio</a></li>
         <li><a href="/usuarios" hx-get="/usuarios" hx-target="#main-content" hx-push-url="true">Listas</a></li>
         <li><a href="/nosotros" hx-get="/nosotros" hx-target="#main-content" hx-push-url="true">Acerca de</a></li>
         <li><a href="/images" hx-get="/images" hx-target="#main-content" hx-push-url="true">Imágenes</a></li>
         <li><a href="/contacto" hx-get="/contacto" hx-target="#main-content" hx-push-url="true">Contacto</a></li>
-      <li>
-        <details>
-          <summary>
-            Perfil
-          </summary>
-          <ul class="p-2 bg-base-100 rounded-t-none">
-            <li><a>Configuracion</a></li>
-            <li><a href="/home" hx-get="/home" id="logout-button" onclick="logout()" hx-target="#main-content" hx-push-url="true">Cerrar sesión</a></li>
-          </ul>
-        </details>
-      </li>
-    </ul>
+      </ul>
+    </nav>
+  <div>
+    <a href="/login" hx-get="/login" hx-target="#main-content" hx-push-url="true">
+      Iniciar sesión
+    </a>
+    <a href="/registro" hx-get="/registro" hx-target="#main-content" hx-push-url="true">
+      Registro
+    </a>
+    <a href="/home" hx-get="/home" id="logout-button" onclick="logout()" hx-target="#main-content" hx-push-url="true">
+      Cerrar sesión
+    </a>
   </div>
-</div>
-</header>
 
 <main id="main-content">
   <!-- main-content-placeholder -->
 </main>
 
 <footer>
-
+  <div>
+    <p>&copy; 2024 FLASH CENTER. Todos los derechos reservados.</p>
+  </div>
 </footer>
 
 <script src="js/login.js"></script>
 <script src="js/updateUrl.js"></script>
 
 </body>
+
 </html>
