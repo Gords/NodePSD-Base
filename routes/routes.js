@@ -94,29 +94,29 @@ module.exports = (User, Image) => {
   // Fetch registration form
   router.get('/registro', (req, res) => {
     res.send(`
-    <h1 class="text-2xl font-bold mb-4">Registro</h1>
-    <form class="flex flex-col" hx-post="/registro" hx-target="#main-content">
-      <label for="email" class="mb-2">Email:</label>
-      <input type="email" id="email" name="email" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
-      <label for="password" class="mb-2">Password:</label>
-      <input type="password" id="password" name="password" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
-      <label for="name" class="mb-2">Name:</label>
-      <input type="text" id="name" name="name" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Registro</button>
-    </form>
+      <h1>Registro</h1>
+      <form hx-post="/registro" hx-target="#main-content">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <button type="submit">Registro</button>
+      </form>
     `)
   })
 
   // Fetch login form
   router.get('/login', (req, res) => {
     res.send(`
-    <h1 class="text-2xl font-bold mb-4">Login</h1>
-    <form class="flex flex-col" hx-post="/login" hx-target="#main-content">
-      <label for="email" class="mb-2">Email:</label>
-      <input type="email" id="email" name="email" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
-      <label for="password" class="mb-2">Password:</label>
-      <input type="password" id="password" name="password" required class="border border-gray-300 rounded-md px-2 py-1 mb-2">
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Login</button>
+    <h1>Login</h1>
+    <form hx-post="/login" hx-target="#main-content">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Login</button>
     </form>
     `)
   })
