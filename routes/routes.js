@@ -38,23 +38,6 @@ module.exports = (User, Image) => {
       })
   })
 
-  // TODO: is there no workaround to serving the raw HTML here?
-  // Fetch registration form
-  router.get('/register', (req, res) => {
-    res.send(`
-      <h1>Registro</h1>
-      <form hx-post="/register" hx-target="#main-content">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        <button type="submit">Registro</button>
-      </form>
-    `)
-  })
-
   // Login a user
   router.post('/login', async (req, res) => {
     const { email, password } = req.body
