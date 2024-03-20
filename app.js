@@ -5,25 +5,20 @@ const express = require('express')
 const { Sequelize, DataTypes } = require('sequelize')
 const dotenv = require('dotenv')
 
-
 // Load environment variables
 dotenv.config()
-
 
 // Initialize Express app
 const app = express()
 
-
 // Middleware for parsing requests
-app.use(express.urlencoded({ extended: true })) // To parse the incoming requests with urlencoded payloads
-app.use(express.json()) // To parse the incoming requests with JSON payloads
-
+app.use(express.urlencoded({ extended: true })) // Parse the incoming requests with urlencoded payloads
+app.use(express.json()) // Parse the incoming requests with JSON payloads
 
 // Middleware for serving static files
 app.use(express.static('public'))
 // TODO: no se si hacer surface el uploads es necesario mas adelante?
 app.use('/uploads', express.static('uploads')) // Serve the uploaded images
-
 
 // Initialize Sequelize and import models
 const sequelize = new Sequelize(
@@ -40,11 +35,9 @@ const sequelize = new Sequelize(
 const User = require('./models/User.js')(sequelize, DataTypes)
 const Image = require('./models/Image.js')(sequelize, DataTypes)
 
-
 // Import and use routes
 const routes = require('./routes/routes.js')(User, Image)
 app.use('/', routes)
-
 
 // Connect to the database and start the server
 sequelize
