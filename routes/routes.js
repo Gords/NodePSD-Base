@@ -4,7 +4,6 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer')
 
-
 // Configure Multer to store files in '/uploads/' directory and keep the original file name + a unique suffix
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -20,7 +19,6 @@ const upload = multer({ storage })
 
 // Define supported file formats
 // const supportedFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/tiff']
-
 
 // Routes that use the User and Image models
 
