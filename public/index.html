@@ -27,12 +27,12 @@
     </div>
     <div class="flex-none">
       <ul class="menu menu-horizontal px-1">
-        <li><a href="/home" hx-get="components.html" hx-select="#hero-section" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true">Inicio</a></li>
-        <li><a href="/users" hx-get="/users" hx-target="#main-content">Lista Usuarios</a></li>
-        <li><a href="/about" hx-get="about.html" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true">Nosotros</a></li>
-        <li><a href="/faq" hx-get="components.html" hx-select="#faq-accordion" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true">Preg. Frecuentes</a></li>
-        <li><a href="/images" hx-get="/images" hx-target="#main-content">Imágenes</a></li>
-        <li><a href="/contact" hx-get="components.html" hx-select="#contact-form" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true">Contacto</a></li>
+        <li><a href="/home" hx-trigger="load" hx-get="components.html" hx-select="#hero-section" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true">Inicio</a></li>
+        <li><a href="/users" hx-trigger="load" hx-get="/users" hx-target="#main-content1">Lista Usuarios</a></li>
+        <li><a href="/about" hx-trigger="load" hx-get="about.html" hx-target="#main-content2" hx-swap="innerHTML" hx-push-url="true">Nosotros</a></li>
+        <li><a href="/faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true">Preg. Frecuentes</a></li>
+        <li><a href="/images" hx-trigger="load" hx-get="/images" hx-target="#main-content">Imágenes</a></li>
+        <li><a href="/contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true">Contacto</a></li>
         <li>
           <details>
             <summary>
@@ -56,6 +56,12 @@
   </header>
 
   <main class="flex-grow" id="main-content">
+    <!-- main-content-placeholder -->
+  </main>
+  <main class="flex-grow" id="main-content1">
+    <!-- main-content-placeholder -->
+  </main>
+  <main class="flex-grow" id="main-content2">
     <!-- main-content-placeholder -->
   </main>
 
