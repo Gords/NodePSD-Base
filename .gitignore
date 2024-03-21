@@ -5,7 +5,7 @@ dist/
 tmp/
 temp/
 .env
-.history
+.DS_Store
 
 # Ignore contents of uploads directory but keep the directory itself
 uploads/*
