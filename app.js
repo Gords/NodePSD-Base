@@ -4,23 +4,70 @@
 const express = require('express')
 const { Sequelize, DataTypes } = require('sequelize')
 const dotenv = require('dotenv')
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
+const session = require('express-session')
 
-// Load environment variables
 dotenv.config()
 
-// Initialize Express app
 const app = express()
 
-// Middleware for parsing requests
-app.use(express.urlencoded({ extended: true })) // Parse the incoming requests with urlencoded payloads
-app.use(express.json()) // Parse the incoming requests with JSON payloads
-
-// Middleware for serving static files
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 app.use(express.static('public'))
-// TODO: no se si hacer surface el uploads es necesario mas adelante?
-app.use('/uploads', express.static('uploads')) // Serve the uploaded images
+app.use('/uploads', express.static('uploads'))
 
-// Initialize Sequelize and import models
+// Configure session middleware
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+
+// Initialize Passport
+app.use(passport.initialize())
+app.use(passport.session())
+
+// Configure Passport Local Strategy
+passport.use(new LocalStrategy(
+  async (username, password, done) => {
+    try {
+      // Find the user in the database based on the provided username
+      const user = await User.findOne({ where: { email: username } })
+
+      if (!user) {
+        // If the user doesn't exist, return an error
+        return done(null, false, { message: 'Incorrect username' })
+      }
+
+      // Compare the provided password with the stored password
+      if (user.password !== password) {
+        // If the passwords don't match, return an error
+        return done(null, false, { message: 'Incorrect password' })
+      }
+
+      // If the username and password are correct, return the user
+      return done(null, user)
+    } catch (error) {
+      return done(error)
+    }
+  }
+))
+
+// Serialize and deserialize user
+passport.serializeUser((user, done) => {
+  done(null, user.id)
+})
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findByPk(id)
+    done(null, user)
+  } catch (error) {
+    done(error)
+  }
+})
+
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
@@ -29,17 +76,16 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: 'postgres',
-    logging: console.log // Enable logging of SQL queries
+    logging: console.log
   }
 )
+
 const User = require('./models/User.js')(sequelize, DataTypes)
 const Image = require('./models/Image.js')(sequelize, DataTypes)
 
-// Import and use routes
 const routes = require('./routes/routes.js')(User, Image)
 app.use('/', routes)
 
-// Connect to the database and start the server
 sequelize
   .authenticate()
   .then(() => {
