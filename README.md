@@ -100,6 +100,6 @@ Replace `migration-name` with a descriptive name for your migration.
 To run the pending migrations and update the database schema, use the following command:
 
 ```
-npx sequelize-cli db:migrate
+npm run db:migrate
 ```
 

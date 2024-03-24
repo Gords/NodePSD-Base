@@ -37,21 +37,21 @@ app.use(flash())
 // Configure Passport Local Strategy
 passport.use(new LocalStrategy(
   async (username, password, done) => {
-  try {
-  const user = await User.findOne({ where: { email: username } })
-  if (!user) {
-  return done(null, false, { message: 'Incorrect username' })
+    try {
+      const user = await User.findOne({ where: { email: username } })
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username' })
+      }
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        return done(null, false, { message: 'Incorrect password' })
+      }
+      return done(null, user)
+    } catch (error) {
+      return done(error)
+    }
   }
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) {
-  return done(null, false, { message: 'Incorrect password' })
-  }
-  return done(null, user)
-  } catch (error) {
-  return done(error)
-  }
-  }
-  ));
+));
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
