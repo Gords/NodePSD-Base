@@ -7,6 +7,8 @@ const dotenv = require('dotenv')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
+const flash = require('express-flash')
+const crypto = require('crypto')
 
 dotenv.config()
 
@@ -27,6 +29,9 @@ app.use(session({
 // Initialize Passport
 app.use(passport.initialize())
 app.use(passport.session())
+
+// Configure express-flash middleware
+app.use(flash())
 
 // Configure Passport Local Strategy
 passport.use(new LocalStrategy(
