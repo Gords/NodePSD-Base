@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const passport = require('passport');
+const bcrypt = require('bcrypt');
 
 // Configure Multer to store files in '/uploads/' directory and keep the original file name + a unique suffix
 const storage = multer.diskStorage({
@@ -32,31 +33,34 @@ const upload = multer({ storage });
 // Routes that use the User and Image models
 module.exports = (User, Image) => {
   // POST Request - Create a new user
-  router.post('/register', (req, res) => {
+  router.post('/register', async (req, res) => {
     const { email, password, name } = req.body;
-    User.create({ email, password, name })
-      .then(() => {
-        req.flash('success', 'User registered successfully');
-        res.json({ 'register-flash-messages': { success: '<div class="alert alert-success">User registered successfully</div>' } });
-      })
-      .catch((error) => {
-        console.error('Error registering user:', error);
-        req.flash('error', 'Error registering user');
-        res.json({ 'register-flash-messages': { error: '<div class="alert alert-error">Error registering user</div>' } });
-      });
-  });
+    try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await User.create({ email, password: hashedPassword, name });
+    req.flash('success', 'User registered successfully');
+    res.json({ 'register-flash-messages': { success: '<div class="alert alert-success">User registered successfully</div>' } });
+    } catch (error) {
+    console.error('Error registering user:', error);
+    req.flash('error', 'Error registering user');
+    res.json({ 'register-flash-messages': { error: '<div class="alert alert-error">Error registering user</div>' } });
+    }
+    });
 
   // Login a user
   router.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
     failureFlash: true
-  }), (req, res) => {
-    const messages = {
-      success: req.flash('success').map(message => `<div class="alert alert-success">${message}</div>`).join(''),
-      error: req.flash('error').map(message => `<div class="alert alert-error">${message}</div>`).join('')
-    };
-    res.json({ 'login-flash-messages': messages });
-  });
+    }), (req, res) => {
+    // Authentication successful
+    req.flash('success', 'Login successful');
+    res.json({ 
+    'login-flash-messages': { 
+    success: '<div class="alert alert-success">Login successful</div>' 
+    },
+    'main-content': 'index.html' // Redirect to the home page or any other protected route
+    });
+    });
 
   const fs = require('fs');
   const path = require('path');

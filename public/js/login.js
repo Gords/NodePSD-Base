@@ -1,32 +1,47 @@
-// Purpose: To hide the login and register buttons when the user is logged in and show the logout button.
-//          This is done by checking the value of the 'loggedIn' key in the localStorage object and updating the display property of the buttons accordingly.
-//
-//          The 'loggedIn' key is set to 'true' when the user logs in and set to 'false' when the user logs out.
-
 document.addEventListener('DOMContentLoaded', function () {
   const loggedIn = localStorage.getItem('loggedIn')
   const registerButton = document.querySelector('a[href="/register"]')
   const loginButton = document.querySelector('a[href="/login"]')
   const perfilDropdown = document.querySelector('details')
 
-  if (loggedIn === 'true') {
-    registerButton.style.display = 'none'
-    loginButton.style.display = 'none'
-    perfilDropdown.style.display = 'block' // Show "Perfil" dropdown
-  } else {
-    loginButton.style.display = 'inline-flex'
-    registerButton.style.display = 'inline-flex'
-    perfilDropdown.style.display = 'none' // Show "Perfil" dropdown
+  function updateUI() {
+    if (loggedIn === 'true') {
+      registerButton.style.display = 'none'
+      loginButton.style.display = 'none'
+      perfilDropdown.style.display = 'block'
+    } else {
+      loginButton.style.display = 'inline-flex'
+      registerButton.style.display = 'inline-flex'
+      perfilDropdown.style.display = 'none'
+    }
   }
+
+  updateUI()
+
+  // Handle login response
+  document.body.addEventListener('htmx:afterSwap', function (event) {
+    const loginFlashMessages = event.detail.elt.querySelector('#login-flash-messages')
+    if (loginFlashMessages) {
+      const successMessage = loginFlashMessages.querySelector('.alert-success')
+      const errorMessage = loginFlashMessages.querySelector('.alert-error')
+
+      if (successMessage) {
+        // Login successful, update UI and set loggedIn flag
+        localStorage.setItem('loggedIn', 'true')
+        updateUI()
+      } else if (errorMessage) {
+        // Login failed, display error message
+        console.error('Login failed:', errorMessage.textContent)
+      }
+    }
+  })
 })
 
 // Logout function
-function logout () {
+function logout() {
   localStorage.removeItem('loggedIn')
-  window.location.reload() // Refresh the page to reflect the change in UI
+  window.location.reload()
 }
 
-// Attach the logout function to the window object to make it accessible from the onclick attribute in the HTML
+// Attach the logout function to the window object
 window.logout = logout
-
-// TODO: there has to be a way to replace some of this functions with pure htmx attributes

@@ -9,6 +9,7 @@ const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 const flash = require('express-flash')
 const crypto = require('crypto')
+const bcrypt = require('bcrypt')
 
 dotenv.config()
 
@@ -36,28 +37,21 @@ app.use(flash())
 // Configure Passport Local Strategy
 passport.use(new LocalStrategy(
   async (username, password, done) => {
-    try {
-      // Find the user in the database based on the provided username
-      const user = await User.findOne({ where: { email: username } })
-
-      if (!user) {
-        // If the user doesn't exist, return an error
-        return done(null, false, { message: 'Incorrect username' })
-      }
-
-      // Compare the provided password with the stored password
-      if (user.password !== password) {
-        // If the passwords don't match, return an error
-        return done(null, false, { message: 'Incorrect password' })
-      }
-
-      // If the username and password are correct, return the user
-      return done(null, user)
-    } catch (error) {
-      return done(error)
-    }
+  try {
+  const user = await User.findOne({ where: { email: username } })
+  if (!user) {
+  return done(null, false, { message: 'Incorrect username' })
   }
-))
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+  return done(null, false, { message: 'Incorrect password' })
+  }
+  return done(null, user)
+  } catch (error) {
+  return done(error)
+  }
+  }
+  ));
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
