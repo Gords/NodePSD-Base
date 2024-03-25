@@ -2320,6 +2320,10 @@ details.collapse summary::-webkit-details-marker {
   height: 1.25rem;
 }
 
+.h-6 {
+  height: 1.5rem;
+}
+
 .h-full {
   height: 100%;
 }
@@ -2338,6 +2342,10 @@ details.collapse summary::-webkit-details-marker {
 
 .w-52 {
   width: 13rem;
+}
+
+.w-80 {
+  width: 20rem;
 }
 
 .w-auto {
@@ -2685,6 +2693,15 @@ html {
   /* Full width */
   padding-bottom: 1rem;
   z-index: 100;
+}
+
+.btn {
+  border-radius: var(--rounded-btn, 0.1rem);
+}
+
+.bg-fc-blue {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 36 60 / var(--tw-bg-opacity));
 }
 
 .placeholder\:text-gray-400::-moz-placeholder {

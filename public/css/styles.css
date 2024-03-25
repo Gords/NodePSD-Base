@@ -15,3 +15,12 @@ html {
   padding-bottom: 1rem;
   z-index: 100;
 }
+
+.btn {
+  border-radius: var(--rounded-btn, 0.1rem);
+}
+
+.bg-fc-blue {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 36 60 / var(--tw-bg-opacity));
+}
