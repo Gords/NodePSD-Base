@@ -25,9 +25,30 @@
 
     <div class="navbar bg-base-200">
       <div class="navbar-start">
-        <a class="btn btn-ghost text-xl">Flash-Center</a>
+        <div class="dropdown">
+          <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+            </svg>
+          </div>
+          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+            <li><a href="/home" hx-get="home.html" hx-select="#alternate-hero" hx-target="#main-content"
+                hx-swap="innerHTML" hx-push-url="true">Inicio</a></li>
+            <li><a href="/services" hx-get="services.html" hx-target="#main-content">Servicios</a></li>
+            <li><a href="/faq" hx-get="components.html" hx-select="#faq-accordion" hx-target="#main-content"
+                hx-swap="innerHTML" hx-push-url="true">Preguntas Frecuentes</a></li>
+            <li><a href="/about" hx-get="about.html" hx-target="#main-content" hx-swap="innerHTML"
+                hx-push-url="true">Nosotros</a>
+            </li>
+            <li><a href="/contact" hx-get="components.html" hx-select="#contact-form" hx-target="#main-content"
+                hx-swap="innerHTML" hx-push-url="true">Contacto</a></li>
+            <li>
+          </ul>
+        </div>
+        <a href="/home" class="btn btn-ghost text-xl">Flash-Center</a>
       </div>
-      <div class="flex-none">
+      <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
           <li><a href="/images" hx-get="/images" hx-target="#main-content" id="fileList">Imágenes</a></li>
           <li><a href="/users" hx-get="/users" hx-target="#main-content" id="userList">Lista Usuarios</a></li>
