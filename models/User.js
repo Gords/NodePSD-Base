@@ -1,12 +1,11 @@
-// Model for the User Table in the Database
-
-const { DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   const User = sequelize.define('User', {
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     password: {
       type: DataTypes.STRING,
@@ -15,8 +14,13 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    isVerified: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
-  })
+  });
 
-  return User
-}
+  return User;
+};
