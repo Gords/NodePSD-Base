@@ -1,17 +1,26 @@
 document.addEventListener('DOMContentLoaded', function () {
   const loggedIn = localStorage.getItem('loggedIn')
-  const registerButton = document.querySelector('a[href="/register"]')
-  const loginButton = document.querySelector('a[href="/login"]')
+  const registerButton = document.querySelector('#registerButton')
+  const loginButton = document.querySelector('#loginButton')
+  const logoutButton = document.querySelector('#logoutButton')
+  const userList = document.querySelector('#userList')
+  const fileList = document.querySelector('#fileList')
 
   function updateUI() {
-    if (loggedIn === 'true') {
-      registerButton.style.display = 'none'
-      loginButton.style.display = 'none'
-    } else {
-      loginButton.style.display = 'inline-flex'
-      registerButton.style.display = 'inline-flex'
-    }
+  if (loggedIn === 'true') {
+    registerButton.style.display = 'none'
+    loginButton.style.display = 'none'
+    logoutButton.style.display = 'inline-flex'
+    userList.style.display = 'block'
+    fileList.style.display = 'block'
+  } else {
+    registerButton.style.display = 'inline-flex'
+    loginButton.style.display = 'inline-flex'
+    logoutButton.style.display = 'none'
+    userList.style.display = 'none'
+    fileList.style.display = 'none'
   }
+}
 
   updateUI()
 
