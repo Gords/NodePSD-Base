@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const emailService = require('../services/emailService');
 const path = require('path');
+const fs = require('fs');
 
 // Configure Multer storage
 const storage = multer.diskStorage({
