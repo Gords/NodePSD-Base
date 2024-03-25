@@ -2,17 +2,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const loggedIn = localStorage.getItem('loggedIn')
   const registerButton = document.querySelector('a[href="/register"]')
   const loginButton = document.querySelector('a[href="/login"]')
-  const perfilDropdown = document.querySelector('details')
 
   function updateUI() {
     if (loggedIn === 'true') {
       registerButton.style.display = 'none'
       loginButton.style.display = 'none'
-      perfilDropdown.style.display = 'block'
     } else {
       loginButton.style.display = 'inline-flex'
       registerButton.style.display = 'inline-flex'
-      perfilDropdown.style.display = 'none'
     }
   }
 

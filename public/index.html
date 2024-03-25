@@ -29,28 +29,17 @@
       </div>
       <div class="flex-none">
         <ul class="menu menu-horizontal px-1">
+          <li><a href="/images" hx-get="/images" hx-target="#main-content">Imágenes</a></li>
+          <li><a href="/users" hx-get="/users" hx-target="#main-content">Lista Usuarios</a></li>
           <li><a href="/home" hx-get="home.html" hx-select="#alternate-hero" hx-target="#main-content"
               hx-swap="innerHTML" hx-push-url="true">Inicio</a></li>
-          <li><a href="/users" hx-get="/users" hx-target="#main-content">Lista Usuarios</a></li>
+          <li><a href="/faq" hx-get="components.html" hx-select="#faq-accordion" hx-target="#main-content"
+              hx-swap="innerHTML" hx-push-url="true">Preguntas Frecuentes</a></li>
           <li><a href="/about" hx-get="about.html" hx-target="#main-content" hx-swap="innerHTML"
               hx-push-url="true">Nosotros</a></li>
-          <li><a href="/faq" hx-get="components.html" hx-select="#faq-accordion" hx-target="#main-content"
-              hx-swap="innerHTML" hx-push-url="true">Preg. Frecuentes</a></li>
-          <li><a href="/images" hx-get="/images" hx-target="#main-content">Imágenes</a></li>
           <li><a href="/contact" hx-get="components.html" hx-select="#contact-form" hx-target="#main-content"
               hx-swap="innerHTML" hx-push-url="true">Contacto</a></li>
           <li>
-            <details>
-              <summary>
-                Perfil
-              </summary>
-              <ul class="p-2 bg-base-100 rounded-t-none">
-                <!-- TODO: Add user profile options/view -->
-                <li><a>Configuracion</a></li>
-                <li><a href="/" hx-get="/" onclick="logout()" hx-target="#main-content">Cerrar sesión</a></li>
-              </ul>
-            </details>
-          </li>
         </ul>
       </div>
       <div class="navbar-end">
@@ -58,12 +47,13 @@
           hx-swap="innerHTML" hx-push-url="true">Registro</a>
         <a class="btn" href="/login" hx-get="components.html" hx-select="#login-form" hx-target="#main-content"
           hx-swap="innerHTML" hx-push-url="true">Iniciar sesión</a>
+        <a class="btn" href="/" hx-get="/" onclick="logout()" hx-target="#main-content">Cerrar sesión</a>
       </div>
     </div>
 
   </header>
 
-  <main class="flex-grow" id="main-content">
+  <main class="flex-grow py-12" id="main-content">
     <!-- main-content-placeholder -->
   </main>
 
