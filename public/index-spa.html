@@ -24,7 +24,6 @@
   <header>
 
     <div class="navbar bg-base-200">
-      <!-- Responsive Burger Menu -->
       <div class="navbar-start">
         <div class="dropdown">
           <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -34,36 +33,31 @@
             </svg>
           </div>
           <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-            <li><a href="/home" hx-get="home.html" hx-select="#alternate-hero" hx-target="#main-content"
-                hx-swap="innerHTML" hx-push-url="true">Inicio</a></li>
-            <li><a href="/services" hx-get="services.html" hx-target="#main-content">Servicios</a></li>
-            <li><a href="/faq" hx-get="components.html" hx-select="#faq-accordion" hx-target="#main-content"
-                hx-swap="innerHTML" hx-push-url="true">Preguntas Frecuentes</a></li>
-            <li><a href="/about" hx-get="about.html" hx-target="#main-content" hx-swap="innerHTML"
-                hx-push-url="true">Nosotros</a>
-            </li>
-            <li><a href="/contact" hx-get="components.html" hx-select="#contact-form" hx-target="#main-content"
-                hx-swap="innerHTML" hx-push-url="true">Contacto</a></li>
-            <li>
+            <li><a href="#home">Inicio</a></li>
+            <li><a href="#services">Servicios</a></li>
+            <!-- <li><a href="#credit" hx-get="credit.html" hx-target="#content" hx-swap="innerHTML"
+                        hx-push-url="true">Solicitar Credito</a></li> -->
+            <li><a href="#faq">Preguntas Frecuentes</a></li>
+            <li><a href="#about">Nosotros</a></li>
+            <li><a href="#contact">Contacto</a></li>
           </ul>
         </div>
         <a href="/home" class="btn btn-ghost text-xl">Flash-Center</a>
       </div>
-      <!-- Main Navbar -->
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
-          <li><a href="/images" hx-get="/images" hx-target="#main-content" id="fileList">Imágenes</a></li>
-          <li><a href="/users" hx-get="/users" hx-target="#main-content" id="userList">Lista Usuarios</a></li>
-          <li><a href="/home" hx-get="home.html" hx-select="#alternate-hero" hx-target="#main-content"
-              hx-swap="innerHTML" hx-push-url="true">Inicio</a></li>
-          <li><a href="/services" hx-get="services.html" hx-target="#main-content">Servicios</a></li>
-          <li><a href="/faq" hx-get="components.html" hx-select="#faq-accordion" hx-target="#main-content"
-              hx-swap="innerHTML" hx-push-url="true">Preguntas Frecuentes</a></li>
-          <li><a href="/about" hx-get="about.html" hx-target="#main-content" hx-swap="innerHTML"
-              hx-push-url="true">Nosotros</a></li>
-          <li><a href="/contact" hx-get="components.html" hx-select="#contact-form" hx-target="#main-content"
-              hx-swap="innerHTML" hx-push-url="true">Contacto</a></li>
-          <li>
+          <li><a href="/users" hx-get="/users" hx-target="#main-content" hx-push-url="true" id="userList">Lista
+              Usuarios</a>
+          </li>
+          <li><a href="/images" hx-get="/images" hx-target="#main-content" hx-push-url="true" id="fileList">Imágenes</a>
+          </li>
+          <li><a href="#home">Inicio</a></li>
+          <li><a href="#services">Servicios</a></li>
+          <!-- <li><a href="#credit" hx-get="credit.html" hx-target="#content" hx-swap="innerHTML"
+                        hx-push-url="true">Solicitar Credito</a></li> -->
+          <li><a href="#faq">Preguntas Frecuentes</a></li>
+          <li><a href="#about">Nosotros</a></li>
+          <li><a href="#contact">Contacto</a></li>
         </ul>
       </div>
       <div class="navbar-end">
@@ -79,7 +73,16 @@
   </header>
 
   <main class="flex-grow py-12" id="main-content">
-    <!-- main-content-placeholder -->
+    <section id="home" hx-trigger="load" hx-get="home.html" hx-select="#alternate-hero" hx-swap="innerHTML"
+      hx-push-url="true"></section>
+    <section id="services" hx-trigger="load" hx-get="services.html" hx-swap="innerHTML" hx-push-url="true"></section>
+    <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion" hx-swap="innerHTML"
+      hx-push-url="true"></section>
+    <section id="sneaky-cta" hx-trigger="load" hx-get="components.html" hx-select="#cta-section" hx-swap="innerHTML"
+      hx-push-url="true"></section>
+    <section id="about" hx-trigger="load" hx-get="about.html" hx-swap="innerHTML" hx-push-url="true"></section>
+    <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form" hx-swap="innerHTML"
+      hx-push-url="true"></section>
   </main>
 
   <footer class="footer p-10 bg-base-200 text-base-content">

@@ -2368,10 +2368,6 @@ details.collapse summary::-webkit-details-marker {
   max-width: 20rem;
 }
 
-.flex-none {
-  flex: none;
-}
-
 .flex-grow {
   flex-grow: 1;
 }
