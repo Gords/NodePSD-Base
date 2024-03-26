@@ -8,7 +8,7 @@
     "start": "node app.js",
     "build:css": "tailwindcss -i ./public/css/styles.css -o ./public/css/output.css",
     "lint": "standard",
-    "db:migrate": "docker-compose exec app npx sequelize-cli db:migrate"
+    "db:migrate": "docker compose exec app npx sequelize-cli db:migrate"
   },
   "keywords": [],
   "author": "",
