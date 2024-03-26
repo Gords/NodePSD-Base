@@ -7,7 +7,7 @@ const mailersend = new MailerSend({
 const sendVerificationEmail = async (email, token) => {
   const verificationLink = `http://localhost:3000/verify-email?token=${token}`;
 
-  const sentFrom = new Sender('MS_K0YZM3@trial-yzkq340k203gd796.mlsender.net', 'flashcenter');
+  const sentFrom = new Sender('MS_rmBngK@pocket.sh', 'flashcenter');
   const recipients = [new Recipient(email)];
 
   const emailParams = new EmailParams()
