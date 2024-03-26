@@ -71,7 +71,7 @@ module.exports = (User, Image) => {
       await user.save();
 
       req.flash('success', 'Email verified successfully. You can now log in.');
-      res.redirect('/login');
+      res.redirect('/?message=Email verified successfully. You can now log in.');
     } catch (error) {
       console.error('Error verifying email:', error);
       req.flash('error', 'Invalid verification token');
@@ -171,30 +171,30 @@ module.exports = (User, Image) => {
     }
   });
 
-// Upload an image
-router.post('/images', isAuthenticated, upload.single('file'), async (req, res) => {
-  try {
-    const userId = req.body.userId;
-    const imagePath = req.file.path;
+  // Upload an image
+  router.post('/images', isAuthenticated, upload.single('file'), async (req, res) => {
+    try {
+      const userId = req.body.userId;
+      const imagePath = req.file.path;
 
-    // Save the image file to the file system
-    const savedImagePath = path.join('uploads', req.file.filename);
-    await fs.promises.rename(imagePath, savedImagePath);
+      // Save the image file to the file system
+      const savedImagePath = path.join('uploads', req.file.filename);
+      await fs.promises.rename(imagePath, savedImagePath);
 
-    // Create a new image record in the database
-    const image = await Image.create({
-      userId,
-      path: savedImagePath
-    });
+      // Create a new image record in the database
+      const image = await Image.create({
+        userId,
+        path: savedImagePath
+      });
 
-    req.flash('success', 'Image uploaded successfully');
-    res.json(image);
-  } catch (error) {
-    console.error('Error saving image:', error);
-    req.flash('error', 'Error saving image');
-    res.status(500).redirect('/images');
-  }
-});
+      req.flash('success', 'Image uploaded successfully');
+      res.json(image);
+    } catch (error) {
+      console.error('Error saving image:', error);
+      req.flash('error', 'Error saving image');
+      res.status(500).redirect('/images');
+    }
+  });
 
   // Get all images
   router.get('/images', isAuthenticated, async (req, res) => {
