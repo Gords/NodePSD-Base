@@ -1,49 +1,36 @@
-<!-- ////////// COMPONENTS SWITCHBOARD ////////// -->
-
-<!-- ////////// FAQ ACCORDION ////////// -->
-<div id="faq-accordion" class="max-w-6xl mx-auto py-12 z-10">
-  <div class="text-center mb-12">
-    <h2 class="text-2xl font-bold">Preguntas Frecuentes</h2>
-  </div>
+<!-- FAQ Accordion -->
+<section id="faq-accordion" class="max-w-6xl mx-auto py-12 z-10">
+  <h2 class="text-2xl font-bold text-center mb-12">Preguntas Frecuentes</h2>
   <div id="accordion-item-list" class="space-y-4">
-    <!-- FAQ ITEM 1 -->
-    <!-- Details is the item in the list -->
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
-      <!-- Summary is the title of the item in the list -->
-      <summary class="collapse-title text-center text-xl font-bold bg-base-200">
+      <summary class="collapse-title text-xl font-bold bg-base-200 text-center">
         ¿POR QUÉ CRÉDITO FLASH?
       </summary>
       <div class="collapse-content mt-2">
-        <!-- <p> is the body of the content of the item in the list -->
         <p class="text-center">PORQUE TENEMOS LA RESPUESTA MAS INMEDIATA DEL MERCADO, YA QUE CONTAMOS CON UN PROCESO DE
-          APROBACIÓN DE
-          CRÉDITOS
-          100% DIGITAL.</p>
+          APROBACIÓN DE CRÉDITOS 100% DIGITAL.</p>
       </div>
-      <!-- FAQ ITEM 2 -->
     </details>
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
-      <summary class="collapse-title text-center text-xl font-bold">
+      <summary class="collapse-title text-xl font-bold text-center">
         ¿QUÉ DOCUMENTACIÓN NECESITO?
       </summary>
       <div class="collapse-content mt-2">
         <p class="text-center">NECESITÁS COMPROBANTE DE INGRESOS, COMPROBANTE DE DOMICILIO (RECIBOS DE COPACO, ANDE,
-          ESSAP, ETC) Y CÉDULA DE
-          IDENTIDAD.</p>
+          ESSAP, ETC) Y CÉDULA DE IDENTIDAD.</p>
       </div>
     </details>
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl bg-base-200">
-      <summary class="collapse-title text-center text-xl font-bold">
+      <summary class="collapse-title text-xl font-bold text-center">
         ¿CÓMO LO SOLICITO?
       </summary>
       <div class="collapse-content mt-2">
         <p class="text-center">¡ES MUY FÁCIL! PODÉS SOLICITAR TU CREDITO COMPLETANDO EL FORMULARIO DE ARRIBA Y CON SOLO
-          5 DATOS, TE DAMOS EL
-          MONTO HABILITADO.</p>
+          5 DATOS, TE DAMOS EL MONTO HABILITADO.</p>
       </div>
     </details>
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
-      <summary class="collapse-title text-center text-xl font-bold">
+      <summary class="collapse-title text-xl font-bold text-center">
         ¿DÓNDE LO RETIRO?
       </summary>
       <div class="collapse-content mt-2">
@@ -51,163 +38,222 @@
       </div>
     </details>
   </div>
-</div>
+</section>
 
-
-<!-- ////////// LOGIN FORM ////////// -->
-<div id="login-form" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <!-- TODO: replace with Flash Center logo -->
-    <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-      alt="Your Company">
-    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Acceda a su cuenta</h2>
-  </div>
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <div id="login-flash-messages"></div>
-    <form hx-post="/login" hx-target="#main-content" hx-ext="response-targets" class="space-y-6" method="POST">
-      <div>
-        <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Correo electronico</label>
-        <div class="mt-2">
-          <input id="username" name="username" type="email" autocomplete="email" required
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-      <div>
-        <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
-          <div class="text-sm">
-            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Olvidaste tu contraseña?</a>
+<!-- Forms -->
+<section id="forms">
+  <!-- Login Form -->
+  <form id="login-form" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" hx-post="/login"
+    hx-target="#main-content" hx-ext="response-targets">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img class="mx-auto h-10 w-auto" src="./img/logo-blanco.png" alt="Flash Center Logo">
+      <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Acceda a su cuenta</h2>
+    </div>
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div id="login-flash-messages"></div>
+      <div class="space-y-6">
+        <div>
+          <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Correo electronico</label>
+          <div class="mt-2">
+            <input id="username" name="username" type="email" autocomplete="email" required
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
-        <div class="mt-2">
-          <input id="password" name="password" type="password" autocomplete="current-password" required
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
+            <div class="text-sm">
+              <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Olvidaste tu contraseña?</a>
+            </div>
+          </div>
+          <div class="mt-2">
+            <input id="password" name="password" type="password" autocomplete="current-password" required
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+        <div>
+          <button type="submit"
+            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Iniciar
+            sesión</button>
         </div>
       </div>
-      <div>
-        <button type="submit"
-          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Iniciar
-          sesión</button>
-      </div>
-    </form>
-    <p class="mt-10 text-center text-sm text-gray-500">
-      No tienes una cuenta?
-      <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Creala aqui</a>
-    </p>
-  </div>
-</div>
-
-<!-- ////////// REGISTER FORM ////////// -->
-<div id="register-form" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <!-- TODO: replace with Flash Center logo -->
-    <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-      alt="Your Company">
-    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Registre su cuenta</h2>
-  </div>
-
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <div id="register-flash-messages"></div>
-    <form hx-post="/register" hx-target="#main-content" hx-ext="response-targets" class="space-y-6" method="POST">
-      <div>
-        <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
-        <div class="mt-2">
-          <input id="name" name="name" type="text" placeholder="Fulanito" required
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-      <div>
-        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Correo electronico</label>
-        <div class="mt-2">
-          <input id="email" name="email" type="email" autocomplete="email" placeholder="de.tal@email.com" required
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-
-      <div>
-        <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
-        </div>
-        <div class="mt-2">
-          <input id="password" name="password" type="password" autocomplete="current-password" required
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-
-      <div>
-        <button type="submit"
-          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Registrarse</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- ////////// CONTACT FORM ////////// -->
-<div id="contact-form" class="bg-white px-6 py-12 sm:py-12 lg:px-8">
-  <div class="mx-auto max-w-2xl text-center">
-    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contactanos</h2>
-    <p class="mt-2 text-lg leading-8 text-gray-600">Como te podemos ayudar?</p>
-  </div>
-  <form action="#" method="POST" class="mx-auto mt-10 max-w-xl sm:mt-10">
-    <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-      <div>
-        <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">Nombre</label>
-        <div class="mt-2.5">
-          <input type="text" name="first-name" id="first-name" autocomplete="given-name"
-            class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-      <div>
-        <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">Apellido</label>
-        <div class="mt-2.5">
-          <input type="text" name="last-name" id="last-name" autocomplete="family-name"
-            class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-      <div>
-        <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
-        <div class="mt-2.5">
-          <input type="text" name="first-name" id="first-name" autocomplete="given-name"
-            class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-      <div>
-        <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">Telefono</label>
-        <div class="mt-2.5">
-          <input type="text" name="last-name" id="last-name" autocomplete="family-name"
-            class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-      <div class="sm:col-span-2">
-        <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">Mensaje</label>
-        <div class="mt-2.5">
-          <textarea name="message" id="message" rows="4"
-            class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
-        </div>
-      </div>
-    </div>
-    <div class="mt-10">
-      <button type="submit"
-        class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Let's
-        talk</button>
+      <p class="mt-10 text-center text-sm text-gray-500">
+        No tienes una cuenta?
+        <a href="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Creala aqui!</a>
+      </p>
     </div>
   </form>
-</div>
 
-<!-- ////////// CTA SECTION ////////// -->
-<div id="cta-section" class="bg-gray-200 py-16">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="text-center">
-      <h2 class="text-2xl font-bold mb-4">Todavia no sos cliente? Crea tu cuenta en minutos!</h2>
-      <p>Crea tu cuenta de Flash Center y solicita tu prestamo online. Ofrecemos pre-aprobacion en menos de 24 horas</p>
-      <button class="mt-6 px-6 py-2 rounded hover:bg-yellow-400 transition">Solicita tu
-        prestamo</button>
+  <!-- Register Form -->
+  <form id="register-form" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" hx-post="/register"
+    hx-target="#main-content" hx-ext="response-targets">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img class="mx-auto h-10 w-auto" src="./img/logo-color.png" alt="Flash Center Logo">
+      <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Registre su cuenta</h2>
     </div>
-  </div>
-</div>
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div id="register-flash-messages"></div>
+      <div class="space-y-6">
+        <div>
+          <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
+          <div class="mt-2">
+            <input id="name" name="name" type="text" placeholder="Fulanito" required
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Correo electronico</label>
+          <div class="mt-2">
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="de.tal@email.com" required
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
+          </div>
+          <div class="mt-2">
+            <input id="password" name="password" type="password" autocomplete="current-password" required
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+        <div>
+          <button type="submit"
+            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Registrarse</button>
+        </div>
+      </div>
+      <p class="mt-10 text-center text-sm text-gray-500">
+        Ya tienes una cuenta?
+        <a href="/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Inicia sesión aqui!</a>
+      </p>
+    </div>
+  </form>
 
-<!-- ////////// FLASH MESSAGES ////////// -->
+  <!-- Contact Form -->
+  <form id="contact-form" class="bg-white px-6 py-12 sm:py-12 lg:px-8" action="#" method="POST">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contactanos</h2>
+      <p class="mt-2 text-lg leading-8 text-gray-600">Como te podemos ayudar?</p>
+    </div>
+    <div class="mx-auto mt-10 max-w-xl sm:mt-10">
+      <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+        <div>
+          <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">Nombre</label>
+          <div class="mt-2.5">
+            <input type="text" name="first-name" id="first-name" autocomplete="given-name"
+              class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+        <div>
+          <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">Apellido</label>
+          <div class="mt-2.5">
+            <input type="text" name="last-name" id="last-name" autocomplete="family-name"
+              class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
+          <div class="mt-2.5">
+            <input type="email" name="email" id="email" autocomplete="email"
+              class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+        <div>
+          <label for="phone" class="block text-sm font-semibold leading-6 text-gray-900">Telefono</label>
+          <div class="mt-2.5">
+            <input type="tel" name="phone" id="phone" autocomplete="tel"
+              class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">Mensaje</label>
+          <div class="mt-2.5">
+            <textarea name="message" id="message" rows="4"
+              class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="mt-10">
+        <button type="submit"
+          class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Enviar
+          mensaje</button>
+      </div>
+    </div>
+  </form>
+</section>
+
+<!-- CTA Section -->
+<section id="cta-section" class="bg-gray-200 py-16">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h2 class="text-2xl font-bold mb-4">Todavia no sos cliente? Crea tu cuenta en minutos!</h2>
+    <p>Crea tu cuenta de Flash Center y solicita tu prestamo online. Ofrecemos pre-aprobacion en menos de 24 horas</p>
+    <a href="/register"
+      class="mt-6 inline-block px-6 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-500 transition">Solicita tu
+      prestamo</a>
+  </div>
+</section>
+
+<!-- Flash Messages -->
 <div id="flash-messages"></div>
 
-<!-- ////////// FILE INPUT FIELD ////////// -->
+<!-- File Input Field -->
 <input type="file" id="file-input" class="file-input file-input-bordered w-full max-w-xs" />
+
+<nav id="top-navigation" class="navbar bg-fc-blue text-white">
+  <div class="navbar-start">
+    <div class="dropdown">
+      <label tabindex="0" class="btn btn-ghost lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+        </svg>
+      </label>
+      <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 text-white">
+        <li><a href="#home">Inicio</a></li>
+        <li><a href="#services">Servicios</a></li>
+        <li><a href="#faq">Preguntas Frecuentes</a></li>
+        <li><a href="#about">Nosotros</a></li>
+        <li><a href="#contact">Contacto</a></li>
+      </ul>
+    </div>
+    <a href="/" class="btn btn-ghost text-xl">
+      <img src="./img/logo-blanco.png" alt="Flash Center" class="navbar-logo w-80 h-6">
+    </a>
+  </div>
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="#home">Inicio</a></li>
+      <li><a href="#services">Servicios</a></li>
+      <li><a href="#faq">Preguntas Frecuentes</a></li>
+      <li><a href="#about">Nosotros</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+  </div>
+  <div class="navbar-end">
+    <a class="btn" href="/register" hx-get="components.html" hx-select="#register-form" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true" id="registerButton">Registro</a>
+    <a class="btn" href="/login" hx-get="components.html" hx-select="#login-form" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true" id="loginButton">Iniciar sesión</a>
+    <a class="btn" href="/" onclick="logout()" id="logoutButton">Cerrar sesión</a>
+  </div>
+</nav>
+
+<!-- Footer -->
+<nav id="bottom-navigation" class="footer p-10 bg-base-200 text-base-content">
+<div>
+  <img src="./img/logo-blanco.png" alt="Flash Center" class="footer-logo w-80 h-6">
+</div>
+<nav>
+  <h2 class="footer-title">Servicios</h2>
+  <a href="#register" class="link link-hover">Crea tu cuenta</a>
+  <a href="#services" class="link link-hover">Solicita tu credito</a>
+</nav>
+<nav>
+  <h2 class="footer-title">Empresa</h2>
+  <a href="#about" class="link link-hover">Nosotros</a>
+  <a href="#contact" class="link link-hover">Contacto</a>
+  <a href="#careers" class="link link-hover">Unete al equipo</a>
+</nav>
+<nav>
+  <h2 class="footer-title">Legal</h2>
+  <a href="#terms" class="link link-hover">Términos y condiciones</a>
+  <a href="#privacy" class="link link-hover">Políticas de privacidad</a>
+</nav>
+</nav>

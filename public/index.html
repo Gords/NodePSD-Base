@@ -1,114 +1,34 @@
 <!DOCTYPE html>
 <html class="h-full bg-white" data-theme="corporate">
-
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FLASH CENTER</title>
-
   <script src="https://unpkg.com/htmx.org@1.7.0"></script>
   <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
-  <script src="./js/verifyEmailMessage.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-    rel="stylesheet">
-
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
   <link href="./css/output.css" rel="stylesheet">
-
 </head>
-
 <body class="h-full flex flex-col min-h-screen">
-
   <header>
-
-    <div class="navbar bg-fc-blue text-white">
-      <!-- Responsive Burger Menu -->
-      <div class="navbar-start">
-        <div class="dropdown">
-          <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
-            </svg>
-          </div>
-          <ul tabindex="0"
-            class="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 text-white">
-            <li><a href="/home" hx-get="home.html" hx-select="#alternate-hero" hx-target="#main-content"
-                hx-swap="innerHTML" hx-push-url="true">Inicio</a></li>
-            <li><a href="/services" hx-get="services.html" hx-target="#main-content">Servicios</a></li>
-            <li><a href="/faq" hx-get="components.html" hx-select="#faq-accordion" hx-target="#main-content"
-                hx-swap="innerHTML" hx-push-url="true">Preguntas Frecuentes</a></li>
-            <li><a href="/about" hx-get="about.html" hx-target="#main-content" hx-swap="innerHTML"
-                hx-push-url="true">Nosotros</a>
-            </li>
-            <li><a href="/contact" hx-get="components.html" hx-select="#contact-form" hx-target="#main-content"
-                hx-swap="innerHTML" hx-push-url="true">Contacto</a></li>
-            <li>
-          </ul>
-        </div>
-        <a href="/" class="btn btn-ghost text-xl">
-          <img src="./img/logo-blanco.png" alt="Flash Center" class="navbar-logo w-80 h-6">
-        </a>
-      </div>
-      <!-- Main Navbar -->
-      <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-          <li><a href="/images" hx-get="/images" hx-target="#main-content" id="fileList">Imágenes</a></li>
-          <li><a href="/users" hx-get="/users" hx-target="#main-content" id="userList">Lista Usuarios</a></li>
-          <li><a href="/home" hx-get="home.html" hx-select="#alternate-hero" hx-target="#main-content"
-              hx-swap="innerHTML" hx-push-url="true">Inicio</a></li>
-          <li><a href="/services" hx-get="services.html" hx-target="#main-content">Servicios</a></li>
-          <li><a href="/faq" hx-get="components.html" hx-select="#faq-accordion" hx-target="#main-content"
-              hx-swap="innerHTML" hx-push-url="true">Preguntas Frecuentes</a></li>
-          <li><a href="/about" hx-get="about.html" hx-target="#main-content" hx-swap="innerHTML"
-              hx-push-url="true">Nosotros</a></li>
-          <li><a href="/contact" hx-get="components.html" hx-select="#contact-form" hx-target="#main-content"
-              hx-swap="innerHTML" hx-push-url="true">Contacto</a></li>
-          <li>
-        </ul>
-      </div>
-      <div class="navbar-end">
-        <a class="btn" href="/register" hx-get="components.html" hx-select="#register-form" hx-target="#main-content"
-          hx-swap="innerHTML" hx-push-url="true" id="registerButton">Registro</a>
-        <a class="btn" href="/login" hx-get="components.html" hx-select="#login-form" hx-target="#main-content"
-          hx-swap="innerHTML" hx-push-url="true" id="loginButton">Iniciar sesión</a>
-        <a class="btn" href="/" hx-get="/" onclick="logout()" hx-target="#main-content" id="logoutButton">Cerrar
-          sesión</a>
-      </div>
-    </div>
-
+    <nav hx-get="components.html" hx-select="#top-navigation" hx-trigger="load"></nav>
   </header>
 
   <main class="flex-grow py-16" id="main-content">
-    <!-- main-content-placeholder -->
+    <!-- Preload the content for each section -->
+    <section id="home" hx-trigger="load" hx-get="home.html" hx-select="#alternate-hero" hx-swap="afterbegin" hx-push-url="true"></section>
+    <section id="services" hx-trigger="load" hx-get="services.html" hx-swap="afterbegin" hx-push-url="true"></section>
+    <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion" hx-swap="afterbegin" hx-push-url="true"></section>
+    <section id="about" hx-trigger="load" hx-get="about.html" hx-swap="afterbegin" hx-push-url="true"></section>
+    <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form" hx-swap="afterbegin" hx-push-url="true"></section>
   </main>
 
-  <footer class="footer p-10 bg-base-200 text-base-content">
-    <aside>
-      <img src="./img/logo-color.png" alt="Flash Center" class="footer-logo w-80 h-6">
-    </aside>
-    <nav>
-      <h6 class="footer-title">Servicios</h6>
-      <a class="link link-hover">Crea tu cuenta</a>
-      <a class="link link-hover">Solicita tu credito</a>
-    </nav>
-    <nav>
-      <h6 class="footer-title">Empresa</h6>
-      <a class="link link-hover">Nosotros</a>
-      <a class="link link-hover">Contacto</a>
-      <a class="link link-hover">Unete al equipo</a>
-    </nav>
-    <nav>
-      <h6 class="footer-title">Legal</h6>
-      <a class="link link-hover">Términos y condiciones</a>
-      <a class="link link-hover">Políticas de privacidad</a>
-    </nav>
+  <footer>
+    <nav hx-get="components.html" hx-select="#bottom-navigation" hx-trigger="load"></nav>
   </footer>
 
   <script src="js/login.js"></script>
-
+  <script src="./js/verifyEmailMessage.js"></script>
 </body>
-
 </html>
