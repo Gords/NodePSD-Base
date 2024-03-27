@@ -9,49 +9,50 @@
 
   <script src="https://unpkg.com/htmx.org@1.7.0"></script>
   <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
-  <script src="./js/verifyEmailMessage.js"></script>
+
+  <script src="./js/fileUpload.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
     rel="stylesheet">
 
+  <!-- <link href="./css/fileUpload.css" rel="stylesheet"> -->
   <link href="./css/output.css" rel="stylesheet">
 
 </head>
 
 <body>
-  <div class="p-6">
-    <div class="mx-auto">
-      <div class="flex flex-col">
+  <div class="flex items-center justify-center min-h-screen">
+    <div class="text-center">
+      <div class="mb-6">
         <div class="font-semibold text-lg">Nombre Usuario</div>
         <div class="text-sm">email.del@usuario.com</div>
       </div>
+      <div class="mb-6">
+        <h3 class="font-semibold text-lg mb-2">Archivos personales</h3>
+        <ul class="list-none">
+          <li class="mb-2">archivo1.pdf<button class="btn btn-neutral text-white text-sm">Descargar</button> </li>
+          <li class="mb-2">archivo2.pdf<button class="btn btn-neutral text-white text-sm">Descargar</button> </li>
+          <li class="mb-2">archivo3.pdf<button class="btn btn-neutral text-white text-sm">Descargar</button> </li>
+        </ul>
+      </div>
+      <!-- File Upload section -->
+      <div class="mb-6">
+        <h3 class="font-semibold text-lg mb-2">Sube un archivo o arrastralo aqui</h3>
+        <!-- ni idea, random MB amount limit -->
+        <p class="text-sm text-gray-500 mb-3">Puedes cargar archivos de hasta 25MB.</p>
+        <div id="drop-area">
+          <form class="dropfile-form">
+            <input type="file" id="fileElem" multiple accept="image/jpeg, image/png, application/pdf">
+            <label class="dropfile-sendbutton" for="fileElem"><i class="fas fa-file-upload"></i> Seleccionar
+              archivos</label>
+          </form>
+          <div id="file-list"></div>
+          <button type="button" id="dropfileSubmitBtn" disabled><i class="fas fa-paper-plane"></i> Enviar
+            Archivos</button>
+        </div>
+      </div>
     </div>
-    <div class="mb-6">
-      <h3 class="font-semibold text-lg mb-2">Archivos personales</h3>
-      <ul>
-        <li class="flex items-center mb-2">
-          <div>archivo1.pdf/div>
-            <button class="btn btn-neutral text-white text-sm">Descargar</button>
-        </li>
-        <li class="flex items-center mb-2">
-          <div>archivo2.jpg</div>
-          <button class="btn btn-neutral text-white text-sm">Descargar</button>
-        </li>
-        <li class="flex items-center mb-2">
-          <div>archivo3.png</div>
-          <button class="btn btn-neutral text-white text-sm">Descargar</button>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <h3 class="font-semibold text-lg mb-2">Subir un archivo</h3>
-      <!-- ni idea, random MB amount limit -->
-      <p class="text-sm text-gray-500 mb-3">Puedes cargar archivos de hasta 25MB.</p>
-      <!-- is the language of the input based  on the browser? -->
-      <input type="file" class="file-input file-input-bordered w-full max-w-xs" />
-    </div>
-  </div>
 
 
 

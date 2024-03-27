@@ -1200,6 +1200,16 @@ select {
     opacity: 1;
   }
 
+  .btm-nav > *.disabled:hover,
+      .btm-nav > *[disabled]:hover {
+    pointer-events: none;
+    --tw-border-opacity: 0;
+    background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
+    --tw-bg-opacity: 0.1;
+    color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
+    --tw-text-opacity: 0.2;
+  }
+
   .btn:hover {
     --tw-border-opacity: 1;
     border-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-border-opacity)));
@@ -1568,6 +1578,16 @@ select {
   border-color: transparent;
   --tw-bg-opacity: 1;
   background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
+}
+
+.btm-nav > *.disabled,
+    .btm-nav > *[disabled] {
+  pointer-events: none;
+  --tw-border-opacity: 0;
+  background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
+  --tw-bg-opacity: 0.1;
+  color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
+  --tw-text-opacity: 0.2;
 }
 
 .btm-nav > * .label {
@@ -2298,10 +2318,6 @@ details.collapse summary::-webkit-details-marker {
   margin-bottom: 2rem;
 }
 
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
 .mt-10 {
   margin-top: 2.5rem;
 }
@@ -2406,6 +2422,10 @@ details.collapse summary::-webkit-details-marker {
   flex-grow: 1;
 }
 
+.list-none {
+  list-style-type: none;
+}
+
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
@@ -2482,11 +2502,6 @@ details.collapse summary::-webkit-details-marker {
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
-.bg-gray-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-}
-
 .bg-indigo-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
@@ -2507,10 +2522,6 @@ details.collapse summary::-webkit-details-marker {
 
 .p-2 {
   padding: 0.5rem;
-}
-
-.p-6 {
-  padding: 1.5rem;
 }
 
 .px-1 {
@@ -2575,6 +2586,10 @@ details.collapse summary::-webkit-details-marker {
 
 .pb-5 {
   padding-bottom: 1.25rem;
+}
+
+.pl-5 {
+  padding-left: 1.25rem;
 }
 
 .pt-5 {
@@ -2740,6 +2755,184 @@ html {
   background-color: rgb(29 36 60 / var(--tw-bg-opacity));
 }
 
+#drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  width: 580px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #6e48aa, #9d50bb);
+  color: #fff;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+}
+
+#drop-area:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  background: linear-gradient(145deg, #9d50bb, #6e48aa);
+  border-radius: 21px;
+  transition: all 0.4s ease;
+}
+
+#drop-area.highlight {
+  border-color: #fff;
+  background: linear-gradient(145deg, #ff416c, #ff4b2b);
+}
+
+.dropfile-form {
+  text-align: center;
+  width: 100%;
+}
+
+.dropfile-sendbutton, #dropfileSubmitBtn {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #fff;
+  font-weight: bold;
+}
+
+#dropfileSubmitBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+#file-list {
+  margin-top: 10px;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.file-list-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.file-list-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.remove-file {
+  color: #ff4b2b;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.remove-file:hover {
+  color: #ff416c;
+}
+
+#fileElem{
+  display: none;
+}
+
+#drop-area {
+  background: #283048;
+  /* Fondo oscuro para resaltar los colores */
+  border: 2px dashed #1abc9c;
+  /* Borde más llamativo */
+  border-radius: 20px;
+  width: 100%;
+  /* Adaptabilidad al ancho del contenedor */
+  max-width: 580px;
+  /* Máximo ancho para no perder forma */
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.4s, border-color 0.4s;
+  /* Suaviza las transiciones */
+}
+
+/* Mejoras en la interactividad al arrastrar archivos */
+
+#drop-area.highlight {
+  background: #34495e;
+  /* Fondo más claro al arrastrar archivos */
+  border-color: #9b59b6;
+  /* Borde resaltado */
+}
+
+/* Mejoras visuales en los botones y su interactividad */
+
+.dropfile-sendbutton, #dropfileSubmitBtn {
+  background-color: #9b59b6;
+  /* Color principal más vibrante */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dropfile-sendbutton:hover, #dropfileSubmitBtn:not(:disabled):hover {
+  background-color: #8e44ad;
+  /* Oscurecimiento al pasar el mouse */
+}
+
+#dropfileSubmitBtn:disabled {
+  background-color: #bdc3c7;
+  /* Gris para denotar inactividad */
+}
+
+/* Mejoras en la lista de archivos para una mejor legibilidad y estética */
+
+.file-list-item {
+  background: rgba(255, 255, 255, 0.05);
+  /* Sutil transparencia para no saturar */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Borde casi invisible */
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.file-list-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  /* Ligeramente más visible al pasar el mouse */
+}
+
+/* Estilos específicos para iconos y botones dentro de la lista de archivos */
+
+.remove-file {
+  color: #e74c3c;
+  /* Color más alerta para la acción de eliminar */
+}
+
+.remove-file:hover {
+  color: #c0392b;
+  /* Oscurecimiento al pasar el mouse */
+}
+
 .placeholder\:text-gray-400::-moz-placeholder {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
@@ -2748,11 +2941,6 @@ html {
 .placeholder\:text-gray-400::placeholder {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
-}
-
-.hover\:bg-gray-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-indigo-500:hover {
@@ -2768,16 +2956,6 @@ html {
 .hover\:text-indigo-500:hover {
   --tw-text-opacity: 1;
   color: rgb(99 102 241 / var(--tw-text-opacity));
-}
-
-.focus\:bg-gray-700:focus {
-  --tw-bg-opacity: 1;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
-}
-
-.focus\:outline-none:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
 }
 
 .focus\:ring-2:focus {
