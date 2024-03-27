@@ -15,10 +15,16 @@ fetch('/images/user-images')
   .then(images => {
     const fileList = document.getElementById('file-name-display');
     fileList.innerHTML = ''; // Clear existing entries
-    images.forEach(image => {
+    if (images.length === 0) {
       const li = document.createElement('li');
-      li.textContent = image.fileName;
+      li.textContent = 'No files found';
       fileList.appendChild(li);
-    });
+    } else {
+      images.forEach(image => {
+        const li = document.createElement('li');
+        li.textContent = image.fileName;
+        fileList.appendChild(li);
+      });
+    }
   })
   .catch(error => console.error('Error fetching user images:', error));
