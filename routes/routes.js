@@ -129,6 +129,7 @@ module.exports = (User, Image) => {
     });
   });
 
+  // Get a single user
   router.get('/current-user', (req, res) => {
     if (req.isAuthenticated()) {
       return res.json({
@@ -234,6 +235,23 @@ module.exports = (User, Image) => {
       res.status(500).redirect('/');
     }
   });
+
+  // Get all images for the currently authenticated user
+router.get('/images/user-images', isAuthenticated, async (req, res) => {
+  try {
+    const images = await Image.findAll({ where: { userId: req.user.id } });
+    const imageDetails = images.map(image => ({
+      id: image.id,
+      userId: image.userId,
+      fileName: path.basename(image.path)
+    }));
+    res.json(imageDetails);
+  } catch (error) {
+    console.error('Error fetching user images:', error);
+    res.status(500).json([{ error: 'Error fetching user images' }]);
+  }
+});
+  
 
   return router;
 };

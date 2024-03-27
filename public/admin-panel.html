@@ -11,7 +11,7 @@
   <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
 
   <script src="./js/fileUpload.js"></script>
-  <script src="./js/adminPanel.js"></script>
+  <script src="./js/fetchLoggedUserData.js"></script>
   <script src="./js/login.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,12 +31,10 @@
         <div id="user-name" class="font-semibold text-lg">Nombre Usuario</div>
         <div id="user-email" class="text-sm">email.del@usuario.com</div>
       </div>
-      <div class="mb-6">
+      <div id="user-files" class="mb-6">
         <h3 class="font-semibold text-lg mb-2">Archivos personales</h3>
-        <ul class="list-none">
-          <li class="mb-2">archivo1.pdf<button class="btn btn-neutral text-white text-sm">Descargar</button> </li>
-          <li class="mb-2">archivo2.pdf<button class="btn btn-neutral text-white text-sm">Descargar</button> </li>
-          <li class="mb-2">archivo3.pdf<button class="btn btn-neutral text-white text-sm">Descargar</button> </li>
+        <ul id="file-name-display" class="list-none">
+          <!-- Files will be listed here -->
         </ul>
       </div>
       <!-- File Upload section -->
