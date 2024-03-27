@@ -99,9 +99,14 @@ module.exports = (User, Image) => {
       'login-flash-messages': {
         success: '<div class="alert alert-success">Login successful</div>'
       },
-      'main-content': 'index.html'
+      'main-content': 'index.html',
+      'user': {
+        name: user.name,
+        email: user.email
+      }
     });
   });
+
 
   // Get login form section
   router.get('/login', (req, res) => {
@@ -124,6 +129,17 @@ module.exports = (User, Image) => {
     });
   });
 
+  router.get('/current-user', (req, res) => {
+    if (req.isAuthenticated()) {
+      return res.json({
+        name: req.user.name,
+        email: req.user.email
+      });
+    } else {
+      res.status(401).json({ error: 'Not logged in' });
+    }
+  })
+  
   // Get all users
   router.get('/users', isAuthenticated, async (req, res) => {
     try {

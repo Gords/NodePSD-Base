@@ -6,21 +6,21 @@ document.addEventListener('DOMContentLoaded', function () {
   const userList = document.querySelector('#userList')
   const fileList = document.querySelector('#fileList')
 
-  function updateUI() {
-  if (loggedIn === 'true') {
-    registerButton.style.display = 'none'
-    loginButton.style.display = 'none'
-    logoutButton.style.display = 'inline-flex'
-    userList.style.display = 'block'
-    fileList.style.display = 'block'
-  } else {
-    registerButton.style.display = 'inline-flex'
-    loginButton.style.display = 'inline-flex'
-    logoutButton.style.display = 'none'
-    userList.style.display = 'none'
-    fileList.style.display = 'none'
+  function updateUI () {
+    if (loggedIn === 'true') {
+      registerButton.style.display = 'none'
+      loginButton.style.display = 'none'
+      logoutButton.style.display = 'inline-flex'
+      userList.style.display = 'block'
+      fileList.style.display = 'block'
+    } else {
+      registerButton.style.display = 'inline-flex'
+      loginButton.style.display = 'inline-flex'
+      logoutButton.style.display = 'none'
+      userList.style.display = 'none'
+      fileList.style.display = 'none'
+    }
   }
-}
 
   updateUI()
 
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 // Logout function
-function logout() {
+function logout () {
   localStorage.removeItem('loggedIn')
   window.location.reload()
 }

@@ -55,10 +55,14 @@ passport.use(new LocalStrategy(
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
-  done(null, user.id)
+  done(null, {
+    id: user.id,
+    name: user.name,
+    email: user.email
+  })
 })
 
-passport.deserializeUser(async (id, done) => {
+passport.deserializeUser(async ({ id }, done) => {
   try {
     const user = await User.findByPk(id)
     done(null, user)
