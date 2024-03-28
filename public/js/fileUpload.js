@@ -84,20 +84,22 @@ document.addEventListener('DOMContentLoaded', function () {
     handleFiles(this.files)
   })
 
+  // Drag and drop functionality and styling
+  // Why the heck is the color being manipulated here?
   const dropArea = document.getElementById('drop-area')
   dropArea.addEventListener('dragover', function (e) {
     e.preventDefault()
-    gsap.to('#drop-area', { borderColor: '#007bff', background: '#e9f5ff', duration: 0.2 })
+    gsap.to('#drop-area', { borderColor: '#ccc', background: '#3a4669', duration: 0.2 })
   })
   dropArea.addEventListener('dragleave', function (e) {
     e.preventDefault()
-    gsap.to('#drop-area', { borderColor: '#007bff', background: '#fff', duration: 0.2 })
+    gsap.to('#drop-area', { borderColor: '#ccc', background: '#3a4669', duration: 0.2 }) 
   })
   dropArea.addEventListener('drop', function (e) {
     e.preventDefault()
     const files = e.dataTransfer.files
     handleFiles(files)
-    gsap.to('#drop-area', { borderColor: '#ccc', background: '#fff', duration: 0.2 })
+    gsap.to('#drop-area', { borderColor: '#ccc', background: '#283048', duration: 0.2 })
   })
 })
 

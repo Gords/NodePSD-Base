@@ -95,7 +95,7 @@
 
 #drop-area {
     background: #283048; /* Fondo oscuro para resaltar los colores */
-    border: 2px dashed #1abc9c; /* Borde más llamativo */
+    border: 2px dashed #ccc; /* Borde más llamativo */
     border-radius: 20px;
     width: 100%; /* Adaptabilidad al ancho del contenedor */
     max-width: 580px; /* Máximo ancho para no perder forma */
