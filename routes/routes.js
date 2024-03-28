@@ -269,19 +269,26 @@ module.exports = (User, Image) => {
   })
 
   // Delete an image
-  router.delete('/images/user-images', isAuthenticated, async (req, res) => {
+  router.delete('/images/:imageId', isAuthenticated, async (req, res) => {
     try {
-      const image = await Image.findByPk(req.params.id)
+      const { imageId } = req.params
+      const image = await Image.findByPk(imageId)
       if (!image) {
         req.flash('error', 'Image not found')
         return res.status(404).send('Image not found')
       }
       // Delete the image file from the file system
-      await fs.promises.unlink(image.path)
+      if (image.path) {
+        await fs.promises.unlink(image.path)
+      } else {
+        console.error('Error: image.path is undefined')
+        req.flash('error', 'Error deleting image file')
+        return res.status(500).send('Error deleting image file')
+      }
       // Delete the image record from the database
       await image.destroy()
       req.flash('success', 'Image deleted successfully')
-      res.sendStatus(204)
+      res.status(204).send('Image deleted successfully')
     } catch (error) {
       console.error('Error deleting image:', error)
       req.flash('error', 'Error deleting image')

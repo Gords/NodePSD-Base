@@ -69,16 +69,51 @@ fetch('/images/user-images')
   .then(images => {
     const fileList = document.getElementById('file-name-display')
     fileList.innerHTML = '' // Clear existing entries
+
     if (images.length === 0) {
       const li = document.createElement('li')
       li.textContent = 'No files found'
       fileList.appendChild(li)
     } else {
       images.forEach(image => {
-        const li = document.createElement('li')
-        li.textContent = image.fileName
-        fileList.appendChild(li)
+        const li = document.createElement('li');
+        const deleteIconSVG = `<svg onclick="confirmDelete(${image.id})" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
+        li.innerHTML = `${image.fileName} ${deleteIconSVG}`;
+        fileList.appendChild(li);
       })
     }
   })
   .catch(error => console.error('Error fetching user images:', error))
+
+// Delete image confirmation
+function confirmDelete(imageId) {
+  const confirmDeletion = confirm('Are you sure you want to delete this file?');
+  if (confirmDeletion) {
+    deleteImage(imageId);
+  }
+}
+
+// Delete image
+function deleteImage(imageId) {
+  fetch(`/images/${imageId}`, {
+    method: 'DELETE',
+    credentials: 'include', // Send some cookies with the request if needed for authentication
+  })
+  .then(response => {
+    if (response.ok) {
+      alert('File deleted successfully');
+      // Refresh the list of files
+      window.location.reload();
+    } else {
+      alert('Error deleting file');
+    }
+  })
+  .catch(error => console.error('Error deleting file:', error));
+}
+
+
+// Update the file list whenever the content of user-files changes
+document.getElementById('file-name-display').addEventListener('change', function() {
+  updateFileList();
+});

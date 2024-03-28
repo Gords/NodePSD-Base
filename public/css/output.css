@@ -2737,6 +2737,10 @@ html {
   background-color: rgb(29 36 60 / var(--tw-bg-opacity));
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .placeholder\:text-gray-400::-moz-placeholder {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));

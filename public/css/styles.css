@@ -25,3 +25,7 @@ html {
   background-color: rgb(29 36 60 / var(--tw-bg-opacity));
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
