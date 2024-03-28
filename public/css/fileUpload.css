@@ -57,14 +57,14 @@
     cursor: default;
 }
 
-#file-list {
+#file-upload-list {
     margin-top: 10px;
     width: 100%;
     max-height: 200px;
     overflow-y: auto;
 }
 
-.file-list-item {
+.file-upload-list-item {
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
@@ -74,7 +74,7 @@
     transition: background 0.3s ease;
 }
 
-.file-list-item:hover {
+.file-upload-list-item:hover {
     background: rgba(255, 255, 255, 0.2);
 }
 
@@ -134,7 +134,7 @@
 }
 
 /* Mejoras en la lista de archivos para una mejor legibilidad y estética */
-.file-list-item {
+.file-upload-list-item {
     background: rgba(255, 255, 255, 0.05); /* Sutil transparencia para no saturar */
     border: 1px solid rgba(255, 255, 255, 0.1); /* Borde casi invisible */
     border-radius: 5px;
@@ -146,7 +146,7 @@
     transition: all 0.3s ease;
 }
 
-.file-list-item:hover {
+.file-upload-list-item:hover {
     background: rgba(255, 255, 255, 0.1); /* Ligeramente más visible al pasar el mouse */
 }
 

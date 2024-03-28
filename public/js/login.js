@@ -111,9 +111,3 @@ function deleteImage(imageId) {
   })
   .catch(error => console.error('Error deleting file:', error));
 }
-
-
-// Update the file list whenever the content of user-files changes
-document.getElementById('file-name-display').addEventListener('change', function() {
-  updateFileList();
-});
