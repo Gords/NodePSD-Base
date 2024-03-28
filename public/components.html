@@ -44,7 +44,7 @@
 <section id="forms">
   <!-- Login Form -->
   <form id="login-form" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" hx-post="/login"
-    hx-target="#main-content" hx-ext="response-targets">
+    hx-target="#sign-in-content" hx-ext="response-targets">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" src="./img/logo-blanco.png" alt="Flash Center Logo">
       <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Acceda a su cuenta</h2>
@@ -86,7 +86,7 @@
 
   <!-- Register Form -->
   <form id="register-form" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" hx-post="/register"
-    hx-target="#main-content" hx-ext="response-targets">
+    hx-target="#register-content" hx-ext="response-targets">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" src="./img/logo-color.png" alt="Flash Center Logo">
       <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Registre su cuenta</h2>
@@ -208,11 +208,11 @@
         </svg>
       </label>
       <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 text-white">
-        <li><a href="#home">Inicio</a></li>
-        <li><a href="#services">Servicios</a></li>
-        <li><a href="#faq">Preguntas Frecuentes</a></li>
-        <li><a href="#about">Nosotros</a></li>
-        <li><a href="#contact">Contacto</a></li>
+        <li><a href="#home" onclick="showContent('spa-content')">Inicio</a></li>
+        <li><a href="#services" onclick="showContent('spa-content')">Servicios</a></li>
+        <li><a href="#faq" onclick="showContent('spa-content')">Preguntas Frecuentes</a></li>
+        <li><a href="#about" onclick="showContent('spa-content')">Nosotros</a></li>
+        <li><a href="#contact" onclick="showContent('spa-content')">Contacto</a></li>
       </ul>
     </div>
     <a href="/" class="btn btn-ghost text-xl">
@@ -221,16 +221,16 @@
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
-      <li><a href="#home">Inicio</a></li>
-      <li><a href="#services">Servicios</a></li>
-      <li><a href="#faq">Preguntas Frecuentes</a></li>
-      <li><a href="#about">Nosotros</a></li>
-      <li><a href="#contact">Contacto</a></li>
+      <li><a href="#home" onclick="showContent('spa-content')">Inicio</a></li>
+      <li><a href="#services" onclick="showContent('spa-content')">Servicios</a></li>
+      <li><a href="#faq" onclick="showContent('spa-content')">Preguntas Frecuentes</a></li>
+      <li><a href="#about" onclick="showContent('spa-content')">Nosotros</a></li>
+      <li><a href="#contact" onclick="showContent('spa-content')">Contacto</a></li>
     </ul>
   </div>
   <div class="navbar-end">
-    <a class="btn" href="/register" hx-get="components.html" hx-select="#register-form" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true" id="registerButton">Registro</a>
-    <a class="btn" href="/login" hx-get="components.html" hx-select="#login-form" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true" id="loginButton">Iniciar sesión</a>
+    <a class="btn" id="registerButton" href="#register" onclick="showContent('sign-up-content')">Registro</a>
+    <a class="btn" id="loginButton" href="#login" onclick="showContent('sign-in-content')">Iniciar sesión</a>
     <a class="btn" href="/" onclick="logout()" id="logoutButton">Cerrar sesión</a>
   </div>
 </nav>
@@ -256,4 +256,4 @@
   <a href="#terms" class="link link-hover">Términos y condiciones</a>
   <a href="#privacy" class="link link-hover">Políticas de privacidad</a>
 </nav>
-</nav>
+</nav> 

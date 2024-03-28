@@ -2695,6 +2695,10 @@ section {
   padding-top: 80px;
 }
 
+#sign-up-content, #sign-in-content {
+  display: none;
+}
+
 .placeholder\:text-gray-400::-moz-placeholder {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
