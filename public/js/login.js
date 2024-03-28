@@ -52,7 +52,6 @@ function logout () {
 // Attach the logout function to the window object
 window.logout = logout
 
-
 // Fetch user details
 fetch('/check-login').then(response => {
   if (!response.ok) {
@@ -64,24 +63,22 @@ fetch('/check-login').then(response => {
   document.getElementById('user-email').textContent = user.email
 }).catch(error => console.error('Error fetching user data:', error)).catch(error => console.error('Error fetching user data:', error))
 
-
 // Fetch user files
 fetch('/images/user-images')
   .then(response => response.json())
   .then(images => {
-    const fileList = document.getElementById('file-name-display');
-    fileList.innerHTML = ''; // Clear existing entries
+    const fileList = document.getElementById('file-name-display')
+    fileList.innerHTML = '' // Clear existing entries
     if (images.length === 0) {
-      const li = document.createElement('li');
-      li.textContent = 'No files found';
-      fileList.appendChild(li);
+      const li = document.createElement('li')
+      li.textContent = 'No files found'
+      fileList.appendChild(li)
     } else {
       images.forEach(image => {
-        const li = document.createElement('li');
-        li.textContent = image.fileName;
-        fileList.appendChild(li);
-      });
+        const li = document.createElement('li')
+        li.textContent = image.fileName
+        fileList.appendChild(li)
+      })
     }
   })
-  .catch(error => console.error('Error fetching user images:', error));
-
+  .catch(error => console.error('Error fetching user images:', error))

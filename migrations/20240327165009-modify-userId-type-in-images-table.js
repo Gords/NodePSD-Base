@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -7,8 +7,8 @@ module.exports = {
       await queryInterface.sequelize.query(
         'ALTER TABLE "Images" ALTER COLUMN "userId" TYPE INTEGER USING "userId"::integer;',
         { transaction }
-      );
-    });
+      )
+    })
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -17,7 +17,7 @@ module.exports = {
       await queryInterface.sequelize.query(
         'ALTER TABLE "Images" ALTER COLUMN "userId" TYPE CHARACTER VARYING USING "userId"::text;',
         { transaction }
-      );
-    });
+      )
+    })
   }
-};
+}

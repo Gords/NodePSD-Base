@@ -42,7 +42,7 @@ passport.use(new LocalStrategy(
       if (!user) {
         return done(null, false, { message: 'Incorrect username' })
       }
-      const isPasswordValid = await bcrypt.compare(password, user.password);
+      const isPasswordValid = await bcrypt.compare(password, user.password)
       if (!isPasswordValid) {
         return done(null, false, { message: 'Incorrect password' })
       }
@@ -51,7 +51,7 @@ passport.use(new LocalStrategy(
       return done(error)
     }
   }
-));
+))
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {

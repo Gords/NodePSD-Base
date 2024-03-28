@@ -1,5 +1,10 @@
+// File Upload with Drag and Drop
+
+// Global access to fileList
+let fileList = [];
+
+// 1. File selection and validation
 document.addEventListener('DOMContentLoaded', function () {
-  const fileList = []
   const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf']
 
   function handleFiles (files) {
@@ -11,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateFileList()
   }
 
+  // 2. Updating the file list display
   function updateFileList () {
     const fileListElement = document.getElementById('file-list')
     fileListElement.innerHTML = ''
@@ -66,21 +72,26 @@ document.addEventListener('DOMContentLoaded', function () {
 // Upload file(s) button
 document.getElementById('dropfileSubmitBtn').addEventListener('click', async () => {
   const formData = new FormData();
-
-  for (let i = 0; i < fileList.length; i++) {
-    formData.append('file', fileList[i]);
-  }
-
-  const response = await fetch('/images', {
-    method: 'POST',
-    body: formData
+  fileList.forEach(file => {
+    formData.append('files', file); // Use 'files' to match the backend if it expects an array
   });
 
-  if (response.ok) {
-    console.log('Files uploaded successfully');
-    fileList = []; // Clear the file list
-    updateFileList(); // Update the file list display
-  } else {
-    console.error('Error uploading files');
+  try {
+    const response = await fetch('/images', {
+      method: 'POST',
+      body: formData,
+      credentials: 'same-origin' // Ensure cookies for session are sent with the request
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      console.log('Files uploaded successfully', result);
+      fileList.length = 0; // Clear the file list
+      updateFileList(); // Update the UI
+    } else {
+      throw new Error('Network response was not ok.');
+    }
+  } catch (error) {
+    console.error('Error uploading files:', error);
   }
 });

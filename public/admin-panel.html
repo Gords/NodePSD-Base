@@ -10,8 +10,7 @@
   <script src="https://unpkg.com/htmx.org@1.7.0"></script>
   <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
 
-  <script src="./js/fileUpload.js"></script>
-  <script src="./js/fetchLoggedUserData.js"></script>
+  <script src="./js/fileUpload.js" defer></script>
   <script src="./js/login.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,22 +37,22 @@
         </ul>
       </div>
       <!-- File Upload section -->
-      <div class="mb-6">
+      <div id="drop-area" class="mb-6">
         <h3 class="font-semibold text-lg mb-2">Sube un archivo o arrastralo aqui</h3>
         <!-- ni idea, random MB amount limit -->
-        <p class="text-sm text-gray-500 mb-3">Puedes cargar archivos de hasta 25MB.</p>
-        <div id="drop-area">
-          <form class="dropfile-form">
-            <input type="file" id="fileElem" multiple accept="image/jpeg, image/png, application/pdf">
-            <label class="dropfile-sendbutton" for="fileElem"><i class="fas fa-file-upload"></i> Seleccionar
-              archivos</label>
-          </form>
-          <div id="file-list"></div>
-          <button type="button" id="dropfileSubmitBtn" disabled><i class="fas fa-paper-plane"></i> Enviar
-            Archivos</button>
-        </div>
+        <p class="text-sm text-gray-500 mb-3">Puedes cargar hasta 4 archivos de hasta 25MB cada uno</p>
+        <form class="dropfile-form">
+          <input type="file" id="fileElem" multiple accept="image/jpeg, image/png, application/pdf">
+          <label class="dropfile-sendbutton" for="fileElem"><i class="fas fa-file-upload"></i> Seleccionar
+            archivos</label>
+        </form>
+        <!-- Display list of selected files -->
+        <div id="file-list"></div>
+        <button type="button" id="dropfileSubmitBtn" disabled><i class="fas fa-paper-plane"></i> Enviar
+          Archivos</button>
       </div>
     </div>
+  </div>
 
 
 
