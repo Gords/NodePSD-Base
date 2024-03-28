@@ -3,6 +3,10 @@ const router = express.Router();
 const multer = require('multer');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const emailService = require('../services/emailService');
+const path = require('path');
+const fs = require('fs');
 
 // Configure Multer storage
 const storage = multer.diskStorage({
@@ -32,13 +36,46 @@ module.exports = (User, Image) => {
     try {
       const { email, password, name } = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
-      await User.create({ email, password: hashedPassword, name });
-      req.flash('success', 'User registered successfully');
-      res.json({ 'register-flash-messages': { success: '<div class="alert alert-success">User registered successfully</div>' } });
+      const user = await User.create({ email, password: hashedPassword, name, isVerified: false });
+
+      // Generate verification token
+      const verificationToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+      // Send verification email
+      await emailService.sendVerificationEmail(email, verificationToken);
+
+      req.flash('success', 'User registered successfully. Please check your email to verify your account.');
+      res.json({ 'register-flash-messages': { success: '<div class="alert alert-success">User registered successfully. Please check your email to verify your account.</div>' } });
     } catch (error) {
       console.error('Error registering user:', error);
       req.flash('error', 'Error registering user');
       res.status(500).json({ 'register-flash-messages': { error: '<div class="alert alert-error">Error registering user</div>' } });
+    }
+  });
+
+  // verify email
+  router.get('/verify-email', async (req, res) => {
+    const { token } = req.query;
+
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decoded.userId;
+
+      const user = await User.findByPk(userId);
+      if (!user) {
+        req.flash('error', 'Invalid verification token');
+        return res.redirect('/login');
+      }
+
+      user.isVerified = true;
+      await user.save();
+
+      req.flash('success', 'Email verified successfully. You can now log in.');
+      res.redirect('/?message=Email verified successfully. You can now log in.');
+    } catch (error) {
+      console.error('Error verifying email:', error);
+      req.flash('error', 'Invalid verification token');
+      res.redirect('/login');
     }
   });
 
@@ -47,6 +84,16 @@ module.exports = (User, Image) => {
     failureRedirect: '/login',
     failureFlash: true
   }), (req, res) => {
+    const user = req.user;
+    if (!user.isVerified) {
+      req.flash('error', 'Please verify your email before logging in.');
+      return res.json({
+        'login-flash-messages': {
+          error: '<div class="alert alert-error">Please verify your email before logging in.</div>'
+        }
+      });
+    }
+
     req.flash('success', 'Login successful');
     res.json({
       'login-flash-messages': {
@@ -124,30 +171,30 @@ module.exports = (User, Image) => {
     }
   });
 
-// Upload an image
-router.post('/images', isAuthenticated, upload.single('file'), async (req, res) => {
-  try {
-    const userId = req.body.userId;
-    const imagePath = req.file.path;
+  // Upload an image
+  router.post('/images', isAuthenticated, upload.single('file'), async (req, res) => {
+    try {
+      const userId = req.body.userId;
+      const imagePath = req.file.path;
 
-    // Save the image file to the file system
-    const savedImagePath = path.join('uploads', req.file.filename);
-    await fs.promises.rename(imagePath, savedImagePath);
+      // Save the image file to the file system
+      const savedImagePath = path.join('uploads', req.file.filename);
+      await fs.promises.rename(imagePath, savedImagePath);
 
-    // Create a new image record in the database
-    const image = await Image.create({
-      userId,
-      path: savedImagePath
-    });
+      // Create a new image record in the database
+      const image = await Image.create({
+        userId,
+        path: savedImagePath
+      });
 
-    req.flash('success', 'Image uploaded successfully');
-    res.json(image);
-  } catch (error) {
-    console.error('Error saving image:', error);
-    req.flash('error', 'Error saving image');
-    res.status(500).redirect('/images');
-  }
-});
+      req.flash('success', 'Image uploaded successfully');
+      res.json(image);
+    } catch (error) {
+      console.error('Error saving image:', error);
+      req.flash('error', 'Error saving image');
+      res.status(500).redirect('/images');
+    }
+  });
 
   // Get all images
   router.get('/images', isAuthenticated, async (req, res) => {

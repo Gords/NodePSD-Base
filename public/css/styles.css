@@ -3,3 +3,28 @@
 @tailwind utilities;
 
 /* Add any custom styles or Tailwind CSS overrides here */
+
+html {
+  scroll-behavior: smooth;
+}
+
+.navbar {
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+  padding-bottom: 1rem;
+  z-index: 100;
+}
+
+.btn {
+  border-radius: var(--rounded-btn, 0.1rem);
+}
+
+.bg-fc-blue {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 36 60 / var(--tw-bg-opacity));
+}
+
+section {
+  padding-top: 80px; 
+}
