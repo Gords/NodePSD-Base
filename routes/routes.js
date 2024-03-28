@@ -130,7 +130,7 @@ module.exports = (User, Image) => {
   });
 
   // Get a single user
-  router.get('/current-user', (req, res) => {
+  router.get('/check-login', (req, res) => {
     if (req.isAuthenticated()) {
       return res.json({
         name: req.user.name,
