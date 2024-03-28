@@ -62,3 +62,25 @@ document.addEventListener('DOMContentLoaded', function () {
     gsap.to('#drop-area', { borderColor: '#ccc', background: '#fff', duration: 0.2 })
   })
 })
+
+// Upload file(s) button
+document.getElementById('dropfileSubmitBtn').addEventListener('click', async () => {
+  const formData = new FormData();
+
+  for (let i = 0; i < fileList.length; i++) {
+    formData.append('file', fileList[i]);
+  }
+
+  const response = await fetch('/images', {
+    method: 'POST',
+    body: formData
+  });
+
+  if (response.ok) {
+    console.log('Files uploaded successfully');
+    fileList = []; // Clear the file list
+    updateFileList(); // Update the file list display
+  } else {
+    console.error('Error uploading files');
+  }
+});
