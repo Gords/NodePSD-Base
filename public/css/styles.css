@@ -28,3 +28,7 @@ html {
 section {
   padding-top: 80px; 
 }
+
+#sign-up-content, #sign-in-content {
+  display: none;
+}
