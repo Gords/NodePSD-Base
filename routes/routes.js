@@ -192,7 +192,7 @@ router.post('/images', isAuthenticated, upload.array('files', 4), async (req, re
   try {
     const userId = req.user.id;
 
-    // Check if files are uploaded
+    // Check if there are files to process
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ error: 'No files uploaded.' });
     }
