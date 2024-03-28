@@ -187,47 +187,47 @@ module.exports = (User, Image) => {
     }
   })
 
-  // Upload an image
-router.post('/images', isAuthenticated, upload.array('files', 4), async (req, res) => {
-  try {
-    const userId = req.user.id;
+  // Upload an image within an array of files, max 4 files
+  router.post('/images', isAuthenticated, upload.array('files', 4), async (req, res) => {
+    try {
+      const userId = req.user.id
 
-    // Check if there are files to process
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ error: 'No files uploaded.' });
+      // Check if there are files to process
+      if (!req.files || req.files.length === 0) {
+        return res.status(400).json({ error: 'No files uploaded.' })
+      }
+
+      const uploadResults = []
+
+      // Process each file
+      for (const file of req.files) {
+        const imagePath = file.path
+
+        // Save the image file to the file system
+        const savedImagePath = path.join('uploads', file.filename)
+        await fs.promises.rename(imagePath, savedImagePath)
+
+        // Save the image record to the database
+        const image = await Image.create({
+          userId,
+          path: savedImagePath
+        })
+
+        uploadResults.push({
+          originalName: file.originalname,
+          savedPath: savedImagePath,
+          imageId: image.id // Assuming your Image.create() returns an object with an id
+        })
+      }
+
+      req.flash('success', 'Images uploaded successfully')
+      res.json({ message: 'Images uploaded successfully', uploadResults })
+    } catch (error) {
+      console.error('Error saving images:', error)
+      req.flash('error', 'Error saving images')
+      res.status(500).json({ error: 'Error processing your request' })
     }
-
-    const uploadResults = [];
-
-    // Process each file
-    for (const file of req.files) {
-      const imagePath = file.path;
-
-      // Save the image file to the file system
-      const savedImagePath = path.join('uploads', file.filename)
-      await fs.promises.rename(imagePath, savedImagePath)
-
-      // Save the image record to the database
-      const image = await Image.create({
-        userId,
-        path: savedImagePath
-      });
-
-      uploadResults.push({
-        originalName: file.originalname,
-        savedPath: savedImagePath,
-        imageId: image.id // Assuming your Image.create() returns an object with an id
-      });
-    }
-
-    req.flash('success', 'Images uploaded successfully');
-    res.json({ message: 'Images uploaded successfully', uploadResults });
-  } catch (error) {
-    console.error('Error saving images:', error);
-    req.flash('error', 'Error saving images');
-    res.status(500).json({ error: 'Error processing your request' });
-  }
-});
+  })
 
   // Get all images
   router.get('/images', isAuthenticated, async (req, res) => {
@@ -265,6 +265,27 @@ router.post('/images', isAuthenticated, upload.array('files', 4), async (req, re
     } catch (error) {
       console.error('Error fetching user images:', error)
       res.status(500).json([{ error: 'Error fetching user images' }])
+    }
+  })
+
+  // Delete an image
+  router.delete('/images/user-images', isAuthenticated, async (req, res) => {
+    try {
+      const image = await Image.findByPk(req.params.id)
+      if (!image) {
+        req.flash('error', 'Image not found')
+        return res.status(404).send('Image not found')
+      }
+      // Delete the image file from the file system
+      await fs.promises.unlink(image.path)
+      // Delete the image record from the database
+      await image.destroy()
+      req.flash('success', 'Image deleted successfully')
+      res.sendStatus(204)
+    } catch (error) {
+      console.error('Error deleting image:', error)
+      req.flash('error', 'Error deleting image')
+      res.status(500).send('Error deleting image')
     }
   })
 
