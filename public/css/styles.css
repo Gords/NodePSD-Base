@@ -24,3 +24,7 @@ html {
   --tw-bg-opacity: 1;
   background-color: rgb(29 36 60 / var(--tw-bg-opacity));
 }
+
+section {
+  padding-top: 80px; 
+}
