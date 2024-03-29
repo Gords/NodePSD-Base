@@ -194,38 +194,33 @@ module.exports = (User, Image) => {
 
       // Check if there are files to process
       if (!req.files || req.files.length === 0) {
-        return res.status(400).json({ error: 'No files uploaded.' })
+        return res.status(400).send('No files uploaded.')
       }
 
-      const uploadResults = []
-
-      // Process each file
-      for (const file of req.files) {
+      const fileProcessingPromises = req.files.map(async (file) => {
         const imagePath = file.path
-
-        // Save the image file to the file system
         const savedImagePath = path.join('uploads', file.filename)
-        await fs.promises.rename(imagePath, savedImagePath)
+
+        try {
+          await fs.promises.rename(imagePath, savedImagePath)
+        } catch (error) {
+          console.error('Error moving file:', error)
+          throw new Error('Error processing file')
+        }
 
         // Save the image record to the database
         const image = await Image.create({
           userId,
           path: savedImagePath
         })
+      })
 
-        uploadResults.push({
-          originalName: file.originalname,
-          savedPath: savedImagePath,
-          imageId: image.id // Assuming your Image.create() returns an object with an id
-        })
-      }
+      await Promise.all(fileProcessingPromises)
 
-      req.flash('success', 'Images uploaded successfully')
-      res.json({ message: 'Images uploaded successfully', uploadResults })
+      res.header('HX-Redirect', '/images/user-images')
     } catch (error) {
-      console.error('Error saving images:', error)
-      req.flash('error', 'Error saving images')
-      res.status(500).json({ error: 'Error processing your request' })
+      console.error('Error uploading files:', error)
+      res.status(500).send('Error processing your request')
     }
   })
 
@@ -256,15 +251,23 @@ module.exports = (User, Image) => {
   router.get('/images/user-images', isAuthenticated, async (req, res) => {
     try {
       const images = await Image.findAll({ where: { userId: req.user.id } })
-      const imageDetails = images.map(image => ({
-        id: image.id,
-        userId: image.userId,
-        fileName: path.basename(image.path)
-      }))
-      res.json(imageDetails)
+      let imagesHTML = ''
+
+      if (images.length === 0) {
+        imagesHTML = '<li>No files found</li>'
+      } else {
+        images.forEach(image => {
+          if (image.path) { // Check if image.path is not null
+            const deleteIconSVG = `<svg onclick="confirmDelete(${image.id})" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`
+            imagesHTML += `<li>${path.basename(image.path)} ${deleteIconSVG}</li>`
+          }
+        })
+      }
+
+      res.send(`<ul>${imagesHTML}</ul>`)
     } catch (error) {
       console.error('Error fetching user images:', error)
-      res.status(500).json([{ error: 'Error fetching user images' }])
+      res.status(500).send('Error fetching user images')
     }
   })
 

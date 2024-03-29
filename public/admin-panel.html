@@ -15,6 +15,7 @@
   <!-- TODO Ask Nando if good practices would use defer or slot the script below at the end of the body tag? -->
   <script src="./js/fileUpload.js" defer></script>
   <script src="./js/login.js"></script>
+  <script htmx.config.debug=true></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +36,7 @@
       </div>
       <div id="user-files" class="mb-6">
         <h3 class="font-semibold text-lg mb-2">Archivos personales</h3>
-        <ul id="file-name-display" class="list-none">
+        <ul id="file-name-display" hx-get="/images/user-images" hx-trigger="load" class="list-none">
           <!-- User files present in the DB will be listed here -->
         </ul>
       </div>
@@ -44,16 +45,14 @@
         <h3 class="font-semibold text-lg mb-2">Sube un archivo o arrastralo aqui</h3>
         <!-- ni idea, random MB amount limit -->
         <p class="text-sm text-gray-500 mb-3">Puedes cargar hasta 4 archivos de hasta 25MB cada uno</p>
-        <form class="dropfile-form">
-          <input type="file" id="fileElem" multiple accept="image/jpeg, image/png, application/pdf">
-          <label class="dropfile-sendbutton" for="fileElem"><i class="fas fa-file-upload"></i> Seleccionar
-            archivos</label>
+        <form class="dropfile-form" hx-encoding="multipart/form-data" hx-post="/images">
+          <input type="file" id="fileElem" name="files" multiple accept="image/jpeg, image/png, application/pdf">
+          <label for="fileElem">Seleccionar archivos</label>
+          <button type="submit" id="dropfileSubmitBtn">Enviar Archivos</button>
         </form>
         <div id="file-upload-list">
-          <!-- Display list of files ready to upload-->
+          <!-- Response from /images will be inserted here -->
         </div>
-        <button type="button" id="dropfileSubmitBtn" disabled><i class="fas fa-paper-plane"></i> Enviar
-          Archivos</button>
       </div>
     </div>
   </div>

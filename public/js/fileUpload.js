@@ -1,6 +1,6 @@
 // Behaviour for the file upload section in the user panel
 
-// Global access to fileList array and updateUploadFileList function 
+// Global access to fileList array and updateUploadFileList function
 // (the code migrated from codepen that was written in jquery wouldn't run unless these were global)
 const fileList = []
 
@@ -20,8 +20,8 @@ function updateUploadFileList () {
     if (file.type.includes('image')) {
       fileIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-</svg>` 
-      
+</svg>`
+
     // PDF icon
     } else if (file.type === 'application/pdf') {
       fileIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -32,9 +32,7 @@ function updateUploadFileList () {
 
     // X Icon to remove file from upload list
     const removeIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
-
-
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`
 
     // Create the list that includes each file in the upload form
     const listItem = document.createElement('div')
@@ -95,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
   })
   dropArea.addEventListener('dragleave', function (e) {
     e.preventDefault()
-    gsap.to('#drop-area', { borderColor: '#ccc', background: '#3a4669', duration: 0.2 }) 
+    gsap.to('#drop-area', { borderColor: '#ccc', background: '#3a4669', duration: 0.2 })
   })
   dropArea.addEventListener('drop', function (e) {
     e.preventDefault()
@@ -105,29 +103,29 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 })
 
-// Upload file(s) button
-document.getElementById('dropfileSubmitBtn').addEventListener('click', async () => {
-  const formData = new FormData()
-  fileList.forEach(file => {
-    formData.append('files', file) // Use 'files' to match the backend if it expects an array
-  })
+// // Upload file(s) button
+// document.getElementById('dropfileSubmitBtn').addEventListener('click', async () => {
+//   const formData = new FormData()
+//   fileList.forEach(file => {
+//     formData.append('files', file) // Use 'files' to match the backend if it expects an array
+//   })
 
-  try {
-    const response = await fetch('/images', {
-      method: 'POST',
-      body: formData,
-      credentials: 'same-origin' // Give it some cookies if needed for authentication
-    })
+//   try {
+//     const response = await fetch('/images', {
+//       method: 'POST',
+//       body: formData,
+//       credentials: 'same-origin' // Give it some cookies if needed for authentication
+//     })
 
-    if (response.ok) {
-      const result = await response.json()
-      console.log('Files uploaded successfully', result)
-      fileList.length = 0 // Clear the file list
-      window.location.reload() // Refresh the list of files
-    } else {
-      throw new Error('Network response was not ok.')
-    }
-  } catch (error) {
-    console.error('Error uploading files:', error)
-  }
-})
+//     if (response.ok) {
+//       const result = await response.json()
+//       console.log('Files uploaded successfully', result)
+//       fileList.length = 0 // Clear the file list
+//       window.location.reload() // Refresh the list of files
+//     } else {
+//       throw new Error('Network response was not ok.')
+//     }
+//   } catch (error) {
+//     console.error('Error uploading files:', error)
+//   }
+// })
