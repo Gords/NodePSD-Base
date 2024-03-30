@@ -10,3 +10,4 @@ flashcenter.pdf
 # Ignore contents of uploads directory but keep the directory itself
 uploads/*
 !uploads/.gitkeep
+output.txt

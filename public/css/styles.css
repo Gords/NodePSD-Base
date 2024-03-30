@@ -29,6 +29,35 @@ section {
   padding-top: 80px; 
 }
 
-#sign-up-content, #sign-in-content {
+#register-content, #login-content {
   display: none;
+}
+
+.alert {
+  display: block;
+  padding: 1rem;
+  border: 1px solid blue;
+  border-radius: 4rem;
+  margin-top: 1rem;
+  background-color: blue;
+}
+
+.alert-success {
+  display: block;
+  padding: 1rem;
+  border: 1rem solid green;
+  border-radius: 4rem;
+  margin-top: 1rem;
+  background-color: green;
+
+}
+
+.alert-error {
+  display: block;
+  padding: 1rem;
+  border: 1rem solid red;
+  border-radius: 4rem;
+  margin-top: 1rem;
+  background-color: red;
+
 }

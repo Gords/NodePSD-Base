@@ -1,71 +1,65 @@
 // Server setup and database connection
-
 // Import dependencies
-const express = require('express')
-const { Sequelize, DataTypes } = require('sequelize')
-const dotenv = require('dotenv')
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
-const session = require('express-session')
-const flash = require('express-flash')
-const crypto = require('crypto')
-const bcrypt = require('bcrypt')
+const express = require('express');
+const { Sequelize, DataTypes } = require('sequelize');
+const dotenv = require('dotenv');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 
-dotenv.config()
+dotenv.config();
 
-const app = express()
-
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
-app.use(express.static('public'))
-app.use('/uploads', express.static('uploads'))
+const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
 
 // Configure session middleware
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
-}))
+}));
 
 // Initialize Passport
-app.use(passport.initialize())
-app.use(passport.session())
-
-// Configure express-flash middleware
-app.use(flash())
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Configure Passport Local Strategy
 passport.use(new LocalStrategy(
   async (username, password, done) => {
     try {
-      const user = await User.findOne({ where: { email: username } })
+      const user = await User.findOne({ where: { email: username } });
       if (!user) {
-        return done(null, false, { message: 'Incorrect username' })
+        return done(null, false, { message: 'Incorrect username' });
       }
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) {
-        return done(null, false, { message: 'Incorrect password' })
+        return done(null, false, { message: 'Incorrect password' });
       }
-      return done(null, user)
+      return done(null, user);
     } catch (error) {
-      return done(error)
+      return done(error);
     }
   }
 ));
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
-  done(null, user.id)
-})
+  done(null, user.id);
+});
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await User.findByPk(id)
-    done(null, user)
+    const user = await User.findByPk(id);
+    done(null, user);
   } catch (error) {
-    done(error)
+    done(error);
   }
-})
+});
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -77,22 +71,22 @@ const sequelize = new Sequelize(
     dialect: 'postgres',
     logging: console.log
   }
-)
+);
 
-const User = require('./models/User.js')(sequelize, DataTypes)
-const Image = require('./models/Image.js')(sequelize, DataTypes)
+const User = require('./models/User.js')(sequelize, DataTypes);
+const Image = require('./models/Image.js')(sequelize, DataTypes);
 
-const routes = require('./routes/routes.js')(User, Image)
-app.use('/', routes)
+const routes = require('./routes/routes.js')(User, Image);
+app.use('/', routes);
 
 sequelize
   .authenticate()
   .then(() => {
-    console.log('Database connection has been established successfully.')
+    console.log('Database connection has been established successfully.');
     app.listen(3000, () => {
-      console.log('Server is running on port 3000')
-    })
+      console.log('Server is running on port 3000');
+    });
   })
   .catch((error) => {
-    console.error('Unable to connect to the database:', error)
-  })
+    console.error('Unable to connect to the database:', error);
+  });
