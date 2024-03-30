@@ -80,25 +80,21 @@ module.exports = (User, Image) => {
     }
   });
 
-  // User login
   router.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
     failureFlash: true
   }), (req, res) => {
     const user = req.user;
     if (!user.isVerified) {
-      return res.json({
-        'login-flash-messages': {
-          error: '<div class="alert alert-error">Please verify your email before logging in.</div>'
-        }
+      return res.status(401).json({
+        success: false,
+        message: 'Please verify your email before logging in.'
       });
     }
-
-    res.json({
-      'login-flash-messages': {
-        success: '<div class="alert alert-success">Login successful</div>'
-      },
-      'main-content': 'index.html'
+  
+    res.status(200).json({
+      success: true,
+      message: 'Login successful'
     });
   });
 

@@ -35,25 +35,28 @@ document.body.addEventListener('htmx:afterSwap', function (event) {
 });
 
   // Handle login response
-  document.body.addEventListener('htmx:afterSwap', function (event) {
-    const loginResponseContent = document.querySelector('#login-content #login-response');
-    if (loginResponseContent && loginResponseContent.contains(event.detail.elt)) {
-      const successMessage = event.detail.elt.querySelector('.alert-success');
-      const errorMessage = event.detail.elt.querySelector('.alert-error');
-      if (successMessage) {
-        // Login successful, update UI and set loggedIn flag
+  document.body.addEventListener('htmx:afterRequest', function (event) {
+    if (event.detail.target.id === 'login-form') {
+      const response = JSON.parse(event.detail.xhr.response);
+      const loginResponseContent = document.querySelector('#login-content #login-response');
+      if (response.success) {
+        // Login successful, update UI, set loggedIn flag, and redirect after a delay
         localStorage.setItem('loggedIn', 'true');
         updateUI();
-        loginResponseContent.innerHTML = successMessage.outerHTML;
-      } else if (errorMessage) {
+        loginResponseContent.innerHTML = `<div class="alert alert-success">${response.message}</div>`;
+        
+        // Delay the redirection by 2 seconds (adjust the delay as needed)
+        setTimeout(function() {
+          window.location.href = '/';
+        }, 2000);
+      } else {
         // Login failed, display error message
-        loginResponseContent.innerHTML = errorMessage.outerHTML;
-        console.error('Login failed:', errorMessage.textContent);
+        loginResponseContent.innerHTML = `<div class="alert alert-error">${response.message}</div>`;
+        console.error('Login failed:', response.message);
       }
     }
   });
 });
-
 // Logout function
 function logout() {
   localStorage.removeItem('loggedIn');
