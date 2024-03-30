@@ -26,8 +26,7 @@ const isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  req.flash('error', 'Please log in to access this page.');
-  res.redirect('/login');
+  res.status(401).json({ error: 'Please log in to access this page.' });
 };
 
 module.exports = (User, Image) => {
@@ -44,12 +43,17 @@ module.exports = (User, Image) => {
       // Send verification email
       await emailService.sendVerificationEmail(email, verificationToken);
 
-      req.flash('success', 'User registered successfully. Please check your email to verify your account.');
-      res.json({ 'register-flash-messages': { success: '<div class="alert alert-success">User registered successfully. Please check your email to verify your account.</div>' } });
+      console.log('User registered successfully:', user.email);
+      res.status(200).json({
+        success: true,
+        message: 'Registration successful. Please check your email for verification instructions.'
+      });
     } catch (error) {
       console.error('Error registering user:', error);
-      req.flash('error', 'Error registering user');
-      res.status(500).json({ 'register-flash-messages': { error: '<div class="alert alert-error">Error registering user</div>' } });
+      res.status(500).json({
+        success: false,
+        message: 'Error registering user'
+      });
     }
   });
 
@@ -63,19 +67,16 @@ module.exports = (User, Image) => {
 
       const user = await User.findByPk(userId);
       if (!user) {
-        req.flash('error', 'Invalid verification token');
-        return res.redirect('/login');
+        return res.status(400).json({ error: 'Invalid verification token' });
       }
 
       user.isVerified = true;
       await user.save();
 
-      req.flash('success', 'Email verified successfully. You can now log in.');
       res.redirect('/?message=Email verified successfully. You can now log in.');
     } catch (error) {
       console.error('Error verifying email:', error);
-      req.flash('error', 'Invalid verification token');
-      res.redirect('/login');
+      res.status(400).json({ error: 'Invalid verification token' });
     }
   });
 
@@ -86,7 +87,6 @@ module.exports = (User, Image) => {
   }), (req, res) => {
     const user = req.user;
     if (!user.isVerified) {
-      req.flash('error', 'Please verify your email before logging in.');
       return res.json({
         'login-flash-messages': {
           error: '<div class="alert alert-error">Please verify your email before logging in.</div>'
@@ -94,7 +94,6 @@ module.exports = (User, Image) => {
       });
     }
 
-    req.flash('success', 'Login successful');
     res.json({
       'login-flash-messages': {
         success: '<div class="alert alert-success">Login successful</div>'
@@ -139,8 +138,7 @@ module.exports = (User, Image) => {
       res.send(`<div id="user-list">${usersHtml}</div>`);
     } catch (error) {
       console.error('Error fetching users:', error);
-      req.flash('error', 'Error fetching users');
-      res.redirect('/');
+      res.status(500).json({ error: 'Error fetching users' });
     }
   });
 
@@ -149,12 +147,10 @@ module.exports = (User, Image) => {
     try {
       const { email, password, name } = req.body;
       await User.update({ email, password, name }, { where: { id: req.params.id } });
-      req.flash('success', 'User updated successfully');
-      res.redirect('/users');
+      res.json({ message: 'User updated successfully' });
     } catch (error) {
       console.error('Error updating user:', error);
-      req.flash('error', 'Error updating user');
-      res.status(500).redirect(`/users/${req.params.id}`);
+      res.status(500).json({ error: 'Error updating user' });
     }
   });
 
@@ -162,12 +158,10 @@ module.exports = (User, Image) => {
   router.delete('/users/:id', isAuthenticated, async (req, res) => {
     try {
       await User.destroy({ where: { id: req.params.id } });
-      req.flash('success', 'User deleted successfully');
       res.sendStatus(204);
     } catch (error) {
       console.error('Error deleting user:', error);
-      req.flash('error', 'Error deleting user');
-      res.status(500).send('Error deleting user');
+      res.status(500).json({ error: 'Error deleting user' });
     }
   });
 
@@ -187,12 +181,10 @@ module.exports = (User, Image) => {
         path: savedImagePath
       });
 
-      req.flash('success', 'Image uploaded successfully');
-      res.json(image);
+      res.json({ message: 'Image uploaded successfully', image });
     } catch (error) {
       console.error('Error saving image:', error);
-      req.flash('error', 'Error saving image');
-      res.status(500).redirect('/images');
+      res.status(500).json({ error: 'Error saving image' });
     }
   });
 
@@ -214,8 +206,7 @@ module.exports = (User, Image) => {
       `);
     } catch (error) {
       console.error('Error fetching images:', error);
-      req.flash('error', 'Error fetching images');
-      res.status(500).redirect('/');
+      res.status(500).json({ error: 'Error fetching images' });
     }
   });
 

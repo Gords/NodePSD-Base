@@ -44,7 +44,7 @@
 <section id="forms">
   <!-- Login Form -->
   <form id="login-form" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" hx-post="/login"
-    hx-target="#sign-in-content" hx-ext="response-targets">
+    hx-target="#login-content" hx-ext="response-targets">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" src="./img/logo-blanco.png" alt="Flash Center Logo">
       <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Acceda a su cuenta</h2>
@@ -61,13 +61,13 @@
         </div>
         <div>
           <div class="flex items-center justify-between">
-            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
+            <label for="login-password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
             <div class="text-sm">
               <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Olvidaste tu contraseña?</a>
             </div>
           </div>
           <div class="mt-2">
-            <input id="password" name="password" type="password" autocomplete="current-password" required
+            <input id="login-password" name="password" type="password" autocomplete="current-password" required
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
@@ -85,35 +85,31 @@
   </form>
 
   <!-- Register Form -->
-  <form id="register-form" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" hx-post="/register"
-    hx-target="#register-content" hx-ext="response-targets">
+  <form id="register-form" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" hx-post="/register">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" src="./img/logo-color.png" alt="Flash Center Logo">
       <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Registre su cuenta</h2>
     </div>
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <div id="register-flash-messages"></div>
       <div class="space-y-6">
         <div>
-          <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
+          <label for="register-name" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
           <div class="mt-2">
-            <input id="name" name="name" type="text" placeholder="Fulanito" required
+            <input id="register-name" name="name" type="text" autocomplete="name" placeholder="Fulanito" required
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
         <div>
-          <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Correo electronico</label>
+          <label for="register-email" class="block text-sm font-medium leading-6 text-gray-900">Correo electronico</label>
           <div class="mt-2">
-            <input id="email" name="email" type="email" autocomplete="email" placeholder="de.tal@email.com" required
+            <input id="register-email" name="email" type="email" autocomplete="email" placeholder="de.tal@email.com" required
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
         <div>
-          <div class="flex items-center justify-between">
-            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
-          </div>
+          <label for="register-password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
           <div class="mt-2">
-            <input id="password" name="password" type="password" autocomplete="current-password" required
+            <input id="register-password" name="password" type="password" autocomplete="new-password" required
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
@@ -138,37 +134,37 @@
     <div class="mx-auto mt-10 max-w-xl sm:mt-10">
       <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <div>
-          <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">Nombre</label>
+          <label for="contact-first-name" class="block text-sm font-semibold leading-6 text-gray-900">Nombre</label>
           <div class="mt-2.5">
-            <input type="text" name="first-name" id="first-name" autocomplete="given-name"
+            <input type="text" name="first-name" id="contact-first-name" autocomplete="given-name"
               class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
         <div>
-          <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">Apellido</label>
+          <label for="contact-last-name" class="block text-sm font-semibold leading-6 text-gray-900">Apellido</label>
           <div class="mt-2.5">
-            <input type="text" name="last-name" id="last-name" autocomplete="family-name"
+            <input type="text" name="last-name" id="contact-last-name" autocomplete="family-name"
               class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
         <div>
-          <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
+          <label for="contact-email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
           <div class="mt-2.5">
-            <input type="email" name="email" id="email" autocomplete="email"
+            <input type="email" name="email" id="contact-email" autocomplete="email"
               class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
         <div>
-          <label for="phone" class="block text-sm font-semibold leading-6 text-gray-900">Telefono</label>
+          <label for="contact-phone" class="block text-sm font-semibold leading-6 text-gray-900">Telefono</label>
           <div class="mt-2.5">
-            <input type="tel" name="phone" id="phone" autocomplete="tel"
+            <input type="tel" name="phone" id="contact-phone" autocomplete="tel"
               class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
         <div class="sm:col-span-2">
-          <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">Mensaje</label>
+          <label for="contact-message" class="block text-sm font-semibold leading-6 text-gray-900">Mensaje</label>
           <div class="mt-2.5">
-            <textarea name="message" id="message" rows="4"
+            <textarea name="message" id="contact-message" rows="4"
               class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
           </div>
         </div>
@@ -193,8 +189,6 @@
   </div>
 </section>
 
-<!-- Flash Messages -->
-<div id="flash-messages"></div>
 
 <!-- File Input Field -->
 <input type="file" id="file-input" class="file-input file-input-bordered w-full max-w-xs" />
@@ -229,9 +223,9 @@
     </ul>
   </div>
   <div class="navbar-end">
-    <a class="btn" id="registerButton" href="#register" onclick="showContent('sign-up-content')">Registro</a>
-    <a class="btn" id="loginButton" href="#login" onclick="showContent('sign-in-content')">Iniciar sesión</a>
-    <a class="btn" href="/" onclick="logout()" id="logoutButton">Cerrar sesión</a>
+    <a class="btn" id="registerButton" href="#register" onclick="showContent('register-content')">Registro</a>
+    <a class="btn" id="loginButton" href="#login" onclick="showContent('login-content')">Iniciar sesión</a>
+    <a class="btn" id="logoutButton" href="/" onclick="logout()" >Cerrar sesión</a>
   </div>
 </nav>
 
