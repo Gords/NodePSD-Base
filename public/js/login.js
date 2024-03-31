@@ -27,6 +27,10 @@ document.body.addEventListener('htmx:afterSwap', function (event) {
 
     if (data.success) {
       registerResponseContent.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+              // Delay the redirection by 2 seconds (adjust the delay as needed)
+              setTimeout(function() {
+                window.location.href = '/';
+              }, 2000);
     } else {
       registerResponseContent.innerHTML = `<div class="alert alert-error">${data.message}</div>`;
       console.error('Registration failed:', data.message);
