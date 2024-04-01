@@ -35,7 +35,7 @@ passport.use(new LocalStrategy(
       if (!user) {
         return done(null, false, { message: 'Incorrect username' });
       }
-      const isPasswordValid = await bcrypt.compare(password, user.password);
+      const isPasswordValid = await bcrypt.compare(password, user.password)
       if (!isPasswordValid) {
         return done(null, false, { message: 'Incorrect password' });
       }
@@ -44,14 +44,18 @@ passport.use(new LocalStrategy(
       return done(error);
     }
   }
-));
+))
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+  done(null, {
+    id: user.id,
+    name: user.name,
+    email: user.email
+  })
+})
 
-passport.deserializeUser(async (id, done) => {
+passport.deserializeUser(async ({ id }, done) => {
   try {
     const user = await User.findByPk(id);
     done(null, user);
@@ -87,5 +91,7 @@ sequelize
     });
   })
   .catch((error) => {
+
     console.error('Unable to connect to the database:', error);
   });
+

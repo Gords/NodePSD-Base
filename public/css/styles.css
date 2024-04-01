@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 /* Add any custom styles or Tailwind CSS overrides here */
-
 html {
   scroll-behavior: smooth;
 }
@@ -18,12 +17,19 @@ html {
 
 .btn {
   border-radius: var(--rounded-btn, 0.1rem);
+  min-height : var(--min-height-btn, 2rem);
 }
 
 .bg-fc-blue {
   --tw-bg-opacity: 1;
   background-color: rgb(29 36 60 / var(--tw-bg-opacity));
 }
+
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 
 section {
   padding-top: 80px; 

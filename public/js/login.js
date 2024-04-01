@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const loginButton = document.querySelector('#loginButton');
   const logoutButton = document.querySelector('#logoutButton');
 
+
   function updateUI() {
     if (loggedIn === 'true') {
       if (registerButton) registerButton.style.display = 'none';
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (registerButton) registerButton.style.display = 'inline-flex';
       if (loginButton) loginButton.style.display = 'inline-flex';
       if (logoutButton) logoutButton.style.display = 'none';
+
     }
   }
 
@@ -61,6 +63,7 @@ document.body.addEventListener('htmx:afterSwap', function (event) {
     }
   });
 });
+
 // Logout function
 function logout() {
   localStorage.removeItem('loggedIn');
@@ -69,3 +72,43 @@ function logout() {
 
 // Attach the logout function to the window object
 window.logout = logout;
+
+// Fetch user details
+fetch('/check-login').then(response => {
+  if (!response.ok) {
+    throw new Error('Failed to fetch user data')
+  }
+  return response.json()
+}).then(user => {
+  document.getElementById('user-name').textContent = user.name
+  document.getElementById('user-email').textContent = user.email
+
+  const usernameInitials = user.name ? user.name.charAt(0).toUpperCase() : ''
+  document.getElementById('username-initials').textContent = usernameInitials
+}).catch(error => console.error('Error fetching user data:', error))
+
+// Delete image confirmation
+function confirmDelete (imageId) {
+  const confirmDeletion = confirm('Are you sure you want to delete this file?')
+  if (confirmDeletion) {
+    deleteImage(imageId)
+  }
+}
+
+// Delete image
+function deleteImage (imageId) {
+  fetch(`/images/${imageId}`, {
+    method: 'DELETE',
+    credentials: 'include' // Send some cookies with the request if needed for authentication
+  })
+    .then(response => {
+      if (response.ok) {
+        alert('File deleted successfully')
+        // Refresh the list of files
+        window.location.reload()
+      } else {
+        alert('Error deleting file')
+      }
+    })
+    .catch(error => console.error('Error deleting file:', error))
+}
