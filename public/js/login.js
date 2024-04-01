@@ -61,7 +61,10 @@ fetch('/check-login').then(response => {
 }).then(user => {
   document.getElementById('user-name').textContent = user.name
   document.getElementById('user-email').textContent = user.email
-}).catch(error => console.error('Error fetching user data:', error)).catch(error => console.error('Error fetching user data:', error))
+
+  const usernameInitials = user.name ? user.name.charAt(0).toUpperCase() : ''
+  document.getElementById('username-initials').textContent = usernameInitials
+}).catch(error => console.error('Error fetching user data:', error))
 
 // Delete image confirmation
 function confirmDelete (imageId) {
@@ -89,7 +92,7 @@ function deleteImage (imageId) {
     .catch(error => console.error('Error deleting file:', error))
 }
 
-// Keeping for educational purposes
+// Keeping for educational purposes, borra si molesta mi bro <3
 
 // // Fetch user files
 // fetch('/images/user-images')

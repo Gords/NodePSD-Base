@@ -40,22 +40,6 @@
     width: 100%;
 }
 
-.dropfile-sendbutton, #dropfileSubmitBtn {
-    margin-top: 10px;
-    padding: 10px 15px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #fff;
-    font-weight: bold;
-}
-
-#dropfileSubmitBtn:disabled {
-    opacity: 0.5;
-    cursor: default;
-}
 
 #file-upload-list {
     margin-top: 10px;
@@ -89,7 +73,7 @@
 }
 
 
-#fileElem{
+#files-to-upload{
   display: none;
 }
 
@@ -112,25 +96,6 @@
 #drop-area.highlight {
     background: #34495e; /* Fondo más claro al arrastrar archivos */
     border-color: #9b59b6; /* Borde resaltado */
-}
-
-/* Mejoras visuales en los botones y su interactividad */
-.dropfile-sendbutton, #dropfileSubmitBtn {
-    background-color: #9b59b6; /* Color principal más vibrante */
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.dropfile-sendbutton:hover, #dropfileSubmitBtn:not(:disabled):hover {
-    background-color: #8e44ad; /* Oscurecimiento al pasar el mouse */
-}
-
-#dropfileSubmitBtn:disabled {
-    background-color: #bdc3c7; /* Gris para denotar inactividad */
 }
 
 /* Mejoras en la lista de archivos para una mejor legibilidad y estética */

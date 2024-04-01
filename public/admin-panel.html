@@ -27,35 +27,66 @@
 
 </head>
 
+
 <body>
-  <div id="admin-panel" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-    <div class="text-center">
-      <div class="mb-6">
-        <div id="user-name" class="font-semibold text-lg">Nombre Usuario</div>
-        <div id="user-email" class="text-sm">email.del@usuario.com</div>
+  <header>
+    <nav hx-get="components.html" hx-select="#user-panel-navigation" hx-trigger="load">
+    </nav>
+  </header>
+  <!-- User Panel Component -->
+  <div id="admin-panel" class="flex min-h-full flex-col justify-center items-center px-6 pt-40 lg:px-8">
+
+    <!-- Data and File Upload Container -->
+    <div class="w-full max-w-xl"> <!-- Adjust the width as needed -->
+
+      <!-- User personal info -->
+      <div class="mb-6 text-left">
+        <div id="user-info" class="flex flex-row items-center mb-6">
+          <!-- Avatar next to the name and email -->
+          <div class="avatar mr-4">
+            <div class="w-16 h-16 rounded-full relative bg-gray-200">
+              <span id="username-initials"
+                class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold"></span>
+            </div>
+          </div>
+          <div class="flex flex-col items-center md:items-start">
+            <div id="user-name" class="font-semibold text-lg">Nombre Usuario</div>
+            <div id="user-email" class="text-sm">email.del@usuario.com</div>
+          </div>
+        </div>
+        <div id="user-data">
+          <!-- Replace using Javascript like we did with the username and email -->
+          <div class="flex flex-col font-semibold">
+            Nro. de Cedula: <span id="user-cedula" class="font-normal">1.234.567.-</span>
+            Nro. de Telefono: <span id="user-phone" class="font-normal">+595 981 123 456</span>
+            Domicilio: <span id="user-address" class="font-normal">Dr. Vasconcellos 622 esq. Tte Luis Miranda</span>
+          </div>
+        </div>
       </div>
-      <div id="user-files" class="mb-6">
-        <h3 class="font-semibold text-lg mb-2">Archivos personales</h3>
-        <ul id="file-name-display" hx-get="/images/user-images" hx-trigger="load" class="list-none">
+      <div id="user-files" class="tex-center my-10">
+        <h3 class="font-semibold text-center text-lg mt-16 mb-4">Archivos personales</h3>
+        <ul id="file-name-display" hx-get="/images/user-images" hx-trigger="load" class="pl-6">
           <!-- User files present in the DB will be listed here -->
         </ul>
       </div>
       <!-- File Upload Drop Area -->
       <div id="drop-area" class="mb-6">
         <h3 class="font-semibold text-lg mb-2">Sube un archivo o arrastralo aqui</h3>
-        <!-- ni idea, random MB amount limit -->
+        <!-- random MB amount limit -->
         <p class="text-sm text-gray-500 mb-3">Puedes cargar hasta 4 archivos de hasta 25MB cada uno</p>
         <form class="dropfile-form" hx-encoding="multipart/form-data" hx-post="/images">
-          <input type="file" id="fileElem" name="files" multiple accept="image/jpeg, image/png, application/pdf">
-          <label for="fileElem">Seleccionar archivos</label>
-          <button type="submit" id="dropfileSubmitBtn">Enviar Archivos</button>
+          <input type="file" id="files-to-upload" name="files" multiple accept="image/jpeg, image/png, application/pdf">
+          <label class="btn" for="files-to-upload">Seleccionar archivos</label>
+          <button class="btn" type="submit" id="submit-files">Cargar archivos</button>
         </form>
         <div id="file-upload-list">
           <!-- Response from /images will be inserted here -->
         </div>
       </div>
+
     </div>
   </div>
+
 
 
 
