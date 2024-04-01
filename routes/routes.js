@@ -95,19 +95,19 @@ module.exports = (User, Image) => {
     // req.flash error caused by the line below
     failureFlash: true
   }), (req, res) => {
-    const user = req.user;
+    const user = req.user
     if (!user.isVerified) {
       return res.status(401).json({
         success: false,
         message: 'Please verify your email before logging in.'
-      });
+      })
     }
-  
+
     res.status(200).json({
       success: true,
       message: 'Login successful'
-    });
-  });
+    })
+  })
 
   // Get login form section
   router.get('/login', (req, res) => {
@@ -123,8 +123,8 @@ module.exports = (User, Image) => {
         res.status(500).send('Internal Server Error')
       } else {
         // login form section not found error can be fixed by renaming id to just "login-form"
-        const loginFormSectionRegex = /<div id="login-form-section">([\s\S]*?)<\/div>/;
-        const match = data.match(loginFormSectionRegex);
+        const loginFormSectionRegex = /<div id="login-form-section">([\s\S]*?)<\/div>/
+        const match = data.match(loginFormSectionRegex)
 
         if (match && match.length > 1) {
           const loginFormSection = match[1]
@@ -197,33 +197,42 @@ module.exports = (User, Image) => {
     }
   })
 
-  // Upload an image
-  router.post(
-    '/images',
-    isAuthenticated,
-    upload.single('file'),
-    async (req, res) => {
-      try {
-        const userId = req.body.userId
-        const imagePath = req.file.path
+  // Upload an image within an array of files, max 4 files
+  router.post('/images', isAuthenticated, upload.array('files', 4), async (req, res) => {
+    try {
+      const userId = req.user.id
 
-        // Save the image file to the file system
-        const savedImagePath = path.join('uploads', req.file.filename)
-        await fs.promises.rename(imagePath, savedImagePath)
+      // Check if there are files to process
+      if (!req.files || req.files.length === 0) {
+        return res.status(400).send('No files uploaded.')
+      }
 
-        // Create a new image record in the database
+      const fileProcessingPromises = req.files.map(async (file) => {
+        const imagePath = file.path
+        const savedImagePath = path.join('uploads', file.filename)
+
+        try {
+          await fs.promises.rename(imagePath, savedImagePath)
+        } catch (error) {
+          console.error('Error moving file:', error)
+          throw new Error('Error processing file')
+        }
+
+        // Save the image record to the database
         const image = await Image.create({
           userId,
           path: savedImagePath
         })
+      })
 
-        res.json({ message: 'Image uploaded successfully', image })
-      } catch (error) {
-        console.error('Error saving image:', error)
-        res.status(500).json({ error: 'Error saving image' })
-      }
+      await Promise.all(fileProcessingPromises)
+
+      res.header('HX-Redirect', '/images/user-images')
+    } catch (error) {
+      console.error('Error uploading files:', error)
+      res.status(500).send('Error processing your request')
     }
-  )
+  })
 
   // Get all images
   router.get('/images', isAuthenticated, async (req, res) => {
