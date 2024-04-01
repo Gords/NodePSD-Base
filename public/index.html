@@ -22,17 +22,16 @@
   </header>
   <main class="flex-grow py-16 bg-texture" id="main-content">
     <section id="spa-content">
-      <section id="home" hx-trigger="load" hx-get="components.html" hx-select="#home-component" hx-swap="afterbegin">
-      </section>
-    </section>
-    <section id="services" hx-trigger="load" hx-get="components.html" hx-select="#services-component"
-      hx-swap="afterbegin"></section>
-    <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion" hx-swap="afterbegin">
-    </section>
-    <section id="about" hx-trigger="load" hx-get="components.html" hx-select="#about-component" hx-swap="afterbegin">
-    </section>
-    <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form" hx-swap="afterbegin">
-    </section>
+      <section id="home" hx-trigger="load" hx-get="components.html" hx-select="#home-component" hx-swap="afterbegin"
+        hx-push-url="true"></section>
+      <section id="services" hx-trigger="load" hx-get="components.html" hx-select="#services-component"
+        hx-swap="afterbegin" hx-push-url="true"></section>
+      <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion" hx-swap="afterbegin"
+        hx-push-url="true"></section>
+      <section id="about" hx-trigger="load" hx-get="components.html" hx-select="#about-component" hx-swap="afterbegin"
+        hx-push-url="true"></section>
+      <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form" hx-swap="afterbegin"
+        hx-push-url="true"></section>
     </section>
     <section id="register-content">
       <section href="/register" id="register" hx-trigger="load" hx-get="components.html" hx-select="#register-form"
