@@ -5,7 +5,7 @@
 const fileList = []
 
 // Update the list of files that are ready to be uploaded
-function updateUploadFileList() {
+function updateUploadFileList () {
   const fileListElement = document.getElementById('file-upload-list')
   fileListElement.innerHTML = '' // Clear existing entries
 
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // TODO: Currently, we only check allowed types client-side
   const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf']
 
-  function handleFiles(files) {
+  function handleFiles (files) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
       const isFileTypeAllowed = allowedTypes.includes(file.type)
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
     gsap.to('#drop-area', {
       borderColor: '#ccc',
       background: '#3a4669',
-      duration: 0.2,
+      duration: 0.2
     })
   })
   dropArea.addEventListener('dragleave', function (e) {
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
     gsap.to('#drop-area', {
       borderColor: '#ccc',
       background: '#3a4669',
-      duration: 0.2,
+      duration: 0.2
     })
   })
   dropArea.addEventListener('drop', function (e) {
@@ -108,7 +108,50 @@ document.addEventListener('DOMContentLoaded', function () {
     gsap.to('#drop-area', {
       borderColor: '#ccc',
       background: '#283048',
-      duration: 0.2,
+      duration: 0.2
     })
   })
 })
+
+// Fetch user details
+fetch('/check-login')
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Failed to fetch user data')
+    }
+    return response.json()
+  })
+  .then((user) => {
+    document.getElementById('user-name').textContent = user.name
+    document.getElementById('user-email').textContent = user.email
+
+    const usernameInitials = user.name ? user.name.charAt(0).toUpperCase() : ''
+    document.getElementById('username-initials').textContent = usernameInitials
+  })
+  .catch((error) => console.error('Error fetching user data:', error))
+
+// Delete image confirmation
+function confirmDelete (imageId) {
+  const confirmDeletion = confirm('Are you sure you want to delete this file?')
+  if (confirmDeletion) {
+    deleteImage(imageId)
+  }
+}
+
+// Delete image
+function deleteImage (imageId) {
+  fetch(`/images/${imageId}`, {
+    method: 'DELETE',
+    credentials: 'include' // Send some cookies with the request if needed for authentication
+  })
+    .then((response) => {
+      if (response.ok) {
+        alert('File deleted successfully')
+        // Refresh the list of files
+        window.location.reload()
+      } else {
+        alert('Error deleting file')
+      }
+    })
+    .catch((error) => console.error('Error deleting file:', error))
+}
