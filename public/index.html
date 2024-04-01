@@ -22,12 +22,12 @@
   </header>
   <main class="flex-grow py-16" id="main-content">
     <section id="spa-content">
-      <section id="home" hx-trigger="load" hx-get="home.html" hx-select="#alternate-hero" hx-swap="afterbegin"
+      <section id="home" hx-trigger="load" hx-get="components.html" hx-select="#home-component" hx-swap="afterbegin"
         hx-push-url="true"></section>
-      <section id="services" hx-trigger="load" hx-get="services.html" hx-swap="afterbegin" hx-push-url="true"></section>
+      <section id="services" hx-trigger="load" hx-get="components.html" hx-select="#services-component" hx-swap="afterbegin" hx-push-url="true"></section>
       <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion" hx-swap="afterbegin"
         hx-push-url="true"></section>
-      <section id="about" hx-trigger="load" hx-get="about.html" hx-swap="afterbegin" hx-push-url="true"></section>
+      <section id="about" hx-trigger="load" hx-get="components.html" hx-select="#about-component" hx-swap="afterbegin" hx-push-url="true"></section>
       <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form" hx-swap="afterbegin"
         hx-push-url="true"></section>
     </section>
