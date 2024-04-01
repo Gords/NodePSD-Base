@@ -90,27 +90,24 @@ module.exports = (User, Image) => {
     }
   })
 
-  router.post(
-    '/login',
-    passport.authenticate('local', {
-      failureRedirect: '/login',
-      failureFlash: true
-    }),
-    (req, res) => {
-      const user = req.user
-      if (!user.isVerified) {
-        return res.status(401).json({
-          success: false,
-          message: 'Please verify your email before logging in.'
-        })
-      }
-
-      res.status(200).json({
-        success: true,
-        message: 'Login successful'
-      })
+  router.post('/login', passport.authenticate('local', {
+    failureRedirect: '/login',
+    // req.flash error caused by the line below
+    failureFlash: true
+  }), (req, res) => {
+    const user = req.user;
+    if (!user.isVerified) {
+      return res.status(401).json({
+        success: false,
+        message: 'Please verify your email before logging in.'
+      });
     }
-  )
+  
+    res.status(200).json({
+      success: true,
+      message: 'Login successful'
+    });
+  });
 
   // Get login form section
   router.get('/login', (req, res) => {
@@ -125,9 +122,9 @@ module.exports = (User, Image) => {
         console.error('Error reading file:', err)
         res.status(500).send('Internal Server Error')
       } else {
-        const loginFormSectionRegex =
-          /<div id="login-form-section">([\s\S]*?)<\/div>/
-        const match = data.match(loginFormSectionRegex)
+        // login form section not found error can be fixed by renaming id to just "login-form"
+        const loginFormSectionRegex = /<div id="login-form-section">([\s\S]*?)<\/div>/;
+        const match = data.match(loginFormSectionRegex);
 
         if (match && match.length > 1) {
           const loginFormSection = match[1]
