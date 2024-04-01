@@ -23,23 +23,21 @@
   <main class="flex-grow py-16" id="main-content">
     <section id="spa-content">
       <section id="home" hx-trigger="load" hx-get="components.html" hx-select="#home-component" hx-swap="afterbegin"
-        hx-push-url="true"></section>
-      <section id="services" hx-trigger="load" hx-get="components.html" hx-select="#services-component" hx-swap="afterbegin" hx-push-url="true"></section>
-      <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion" hx-swap="afterbegin"
-        hx-push-url="true"></section>
-      <section id="about" hx-trigger="load" hx-get="components.html" hx-select="#about-component" hx-swap="afterbegin" hx-push-url="true"></section>
-      <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form" hx-swap="afterbegin"
-        hx-push-url="true"></section>
+        ></section>
+      <section id="services" hx-trigger="load" hx-get="components.html" hx-select="#services-component" hx-swap="afterbegin"></section>
+      <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion" hx-swap="afterbegin"></section>
+      <section id="about" hx-trigger="load" hx-get="components.html" hx-select="#about-component" hx-swap="afterbegin"></section>
+      <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form" hx-swap="afterbegin"></section>
     </section>
     <section id="register-content">
       <section href="/register" id="register" hx-trigger="load" hx-get="components.html" hx-select="#register-form"
-        hx-swap="innerHTML" hx-push-url="true">
+        hx-swap="innerHTML">
       </section>
       <div id="register-response"></div>
     </section>
     <section id="login-content">
       <section href="/login" id="login" hx-trigger="load" hx-get="components.html" hx-select="#login-form"
-        hx-swap="innerHTML" hx-push-url="true"></section>
+        hx-swap="innerHTML"></section>
       <div id="login-response"></div>
     </section>
   </main>
