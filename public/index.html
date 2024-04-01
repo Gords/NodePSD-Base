@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full bg-white" data-theme="corporate">
+<html class="h-full" data-theme="mytheme">
 
 <head>
   <meta charset="UTF-8">
@@ -32,13 +32,14 @@
         hx-push-url="true"></section>
     </section>
     <section id="register-content">
-      <section href="/register" id="register" hx-trigger="load" hx-get="components.html" hx-select="#register-form" hx-swap="innerHTML" hx-push-url="true">
+      <section href="/register" id="register" hx-trigger="load" hx-get="components.html" hx-select="#register-form"
+        hx-swap="innerHTML" hx-push-url="true">
       </section>
       <div id="register-response"></div>
     </section>
     <section id="login-content">
-      <section href="/login" id="login" hx-trigger="load" hx-get="components.html" hx-select="#login-form" hx-swap="innerHTML"
-        hx-push-url="true"></section>
+      <section href="/login" id="login" hx-trigger="load" hx-get="components.html" hx-select="#login-form"
+        hx-swap="innerHTML" hx-push-url="true"></section>
       <div id="login-response"></div>
     </section>
   </main>

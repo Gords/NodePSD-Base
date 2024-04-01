@@ -71,19 +71,20 @@
           </div>
         </div>
         <button type="submit"
-        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Iniciar
-        sesión</button>
+          class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Iniciar
+          sesión</button>
       </div>
-      </div>
-      <p class="mt-10 text-center text-sm text-gray-500">
-        No tienes una cuenta?
-        <a href="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Creala aqui!</a>
-      </p>
+    </div>
+    <p class="mt-10 text-center text-sm text-gray-500">
+      No tienes una cuenta?
+      <a href="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Creala aqui!</a>
+    </p>
     </div>
   </form>
 
   <!-- Register Form -->
-  <form id="register-form" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" hx-post="/register" hx-target="#register-response">
+  <form id="register-form" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" hx-post="/register"
+    hx-target="#register-response">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" src="./img/logo-color.png" alt="Flash Center Logo">
       <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Registre su cuenta</h2>
@@ -98,9 +99,11 @@
           </div>
         </div>
         <div>
-          <label for="register-email" class="block text-sm font-medium leading-6 text-gray-900">Correo electronico</label>
+          <label for="register-email" class="block text-sm font-medium leading-6 text-gray-900">Correo
+            electronico</label>
           <div class="mt-2">
-            <input id="register-email" name="email" type="email" autocomplete="email" placeholder="de.tal@email.com" required
+            <input id="register-email" name="email" type="email" autocomplete="email" placeholder="de.tal@email.com"
+              required
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
@@ -113,7 +116,7 @@
         </div>
         <div>
           <button type="submit"
-            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Registrarse</button>
+            class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Registrarse</button>
         </div>
       </div>
       <p class="mt-10 text-center text-sm text-gray-500">
@@ -124,7 +127,7 @@
   </form>
 
   <!-- Contact Form -->
-  <form id="contact-form" class="bg-white px-6 py-12 sm:py-12 lg:px-8" action="#" method="POST">
+  <form id="contact-form" class="px-6 py-12 sm:py-12 lg:px-8" action="#" method="POST">
     <div class="mx-auto max-w-2xl text-center">
       <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contactanos</h2>
       <p class="mt-2 text-lg leading-8 text-gray-600">Como te podemos ayudar?</p>
@@ -177,7 +180,7 @@
 </section>
 
 <!-- CTA Section -->
-<section id="cta-section" class="bg-gray-200 py-16">
+<section id="cta-section" class="py-16">
   <div class="max-w-6xl mx-auto px-4 text-center">
     <h2 class="text-2xl font-bold mb-4">Todavia no sos cliente? Crea tu cuenta en minutos!</h2>
     <p>Crea tu cuenta de Flash Center y solicita tu prestamo online. Ofrecemos pre-aprobacion en menos de 24 horas</p>
@@ -191,7 +194,7 @@
 <!-- File Input Field -->
 <input type="file" id="file-input" class="file-input file-input-bordered w-full max-w-xs" />
 
-<nav id="top-navigation" class="navbar bg-fc-blue text-white">
+<nav id="top-navigation" class="navbar bg-neutral">
   <div class="navbar-start">
     <div class="dropdown">
       <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -199,7 +202,8 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
         </svg>
       </label>
-      <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 text-white">
+      <ul tabindex="0"
+        class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 text-white">
         <li><a href="#home" onclick="showContent('spa-content')">Inicio</a></li>
         <li><a href="#services" onclick="showContent('spa-content')">Servicios</a></li>
         <li><a href="#faq" onclick="showContent('spa-content')">Preguntas Frecuentes</a></li>
@@ -223,32 +227,32 @@
   <div class="navbar-end">
     <a class="btn" id="registerButton" href="#register" onclick="showContent('register-content')">Registro</a>
     <a class="btn" id="loginButton" href="#login" onclick="showContent('login-content')">Iniciar sesión</a>
-    <a class="btn" id="logoutButton" href="/" onclick="logout()" >Cerrar sesión</a>
+    <a class="btn" id="logoutButton" href="/" onclick="logout()">Cerrar sesión</a>
   </div>
 </nav>
 
 <!-- Footer -->
 <nav id="bottom-navigation" class="footer p-10 bg-base-200 text-base-content">
-<div>
-  <img src="./img/logo-blanco.png" alt="Flash Center" class="footer-logo w-80 h-6">
-</div>
-<nav>
-  <h2 class="footer-title">Servicios</h2>
-  <a href="#register" class="link link-hover">Crea tu cuenta</a>
-  <a href="#services" class="link link-hover">Solicita tu credito</a>
+  <div>
+    <img src="./img/logo-blanco.png" alt="Flash Center" class="footer-logo w-80 h-6">
+  </div>
+  <nav>
+    <h2 class="footer-title">Servicios</h2>
+    <a href="#register" class="link link-hover">Crea tu cuenta</a>
+    <a href="#services" class="link link-hover">Solicita tu credito</a>
+  </nav>
+  <nav>
+    <h2 class="footer-title">Empresa</h2>
+    <a href="#about" class="link link-hover">Nosotros</a>
+    <a href="#contact" class="link link-hover">Contacto</a>
+    <a href="#careers" class="link link-hover">Unete al equipo</a>
+  </nav>
+  <nav>
+    <h2 class="footer-title">Legal</h2>
+    <a href="#terms" class="link link-hover">Términos y condiciones</a>
+    <a href="#privacy" class="link link-hover">Políticas de privacidad</a>
+  </nav>
 </nav>
-<nav>
-  <h2 class="footer-title">Empresa</h2>
-  <a href="#about" class="link link-hover">Nosotros</a>
-  <a href="#contact" class="link link-hover">Contacto</a>
-  <a href="#careers" class="link link-hover">Unete al equipo</a>
-</nav>
-<nav>
-  <h2 class="footer-title">Legal</h2>
-  <a href="#terms" class="link link-hover">Términos y condiciones</a>
-  <a href="#privacy" class="link link-hover">Políticas de privacidad</a>
-</nav>
-</nav> 
 
 
 <!-- User Panel Navbar -->

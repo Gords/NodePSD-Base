@@ -15,10 +15,10 @@ html {
   z-index: 100;
 }
 
-.btn {
+/* .btn {
   border-radius: var(--rounded-btn, 0.1rem);
   min-height : var(--min-height-btn, 2rem);
-}
+} */
 
 .bg-fc-blue {
   --tw-bg-opacity: 1;
