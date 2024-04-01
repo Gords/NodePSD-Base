@@ -22,6 +22,8 @@ const linkClickHandler = (event) => {
   event.preventDefault();
   let path = event.target.getAttribute('href') || "/";
   if (!path.startsWith("/")) path = "/" + path;
+  // Capture scroll position before pushState
+  localStorage.setItem('scrollTop', window.scrollY);
   history.pushState({}, null, path);
   route();
 };
@@ -41,5 +43,15 @@ function showContent(contentId) {
   });
 }
 
+// Restore scroll position on initial load and after refresh
+document.addEventListener('DOMContentLoaded', (event) => {
+  const scrollTop = localStorage.getItem('scrollTop');
+  if (scrollTop) {
+    window.scrollTo(0, scrollTop);
+    localStorage.removeItem('scrollTop'); // Clear after use
+  }
+});
+
 // Call the route function initially
 route();
+
