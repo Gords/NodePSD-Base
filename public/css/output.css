@@ -969,6 +969,7 @@ select {
   }
 }
 
+
 .avatar {
   position: relative;
   display: inline-flex;
@@ -985,6 +986,36 @@ select {
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+
+.alert {
+  display: grid;
+  width: 100%;
+  grid-auto-flow: row;
+  align-content: flex-start;
+  align-items: center;
+  justify-items: center;
+  gap: 1rem;
+  text-align: center;
+  border-radius: var(--rounded-box, 1rem);
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-border-opacity)));
+  padding: 1rem;
+  --tw-text-opacity: 1;
+  color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
+  --alert-bg: var(--fallback-b2,oklch(var(--b2)/1));
+  --alert-bg-mix: var(--fallback-b1,oklch(var(--b1)/1));
+  background-color: var(--alert-bg);
+}
+
+@media (min-width: 640px) {
+  .alert {
+    grid-auto-flow: column;
+    grid-template-columns: auto minmax(auto,1fr);
+    justify-items: start;
+    text-align: start;
+  }
+
 }
 
 .avatar.placeholder > div {
@@ -2205,6 +2236,10 @@ details.collapse summary::-webkit-details-marker {
   }
 }
 
+.artboard.phone {
+  width: 320px;
+}
+
 .menu-horizontal {
   display: inline-flex;
   flex-direction: row;
@@ -2267,23 +2302,6 @@ details.collapse summary::-webkit-details-marker {
   --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.menu-sm :where(li:not(.menu-title) > *:not(ul, details, .menu-title)), .menu-sm :where(li:not(.menu-title) > details > summary:not(.menu-title)) {
-  border-radius: var(--rounded-btn, 0.5rem);
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-.menu-sm .menu-title {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
 }
 
 .collapse {
@@ -2378,6 +2396,10 @@ details.collapse summary::-webkit-details-marker {
 
 .block {
   display: block;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 .flex {
@@ -2560,10 +2582,6 @@ details.collapse summary::-webkit-details-marker {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.fill-current {
-  fill: currentColor;
 }
 
 .p-10 {
@@ -2817,8 +2835,44 @@ html {
   background-color: rgb(29 36 60 / var(--tw-bg-opacity));
 }
 
+
 .cursor-pointer {
   cursor: pointer;
+
+section {
+  padding-top: 80px;
+}
+
+#register-content, #login-content {
+  display: none;
+}
+
+.alert {
+  display: block;
+  padding: 1rem;
+  border: 1px solid blue;
+  border-radius: 4rem;
+  margin-top: 1rem;
+  background-color: blue;
+}
+
+.alert-success {
+  display: block;
+  padding: 1rem;
+  border: 1rem solid green;
+  border-radius: 4rem;
+  margin-top: 1rem;
+  background-color: green;
+}
+
+.alert-error {
+  display: block;
+  padding: 1rem;
+  border: 1rem solid red;
+  border-radius: 4rem;
+  margin-top: 1rem;
+  background-color: red;
+
 }
 
 .placeholder\:text-gray-400::-moz-placeholder {
@@ -2834,11 +2888,6 @@ html {
 .hover\:bg-indigo-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(99 102 241 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-yellow-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(250 204 21 / var(--tw-bg-opacity));
 }
 
 .hover\:text-indigo-500:hover {

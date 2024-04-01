@@ -1,56 +1,77 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const loggedIn = localStorage.getItem('loggedIn')
-  const registerButton = document.querySelector('#registerButton')
-  const loginButton = document.querySelector('#loginButton')
-  const logoutButton = document.querySelector('#logoutButton')
-  const userList = document.querySelector('#userList')
-  const fileList = document.querySelector('#fileList')
+  const loggedIn = localStorage.getItem('loggedIn');
+  const registerButton = document.querySelector('#registerButton');
+  const loginButton = document.querySelector('#loginButton');
+  const logoutButton = document.querySelector('#logoutButton');
 
-  function updateUI () {
+
+  function updateUI() {
     if (loggedIn === 'true') {
-      registerButton.style.display = 'none'
-      loginButton.style.display = 'none'
-      logoutButton.style.display = 'inline-flex'
-      userList.style.display = 'block'
-      fileList.style.display = 'block'
+      if (registerButton) registerButton.style.display = 'none';
+      if (loginButton) loginButton.style.display = 'none';
+      if (logoutButton) logoutButton.style.display = 'inline-flex';
     } else {
-      registerButton.style.display = 'inline-flex'
-      loginButton.style.display = 'inline-flex'
-      logoutButton.style.display = 'none'
-      userList.style.display = 'none'
-      fileList.style.display = 'none'
+      if (registerButton) registerButton.style.display = 'inline-flex';
+      if (loginButton) loginButton.style.display = 'inline-flex';
+      if (logoutButton) logoutButton.style.display = 'none';
+
     }
   }
 
-  updateUI()
+  updateUI();
+
+// Handle registration response
+document.body.addEventListener('htmx:afterSwap', function (event) {
+  const registerResponseContent = document.querySelector('#register-content #register-response');
+  if (registerResponseContent && registerResponseContent.contains(event.detail.elt)) {
+    const response = event.detail.xhr.response;
+    const data = JSON.parse(response);
+
+    if (data.success) {
+      registerResponseContent.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+              // Delay the redirection by 2 seconds (adjust the delay as needed)
+              setTimeout(function() {
+                window.location.href = '/';
+              }, 2000);
+    } else {
+      registerResponseContent.innerHTML = `<div class="alert alert-error">${data.message}</div>`;
+      console.error('Registration failed:', data.message);
+    }
+  }
+});
 
   // Handle login response
-  document.body.addEventListener('htmx:afterSwap', function (event) {
-    const loginFlashMessages = event.detail.elt.querySelector('#login-flash-messages')
-    if (loginFlashMessages) {
-      const successMessage = loginFlashMessages.querySelector('.alert-success')
-      const errorMessage = loginFlashMessages.querySelector('.alert-error')
-
-      if (successMessage) {
-        // Login successful, update UI and set loggedIn flag
-        localStorage.setItem('loggedIn', 'true')
-        updateUI()
-      } else if (errorMessage) {
+  document.body.addEventListener('htmx:afterRequest', function (event) {
+    if (event.detail.target.id === 'login-form') {
+      const response = JSON.parse(event.detail.xhr.response);
+      const loginResponseContent = document.querySelector('#login-content #login-response');
+      if (response.success) {
+        // Login successful, update UI, set loggedIn flag, and redirect after a delay
+        localStorage.setItem('loggedIn', 'true');
+        updateUI();
+        loginResponseContent.innerHTML = `<div class="alert alert-success">${response.message}</div>`;
+        
+        // Delay the redirection by 2 seconds (adjust the delay as needed)
+        setTimeout(function() {
+          window.location.href = '/';
+        }, 2000);
+      } else {
         // Login failed, display error message
-        console.error('Login failed:', errorMessage.textContent)
+        loginResponseContent.innerHTML = `<div class="alert alert-error">${response.message}</div>`;
+        console.error('Login failed:', response.message);
       }
     }
-  })
-})
+  });
+});
 
 // Logout function
-function logout () {
-  localStorage.removeItem('loggedIn')
-  window.location.reload()
+function logout() {
+  localStorage.removeItem('loggedIn');
+  window.location.reload();
 }
 
 // Attach the logout function to the window object
-window.logout = logout
+window.logout = logout;
 
 // Fetch user details
 fetch('/check-login').then(response => {
@@ -91,28 +112,3 @@ function deleteImage (imageId) {
     })
     .catch(error => console.error('Error deleting file:', error))
 }
-
-// Keeping for educational purposes, borra si molesta mi bro <3
-
-// // Fetch user files
-// fetch('/images/user-images')
-//   .then(response => response.json())
-//   .then(images => {
-//     const fileList = document.getElementById('file-name-display')
-//     fileList.innerHTML = '' // Clear existing entries
-
-//     if (images.length === 0) {
-//       const li = document.createElement('li')
-//       li.textContent = 'No files found'
-//       fileList.appendChild(li)
-//     } else {
-//       images.forEach(image => {
-//         const li = document.createElement('li');
-//         const deleteIconSVG = `<svg onclick="confirmDelete(${image.id})" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer">
-//   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
-//         li.innerHTML = `${image.fileName} ${deleteIconSVG}`;
-//         fileList.appendChild(li);
-//       })
-//     }
-//   })
-//   .catch(error => console.error('Error fetching user images:', error))
