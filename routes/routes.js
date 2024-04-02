@@ -82,7 +82,6 @@ module.exports = (User, Image) => {
 
   router.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
-    failureFlash: true
   }), (req, res) => {
     const user = req.user;
     if (!user.isVerified) {
