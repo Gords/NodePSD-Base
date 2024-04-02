@@ -91,7 +91,7 @@ module.exports = (User, Image) => {
   })
 
   router.post('/login', passport.authenticate('local', {
-    failureRedirect: '/login',
+    failureRedirect: '/login'
   }), (req, res) => {
     const user = req.user
     if (!user.isVerified) {

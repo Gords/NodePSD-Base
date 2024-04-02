@@ -43,43 +43,45 @@
 <!-- Forms -->
 <section id="forms">
   <!-- Login Form -->
-  <form id="login-form" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" hx-post="/login">
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img class="mx-auto h-10 w-auto" src="./img/logo-blanco.png" alt="Flash Center Logo">
-      <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Acceda a su cuenta</h2>
-    </div>
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <div class="space-y-6">
-        <div>
-          <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Correo electronico</label>
-          <div class="mt-2">
-            <input id="username" name="username" type="email" autocomplete="email" required
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-          </div>
-        </div>
-        <div>
-          <div class="flex items-center justify-between">
-            <label for="login-password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
-            <div class="text-sm">
-              <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Olvidaste tu contraseña?</a>
+  <div id="login-form" class="card m-auto max-w-sm shadow-inner bg-base-100">
+    <form class="card-body flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" hx-post="/login">
+      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <img class="mx-auto h-auto w-auto" src="./img/logo-color.png" alt="Flash Center Logo">
+        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Acceda a su cuenta</h2>
+      </div>
+      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div class="space-y-6">
+          <div>
+            <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Correo electronico</label>
+            <div class="mt-2">
+              <input id="username" name="username" type="email" autocomplete="email" required
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
           </div>
-          <div class="mt-2">
-            <input id="login-password" name="password" type="password" autocomplete="current-password" required
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <div>
+            <div class="flex items-center justify-between">
+              <label for="login-password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
+              <div class="text-sm">
+                <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Olvidaste tu contraseña?</a>
+              </div>
+            </div>
+            <div class="mt-2">
+              <input id="login-password" name="password" type="password" autocomplete="current-password" required
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
           </div>
+          <button type="submit"
+            class="btn btn-active btn-primary flex w-full justify-center text-white shadow-sm hover:bg-secondary">Iniciar
+            sesión</button>
         </div>
-        <button type="submit"
-          class="btn btn-active btn-primary flex w-full justify-center text-white shadow-sm hover:bg-secondary">Iniciar
-          sesión</button>
       </div>
-    </div>
-    <p class="mt-10 text-center text-sm text-gray-500">
-      No tienes una cuenta?
-      <a href="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Creala aqui!</a>
-    </p>
-    </div>
+      <p class="mt-10 text-center text-sm text-gray-500">
+        No tienes una cuenta?
+        <a href="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Creala aqui!</a>
+      </p>
+  </div>
   </form>
+  </div>
 
   <!-- Register Form -->
   <div id="register-form" class="card m-auto max-w-sm shadow-inner bg-base-100">
@@ -196,7 +198,7 @@
 <input type="file" id="file-input" class="file-input file-input-bordered w-full max-w-xs" />
 
 <!-- Main Navbar -->
-<nav id="top-navigation" class="navbar bg-primary font-bold text-white">
+<nav id="top-navigation" class="navbar bg-primary font-bold text-white shadow-md">
   <div class="navbar-start">
     <div class="dropdown">
       <label tabindex="0" class="btn btn-ghost lg:hidden">
