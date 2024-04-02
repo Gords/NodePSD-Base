@@ -92,8 +92,6 @@ module.exports = (User, Image) => {
 
   router.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
-    // req.flash error caused by the line below
-    failureFlash: true
   }), (req, res) => {
     const user = req.user
     if (!user.isVerified) {
