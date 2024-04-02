@@ -20,9 +20,10 @@
   <header>
     <nav hx-get="components.html" hx-select="#top-navigation" hx-trigger="load"></nav>
   </header>
-  <main class="flex-grow py-16" id="main-content">
+  <main class="flex-grow" id="main-content">
     <section id="spa-content">
-      <section id="home" hx-trigger="load" hx-get="components.html" hx-select="#home-component" hx-swap="afterbegin">
+      <section id="home" hx-trigger="load" hx-get="components.html" hx-select="#call-to-action-component"
+        hx-swap="afterbegin">
       </section>
       <section id="services" hx-trigger="load" hx-get="components.html" hx-select="#services-component"
         hx-swap="afterbegin"></section>
@@ -33,7 +34,7 @@
       <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form" hx-swap="afterbegin">
       </section>
     </section>
-    <section id="register-content">
+    <section id="register-content" class="pt-4">
       <section href="/register" id="register" hx-trigger="load" hx-get="components.html" hx-select="#register-form"
         hx-swap="innerHTML">
       </section>
