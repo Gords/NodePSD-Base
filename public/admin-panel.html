@@ -39,7 +39,7 @@
         <div id="user-info" class="flex flex-row items-center mb-6">
           <!-- Avatar next to the name and email -->
           <div class="avatar mr-4">
-            <div class="w-16 h-16 rounded-full relative">
+            <div class="w-16 h-16 rounded-full relative bg-primary">
               <span id="username-initials"
                 class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold"></span>
             </div>
@@ -71,8 +71,8 @@
         <p class="text-sm text-gray-500 mb-3">Puedes cargar hasta 4 archivos de hasta 25MB cada uno</p>
         <form class="dropfile-form" hx-encoding="multipart/form-data" hx-post="/images">
           <input type="file" id="files-to-upload" name="files" multiple accept="image/jpeg, image/png, application/pdf">
-          <label class="btn" for="files-to-upload">Seleccionar archivos</label>
-          <button class="btn" type="submit" id="submit-files">Cargar archivos</button>
+          <label class="btn-primary" for="files-to-upload">Seleccionar archivos</label>
+          <button class="btn-primary" type="submit" id="submit-files">Cargar archivos</button>
         </form>
         <div id="file-upload-list">
           <!-- Response from /images will be inserted here -->

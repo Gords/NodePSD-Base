@@ -67,3 +67,11 @@ section {
   background-color: red;
 
 }
+
+.bg-texture {
+  background-color: #ffffff;
+  opacity: 0.4;
+  background: linear-gradient(135deg, #b5bdfc55 25%, transparent 25%) -40px 0/ 80px 80px, linear-gradient(225deg, #b5bdfc 25%, transparent 25%) -40px 0/ 80px 80px, linear-gradient(315deg, #b5bdfc55 25%, transparent 25%) 0px 0/ 80px 80px, linear-gradient(45deg, #b5bdfc 25%, #ffffff 25%) 0px 0/ 80px 80px;
+  position: relative;
+  z-index: 0;
+}
