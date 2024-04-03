@@ -82,7 +82,6 @@ module.exports = (User, Image) => {
 
   router.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
-    failureFlash: true
   }), (req, res) => {
     const user = req.user;
     if (!user.isVerified) {
@@ -106,6 +105,7 @@ module.exports = (User, Image) => {
         console.error('Error reading file:', err);
         res.status(500).send('Internal Server Error');
       } else {
+        // login form section not found error can be fixed by renaming id to just "login-form"
         const loginFormSectionRegex = /<div id="login-form-section">([\s\S]*?)<\/div>/;
         const match = data.match(loginFormSectionRegex);
 
