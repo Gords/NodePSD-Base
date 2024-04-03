@@ -20,20 +20,15 @@ html {
   min-height : var(--min-height-btn, 2rem);
 } */
 
-.bg-fc-blue {
-  --tw-bg-opacity: 1;
-  background-color: rgb(29 36 60 / var(--tw-bg-opacity));
-}
-
 
 .cursor-pointer {
   cursor: pointer;
 }
 
 
-section {
+/* section {
   padding-top: 80px; 
-}
+} */
 
 #register-content, #login-content {
   display: none;

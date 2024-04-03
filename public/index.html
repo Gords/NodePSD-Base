@@ -22,23 +22,26 @@
   </header>
   <main class="flex-grow" id="main-content">
     <section id="spa-content">
-      <section id="home" hx-trigger="load" hx-get="components.html" hx-select="#call-to-action-component"
-        hx-swap="afterbegin">
+      <section id="home" hx-trigger="load" hx-get="components.html" hx-select="#home-component" hx-swap="afterbegin">
       </section>
       <section id="services" hx-trigger="load" hx-get="components.html" hx-select="#services-component"
         hx-swap="afterbegin"></section>
       <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion-component"
         hx-swap="afterbegin">
       </section>
-      <section id="about" hx-trigger="load" hx-get="components.html" hx-select="#about-component" hx-swap="afterbegin">
+      <section id="about" hx-trigger="load" hx-get="components.html" hx-select="#about-component" hx-swap="afterbegin"
+        class="bg-accent">
+      </section>
+      <section id="call-to-action" hx-trigger="load" hx-get="components.html" hx-select="#call-to-action-component"
+        hx-swap="afterbegin">
       </section>
       <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form-component"
         hx-swap="afterbegin">
       </section>
     </section>
-    <section id="register-content" class="pt-4">
-      <section href="/register" id="register" hx-trigger="load" hx-get="components.html" hx-select="#register-form"
-        hx-swap="innerHTML">
+    <section id="register-content">
+      <section href="/register" id="register" hx-trigger="load" hx-get="components.html"
+        hx-select="#register-form-component" hx-swap="innerHTML">
       </section>
       <div id="register-response"></div>
     </section>

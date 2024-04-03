@@ -21,16 +21,18 @@
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
-      <li><a href="#home">Inicio</a></li>
-      <li><a href="#services">Servicios</a></li>
-      <li><a href="#faq">Preguntas Frecuentes</a></li>
-      <li><a href="#about">Nosotros</a></li>
-      <li><a href="#contact">Contacto</a></li>
+      <li><a href="#home" class="text-lg">Inicio</a></li>
+      <li><a href="#services" class="text-lg">Servicios</a></li>
+      <li><a href="#faq" class="text-lg">Preguntas Frecuentes</a></li>
+      <li><a href="#about" class="text-lg">Nosotros</a></li>
+      <li><a href="#contact" class="text-lg">Contacto</a></li>
     </ul>
   </div>
   <div class="navbar-end">
     <a class="btn" id="registerButton" href="#register">Registro</a>
+    <span class="mx-2"></span>
     <a class="btn" id="loginButton" href="#login">Iniciar sesión</a>
+    <span class="mx-2"></span>
     <a class="btn" id="logoutButton" href="/">Cerrar sesión</a>
   </div>
 </nav>
@@ -47,72 +49,85 @@
   </div>
 </nav>
 
-<!-- Home section -->
-<div id="home-component" class="py-12">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="text-center">
-      <h1 class="text-4xl font-bold mb-4">Solicita tu prestamo 100% online con Flash Center</h1>
-      <p class="mb-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. A earum neque veniam doloremque
-      </p>
+<!-- Home section with overlay background -->
+<div id="home-component" class="hero min-h-screen">
+  <video autoplay muted loop class="absolute -z-10 w-full h-full object-cover">
+    <source
+      src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3VpeDl6OTRuNDI4MmU0eWJlanRwZnNiM3BuaXI2dnR1MTUyZjcwNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pqlHqtebBe6rm2EOQx/giphy.mp4"
+      type="video/mp4">
+  </video>
+  <div class="hero-overlay bg-opacity-65"></div>
+  <div class="hero-content text-center text-neutral-content">
+    <div class="max-w-2xl">
+      <h1 class="mb-5 text-5xl font-bold pb-8">Bienvenido a Flash Center!</h1>
+      <h2 class="mb-5 text-3xl font-semibold">Obten tu credito pre aprobado en menos de 24hs</h2>
+      <p class="mb-5">Acompanhamos en la busqueda del producto ideal, a cada cliente, en cualquier parte del mundo.
+        Salvaguardamos su interes,
+        garantizando un trato simple y efectivo. En menos de 5 minutos te decimos si contas con una pre-aprobacion</p>
+      <button class="btn btn-primary">Get Started</button>
     </div>
   </div>
 </div>
 
 <!-- Call to Action Section -->
-<section id="call-to-action-component" class="bg-gray-200 py-16">
+<section id="call-to-action-component" class="py-10">
   <div class="max-w-6xl mx-auto px-4 text-center">
     <h2 class="text-2xl font-bold mb-4">Todavia no sos cliente? Crea tu cuenta en minutos!</h2>
-    <p>Crea tu cuenta de Flash Center y solicita tu prestamo online. Ofrecemos pre-aprobacion en menos de 24 horas</p>
-    <a href="/register"
-      class="mt-6 inline-block px-6 py-2 bg-primary text-white rounded hover:bg-secondary transition">Solicita tu
-      prestamo</a>
+    <p class="pb-8">Crea tu cuenta de Flash Center y solicita tu prestamo online. Ofrecemos pre-aprobacion en menos de
+      24 horas</p>
+    <a href="/register" class="btn btn-primary text-white">Crea tu cuenta</a>
   </div>
 </section>
 
 <!-- Services Section -->
-<div id="services-component" class="container mx-auto py-12 px-4 text-center">
-  <h1 class="text-4xl font-bold mb-4">Nuestros Servicios</h1>
-
-  <p class="text-lg mb-4">Prestamos personales de Gs. 500.000 a 15.000.000</p>
-
-  <h2 class="text-3xl font-bold mb-2">Financiamiento</h2>
-  <p class="text-lg mb-4">Contamos con plazos desde 6 meses hasta 15 meses</p>
-
-  <h2 class="text-3xl font-bold mb-2">Precio</h2>
-  <p class="text-lg mb-4">Tasa máxima efectiva estipulada por el Banco Central del Paraguay</p>
-
-  <h2 class="text-3xl font-bold mb-2">Las condiciones de otorgamiento de créditos, específicamente préstamos personales
-    en guaraníes, son las siguientes:</h2>
-
-  <div class="mb-4">
-    <h3 class="text-2xl font-bold mb-1">Monto del Préstamo:</h3>
-    <p class="text-lg">Máximo: Gs 15.000.000</p>
-    <p class="text-lg">Mínimo: Gs. 500.000</p>
-  </div>
-
-  <div class="mb-4">
-    <h3 class="text-2xl font-bold mb-1">Plazo de Pago:</h3>
-    <p class="text-lg">Mínimo: 6 meses</p>
-    <p class="text-lg">Máximo: 15 meses</p>
-  </div>
-
-  <div class="mb-4">
-    <h3 class="text-2xl font-bold mb-1">Tasa Efectiva Anual (TEA):</h3>
-    <p class="text-lg">Máximo permitido por el Banco Central de Paraguay y la normativa correspondiente: 30.27%</p>
-  </div>
-
-  <div class="mb-4">
-    <h3 class="text-2xl font-bold mb-1">Información Adicional:</h3>
-    <p class="text-lg">La información proporcionada sobre los préstamos es únicamente a título informativo.</p>
-    <p class="text-lg">No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
-      préstamos.</p>
-    <p class="text-lg">Está sujeta a las políticas de mercado y/o internas de la entidad financiera.</p>
+<!-- <div id="services-component" class="bg-no-repeat bg-cover bg-top"
+  style="background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHRvN2VsdnF5dGt2Yno0emhmZ3p0MWt0Yjd3eTZ6M3AyczJjdDhkbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kzI8OWSdxqpIytl3xI/giphy-downsized-large.gif')"> -->
+<div id="services-component" class="bg-top">
+  <div class="max-w-4xl mx-auto py-12 px-4 text-center h-full">
+    <h1 class="text-3xl font-bold mb-4">Nuestros Servicios</h1>
+    <div class="grid md:grid-cols-3">
+      <div class="mb-4">
+        <h3 class="text-xl font-bold mb-1">Productos</h3>
+        <p class="text-lg">Prestamos personales desde Gs. 500.000 a 15.000.000</p>
+      </div>
+      <div class="mb-4">
+        <h3 class="text-xl font-bold mb-1">Financiamiento</h3>
+        <p class="text-lg">Contamos con plazos desde 6 meses hasta 15 meses</p>
+      </div>
+      <div class="mb-4">
+        <h3 class="text-xl font-bold mb-1">Precio</h3>
+        <p class="text-lg">Tasa máxima efectiva estipulada por el Banco Central del Paraguay</p>
+      </div>
+    </div>
+    <h2 class="text-2xl font-bold my-4">Condiciones de otorgamiento de préstamos personales</h2>
+    <div class="grid md:grid-cols-3">
+      <div class="mb-4">
+        <h3 class="text-xl font-bold mb-1">Monto del Préstamo</h3>
+        <p class="text-lg">Máximo: Gs 15.000.000</p>
+        <p class="text-lg">Mínimo: Gs. 500.000</p>
+      </div>
+      <div class="mb-4">
+        <h3 class="text-xl font-bold mb-1">Plazo de Pago</h3>
+        <p class="text-lg">Mínimo: 6 meses</p>
+        <p class="text-lg">Máximo: 15 meses</p>
+      </div>
+      <div class="mb-4">
+        <h3 class="text-xl font-bold mb-1">Tasa Efectiva Anual (TEA)</h3>
+        <p class="text-lg">Máximo permitido por el Banco Central de Paraguay y la normativa correspondiente: 30.27%</p>
+      </div>
+    </div>
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-1">Información Adicional:</h3>
+      <p class="text-lg">La información proporcionada sobre los préstamos es únicamente a título informativo.</p>
+      <p class="text-lg">No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
+        préstamos. Está sujeta a las políticas de mercado y/o internas de la entidad financiera.</p>
+    </div>
   </div>
 </div>
 
 <!-- FAQ Accordion -->
 <section id="faq-accordion-component" class="mx-auto py-12 z-10 bg-accent">
-  <h2 class="text-2xl font-bold text-center mb-12">Preguntas Frecuentes</h2>
+  <h1 class="text-3xl font-bold text-center mb-12">Preguntas Frecuentes</h1>
   <div id="accordion-item-list" class="space-y-4">
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
       <summary class="collapse-title text-xl font-bold bg-base-100 text-center">
@@ -153,40 +168,39 @@
 </section>
 
 <!-- About Section -->
-<div id="about-component" class="py-12">
-  <div class="max-w-6xl mx-auto">
-    <div class="items-center text-center">
-      <h1 class="font-bold text-xl mb-4">Acerca de Flash Center</h1>
-      <p>Flash Center es una empresa paraguaya 100% digital
-        centrada en el microcrédito. Otorgamos
-        préstamos al consumidor a traves de un proceso 100% digital, agilizando el proceso de aprobacion
-      </p>
-    </div>
-    <div class="grid md:grid-cols-3 gap-10">
-      <div class="items-center text-center">
-        <h2 class="text-xl font-bold mt-6">Mision</h2>
-        <p class="mt-2">Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a la sociedad, a
-          través de
-          productos financieros</p>
-      </div>
-      <div class="items-center text-center">
-        <h2 class="text-xl font-bold mt-6">Vision</h2>
-        <p class="mt2">Ser una banca contribuyente al estado y su gente</p>
-      </div>
-      <div class="items-center text-center">
-        <h2 class="text-xl font-bold mt-6">Valores</h2>
-        <p class="mt-2">
-          Accesibilidad</br>
-          Amabilidad</br>
-          Lealtad</br>
-          Respeto</br>
-          Agilidad
-        </p>
-        </ul>
+<div id="about-component" class="bg-no-repeat bg-bottom py-12"
+  style="background-image: url('./img/city-skyline-medres.jpg')">
+  <div class="max-w-3xl mx-auto flex items-center h-full">
+
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body text-center">
+        <h1 class="text-3xl font-bold mb-4 text-center">ACERCA DE FLASH CENTER</h1>
+        <p class="text-l">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito. Otorgamos
+          préstamos al
+          consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación.</p>
+
+        <div class="grid md:grid-cols-3 gap-10">
+          <div>
+            <h2 class="text-xl font-bold mt-6">MISION</h2>
+            <p>Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a la sociedad, a través de
+              productos financieros.</p>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold mt-6">VISION</h2>
+            <p>Ser una banca contribuyente al estado y su gente.</p>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold mt-6">VALORES</h2>
+            <p>Accesibilidad<br>Agilidad<br>Amabilidad<br>Lealtad<br>Respeto</p>
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
+
+
 
 <!-- Footer -->
 <nav id="bottom-navigation-component" class="footer p-10 bg-neutral text-white">
@@ -214,7 +228,7 @@
 <!-- Forms -->
 <section id="forms">
   <!-- Login Form -->
-  <div id="login-form-component" class="card m-auto max-w-sm shadow-inner bg-base-100">
+  <div id="login-form-component" class="card m-auto max-w-sm shadow-inner pt-28">
     <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/login">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <img class="mx-auto h-auto w-auto" src="./img/logo-color.png" alt="Flash Center Logo">
@@ -241,8 +255,7 @@
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
           </div>
-          <button type="submit"
-            class="btn btn-active btn-primary flex w-full justify-center text-white shadow-sm hover:bg-secondary">Iniciar
+          <button type="submit" class="btn btn-primary flex w-full justify-center text-white hover:bg-secondary">Iniciar
             sesión</button>
         </div>
       </div>
@@ -255,7 +268,7 @@
   </div>
 
   <!-- Register Form -->
-  <div id="register-form-component" class="card m-auto max-w-sm shadow-inner bg-base-100 pt-4">
+  <div id="register-form-component" class="card m-auto max-w-sm shadow-inner bg-base-100 pt-28">
     <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/register"
       hx-target="#register-response">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -289,7 +302,7 @@
           </div>
           <div>
             <button type="submit"
-              class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Registrarse</button>
+              class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Registrarse</button>
           </div>
         </div>
         <p class="mt-10 text-center text-sm text-gray-500">
