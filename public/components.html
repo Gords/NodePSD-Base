@@ -21,11 +21,11 @@
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
-      <li><a href="#home" class="text-lg">Inicio</a></li>
-      <li><a href="#services" class="text-lg">Servicios</a></li>
-      <li><a href="#faq" class="text-lg">Preguntas Frecuentes</a></li>
-      <li><a href="#about" class="text-lg">Nosotros</a></li>
-      <li><a href="#contact" class="text-lg">Contacto</a></li>
+      <li><a href="#home" class="text-lg link link-hover">Inicio</a></li>
+      <li><a href="#services" class="text-lg link link-hover">Servicios</a></li>
+      <li><a href="#faq" class="text-lg link link-hover">Preguntas Frecuentes</a></li>
+      <li><a href="#about" class="text-lg link link-hover">Nosotros</a></li>
+      <li><a href="#contact" class="text-lg link link-hover">Contacto</a></li>
     </ul>
   </div>
   <div class="navbar-end">
@@ -52,21 +52,18 @@
 <!-- Home section with overlay background -->
 <div id="home-component" class="hero min-h-screen">
   <video autoplay muted loop class="absolute -z-10 w-full h-full object-cover">
-    <source
-      src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3VpeDl6OTRuNDI4MmU0eWJlanRwZnNiM3BuaXI2dnR1MTUyZjcwNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pqlHqtebBe6rm2EOQx/giphy.mp4"
-      type="video/mp4">
+    <source src="./img/skyline-video.mp4" type="video/mp4">
   </video>
-  <!-- <div class="hero-overlay"></div> -->
-  <div
-    class="hero-content backdrop-grayscale text-center text-neutral p-8 md:p-12 lg:p-16 border border-gray-200 border-opacity-20 rounded-lg">
+  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-8 md:p-12 lg:p-16 rounded-lg">
     <div class="max-w-3xl">
-      <h1 class="mb-5 text-5xl font-bold pb-8">BIENVENIDOS A FLASH CENTER</h1>
       <h2 class="mb-5 text-3xl font-semibold">Obten tu credito pre aprobado en menos de 24hs</h2>
       <p class="mb-5 text-xl">Acompanhamos en la busqueda del producto ideal, a cada cliente, en cualquier parte del
         mundo.
         Salvaguardamos su interes,
         garantizando un trato simple y efectivo. En menos de 5 minutos te decimos si contas con una pre-aprobacion</p>
-      <button class="btn btn-primary btn-wide btn-xs sm:btn-sm md:btn-md lg:btn-lg">SOLICITA TU CREDITO</button>
+      <a href="#register"
+        class="btn btn-accent btn-wide btn-xs sm:btn-sm md:btn-md lg:btn-lg text-white font-bold">SOLICITA TU
+        CREDITO</a>
     </div>
   </div>
 </div>
@@ -75,13 +72,14 @@
 <section id="call-to-action-component" class="py-28">
   <div class="max-w-6xl mx-auto px-4 text-center">
     <h2 class="text-2xl font-bold mb-4">Todavia no sos cliente? Crea tu cuenta en minutos!</h2>
-    <p class="pb-8">Crea tu cuenta de Flash Center y solicita tu prestamo online. Ofrecemos pre-aprobacion en menos de
-      24 horas</p>
-    <a href="/register" class="btn btn-primary btn-wide text-white">CREA TU CUENTA</a>
+    <!-- <p class="pb-8">Crea tu cuenta de Flash Center y solicita tu prestamo online</p> -->
+    <a href="#register"
+      class="btn btn-primary btn-wide btn-xs sm:btn-sm md:btn-md lg:btn-lg text-white font-extrabold">CREA TU CUENTA</a>
   </div>
 </section>
 
 <!-- Services Section -->
+<!-- Example of how to use a gif as a background for a component's width -->
 <!-- <div id="services-component" class="bg-no-repeat bg-cover bg-top"
   style="background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHRvN2VsdnF5dGt2Yno0emhmZ3p0MWt0Yjd3eTZ6M3AyczJjdDhkbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kzI8OWSdxqpIytl3xI/giphy-downsized-large.gif')"> -->
 <div id="services-component" class="bg-top">
@@ -128,42 +126,49 @@
 </div>
 
 <!-- FAQ Accordion -->
-<section id="faq-accordion-component" class="mx-auto py-12 z-10 bg-neutral">
-  <h1 class="text-3xl font-bold text-center mb-12">Preguntas Frecuentes</h1>
+<section id="faq-accordion-component" class="mx-auto py-12 bg-secondary text-base-100 z-10">
+  <h1 class="text-3xl font-bold text-center mb-12">PREGUNTAS FRECUENTES</h1>
   <div id="accordion-item-list" class="space-y-4">
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
-      <summary class="collapse-title text-xl font-bold bg-base-100 text-center">
+      <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿POR QUÉ CRÉDITO FLASH?
       </summary>
-      <div class="collapse-content mt-2">
-        <p class="text-center">PORQUE TENEMOS LA RESPUESTA MAS INMEDIATA DEL MERCADO, YA QUE CONTAMOS CON UN PROCESO DE
-          APROBACIÓN DE CRÉDITOS 100% DIGITAL.</p>
+      <div class="collapse-content py-6 bg-base-100">
+        <p class="text-center text-lg text-black">Porque tenemos la respuesta mas inmediata del mercado, ya
+          que contamos con un
+          proceso de
+          aprobación de créditos 100% digital</p>
       </div>
     </details>
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
-      <summary class="collapse-title text-xl font-bold text-center">
+      <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿QUÉ DOCUMENTACIÓN NECESITO?
       </summary>
-      <div class="collapse-content mt-2">
-        <p class="text-center">NECESITÁS COMPROBANTE DE INGRESOS, COMPROBANTE DE DOMICILIO (RECIBOS DE COPACO, ANDE,
-          ESSAP, ETC) Y CÉDULA DE IDENTIDAD.</p>
-      </div>
-    </details>
-    <details class="collapse collapse-arrow shadow mx-auto max-w-3xl bg-base-100">
-      <summary class="collapse-title text-xl font-bold text-center">
-        ¿CÓMO LO SOLICITO?
-      </summary>
-      <div class="collapse-content mt-2">
-        <p class="text-center">¡ES MUY FÁCIL! PODÉS SOLICITAR TU CREDITO COMPLETANDO EL FORMULARIO DE ARRIBA Y CON SOLO
-          5 DATOS, TE DAMOS EL MONTO HABILITADO.</p>
+      <div class="collapse-content py-6 bg-base-100">
+        <p class="text-center text-lg text-black">Necesitás comprobante de ingresos, comprobante de domicilio, recibos
+          de servicios
+          (como Copaco,
+          ANDE,
+          ESSAP, etc.) y Cédula de Identidad</p>
       </div>
     </details>
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
-      <summary class="collapse-title text-xl font-bold text-center">
+      <summary class="collapse-title text-xl font-bold text-center bg-accent">
+        ¿CÓMO LO SOLICITO?
+      </summary>
+      <div class="collapse-content py-6 bg-base-100">
+        <p class="text-center text-lg text-black">¡Es muy fácil! Podés solicitar tu credito completando el formulario de
+          arriba y
+          con solo
+          5 datos, te damos el monto habilitado.</p>
+      </div>
+    </details>
+    <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
+      <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿DÓNDE LO RETIRO?
       </summary>
-      <div class="collapse-content mt-2">
-        <p class="text-center">LO RETIRÁS EN CUALQUIERA DE LOS LOCALES QUE TENEMOS DISPONIBLES.</p>
+      <div class="collapse-content py-6 bg-base-100">
+        <p class="text-center text-lg text-black">Lo retirás en cualquiera de los locales que tenemos disponibles.</p>
       </div>
     </details>
   </div>
@@ -205,25 +210,25 @@
 
 
 <!-- Footer -->
-<nav id="bottom-navigation-component" class="footer p-10 bg-secondary text-white">
+<nav id="bottom-navigation-component" class="footer p-10 bg-secondary font-bold text-white">
   <div>
     <img src="./img/logo-blanco.png" alt="Flash Center" class="footer-logo w-80 h-6">
   </div>
   <nav>
-    <h2 class="footer-title">Servicios</h2>
-    <a href="#register" class="link link-hover">Crea tu cuenta</a>
-    <a href="#services" class="link link-hover">Solicita tu credito</a>
+    <h2 class="footer-title text-lg">Servicios</h2>
+    <a href="#register" class="link link-hover text-base">Crea tu cuenta</a>
+    <a href="#home" class="link link-hover text-base">Solicita tu credito</a>
   </nav>
   <nav>
-    <h2 class="footer-title">Empresa</h2>
-    <a href="#about" class="link link-hover">Nosotros</a>
-    <a href="#contact" class="link link-hover">Contacto</a>
-    <a href="#careers" class="link link-hover">Unete al equipo</a>
+    <h2 class="footer-title text-lg">Empresa</h2>
+    <a href="#about" class="link link-hover text-base">Nosotros</a>
+    <a href="#contact" class="link link-hover text-base">Contacto</a>
+    <a href="#jobs" class="link link-hover text-base">Unete al equipo</a>
   </nav>
   <nav>
-    <h2 class="footer-title">Legal</h2>
-    <a href="#terms" class="link link-hover">Términos y condiciones</a>
-    <a href="#privacy" class="link link-hover">Políticas de privacidad</a>
+    <h2 class="footer-title text-lg">Legal</h2>
+    <a href="#terms" class="link link-hover text-base">Términos y condiciones</a>
+    <a href="#privacy" class="link link-hover text-base">Políticas de privacidad</a>
   </nav>
 </nav>
 
@@ -304,12 +309,12 @@
           </div>
           <div>
             <button type="submit"
-              class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Registrarse</button>
+              class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">REGISTRARSE</button>
           </div>
         </div>
         <p class="mt-10 text-center text-sm text-gray-500">
           Ya tienes una cuenta?
-          <a href="/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Inicia sesión aqui!</a>
+          <a href="/login" class="">Inicia sesión aqui!</a>
         </p>
       </div>
     </form>
