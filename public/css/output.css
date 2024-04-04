@@ -2698,6 +2698,10 @@ details.collapse summary::-webkit-details-marker {
   max-width: 20rem;
 }
 
+.shrink-0 {
+  flex-shrink: 0;
+}
+
 .flex-grow {
   flex-grow: 1;
 }
@@ -2818,6 +2822,10 @@ details.collapse summary::-webkit-details-marker {
 
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+
+.stroke-current {
+  stroke: currentColor;
 }
 
 .object-cover {
@@ -3240,6 +3248,11 @@ html {
 .focus\:ring-indigo-600:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(79 70 229 / var(--tw-ring-opacity));
+}
+
+.focus\:ring-secondary:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: var(--fallback-s,oklch(var(--s)/var(--tw-ring-opacity)));
 }
 
 .focus-visible\:outline:focus-visible {
