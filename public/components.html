@@ -1,5 +1,5 @@
 <!-- Main Navbar -->
-<nav id="top-navigation-component" class="navbar bg-primary font-bold text-white shadow-md">
+<nav id="top-navigation-component" class="navbar bg-primary font-bold text-white shadow-md flex">
   <div class="navbar-start">
     <div class="dropdown">
       <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -15,25 +15,25 @@
         <li><a href="#contact">Contacto</a></li>
       </ul>
     </div>
-    <a href="/" class="btn btn-ghost text-xl">
+    <a href="/" class="btn btn-ghost text-xl flex-initial w-80">
       <img src="./img/logo-blanco.png" alt="Flash Center" class="navbar-logo w-80 h-6">
     </a>
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
-      <li><a href="#home" class="text-lg link link-hover">Inicio</a></li>
-      <li><a href="#services" class="text-lg link link-hover">Servicios</a></li>
-      <li><a href="#faq" class="text-lg link link-hover">Preguntas Frecuentes</a></li>
-      <li><a href="#about" class="text-lg link link-hover">Nosotros</a></li>
-      <li><a href="#contact" class="text-lg link link-hover">Contacto</a></li>
+      <li><a href="#home" class="text-md link link-hover">Inicio</a></li>
+      <li><a href="#services" class="text-md link link-hover">Servicios</a></li>
+      <li><a href="#faq" class="text-md link link-hover">Preguntas Frecuentes</a></li>
+      <li><a href="#about" class="text-md link link-hover">Nosotros</a></li>
+      <li><a href="#contact" class="text-md link link-hover">Contacto</a></li>
     </ul>
   </div>
   <div class="navbar-end">
     <a class="btn" id="registerButton" href="#register">Registro</a>
-    <span class="mx-2"></span>
+    <span class="mx-1"></span>
     <a class="btn" id="loginButton" href="#login">Iniciar sesión</a>
-    <span class="mx-2"></span>
-    <a class="btn" id="logoutButton" href="/">Cerrar sesión</a>
+    <span class="mx-1"></span>
+    <a class="btn hidden" id="logoutButton" href="/">Cerrar sesión</a>
   </div>
 </nav>
 
