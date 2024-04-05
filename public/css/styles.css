@@ -15,17 +15,16 @@ html {
   z-index: 100;
 }
 
-/* .btn {
-  border-radius: var(--rounded-btn, 0.1rem);
-  min-height : var(--min-height-btn, 2rem);
-} */
-
-
 .cursor-pointer {
   cursor: pointer;
 }
 
+/* Override tailwind default 2rem padding on card body */
+.card-body {
+  padding: 1rem;
+}
 
+/* Override of section padding to fix spacing on top after clicking on the navbar links */
 /* section {
   padding-top: 80px; 
 } */
@@ -37,33 +36,33 @@ html {
 .alert {
   display: block;
   padding: 1rem;
-  border: 1px solid blue;
+  border: 1px solid black;
   border-radius: 4rem;
   margin-top: 1rem;
-  background-color: blue;
+  background-color: #669bbc;
 }
 
 .alert-success {
   display: block;
   padding: 1rem;
-  border: 1rem solid green;
+  border: 1rem solid black;
   border-radius: 4rem;
   margin-top: 1rem;
-  background-color: green;
+  background-color: #90D26D;
 
 }
 
 .alert-error {
   display: block;
   padding: 1rem;
-  border: 1rem solid red;
+  border: 1rem solid black;
   border-radius: 4rem;
   margin-top: 1rem;
-  background-color: red;
+  background-color: #FA7070;
 
 }
 
-/* Styling for the background pattern */
+/* Styling that adds a background pattern */
 /* main::before {
   content: "";
   position: fixed;

@@ -2181,6 +2181,19 @@ details.collapse summary::-webkit-details-marker {
   text-align: inherit;
 }
 
+.link-primary {
+  --tw-text-opacity: 1;
+  color: var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
+}
+
+@supports (color:color-mix(in oklab,black,black)) {
+  @media (hover:hover) {
+    .link-primary:hover {
+      color: color-mix(in oklab,var(--fallback-p,oklch(var(--p)/1)) 80%,black);
+    }
+  }
+}
+
 .link:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -2819,6 +2832,20 @@ details.collapse summary::-webkit-details-marker {
   border-width: 0px;
 }
 
+.border-b {
+  border-bottom-width: 1px;
+}
+
+.border-black {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
+
+.border-white {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
 .bg-accent {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-a,oklch(var(--a)/var(--tw-bg-opacity)));
@@ -2848,16 +2875,8 @@ details.collapse summary::-webkit-details-marker {
   background-color: var(--fallback-s,oklch(var(--s)/0.6));
 }
 
-.bg-cover {
-  background-size: cover;
-}
-
 .bg-bottom {
   background-position: bottom;
-}
-
-.bg-top {
-  background-position: top;
 }
 
 .bg-no-repeat {
@@ -2954,6 +2973,10 @@ details.collapse summary::-webkit-details-marker {
 
 .pt-28 {
   padding-top: 7rem;
+}
+
+.pt-36 {
+  padding-top: 9rem;
 }
 
 .text-center {
@@ -3056,11 +3079,6 @@ details.collapse summary::-webkit-details-marker {
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
-.text-indigo-600 {
-  --tw-text-opacity: 1;
-  color: rgb(79 70 229 / var(--tw-text-opacity));
-}
-
 .text-neutral {
   --tw-text-opacity: 1;
   color: var(--fallback-n,oklch(var(--n)/var(--tw-text-opacity)));
@@ -3074,12 +3092,6 @@ details.collapse summary::-webkit-details-marker {
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.shadow-inner {
-  --tw-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
-  --tw-shadow-colored: inset 0 2px 4px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -3133,14 +3145,17 @@ html {
   z-index: 100;
 }
 
-/* .btn {
-  border-radius: var(--rounded-btn, 0.1rem);
-  min-height : var(--min-height-btn, 2rem);
-} */
-
 .cursor-pointer {
   cursor: pointer;
 }
+
+/* Override tailwind default 2rem padding on card body */
+
+.card-body {
+  padding: 1rem;
+}
+
+/* Override of section padding to fix spacing on top after clicking on the navbar links */
 
 /* section {
   padding-top: 80px; 
@@ -3153,31 +3168,31 @@ html {
 .alert {
   display: block;
   padding: 1rem;
-  border: 1px solid blue;
+  border: 1px solid black;
   border-radius: 4rem;
   margin-top: 1rem;
-  background-color: blue;
+  background-color: #669bbc;
 }
 
 .alert-success {
   display: block;
   padding: 1rem;
-  border: 1rem solid green;
+  border: 1rem solid black;
   border-radius: 4rem;
   margin-top: 1rem;
-  background-color: green;
+  background-color: #90D26D;
 }
 
 .alert-error {
   display: block;
   padding: 1rem;
-  border: 1rem solid red;
+  border: 1rem solid black;
   border-radius: 4rem;
   margin-top: 1rem;
-  background-color: red;
+  background-color: #FA7070;
 }
 
-/* Styling for the background pattern */
+/* Styling that adds a background pattern */
 
 /* main::before {
   content: "";
@@ -3300,11 +3315,6 @@ html {
   background-color: var(--fallback-s,oklch(var(--s)/var(--tw-bg-opacity)));
 }
 
-.hover\:text-indigo-500:hover {
-  --tw-text-opacity: 1;
-  color: rgb(99 102 241 / var(--tw-text-opacity));
-}
-
 .focus\:ring-2:focus {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
@@ -3359,6 +3369,10 @@ html {
     width: 100%;
   }
 
+  .sm\:max-w-lg {
+    max-width: 32rem;
+  }
+
   .sm\:max-w-sm {
     max-width: 24rem;
   }
@@ -3388,6 +3402,10 @@ html {
 }
 
 @media (min-width: 768px) {
+  .md\:max-w-md {
+    max-width: 28rem;
+  }
+
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -3402,6 +3420,11 @@ html {
 }
 
 @media (min-width: 1024px) {
+  .lg\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .lg\:flex {
     display: flex;
   }
@@ -3417,6 +3440,13 @@ html {
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 

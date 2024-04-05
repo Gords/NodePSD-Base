@@ -15,7 +15,7 @@
       </ul>
     </div>
     <a href="/" class="btn btn-ghost flex-initial w-80">
-      <img src="./img/logo-blanco.png" alt="Flash Center" class="navbar-logo w-80 h-6">
+      <img src="./assets/img/logo-blanco.png" alt="Flash Center" class="navbar-logo w-80 h-6">
     </a>
   </div>
   <div class="navbar-center hidden lg:flex">
@@ -36,11 +36,13 @@
   </div>
 </nav>
 
+
+
 <!-- User Panel Navbar -->
 <nav id="user-panel-navbar-component" class="navbar bg-primary font-bold text-white shadow-xl flex">
   <div class="navbar-start">
     <a href="/" class="btn btn-ghost flex-initial w-80">
-      <img src="./img/logo-blanco.png" alt="Flash Center" class="navbar-logo w-80 h-6">
+      <img src="./assets/img/logo-blanco.png" alt="Flash Center" class="navbar-logo w-80 h-6">
     </a>
   </div>
   <div class="navbar-end">
@@ -51,10 +53,12 @@
   </div>
 </nav>
 
-<!-- Home section with overlay background -->
+
+
+<!-- Home section with background-->
 <div id="home-component" class="hero min-h-screen">
   <video autoplay muted loop class="absolute -z-10 w-full h-full object-cover">
-    <source src="./img/skyline-video.mp4" type="video/mp4">
+    <source src="./assets/img/skyline-video.mp4" type="video/mp4">
   </video>
   <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-8 md:p-12 lg:p-16 rounded-lg">
     <div class="max-w-3xl">
@@ -70,6 +74,8 @@
   </div>
 </div>
 
+
+
 <!-- Call to Action Section -->
 <section id="call-to-action-component" class="py-28">
   <div class="max-w-6xl mx-auto px-4 text-center">
@@ -80,11 +86,10 @@
   </div>
 </section>
 
+
+
 <!-- Services Section -->
-<!-- Example of how to use a gif as a background for a component's width -->
-<!-- <div id="services-component" class="bg-no-repeat bg-cover bg-top"
-  style="background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHRvN2VsdnF5dGt2Yno0emhmZ3p0MWt0Yjd3eTZ6M3AyczJjdDhkbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kzI8OWSdxqpIytl3xI/giphy-downsized-large.gif')"> -->
-<div id="services-component" class="bg-top">
+<div id="services-component">
   <div class="max-w-4xl mx-auto py-12 px-4 text-center h-full">
     <h1 class="text-3xl font-bold mb-4">Nuestros Servicios</h1>
     <div class="grid md:grid-cols-3">
@@ -127,10 +132,16 @@
   </div>
 </div>
 
+
+
 <!-- FAQ Accordion -->
 <section id="faq-accordion-component" class="mx-auto py-12 bg-secondary text-base-100 z-10">
-  <h1 class="text-3xl font-bold text-center mb-12">PREGUNTAS FRECUENTES</h1>
-  <div id="accordion-item-list" class="space-y-4">
+  <div class="text-center mb-12 max-w-3xl mx-auto">
+    <h1 class="text-3xl font-bold pb-8">PREGUNTAS FRECUENTES</h1>
+    <div class="border-b border-white mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto">
+    </div> <!-- Controls the white line under title -->
+  </div>
+  <div id="accordion-item-list" class="space-y-4 max-w-3xl mx-auto">
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
       <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿POR QUÉ CRÉDITO FLASH?
@@ -176,9 +187,11 @@
   </div>
 </section>
 
+
+
 <!-- About Section -->
 <div id="about-component" class="bg-no-repeat bg-bottom py-12"
-  style="background-image: url('./img/asuncion-skyline.jpg')">
+  style="background-image: url('./assets/img/asuncion-skyline.jpg')">
   <div class="max-w-3xl mx-auto flex items-center h-full">
 
     <div class="card bg-base-100 shadow-xl">
@@ -214,7 +227,7 @@
 <!-- Footer -->
 <nav id="bottom-navigation-component" class="footer p-10 bg-secondary font-bold text-white">
   <div>
-    <img src="./img/logo-blanco.png" alt="Flash Center" class="footer-logo w-80 h-6">
+    <img src="./assets/img/logo-blanco.png" alt="Flash Center" class="footer-logo w-80 h-6">
   </div>
   <nav>
     <h2 class="footer-title text-lg">Servicios</h2>
@@ -234,93 +247,107 @@
   </nav>
 </nav>
 
+
+
 <!-- Forms -->
 <section id="forms">
+
   <!-- Login Form -->
-  <div id="login-form-component" class="card m-auto max-w-sm shadow-inner pt-28">
-    <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/login">
-      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img class="mx-auto h-auto w-auto" src="./img/logo-color.png" alt="Flash Center Logo">
-        <h2 class="mt-10 text-center text-2xl font-bold">Acceda a su cuenta</h2>
-      </div>
-      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <div class="space-y-6">
-          <div>
-            <label for="username" class="text-lg text-center font-medium">Correo electronico</label>
-            <div class=" mt-2">
-              <input id="username" name="username" type="email" autocomplete="email" required
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6">
-            </div>
-          </div>
-          <div>
-            <div class="flex items-center justify-between">
-              <label for="login-password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
-              <div class="text-sm">
-                <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Olvidaste tu contraseña?</a>
+  <div id="login-form-component" class="pt-36">
+    <div class="card m-auto max-w-sm shadow-xl">
+      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/login">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+          <img class="mx-auto h-auto w-auto" src="./assets/img/logo-color.png" alt="Flash Center Logo">
+          <h2 class="mt-10 text-center text-2xl font-bold">Acceda a su cuenta</h2>
+        </div>
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <div class="space-y-6">
+            <div>
+              <label for="username" class="text-lg text-center font-medium">Correo electronico</label>
+              <div class=" mt-2">
+                <input id="username" name="username" type="email" autocomplete="email" required
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6">
               </div>
             </div>
-            <div class="mt-2">
-              <input id="login-password" name="password" type="password" autocomplete="current-password" required
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <div>
+              <div class="flex items-center justify-between">
+                <label for="login-password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
+                <div class="text-sm">
+                  <a href="#" class="link link-primary font-bold">Olvidaste tu contraseña?</a>
+                </div>
+              </div>
+              <div class="mt-2">
+                <input id="login-password" name="password" type="password" autocomplete="current-password" required
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
             </div>
-          </div>
-          <button type="submit" class="btn btn-primary flex w-full justify-center text-white hover:bg-secondary">Iniciar
-            sesión</button>
-        </div>
-      </div>
-      <p class="mt-10 text-center text-sm text-gray-500">
-        No tienes una cuenta?
-        <a href="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Creala aqui!</a>
-      </p>
-  </div>
-  </form>
-  </div>
-
-  <!-- Register Form -->
-  <div id="register-form-component" class="card m-auto max-w-sm shadow-inner bg-base-100 pt-28">
-    <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/register"
-      hx-target="#register-response">
-      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img class="mx-auto h-auto w-auto" src="./img/logo-color.png" alt="Flash Center Logo">
-        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Registre su cuenta</h2>
-      </div>
-      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <div class="space-y-6">
-          <div>
-            <label for="register-name" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
-            <div class="mt-2">
-              <input id="register-name" name="name" type="text" autocomplete="name" placeholder="Fulanito" required
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            </div>
-          </div>
-          <div>
-            <label for="register-email" class="block text-sm font-medium leading-6 text-gray-900">Correo
-              electronico</label>
-            <div class="mt-2">
-              <input id="register-email" name="email" type="email" autocomplete="email" placeholder="de.tal@email.com"
-                required
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            </div>
-          </div>
-          <div>
-            <label for="register-password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
-            <div class="mt-2">
-              <input id="register-password" name="password" type="password" autocomplete="new-password" required
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            </div>
-          </div>
-          <div>
             <button type="submit"
-              class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">REGISTRARSE</button>
+              class="btn btn-primary flex w-full justify-center text-white hover:bg-secondary">Iniciar
+              sesión</button>
           </div>
         </div>
         <p class="mt-10 text-center text-sm text-gray-500">
-          Ya tienes una cuenta?
-          <a href="/login" class="">Inicia sesión aqui!</a>
+          No tienes una cuenta?
+          <a href="/register" class="link link-primary font-bold">Creala aqui!</a>
         </p>
-      </div>
+    </div>
     </form>
   </div>
+  </div>
+
+
+
+  <!-- Register Form -->
+  <div id="register-form-component" class="pt-28">
+    <div class="card m-auto max-w-sm shadow-xl">
+      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/register"
+        hx-target="#register-response">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+          <img class="mx-auto h-auto w-auto" src="./assets/img/logo-color.png" alt="Flash Center Logo">
+          <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Registre su cuenta
+          </h2>
+        </div>
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <div class="space-y-6">
+            <div>
+              <label for="register-name" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
+              <div class="mt-2">
+                <input id="register-name" name="name" type="text" autocomplete="name" placeholder="Fulanito" required
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+            <div>
+              <label for="register-email" class="block text-sm font-medium leading-6 text-gray-900">Correo
+                electronico</label>
+              <div class="mt-2">
+                <input id="register-email" name="email" type="email" autocomplete="email" placeholder="de.tal@email.com"
+                  required
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+            <div>
+              <label for="register-password"
+                class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
+              <div class="mt-2">
+                <input id="register-password" name="password" type="password" autocomplete="new-password" required
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+            <div>
+              <button type="submit"
+                class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">REGISTRARSE</button>
+            </div>
+          </div>
+          <p class="mt-10 text-center text-sm text-gray-600">
+            Ya tienes una cuenta?
+            <a href="/login" class="link link-primary font-bold">Inicia sesión aqui!</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
 
   <!-- Contact Form -->
   <form id="contact-form-component" class="bg-neutral px-6 py-12 sm:py-12 lg:px-8" action="#" method="POST">
@@ -372,6 +399,8 @@
     </div>
   </form>
 </section>
+
+
 
 <!-- File Input Field -->
 <input type="file" id="file-input-component" class="file-input file-input-bordered w-full max-w-xs" />

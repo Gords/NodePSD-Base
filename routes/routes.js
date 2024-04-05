@@ -195,7 +195,7 @@ module.exports = (User, Image) => {
     }
   })
 
-  // Upload an image within an array of files, max 4 files
+  // Post (Upload) a file within an array of files, max 4 files
   router.post('/images', isAuthenticated, upload.array('files', 4), async (req, res) => {
     try {
       const userId = req.user.id
