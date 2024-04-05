@@ -1,4 +1,4 @@
-<nav id="top-navigation-component" class="navbar bg-primary font-bold text-white shadow-md flex">
+<nav id="top-navigation-component" class="navbar bg-primary font-bold text-white shadow-xl flex">
   <div class="navbar-start">
     <div class="dropdown">
       <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -20,31 +20,34 @@
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal">
-      <li><a href="#home" class="text-md link-hover">Inicio</a></li>
-      <li><a href="#services" class="text-md link-hover">Servicios</a></li>
-      <li><a href="#faq" class="text-md link-hover">Preguntas Frecuentes</a></li>
-      <li><a href="#about" class="text-md link-hover">Nosotros</a></li>
-      <li><a href="#contact" class="text-md link-hover">Contacto</a></li>
+      <li><a href="#home" class="text-md">Inicio</a></li>
+      <li><a href="#services" class="text-md">Servicios</a></li>
+      <li><a href="#faq" class="text-md">Preguntas Frecuentes</a></li>
+      <li><a href="#about" class="text-md">Nosotros</a></li>
+      <li><a href="#contact" class="text-md">Contacto</a></li>
     </ul>
   </div>
   <div class="navbar-end">
     <div class="lg:flex">
-      <a class="btn mr-1" id="registerButton" href="#register">Registro</a>
-      <a class="btn" id="loginButton" href="#login">Iniciar sesión</a>
-      <a class="btn ml-1 hidden" id="logoutButton" href="/">Cerrar sesión</a>
+      <a class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md mr-1" id="registerButton" href="#register">Registro</a>
+      <a class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" id="loginButton" href="#login">Iniciar sesión</a>
+      <a class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md hidden" id="logoutButton" href="/">Cerrar sesión</a>
     </div>
   </div>
 </nav>
 
 <!-- User Panel Navbar -->
-<nav id="user-panel-navigation" class="navbar bg-fc-blue text-white">
+<nav id="user-panel-navbar-component" class="navbar bg-primary font-bold text-white shadow-xl flex">
   <div class="navbar-start">
-    <a href="/" class="btn btn-ghost text-xl">
+    <a href="/" class="btn btn-ghost flex-initial w-80">
       <img src="./img/logo-blanco.png" alt="Flash Center" class="navbar-logo w-80 h-6">
     </a>
   </div>
   <div class="navbar-end">
-    <a class="btn" href="/" onclick="logout()" id="logoutButton">Cerrar sesión</a>
+    <div class="lg:flex">
+      <a href="/" onclick="logout()" id="logoutButton" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md mr-1">Cerrar
+        Sesión</a>
+    </div>
   </div>
 </nav>
 

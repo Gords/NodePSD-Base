@@ -268,17 +268,14 @@ module.exports = (User, Image) => {
         imagesHTML = '<li>No files found</li>'
       } else {
         images.forEach((image) => {
+          // Check if image.path is not null
+          // Add "X" icon to delete an image
           if (image.path) {
-            // Check if image.path is not null
-            // Add "X" icon to delete an image
-            const deleteIconSVG = `<svg style="display: inline list-item" onclick="confirmDelete(${image.id})" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`
-            imagesHTML += `<li>${path.basename(
-              image.path
-            )} ${deleteIconSVG}</li>`
+            const deleteIcon = `<svg style="margin-left: auto;" onclick="confirmDelete(${image.id})" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
+            imagesHTML += `<li class="flex justify-between text-center items-center py-2">${path.basename(image.path)} ${deleteIcon}</li>`
           }
         })
       }
-
       res.send(`<ul>${imagesHTML}</ul>`)
     } catch (error) {
       console.error('Error fetching user images:', error)

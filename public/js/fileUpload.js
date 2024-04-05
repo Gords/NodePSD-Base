@@ -36,7 +36,8 @@ function updateUploadFileList () {
 
     // Create the list that includes each file in the upload form
     const listItem = document.createElement('div')
-    listItem.className = 'file-upload-list-item'
+    listItem.id = 'file-upload-list-item'
+    listItem.className = 'bg-neutral p-2 flex justify-between items-center rounded-lg mb-2'
     listItem.setAttribute('data-index', index)
     listItem.innerHTML = `
       <span>${fileIcon}</span>
@@ -44,6 +45,7 @@ function updateUploadFileList () {
       <div class="remove-file">${removeIcon}</div>
     `
     // Attach click event listener to the remove button of each file
+    //TODO: ITS NOT WORKING! Linked to issue https://github.com/Runewerk/flashcenter/issues/32
     listItem
       .querySelector('.remove-file')
       .addEventListener('click', function () {
@@ -126,7 +128,7 @@ fetch('/check-login')
     document.getElementById('user-email').textContent = user.email
 
     const usernameInitials = user.name ? user.name.charAt(0).toUpperCase() : ''
-    document.getElementById('username-initials').textContent = usernameInitials
+    document.getElementById('avatar-username-initials').textContent = usernameInitials
   })
   .catch((error) => console.error('Error fetching user data:', error))
 
