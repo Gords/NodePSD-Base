@@ -1,11 +1,12 @@
+<!-- Navbar -->
 <nav id="top-navigation-component" class="navbar bg-primary font-bold text-white shadow-xl flex">
   <div class="navbar-start">
     <div class="dropdown">
-      <label tabindex="0" class="btn btn-ghost lg:hidden">
+      <button tabindex="0" class="btn btn-ghost lg:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
         </svg>
-      </label>
+      </button>
       <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52">
         <li><a href="#home">Inicio</a></li>
         <li><a href="#services">Servicios</a></li>
@@ -90,46 +91,52 @@
 
 <!-- Services Section -->
 <div id="services-component">
-  <div class="max-w-4xl mx-auto py-12 px-4 text-center h-full">
-    <h1 class="text-3xl font-bold mb-4">Nuestros Servicios</h1>
+  <div class="max-w-4xl mx-auto pt-20 pb-16 px-4 text-center h-full">
+    <h1 class="text-3xl font-bold pb-12">NUESTROS PRODUCTOS</h1>
     <div class="grid md:grid-cols-3">
       <div class="mb-4">
+        <img src="./assets/icons/dollar-bills.svg" alt="Icono de Billetes" class="mx-auto mb-6 w-20 h-20">
         <h3 class="text-xl font-bold mb-1">Productos</h3>
         <p class="text-lg">Prestamos personales desde Gs. 500.000 a 15.000.000</p>
       </div>
       <div class="mb-4">
+        <img src="./assets/icons/piggy-bank.svg" alt="Icono de Alcancia" class="mx-auto mb-6 w-20 h-20">
         <h3 class="text-xl font-bold mb-1">Financiamiento</h3>
         <p class="text-lg">Contamos con plazos desde 6 meses hasta 15 meses</p>
       </div>
       <div class="mb-4">
+        <img src="./assets/icons/bank-building.svg" alt="Icono de Edificio Bancario" class="mx-auto mb-5 w-20 h-22">
         <h3 class="text-xl font-bold mb-1">Precio</h3>
         <p class="text-lg">Tasa máxima efectiva estipulada por el Banco Central del Paraguay</p>
       </div>
     </div>
-    <h2 class="text-2xl font-bold my-4">Condiciones de otorgamiento de préstamos personales</h2>
+    <!-- <h2 class="text-2xl font-bold mt-8 mb-6">Condiciones de otorgamiento de préstamos personales:</h2> -->
     <div class="grid md:grid-cols-3">
       <div class="mb-4">
-        <h3 class="text-xl font-bold mb-1">Monto del Préstamo</h3>
+        <h3 class="text-xl font-bold mb-1">Monto del Préstamo:</h3>
         <p class="text-lg">Máximo: Gs 15.000.000</p>
         <p class="text-lg">Mínimo: Gs. 500.000</p>
       </div>
       <div class="mb-4">
-        <h3 class="text-xl font-bold mb-1">Plazo de Pago</h3>
+        <h3 class="text-xl font-bold mb-1">Plazo de Pago:</h3>
         <p class="text-lg">Mínimo: 6 meses</p>
         <p class="text-lg">Máximo: 15 meses</p>
       </div>
       <div class="mb-4">
-        <h3 class="text-xl font-bold mb-1">Tasa Efectiva Anual (TEA)</h3>
+        <h3 class="text-xl font-bold mb-1">Tasa Efectiva Anual (TEA):</h3>
         <p class="text-lg">Máximo permitido por el Banco Central de Paraguay y la normativa correspondiente: 30.27%</p>
       </div>
     </div>
     <div class="mb-4">
+      <!-- //TODO: move this info to small font in the foter -->
       <h3 class="text-xl font-bold mb-1">Información Adicional:</h3>
       <p class="text-lg">La información proporcionada sobre los préstamos es únicamente a título informativo.</p>
       <p class="text-lg">No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
         préstamos. Está sujeta a las políticas de mercado y/o internas de la entidad financiera.</p>
     </div>
   </div>
+  <!-- Gradient divider -->
+  <div class="w-full h-4 bg-gradient-to-b from-base-100 via-transparent to-secondary"></div>
 </div>
 
 
@@ -197,23 +204,24 @@
     <div class="card bg-base-100 shadow-xl">
       <div class="card-body text-center">
         <h1 class="text-3xl font-bold mb-4 text-center">ACERCA DE FLASH CENTER</h1>
-        <p class="text-l">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito. Otorgamos
+        <p class="text-lg">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito. Otorgamos
           préstamos al
           consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación.</p>
 
         <div class="grid md:grid-cols-3 gap-10">
           <div>
             <h2 class="text-xl font-bold mt-6">MISION</h2>
-            <p>Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a la sociedad, a través de
+            <p class="text-lg">Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a la
+              sociedad, a través de
               productos financieros.</p>
           </div>
           <div>
             <h2 class="text-xl font-bold mt-6">VISION</h2>
-            <p>Ser una banca contribuyente al estado y su gente.</p>
+            <p class="text-lg">Ser una banca contribuyente al estado y su gente.</p>
           </div>
           <div>
             <h2 class="text-xl font-bold mt-6">VALORES</h2>
-            <p>Accesibilidad<br>Agilidad<br>Amabilidad<br>Lealtad<br>Respeto</p>
+            <p class="text-lg">Accesibilidad<br>Agilidad<br>Amabilidad<br>Lealtad<br>Respeto</p>
           </div>
         </div>
       </div>
@@ -255,7 +263,7 @@
   <!-- Login Form -->
   <div id="login-form-component" class="pt-36">
     <div class="card m-auto max-w-sm shadow-xl">
-      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/login">
+      <form id=login-form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/login">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
           <img class="mx-auto h-auto w-auto" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-10 text-center text-2xl font-bold">Acceda a su cuenta</h2>
@@ -290,9 +298,8 @@
           No tienes una cuenta?
           <a href="/register" class="link link-primary font-bold">Creala aqui!</a>
         </p>
+      </form>
     </div>
-    </form>
-  </div>
   </div>
 
 

@@ -74,9 +74,8 @@
             <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo o arrastralo aqui</h3>
             <p class="text-base text-neutral mb-4">Puedes cargar hasta 4 archivos de 25 MB. cada uno</p>
             <form hx-encoding="multipart/form-data" hx-post="/images">
-              <input type="file" id="files-to-upload" name="files" multiple
-                accept="image/jpeg, image/png, application/pdf">
-              <label class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" for="files-to-upload">Seleccionar archivos</label>
+              <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar archivos</label>
+                <input type="file" id="files-to-upload" name="files" multiple accept="image/jpeg, image/png, application/pdf" style="display: none">
               <button id="submit-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" type="submit">Cargar
                 Archivos</button>
             </form>
