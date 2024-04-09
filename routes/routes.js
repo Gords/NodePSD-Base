@@ -307,5 +307,10 @@ module.exports = (User, Image) => {
     }
   })
 
+  router.get('/interest-rate', async (req, res) => {
+    const interestRate = 0.3027; // Annual interest rate of 30.27% (fixed on the server)
+    res.send(interestRate.toString());
+  });
+
   return router
 }
