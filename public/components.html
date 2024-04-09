@@ -419,7 +419,7 @@
     <div class="border-b border-black mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto"></div>
     <!-- Controls the white line under title -->
     <div class="flex flex-col items-center mt-4">
-      <div class="form-control w-full max-w-xs">
+      <div class="form-control w-full max-w-md">
         <label class="label">
           <span class="label-text">¿Cuál es tu ocupación?</span>
         </label>
@@ -430,25 +430,30 @@
           <!-- Add more options as needed -->
         </select>
       </div>
-      <div class="form-control w-full max-w-xs mt-4">
+      <div class="form-control w-full max-w-md mt-4">
         <label class="label">
           <span class="label-text">Completá tu e-mail</span>
         </label>
         <input type="email" id="email" placeholder="ej: carlosperez@gmail.com" class="input input-bordered" />
       </div>
-      <div class="form-control w-full max-w-xs mt-4">
+      <div class="form-control w-full max-w-md mt-4">
         <label class="label">
           <span class="label-text">Dejanos tu celular</span>
         </label>
         <input type="tel" id="phone" placeholder="ej: 0991216066" class="input input-bordered" />
       </div>
-      <div class="form-control w-full max-w-xs mt-4">
+      <div class="form-control w-full max-w-md mt-4">
         <label class="label">
           <span class="label-text">Loan Amount (Gs)</span>
           <span id="loanOutput" class="label-text-alt"></span>
         </label>
-        <input type="range" id="amount" min="500000" max="5000000" value="500000" class="range range-primary" step="500000" />
+        <input type="range" id="amount" min="1000000" max="10000000" value="1000000" class="range range-primary" step="500000" />
         <div class="w-full flex justify-between text-xs px-2">
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
           <span>|</span>
           <span>|</span>
           <span>|</span>
@@ -456,13 +461,18 @@
           <span>|</span>
         </div>
       </div>
-      <div class="form-control w-full max-w-xs mt-4">
+      <div class="form-control w-full max-w-md mt-4">
         <label class="label">
           <span class="label-text">¿En cuántas cuotas querés pagarlo?</span>
           <span id="monthsOutput" class="label-text-alt"></span>
         </label>
-        <input type="range" id="days" min="3" max="12" value="3" class="range range-secondary" step="1" />
+        <input type="range" id="days" min="1" max="12" value="1" class="range range-secondary" step="1" />
         <div class="w-full flex justify-between text-xs px-2">
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
           <span>|</span>
           <span>|</span>
           <span>|</span>
@@ -477,7 +487,7 @@
         <p>Cuota estimada de: <span id="amount2"></span></p>
         <p>Sujeto a política crediticia de la entidad</p>
       </div>
-      <button id="calculateBtn" class="btn btn-primary mt-4">¡Lo quiero!</button>
+      <a id="registerRedirect" href="#register" class="btn btn-primary mt-4">¡Lo quiero!</a>
     </div>
   </div>
 </div>

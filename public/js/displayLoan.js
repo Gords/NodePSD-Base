@@ -25,8 +25,6 @@ document.addEventListener('htmx:afterOnLoad', function() {
     }
   });
 
-  document.getElementById('calculateBtn').addEventListener('click', calculateLoan);
-
   // Initial calculation
   calculateLoan();
 });
