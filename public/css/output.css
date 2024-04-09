@@ -2715,10 +2715,6 @@ details.collapse summary::-webkit-details-marker {
   height: 1.5rem;
 }
 
-.h-auto {
-  height: auto;
-}
-
 .h-full {
   height: 100%;
 }
@@ -2753,10 +2749,6 @@ details.collapse summary::-webkit-details-marker {
 
 .w-80 {
   width: 20rem;
-}
-
-.w-auto {
-  width: auto;
 }
 
 .w-full {
@@ -2941,6 +2933,11 @@ details.collapse summary::-webkit-details-marker {
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.object-scale-down {
+  -o-object-fit: scale-down;
+     object-fit: scale-down;
 }
 
 .p-10 {
