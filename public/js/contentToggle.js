@@ -5,7 +5,7 @@ const route = () => {
   switch (path) {
     case '':
     case '#home':
-    case '#services':
+    case '#products':
     case '#faq':
     case '#about':
     case '#contact':
