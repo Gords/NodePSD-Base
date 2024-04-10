@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 /* Add any custom styles or Tailwind CSS overrides here */
-
 html {
   scroll-behavior: smooth;
 }
@@ -16,18 +15,19 @@ html {
   z-index: 100;
 }
 
-.btn {
-  border-radius: var(--rounded-btn, 0.1rem);
+.cursor-pointer {
+  cursor: pointer;
 }
 
-.bg-fc-blue {
-  --tw-bg-opacity: 1;
-  background-color: rgb(29 36 60 / var(--tw-bg-opacity));
+/* Override tailwind default 2rem padding on card body */
+.card-body {
+  padding: 1rem;
 }
 
-section {
+/* Override of section padding to fix spacing on top after clicking on the navbar links */
+/* section {
   padding-top: 80px; 
-}
+} */
 
 #register-content, #login-content {
   display: none;
@@ -36,28 +36,46 @@ section {
 .alert {
   display: block;
   padding: 1rem;
-  border: 1px solid blue;
+  border: 1px solid black;
   border-radius: 4rem;
   margin-top: 1rem;
-  background-color: blue;
+  background-color: #669bbc;
 }
 
 .alert-success {
   display: block;
   padding: 1rem;
-  border: 1rem solid green;
+  border: 1rem solid black;
   border-radius: 4rem;
   margin-top: 1rem;
-  background-color: green;
+  background-color: #90D26D;
 
 }
 
 .alert-error {
   display: block;
   padding: 1rem;
-  border: 1rem solid red;
+  border: 1rem solid black;
   border-radius: 4rem;
   margin-top: 1rem;
-  background-color: red;
+  background-color: #FA7070;
 
 }
+
+/* Styling that adds a background pattern */
+/* main::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  opacity: 1;
+  background-image:  radial-gradient(#c7c7c7 0.8500000000000001px, transparent 0.8500000000000001px), radial-gradient(#c7c7c7 0.8500000000000001px, #ffffff 0.8500000000000001px);
+  background-size: 34px 34px;
+  background-position: 0 0,17px 17px;
+  z-index: -1;
+  pointer-events: none;
+} */
+

@@ -51,7 +51,7 @@ document.body.addEventListener('htmx:afterSwap', function (event) {
         
         // Delay the redirection by 2 seconds (adjust the delay as needed)
         setTimeout(function() {
-          window.location.href = '/';
+          window.location.href = '/admin-panel.html';
         }, 2000);
       } else {
         // Login failed, display error message

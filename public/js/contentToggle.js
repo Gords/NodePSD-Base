@@ -1,7 +1,7 @@
-const main = document.querySelector('main');
+const main = document.querySelector('main')
 
 const route = () => {
-  let path = location.hash;
+  const path = location.hash
   switch (path) {
     case '':
     case '#home':
@@ -9,38 +9,41 @@ const route = () => {
     case '#faq':
     case '#about':
     case '#contact':
-      showContent('spa-content');
-      break;
+      showContent('spa-content')
+      break
     case '#register':
-      showContent('register-content');
-      break;
+      showContent('register-content')
+      break
     case '#login':
-      showContent('login-content');
-      break;
+      showContent('login-content')
+      break
     default:
-      break;
+      break
   }
-};
-
-
-//Show/Hide content based in the id
-function showContent(contentId) {
-  const contentSections = document.querySelectorAll('section[id$="-content"]');
-  contentSections.forEach(section => {
-    section.style.display = section.id === contentId ? 'block' : 'none';
-  });
 }
 
-// Add event lister to widow object to go back to page begining on refresh (if not on login or register page)
-window.addEventListener('load', function () {
-  if (window.location.hash !== '' && window.location.hash !== '#login' && window.location.hash !== '#register') {
-    window.location.href = '/';
-  }
-});
+const linkClickHandler = (event) => {
+  event.preventDefault()
+  let path = event.target.getAttribute('href') || '/'
+  if (!path.startsWith('/')) path = '/' + path
+  history.pushState({}, null, path)
+  route()
+}
+
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', linkClickHandler)
+})
 
 window.addEventListener('popstate', () => {
-  route();
-});
+  route()
+})
+
+function showContent (contentId) {
+  const contentSections = document.querySelectorAll('section[id$="-content"]')
+  contentSections.forEach(section => {
+    section.style.display = section.id === contentId ? 'block' : 'none'
+  })
+}
 
 // Call the route function initially
-route();
+route()

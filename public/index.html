@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html class="h-full bg-white" data-theme="corporate">
+<html class="h-full" data-theme="mytheme">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FLASH CENTER</title>
+  <link rel="icon" href="./assets/icons/favicon.ico" type="image/x-icon">
   <script src="https://unpkg.com/htmx.org@1.7.0"></script>
   <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
   <link rel="preload"
@@ -18,34 +19,42 @@
 
 <body class="h-full flex flex-col min-h-screen" htmx:afterOnLoad="console.log('HTMX load event:', event.detail)">
   <header>
-    <nav hx-get="components.html" hx-select="#top-navigation" hx-trigger="load"></nav>
+    <nav hx-get="components.html" hx-select="#top-navigation-component" hx-trigger="load"></nav>
   </header>
-  <main class="flex-grow py-16" id="main-content">
+  <main class="flex-grow" id="main-content">
     <section id="spa-content">
-      <section id="home" hx-trigger="load" hx-get="components.html" hx-select="#home-component" hx-swap="afterbegin"
-        ></section>
-      <section id="services" hx-trigger="load" hx-get="components.html" hx-select="#services-component" hx-swap="afterbegin"></section>
-      <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion" hx-swap="afterbegin"></section>
-      <section id="about" hx-trigger="load" hx-get="components.html" hx-select="#about-component" hx-swap="afterbegin"></section>
-      <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form" hx-swap="afterbegin"></section>
+      <section id="home" hx-trigger="load" hx-get="components.html" hx-select="#home-component" hx-swap="afterbegin">
+      </section>
+      <section id="services" hx-trigger="load" hx-get="components.html" hx-select="#services-component"
+        hx-swap="afterbegin"></section>
+      <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion-component"
+        hx-swap="afterbegin">
+      </section>
+      <section id="about" hx-trigger="load" hx-get="components.html" hx-select="#about-component" hx-swap="afterbegin">
+      </section>
+      <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form-component"
+        hx-swap="afterbegin">
+      </section>
+      <section id="calculator" hx-trigger="load" hx-get="components.html" hx-select="#loan-calculator-component" hx-swap="afterbegin"></section>
     </section>
     <section id="register-content">
-      <section href="/register" id="register" hx-trigger="load" hx-get="components.html" hx-select="#register-form"
-        hx-swap="innerHTML">
+      <section href="/register" id="register" hx-trigger="load" hx-get="components.html"
+        hx-select="#register-form-component" hx-swap="innerHTML">
       </section>
       <div id="register-response"></div>
     </section>
     <section id="login-content">
-      <section href="/login" id="login" hx-trigger="load" hx-get="components.html" hx-select="#login-form"
+      <section href="/login" id="login" hx-trigger="load" hx-get="components.html" hx-select="#login-form-component"
         hx-swap="innerHTML"></section>
       <div id="login-response"></div>
     </section>
   </main>
   <footer>
-    <nav hx-get="components.html" hx-select="#bottom-navigation" hx-trigger="load"></nav>
+    <nav hx-get="components.html" hx-select="#bottom-navigation-component" hx-trigger="load"></nav>
   </footer>
   <script src="./js/verifyEmailMessage.js"></script>
   <script src="./js/contentToggle.js"></script>
+  <script src="./js/displayLoan.js" defer></script>
 </body>
 
 </html>
