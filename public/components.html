@@ -61,7 +61,7 @@
   <video autoplay muted loop class="absolute -z-10 w-full h-full object-cover">
     <source src="./assets/img/skyline-video.mp4" type="video/mp4">
   </video>
-  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-8 md:p-12 lg:p-16 rounded-lg">
+  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-8 md:p-12 lg:p-16">
     <div class="max-w-3xl">
       <h2 class="mb-5 text-3xl font-semibold">Obten tu credito pre aprobado en menos de 24hs</h2>
       <p class="mb-5 text-xl">Acompanhamos en la busqueda del producto ideal, a cada cliente, en cualquier parte del
@@ -89,60 +89,119 @@
 
 
 
+
 <!-- Services Section -->
 <div id="services-component">
-  <div class="max-w-4xl mx-auto pt-20 pb-16 px-4 text-center h-full">
-    <h1 class="text-3xl font-bold pb-12">NUESTROS PRODUCTOS</h1>
-    <div class="grid md:grid-cols-3">
-      <div class="mb-4">
+  <div class="text-center">
+    <h1 class="text-3xl font-bold pb-12 tracking-widest">NUESTROS PRODUCTOS</h1>
+    <div class="border-b border-white mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto">
+    </div> <!-- Controls the white line under title -->
+    <div class="grid md:grid-cols-2">
+      <div class="px-0 mb-4">
         <img src="./assets/icons/dollar-bills.svg" alt="Icono de Billetes" class="mx-auto mb-6 w-20 h-20">
-        <h3 class="text-xl font-bold mb-1">Productos</h3>
-        <p class="text-lg">Prestamos personales desde Gs. 500.000 a 15.000.000</p>
+        <h3 class="text-xl font-bold mb-1">Prestamos Personales</h3>
+        <p class="text-lg">Mínimo: Gs. 500.000</p>
+        <p class="text-lg">Máximo: Gs 15.000.000</p>
       </div>
-      <div class="mb-4">
+      <div class="px-0 mb-4">
         <img src="./assets/icons/piggy-bank.svg" alt="Icono de Alcancia" class="mx-auto mb-6 w-20 h-20">
         <h3 class="text-xl font-bold mb-1">Financiamiento</h3>
-        <p class="text-lg">Contamos con plazos desde 6 meses hasta 15 meses</p>
-      </div>
-      <div class="mb-4">
-        <img src="./assets/icons/bank-building.svg" alt="Icono de Edificio Bancario" class="mx-auto mb-5 w-20 h-22">
-        <h3 class="text-xl font-bold mb-1">Precio</h3>
-        <p class="text-lg">Tasa máxima efectiva estipulada por el Banco Central del Paraguay</p>
+        <p class="text-lg">Plazos de pago desde 6 meses<br>hasta 15 meses</p>
       </div>
     </div>
-    <!-- <h2 class="text-2xl font-bold mt-8 mb-6">Condiciones de otorgamiento de préstamos personales:</h2> -->
-    <div class="grid md:grid-cols-3">
-      <div class="mb-4">
-        <h3 class="text-xl font-bold mb-1">Monto del Préstamo:</h3>
-        <p class="text-lg">Máximo: Gs 15.000.000</p>
-        <p class="text-lg">Mínimo: Gs. 500.000</p>
-      </div>
-      <div class="mb-4">
-        <h3 class="text-xl font-bold mb-1">Plazo de Pago:</h3>
-        <p class="text-lg">Mínimo: 6 meses</p>
-        <p class="text-lg">Máximo: 15 meses</p>
-      </div>
-      <div class="mb-4">
-        <h3 class="text-xl font-bold mb-1">Tasa Efectiva Anual (TEA):</h3>
-        <p class="text-lg">Máximo permitido por el Banco Central de Paraguay y la normativa correspondiente: 30.27%</p>
-      </div>
+    <div class="mt-8">
+      <img src="./assets/icons/bank-building.svg" alt="Icono de Edificio Bancario" class="mx-auto mb-5 w-20 h-22">
+      <h3 class="text-xl font-bold mb-1">Tasa Efectiva Anual (TEA):</h3>
+      <p class="text-lg">Máximo permitido por el<br>Banco Central de Paraguay y<br>la normativa correspondiente: 30.27%
+      </p>
     </div>
-    <div class="mb-4">
-      <!-- //TODO: move this info to small font in the foter -->
-      <h3 class="text-xl font-bold mb-1">Información Adicional:</h3>
-      <p class="text-lg">La información proporcionada sobre los préstamos es únicamente a título informativo.</p>
-      <p class="text-lg">No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
-        préstamos. Está sujeta a las políticas de mercado y/o internas de la entidad financiera.</p>
+    <!-- <div class="mb-4">
+        //TODO: move this info to small font in the foter
+        <h3 class="text-xl font-bold mb-1">Información Adicional:</h3>
+        <p class="text-lg">La información proporcionada sobre los préstamos es únicamente a título informativo.</p>
+        <p class="text-lg">No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
+          préstamos. Está sujeta a las políticas de mercado y/o internas de la entidad financiera.</p>
+      </div> -->
+  </div>
+</div>
+
+<!-- Loan Calculator -->
+<div id="loan-calculator-component">
+  <div class="card mr-auto max-w-sm shadow-xl">
+    <div class="card-body flex min-h-full flex-col items-center">
+      <h3 class="card-title font-semibold text-2xl">Simulá tu préstamo</h3>
+      <div class="border-b border-black mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto"></div>
+      <!-- Controls the white line under title -->
+      <div class="flex flex-col items-center mt-4">
+        <div class="form-control w-full max-w-md">
+          <label class="label">
+            <span class="label-text">¿Cuál es tu ocupación?</span>
+          </label>
+          <select id="occupation" class="select select-bordered">
+            <option value="">Seleccióná</option>
+            <option value="employed">Empleado</option>
+            <option value="self-employed">Trabajador independiente</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+        <div class="form-control w-full max-w-md mt-4">
+          <label class="label">
+            <span class="label-text">Monto Prestamo (Gs)</span>
+            <span id="loanOutput" class="label-text-alt"></span>
+          </label>
+          <input type="range" id="amount" min="1000000" max="10000000" value="1000000" class="range range-primary"
+            step="500000" />
+          <div class="w-full flex justify-between text-xs px-2">
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+          </div>
+        </div>
+        <div class="form-control w-full max-w-md mt-4">
+          <label class="label">
+            <span class="label-text">¿En cuántas cuotas querés pagarlo?</span>
+            <span id="monthsOutput" class="label-text-alt"></span>
+          </label>
+          <input type="range" id="days" min="1" max="12" value="1" class="range range-secondary" step="1" />
+          <div class="w-full flex justify-between text-xs px-2">
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+          </div>
+        </div>
+        <div class="mt-4 text-center">
+          <p>T.A.N: <span id="interest-rate"></span></p>
+          <p>T.A.E: <span id="apr"></span></p>
+          <p>Gastos administrativos: 10% Comisión: 18%</p>
+          <p class="font-bold">Cuota estimada de: <span id="amount2"></span></p>
+          <p>Sujeto a política crediticia de la entidad</p>
+        </div>
+        <a id="registerRedirect" href="#register" class="btn btn-primary mt-4 font-extrabold text-white">¡Solicitar
+          ya!</a>
+      </div>
     </div>
   </div>
-  <!-- Gradient divider -->
-  <div class="w-full h-4 bg-gradient-to-b from-base-100 via-transparent to-secondary"></div>
 </div>
 
 
 
 <!-- FAQ Accordion -->
-<section id="faq-accordion-component" class="mx-auto py-12 bg-secondary text-base-100 z-10">
+<section id="faq-accordion-component"
+  class="mx-auto py-12 bg-gradient-to-b from-secondary to-[#1C2E48] text-base-100 z-10">
   <div class="text-center mb-12 max-w-3xl mx-auto">
     <h1 class="text-3xl font-bold pb-8">PREGUNTAS FRECUENTES</h1>
     <div class="border-b border-white mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto">
@@ -197,9 +256,9 @@
 
 
 <!-- About Section -->
-<div id="about-component" class="bg-no-repeat bg-bottom py-12"
-  style="background-image: url('./assets/img/asuncion-skyline.jpg')">
-  <div class="max-w-3xl mx-auto flex items-center h-full">
+<div id="about-component" class="bg-cover bg-center py-28"
+  style="background-image: url('./assets/img/cde-skyline.jpg')">
+  <div class="max-w-4xl mx-auto flex items-center h-full">
 
     <div class="card bg-base-100 shadow-xl">
       <div class="card-body text-center">
@@ -411,73 +470,3 @@
 
 <!-- File Input Field -->
 <input type="file" id="file-input-component" class="file-input file-input-bordered w-full max-w-xs" />
-
-<!-- Loan Calculator -->
-<div id="loan-calculator-component">
-  <div class="card m-auto max-w-sm shadow-xl">
-  <div class="card-body items-center">
-    <h3 class="card-title font-semibold text-2xl">Simulá tu préstamo</h3>
-    <div class="border-b border-black mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto"></div>
-    <!-- Controls the white line under title -->
-    <div class="flex flex-col items-center mt-4">
-      <div class="form-control w-full max-w-md">
-        <label class="label">
-          <span class="label-text">¿Cuál es tu ocupación?</span>
-        </label>
-        <select id="occupation" class="select select-bordered">
-          <option value="">Seleccióná</option>
-          <option value="employed">Empleado</option>
-          <option value="self-employed">Trabajador independiente</option>
-          <!-- Add more options as needed -->
-        </select>
-      </div>
-      <div class="form-control w-full max-w-md mt-4">
-        <label class="label">
-          <span class="label-text">Monto Prestamo (Gs)</span>
-          <span id="loanOutput" class="label-text-alt"></span>
-        </label>
-        <input type="range" id="amount" min="1000000" max="10000000" value="1000000" class="range range-primary" step="500000" />
-        <div class="w-full flex justify-between text-xs px-2">
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-        </div>
-      </div>
-      <div class="form-control w-full max-w-md mt-4">
-        <label class="label">
-          <span class="label-text">¿En cuántas cuotas querés pagarlo?</span>
-          <span id="monthsOutput" class="label-text-alt"></span>
-        </label>
-        <input type="range" id="days" min="1" max="12" value="1" class="range range-secondary" step="1" />
-        <div class="w-full flex justify-between text-xs px-2">
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-          <span>|</span>
-        </div>
-      </div>
-      <div class="mt-4">
-        <p>T.A.N: <span id="interest-rate"></span></p>
-        <p>T.A.E: <span id="apr"></span></p>
-        <p>Gastos administrativos: 10%, Comisión: 18%</p>
-        <p>Cuota estimada de: <span id="amount2"></span></p>
-        <p>Sujeto a política crediticia de la entidad</p>
-      </div>
-      <a id="registerRedirect" href="#register" class="btn btn-primary mt-4">¡Lo quiero!</a>
-    </div>
-  </div>
-</div>
-</div>
