@@ -19,9 +19,14 @@ html {
   cursor: pointer;
 }
 
-/* Override tailwind default 2rem padding on card body */
+/* Override DaisyUI default 2rem padding on card body */
 .card-body {
   padding: 1rem;
+}
+
+/* Override DaisyUI border radius default property for hero-content */
+.hero-content {
+  border-radius: 2rem;
 }
 
 /* Override of section padding to fix spacing on top after clicking on the navbar links */
@@ -31,10 +36,6 @@ html {
 
 #register-content, #login-content {
   display: none;
-}
-
-.hero-content {
-  border-radius: 2rem;
 }
 
 .alert {
