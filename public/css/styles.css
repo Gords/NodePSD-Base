@@ -33,6 +33,10 @@ html {
   display: none;
 }
 
+.hero-content {
+  border-radius: 2rem;
+}
+
 .alert {
   display: block;
   padding: 1rem;

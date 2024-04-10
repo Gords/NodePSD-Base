@@ -8,15 +8,16 @@ module.exports = {
     themes: [
       {
         mytheme: {
-          primary: '#B03422',
-          secondary: '#2B3467',
-          accent: '#8D99AE',
-          neutral: '#EDF2F4',
+          primary: '#FF5656',
+          secondary: '#6A7EFC',
+          accent: '#494953',
+          neutral: '#EDF2F6',
           'base-100': '#ffffff',
           info: '#669bbc',
           success: '#90D26D',
           warning: '#FFC94A',
-          error: '#FA7070'
+          error: '#FA7070',
+        "--rounded-box": "2rem", // border radius rounded-box utility class, used in card and other large boxes
         }
       },
       'dark',

@@ -147,27 +147,46 @@ module.exports = (User, Image) => {
   })
 
   // Get all users
-  router.get('/users', isAuthenticated, async (req, res) => {
-    try {
-      const users = await User.findAll()
-      const usersHtml = users
-        .map(
-          (user) => `
-        <div id="user-item-${user.id}">
-          <p>ID: ${user.id}</p>
-          <p>Name: ${user.name}</p>
-          <p>Email: ${user.email}</p>
-          <button hx-delete="/users/${user.id}" hx-target="#user-item-${user.id}" hx-swap="outerHTML">Delete</button>
-        </div>
-      `
-        )
-        .join('')
-      res.send(`<div id="user-list">${usersHtml}</div>`)
-    } catch (error) {
-      console.error('Error fetching users:', error)
-      res.status(500).json({ error: 'Error fetching users' })
-    }
-  })
+router.get('/users', isAuthenticated, async (req, res) => {
+  try {
+    const users = await User.findAll();
+    const tableHtml = `
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Nombre</th>
+              <th>Telefono</th>
+              <th>Email</th>
+              <th>Documentos</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${users.map((user, index) => `
+              <tr>
+                <th>${user.id}</th>
+                <td>${user.name}</td>
+                <td>${user.phone}</td>
+                <td>${user.email}</td>
+                <td>
+                  <a href="/images/user-images">Ver documentos</a>
+                <td>
+                  <button hx-delete="/users/${user.id}" hx-target="#user-item-${user.id}" hx-swap="outerHTML">Eliminar</button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+    res.send(tableHtml);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Error fetching users' });
+  }
+});
+``
 
   // Update a user
   router.put('/users/:id', isAuthenticated, async (req, res) => {
