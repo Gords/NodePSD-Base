@@ -413,7 +413,8 @@
 <input type="file" id="file-input-component" class="file-input file-input-bordered w-full max-w-xs" />
 
 <!-- Loan Calculator -->
-<div id="loan-calculator-component" class="card bg-base-100 shadow-xl my-10">
+<div id="loan-calculator-component">
+  <div class="card m-auto max-w-sm shadow-xl">
   <div class="card-body items-center">
     <h3 class="card-title font-semibold text-2xl">Simulá tu préstamo</h3>
     <div class="border-b border-black mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto"></div>
@@ -432,19 +433,7 @@
       </div>
       <div class="form-control w-full max-w-md mt-4">
         <label class="label">
-          <span class="label-text">Completá tu e-mail</span>
-        </label>
-        <input type="email" id="email" placeholder="ej: carlosperez@gmail.com" class="input input-bordered" />
-      </div>
-      <div class="form-control w-full max-w-md mt-4">
-        <label class="label">
-          <span class="label-text">Dejanos tu celular</span>
-        </label>
-        <input type="tel" id="phone" placeholder="ej: 0991216066" class="input input-bordered" />
-      </div>
-      <div class="form-control w-full max-w-md mt-4">
-        <label class="label">
-          <span class="label-text">Loan Amount (Gs)</span>
+          <span class="label-text">Monto Prestamo (Gs)</span>
           <span id="loanOutput" class="label-text-alt"></span>
         </label>
         <input type="range" id="amount" min="1000000" max="10000000" value="1000000" class="range range-primary" step="500000" />
@@ -490,4 +479,5 @@
       <a id="registerRedirect" href="#register" class="btn btn-primary mt-4">¡Lo quiero!</a>
     </div>
   </div>
+</div>
 </div>
