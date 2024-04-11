@@ -29,7 +29,9 @@ const isAuthenticated = (req, res, next) => {
   res.status(401).json({ error: 'Please log in to access this page.' })
 }
 
+
 module.exports = (User, Image) => {
+
   // User registration
   router.post('/register', async (req, res) => {
     try {
@@ -42,12 +44,14 @@ module.exports = (User, Image) => {
         isVerified: false
       })
 
+
       // Generate verification token
       const verificationToken = jwt.sign(
         { userId: user.id },
         process.env.JWT_SECRET,
         { expiresIn: '1h' }
       )
+
 
       // Send verification email
       await emailService.sendVerificationEmail(email, verificationToken)
@@ -66,6 +70,7 @@ module.exports = (User, Image) => {
       })
     }
   })
+
 
   // Verify email
   router.get('/verify-email', async (req, res) => {
@@ -90,23 +95,34 @@ module.exports = (User, Image) => {
     }
   })
 
-  // User login
-  router.post('/login', passport.authenticate('local', {
-    failureRedirect: '/login'
-  }), (req, res) => {
-    const user = req.user
-    if (!user.isVerified) {
-      return res.status(401).json({
-        success: false,
-        message: 'Please verify your email before logging in.'
-      })
-    }
 
-    res.status(200).json({
-      success: true,
-      message: 'Login successful'
-    })
-  })
+// User login
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return res.status(500).json({ success: false, message: 'Ocurrió un error durante el proceso de inicio de sesión' });
+    }
+    if (!user) {
+      return res.status(401).json({ success: false, message: info.message || 'Ese usuario no existe'});
+    }
+    req.logIn(user, (loginErr) => {
+      if (loginErr) {
+        return res.status(500).json({ success: false, message: 'Ocurrió un error durante el proceso de inicio de sesión'});
+      }
+      if (!user.isVerified) {
+        return res.status(401).json({
+          success: false,
+          message: 'Por favor verifica tu correo electrónico para continuar'
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        message: 'Inicio de sesión exitoso'
+      });
+    });
+  })(req, res, next);
+});
+
 
   // Get login form section
   router.get('/login', (req, res) => {
@@ -134,6 +150,7 @@ module.exports = (User, Image) => {
     })
   })
 
+
   // Get a single user
   router.get('/check-login', (req, res) => {
     if (req.isAuthenticated()) {
@@ -145,6 +162,7 @@ module.exports = (User, Image) => {
       res.status(401).json({ error: 'Not logged in' })
     }
   })
+
 
   // Get all users
   router.get('/users', isAuthenticated, async (req, res) => {
@@ -205,6 +223,7 @@ module.exports = (User, Image) => {
     }
   })
 
+
   // Delete a user
   router.delete('/users/:id', isAuthenticated, async (req, res) => {
     try {
@@ -215,6 +234,7 @@ module.exports = (User, Image) => {
       res.status(500).json({ error: 'Error deleting user' })
     }
   })
+
 
   // Post (Upload) a file within an array of files, max 4 files
   router.post('/images', isAuthenticated, upload.array('files', 4), async (req, res) => {
@@ -253,6 +273,7 @@ module.exports = (User, Image) => {
     }
   })
 
+
   // Get all images
   router.get('/images', isAuthenticated, async (req, res) => {
     try {
@@ -279,6 +300,7 @@ module.exports = (User, Image) => {
     }
   })
 
+
   // Get all images for the currently authenticated user
   router.get('/images/user-images', isAuthenticated, async (req, res) => {
     try {
@@ -303,6 +325,7 @@ module.exports = (User, Image) => {
       res.status(500).send('Error fetching user images')
     }
   })
+
 
   // Get images for a specific user
   router.get('/images/user-images/:userId', isAuthenticated, async (req, res) => {
@@ -350,26 +373,24 @@ module.exports = (User, Image) => {
   });
 
 
-
-
   // Delete an image
   router.delete('/images/:imageId', isAuthenticated, async (req, res) => {
     try {
       const { imageId } = req.params
       const image = await Image.findByPk(imageId)
       if (!image) {
-        return res.status(404).send('Image not found')
+        return res.status(404).send('No se han encontrado archivos')
       }
       // Delete the image file from the file system
       if (image.path) {
         await fs.promises.unlink(image.path)
       } else {
         console.error('Error: image.path is undefined')
-        return res.status(500).send('Error deleting image file')
+        return res.status(500).send('Error eliminando archivo')
       }
       // Delete the image record from the database
       await image.destroy()
-      res.status(204).send('Image deleted successfully')
+      res.status(204).send('Archivo eliminado exitosamente')
     } catch (error) {
       console.error('Error fetching images:', error)
       res.status(500).json({ error: 'Error fetching images' })
