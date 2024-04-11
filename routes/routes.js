@@ -152,7 +152,7 @@ module.exports = (User, Image) => {
     const users = await User.findAll();
       const tableHtml = `
       <div class="overflow-x-auto">
-        <table class="table w-full text-l">
+        <table class="table table-pin-rows w-full text-l">
           <thead>
             <tr>
               <th>User ID</th>
@@ -163,16 +163,21 @@ module.exports = (User, Image) => {
             </tr>
           </thead>
           <tbody>
-            ${users.map((user, index) => `
+            ${users.map((user) => `
               <tr class="hover">
                 <th>${user.id}</th>
                 <td>${user.name}</td>
                 <td>${user.phone}</td>
                 <td>${user.email}</td>
                 <td>
-                  <a href="/images/user-images/${user.id}">Ver documentos</a>
+                  <a href="/images/user-images/${user.id}" 
+                    hx-get="/images/user-images/${user.id}" 
+                    hx-target="#list-of-users" 
+                    hx-swap="outerHTML">Ver documentos</a>
+                </td>
               </tr>
             `).join('')}
+
           </tbody>
         </table>
       </div>
@@ -287,7 +292,7 @@ module.exports = (User, Image) => {
           // Check if image.path is not null
           // Add "X" icon to delete an image
           if (image.path) {
-            const deleteIcon = `<svg style="margin-left: auto;" onclick="confirmDelete(${image.id})" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
+            const deleteIcon = `<svg style="margin-left: auto;" onclick="confirmDelete(${image.id})" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`
             imagesHTML += `<li class="flex justify-between text-center items-center py-2">${path.basename(image.path)} ${deleteIcon}</li>`
           }
         })
@@ -304,34 +309,39 @@ module.exports = (User, Image) => {
     try {
       const userId = req.params.userId;
       const userImages = await Image.findAll({
-        where: { userId: userId }
+        where: { userId }
       });
 
       const userImagesHtml = `
-        <div class="overflow-x-auto">
+    <div class="card bg-base-100 shadow-xl tex-center my-10">
+      <div id="testing-htmx" class="card-body items-center">
+        <h2 class="card-title font-semibold">Documentos del Usuario</h2>
+        <div class="border-b border-black mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto">
+        </div>
+        <div class="overflow-x-auto pt-2">
           <table class="table w-full">
             <thead>
               <tr class="hover">
-                <th>Image ID</th>
-                <th>File Name</th>
-                <th>Actions</th>
+                <th>Nombre del Archivo</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               ${userImages.map(image => `
                 <tr class="hover" id="image-${image.id}">
-                  <td>${image.id}</td>
                   <td>${path.basename(image.path)}</td>
                   <td>
-                    <button class="btn btn-error btn-xs" hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Are you sure you want to delete this image?">Remove</button>
+                    <button class="btn btn-error btn-xs" hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar esta imagen?">Eliminar</button>
                   </td>
                 </tr>
               `).join('')}
             </tbody>
           </table>
         </div>
+      </div>
+    </div>
       `;
-      
+
       res.send(userImagesHtml);
     } catch (error) {
       console.error('Error fetching user images:', error);
@@ -366,10 +376,12 @@ module.exports = (User, Image) => {
     }
   })
 
+
+  // Get interest rate
   router.get('/interest-rate', async (req, res) => {
-    const interestRate = 0.3027; // Annual interest rate of 30.27% (fixed on the server)
-    res.send(interestRate.toString());
-  });
+    const interestRate = 0.3027 // Annual interest rate of 30.27% (fixed on the server)
+    res.send(interestRate.toString())
+  })
 
   return router
 }
