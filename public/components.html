@@ -312,7 +312,6 @@
 
 <!-- Forms -->
 <section id="forms">
-
   <!-- Login Form -->
   <div id="login-form-component" class="pt-36">
     <div class="card m-auto max-w-sm shadow-xl">
@@ -323,23 +322,28 @@
         </div>
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <div class="space-y-6">
-            <!-- Email Input -->
-            <label for="email">
-              <input type="email" name="email" id="contact-email" autocomplete="email" placeholder="Correo electronico"
-                class="input input-bordered w-full" />
-            </label>
             <div>
-              <div class="text-sm">
-                <a href="#" class="link link-primary font-bold">Olvidaste tu contraseña?</a>
+              <label for="username" class="text-lg text-center font-medium">Correo electronico</label>
+              <div class=" mt-2">
+                <input id="username" name="username" type="email" autocomplete="email" required
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6">
               </div>
-              <label for="login-password">
-                <input type="password" name="login-password" id="login-password" autocomplete="current-password"
-                  placeholder="Contraseña" class="input input-bordered w-full" />
-              </label>
+            </div>
+            <div>
+              <div class="flex items-center justify-between">
+                <label for="login-password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
+                <div class="text-sm">
+                  <a href="#" class="link link-primary font-bold">Olvidaste tu contraseña?</a>
+                </div>
+              </div>
+              <div class="mt-2">
+                <input id="login-password" name="password" type="password" autocomplete="current-password" required
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
             </div>
             <button type="submit"
               class="btn btn-primary flex w-full justify-center text-white hover:bg-secondary">Iniciar
-              esión</button>
+              sesión</button>
           </div>
         </div>
         <p class="mt-10 text-center text-sm text-gray-500">
@@ -413,25 +417,25 @@
     <div class="mx-auto text-center mt-10 max-w-xl sm:mt-10">
       <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <!-- Name Input -->
-        <label for="first-name">
+        <label for="contact-first-name">
           <input type="text" name="first-name" id="contact-first-name" autocomplete="given-name" placeholder="Nombre"
             class="input input-bordered w-full" />
         </label>
 
         <!-- Last Name Input -->
-        <label for="last-name">
+        <label for="contact-last-name">
           <input type="text" name="last-name" id="contact-last-name" autocomplete="family-name" placeholder="Apellido"
             class="input input-bordered w-full" />
         </label>
 
         <!-- Email Input -->
-        <label for="email">
+        <label for="contact-email">
           <input type="email" name="email" id="contact-email" autocomplete="email" placeholder="Email"
             class="input input-bordered w-full" />
         </label>
 
         <!-- Phone Input -->
-        <label for="phone">
+        <label for="contact-phone">
           <input type="tel" name="phone" id="contact-phone" autocomplete="tel" placeholder="Teléfono"
             class="input input-bordered w-full" />
         </label>
@@ -439,7 +443,7 @@
 
       <div class="pt-8">
         <!-- Message Input -->
-        <label for="message">
+        <label for="contact-message">
           <textarea name="message" id="contact-message" placeholder="Mensaje" class="input input-bordered w-full"
             rows="4"></textarea>
         </label>

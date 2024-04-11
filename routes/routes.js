@@ -67,7 +67,7 @@ module.exports = (User, Image) => {
     }
   })
 
-  // verify email
+  // Verify email
   router.get('/verify-email', async (req, res) => {
     const { token } = req.query
 
@@ -147,12 +147,12 @@ module.exports = (User, Image) => {
   })
 
   // Get all users
-router.get('/users', isAuthenticated, async (req, res) => {
-  try {
+  router.get('/users', isAuthenticated, async (req, res) => {
+    try {
     const users = await User.findAll();
-    const tableHtml = `
+      const tableHtml = `
       <div class="overflow-x-auto">
-        <table class="table w-full">
+        <table class="table w-full text-l">
           <thead>
             <tr>
               <th>User ID</th>
@@ -164,16 +164,13 @@ router.get('/users', isAuthenticated, async (req, res) => {
           </thead>
           <tbody>
             ${users.map((user, index) => `
-              <tr>
+              <tr class="hover">
                 <th>${user.id}</th>
                 <td>${user.name}</td>
                 <td>${user.phone}</td>
                 <td>${user.email}</td>
                 <td>
-                  <a href="/images/user-images">Ver documentos</a>
-                <td>
-                  <button hx-delete="/users/${user.id}" hx-target="#user-item-${user.id}" hx-swap="outerHTML">Eliminar</button>
-                </td>
+                  <a href="/images/user-images/${user.id}">Ver documentos</a>
               </tr>
             `).join('')}
           </tbody>
@@ -181,12 +178,12 @@ router.get('/users', isAuthenticated, async (req, res) => {
       </div>
     `;
     res.send(tableHtml);
-  } catch (error) {
+    } catch (error) {
     console.error('Error fetching users:', error);
     res.status(500).json({ error: 'Error fetching users' });
-  }
+    }
 });
-``
+
 
   // Update a user
   router.put('/users/:id', isAuthenticated, async (req, res) => {
@@ -301,6 +298,49 @@ router.get('/users', isAuthenticated, async (req, res) => {
       res.status(500).send('Error fetching user images')
     }
   })
+
+  // Get images for a specific user
+  router.get('/images/user-images/:userId', isAuthenticated, async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const userImages = await Image.findAll({
+        where: { userId: userId }
+      });
+
+      const userImagesHtml = `
+        <div class="overflow-x-auto">
+          <table class="table w-full">
+            <thead>
+              <tr class="hover">
+                <th>Image ID</th>
+                <th>File Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${userImages.map(image => `
+                <tr class="hover" id="image-${image.id}">
+                  <td>${image.id}</td>
+                  <td>${path.basename(image.path)}</td>
+                  <td>
+                    <button class="btn btn-error btn-xs" hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Are you sure you want to delete this image?">Remove</button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+      
+      res.send(userImagesHtml);
+    } catch (error) {
+      console.error('Error fetching user images:', error);
+      res.status(500).json({ error: 'Error fetching user images' });
+    }
+  });
+
+
+
 
   // Delete an image
   router.delete('/images/:imageId', isAuthenticated, async (req, res) => {

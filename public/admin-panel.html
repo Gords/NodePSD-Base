@@ -23,11 +23,9 @@
     <nav hx-get="components.html" hx-select="#user-panel-navbar-component" hx-trigger="load"></nav>
   </header>
   <main>
-    <!-- User Panel Component -->
-    <div id="user-panel-component"
+    <div id="admin-panel-component"
       class="flex flex-col h-full min-h-screen justify-center items-center pt-20 bg-neutral">
-      <!-- Data and File Upload Container -->
-      <div class="w-full max-w-2xl py-4"> <!-- Adjust the width as needed -->
+      <div class="w-full max-w-4xl py-4"> <!-- Adjust the width as needed -->
         <!-- User personal info -->
         <div class="card bg-base-100 shadow-xl mb-6">
           <div class="card-body">
@@ -49,8 +47,8 @@
           <div class="card-body items-center">
             <h3 class="card-title font-semibold text-2xl">Lista de Usuarios</h3>
             <div class="border-b border-black mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto">
-            </div> <!-- Controls the white line under title -->
-            <div id="user-table-container" hx-get="/users" hx-trigger="load">
+            </div> <!-- Controls the line under title -->
+            <div id="user-table-container" hx-get="/users" hx-trigger="load" class="pt-4">
               <!-- The table returned from /users will be inserted here -->
             </div>
           </div>

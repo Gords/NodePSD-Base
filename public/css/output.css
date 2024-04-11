@@ -3396,6 +3396,10 @@ details.collapse summary::-webkit-details-marker {
   padding-top: 9rem;
 }
 
+.pt-4 {
+  padding-top: 1rem;
+}
+
 .pt-8 {
   padding-top: 2rem;
 }
@@ -3764,6 +3768,11 @@ html {
 .focus\:ring-indigo-600:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(79 70 229 / var(--tw-ring-opacity));
+}
+
+.focus\:ring-secondary:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: var(--fallback-s,oklch(var(--s)/var(--tw-ring-opacity)));
 }
 
 .focus-visible\:outline:focus-visible {
