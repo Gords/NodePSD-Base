@@ -27,7 +27,7 @@ document.body.addEventListener('htmx:afterSwap', function (event) {
 
     if (data.success) {
       registerResponseContent.innerHTML = `
-          <div role="alert" class="alert alert-success max-w-sm mx-auto">
+          <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
             <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
             <span class="font-bold">${data.message}</span>
           </div>
@@ -38,7 +38,7 @@ document.body.addEventListener('htmx:afterSwap', function (event) {
               }, 2000);
     } else {
       registerResponseContent.innerHTML = `
-          <div role="alert" class="alert alert-error max-w-sm mx-auto">
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
             <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
             <span class="font-bold justify-center">${data.message}</span>
           </div>
@@ -58,7 +58,7 @@ document.body.addEventListener('htmx:afterSwap', function (event) {
         localStorage.setItem('loggedIn', 'true');
         updateUI();
         loginResponseContent.innerHTML = `
-          <div role="alert" class="alert alert-success max-w-sm mx-auto">
+          <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
             <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
             <span class="font-bold">${response.message}</span>
           </div>
@@ -72,9 +72,9 @@ document.body.addEventListener('htmx:afterSwap', function (event) {
         // Login failed, display error message
         updateUI();
         loginResponseContent.innerHTML = `
-          <div role="alert" class="alert alert-error max-w-sm mx-auto">
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
             <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-            <span class="font-bold justify-center">${response.message}</span>
+            <span class="font-bold text-center">${response.message}</span>
           </div>
           `;
         console.error('Login failed:', response.message);

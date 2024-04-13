@@ -15,6 +15,11 @@ html {
   z-index: 100;
 }
 
+.img-thumbnail {
+  width: 14rem !important;
+  height: 10rem !important;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -29,43 +34,11 @@ html {
   border-radius: 2rem;
 }
 
-/* Override of section padding to fix spacing on top after clicking on the navbar links */
-/* section {
-  padding-top: 80px; 
-} */
 
 #register-content, #login-content {
   display: none;
 }
 
-.alert {
-  display: block;
-  padding: 1rem;
-  border: 1px solid black;
-  border-radius: 4rem;
-  margin-top: 1rem;
-  background-color: #669bbc;
-}
-
-.alert-success {
-  display: block;
-  padding: 1rem;
-  border: 1rem solid black;
-  border-radius: 4rem;
-  margin-top: 1rem;
-  background-color: #90D26D;
-
-}
-
-.alert-error {
-  display: block;
-  padding: 1rem;
-  border: 1rem solid black;
-  border-radius: 4rem;
-  margin-top: 1rem;
-  background-color: #FA7070;
-
-}
 
 /* Styling that adds a background pattern */
 /* main::before {

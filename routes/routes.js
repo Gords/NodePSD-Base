@@ -173,7 +173,7 @@ router.post('/login', (req, res, next) => {
         <table class="table table-zebra w-full text-l">
           <thead>
             <tr>
-              <th>User ID</th>
+              <th>Nro. Usuario</th>
               <th>Nombre</th>
               <th>Telefono</th>
               <th>Email</th>
@@ -195,7 +195,6 @@ router.post('/login', (req, res, next) => {
                 </td>
               </tr>
             `).join('')}
-
           </tbody>
         </table>
       </div>
@@ -337,14 +336,15 @@ router.post('/login', (req, res, next) => {
 
       const userImagesHtml = `
     <div class="card bg-base-100 shadow-xl tex-center my-10">
-      <div id="testing-htmx" class="card-body items-center">
+      <div class="card-body items-center">
         <h2 class="card-title font-semibold">Documentos del Usuario</h2>
-        <hr style="height:2px;border-width:0;color:gray;background-color:black">
+        <hr class=border-black my-2">
         <div class="overflow-x-auto pt-8">
           <table class="table w-full">
             <thead>
               <tr class="hover">
                 <th>Archivos</th>
+                <th>Vista Previa</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -353,7 +353,13 @@ router.post('/login', (req, res, next) => {
                 <tr class="hover" id="image-${image.id}">
                   <td>${path.basename(image.path)}</td>
                   <td>
-                    <button class="btn btn-error btn-xs" hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar esta imagen?">Eliminar</button>
+                    <img class="img-thumbnail" src="/${image.path}" alt="Documento ${image.id}">
+                  </td>
+                  <td>
+                    <button class="btn btn-error btn-xs"
+                      hx-delete="/images/${image.id}" 
+                      hx-target="#image-${image.id}" 
+                      hx-confirm="Estas seguro que quieres eliminar este archivo?">Eliminar</button>
                   </td>
                 </tr>
               `).join('')}
@@ -362,7 +368,7 @@ router.post('/login', (req, res, next) => {
         </div>
       </div>
     </div>
-      `;
+    `;
 
       res.send(userImagesHtml);
     } catch (error) {
