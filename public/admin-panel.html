@@ -46,8 +46,7 @@
         <div id="list-of-users" class="card bg-base-100 shadow-xl tex-center my-10">
           <div id="testing-htmx" class="card-body items-center">
             <h2 class="card-title font-semibold">Lista de Usuarios</h2>
-            <div class="border-b border-black mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto">
-            </div> <!-- Controls the line under title -->
+            <hr style="height:2px;border-width:0;color:gray;background-color:black">
             <div id="user-table-container" hx-get="/users" hx-trigger="load" class="pt-4">
               <!-- The table returned from /users will be inserted here -->
             </div>

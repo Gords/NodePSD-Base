@@ -81,9 +81,8 @@
 <div id="products-component" class="pl-56">
   <div class="text-center">
     <h1 class="text-3xl font-bold tracking-widest pt-2 pb-8">NUESTROS PRODUCTOS</h1>
-    <div class="border-t border-black mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto pb-12">
-    </div> <!-- Controls the white line under title -->
-    <div class="grid md:grid-cols-2">
+    <hr style="height:2px;border-width:0;color:gray;background-color:black">
+    <div class="grid md:grid-cols-2 pt-8">
       <div class="px-0 mb-4">
         <img src="./assets/icons/dollar-bills.svg" alt="Icono de Billetes" class="mx-auto mb-6 w-20 h-20">
         <h3 class="text-xl font-bold mb-1">Prestamos Personales</h3>
@@ -189,8 +188,7 @@
   class="mx-auto py-40 bg-gradient-to-b from-secondary to-[#01112A] text-base-100 z-10">
   <div class="text-center pb-16 max-w-3xl mx-auto">
     <h1 class="text-3xl font-bold pb-6">PREGUNTAS FRECUENTES</h1>
-    <div class="border-b border-white mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto">
-    </div> <!-- Controls the white line under title -->
+    <hr style="height:2px;border-width:0;color:gray;background-color:black">
   </div>
   <div id="accordion-item-list" class="space-y-4 max-w-3xl mx-auto">
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
@@ -243,30 +241,32 @@
 <!-- About Section -->
 <div id="about-component" class="bg-cover py-60 flex justify-center items-center"
   style="background-image: url('./assets/img/cde-skyline.jpg')">
-  <div class="max-w-4xl flex flex-col justify-center items-center">
-    <div class="card bg-base-100 shadow-xl w-full md:wd-auto">
-      <div class="card-body text-center">
-        <h1 class="text-3xl font-bold mb-4">ACERCA DE FLASH CENTER</h1>
-        <p class="text-lg">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito. Otorgamos
-          préstamos al consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación.</p>
-        <div class="grid md:grid-cols-3 gap-10">
-          <div>
-            <h2 class="text-xl font-bold mt-6">MISION</h2>
-            <p class="text-lg">Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a la
-              sociedad, a través de productos financieros.</p>
-          </div>
-          <div>
-            <h2 class="text-xl font-bold mt-6">VISION</h2>
-            <p class="text-lg">Ser una banca contribuyente al estado y su gente.</p>
-          </div>
-          <div>
-            <h2 class="text-xl font-bold mt-6">VALORES</h2>
-            <p class="text-lg">Accesibilidad<br>Agilidad<br>Amabilidad<br>Lealtad<br>Respeto</p>
-          </div>
-        </div>
+  <div class="max-w-4xl flex justify-center items-center">
+    <div class="card p-6 bg-base-100 opacity-80 shadow-xl max-w-md md:wd-auto">
+      <div class="card-body justify-start">
+        <h1 class="text-2xl font-bold mb-4 text-center">ACERCA DE FLASH CENTER</h1>
+        <hr style="height:2px;border-width:0;color:gray;background-color:black">
+      </div>
+      <p class="text-lg pt-4">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito.
+        Otorgamos
+        préstamos al consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación.</p>
+      <div>
+        <h2 class="text-xl font-bold mt-6 text-center">MISION</h2>
+        <p class="text-lg">Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a
+          la
+          sociedad, a través de productos financieros.</p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold mt-6 text-center">VISION</h2>
+        <p class="text-lg">Ser una banca contribuyente al estado y su gente</p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold mt-6 text-center">VALORES</h2>
+        <p class="text-lg text-center">Accesibilidad<br>Agilidad<br>Amabilidad<br>Lealtad<br>Respeto</p>
       </div>
     </div>
   </div>
+</div>
 </div>
 
 
@@ -287,6 +287,15 @@
         15C<br>San Juan XXIII 2581, Asunción, Paraguay
     </div>
   </div>
+  <nav class="flex flex-col items-center">
+    <h2 class="footer-title text-lg">Redes Sociales</h2>
+    <div class="flex items-center justify-center">
+      <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-8 h-8 mr-2">
+      <a href="https://www.instagram.com/flashcenter_py/"></a>
+      <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-8 h-8 mr-2">
+      <a href="https://www.facebook.com/Flashcenterpy"></a>
+    </div>
+  </nav>
   <nav>
     <h2 class="footer-title text-lg">Servicios</h2>
     <a href="#register" class="link link-hover text-base">Crea tu cuenta</a>
@@ -345,7 +354,7 @@
         </div>
         <p class="mt-10 text-center text-sm text-gray-500">
           No tienes una cuenta?
-          <a href="/register" class="link link-primary font-bold">Creala aqui!</a>
+          <a href="#register" class="link link-primary font-bold">Creala aqui!</a>
         </p>
       </form>
     </div>
@@ -396,7 +405,7 @@
           </div>
           <p class="mt-10 text-center text-sm text-gray-600">
             Ya tienes una cuenta?
-            <a href="/login" class="link link-primary font-bold">Inicia sesión aqui!</a>
+            <a href="#login" class="link link-primary font-bold">Inicia sesión aqui!</a>
           </p>
         </div>
       </form>

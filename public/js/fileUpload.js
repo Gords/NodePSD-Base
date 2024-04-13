@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Delete image confirmation
 function confirmDelete (imageId) {
-  const confirmDeletion = confirm('Are you sure you want to delete this file?')
+  const confirmDeletion = confirm('Estas seguro que quieres eliminar este archivo?')
   if (confirmDeletion) {
     deleteImage(imageId)
   }

@@ -112,7 +112,7 @@ router.post('/login', (req, res, next) => {
       if (!user.isVerified) {
         return res.status(401).json({
           success: false,
-          message: 'Por favor verifica tu correo electrónico para continuar'
+          message: 'Por favor verifica tu correo electrónico'
         });
       }
       return res.status(200).json({
@@ -170,7 +170,7 @@ router.post('/login', (req, res, next) => {
     const users = await User.findAll();
       const tableHtml = `
       <div class="overflow-x-auto">
-        <table class="table table-pin-rows w-full text-l">
+        <table class="table table-zebra w-full text-l">
           <thead>
             <tr>
               <th>User ID</th>
@@ -182,7 +182,7 @@ router.post('/login', (req, res, next) => {
           </thead>
           <tbody>
             ${users.map((user) => `
-              <tr class="hover">
+              <tr>
                 <th>${user.id}</th>
                 <td>${user.name}</td>
                 <td>${user.phone}</td>
@@ -339,13 +339,12 @@ router.post('/login', (req, res, next) => {
     <div class="card bg-base-100 shadow-xl tex-center my-10">
       <div id="testing-htmx" class="card-body items-center">
         <h2 class="card-title font-semibold">Documentos del Usuario</h2>
-        <div class="border-b border-black mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto">
-        </div>
-        <div class="overflow-x-auto pt-2">
+        <hr style="height:2px;border-width:0;color:gray;background-color:black">
+        <div class="overflow-x-auto pt-8">
           <table class="table w-full">
             <thead>
               <tr class="hover">
-                <th>Nombre del Archivo</th>
+                <th>Archivos</th>
                 <th>Acciones</th>
               </tr>
             </thead>

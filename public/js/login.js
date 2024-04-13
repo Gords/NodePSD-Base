@@ -26,13 +26,23 @@ document.body.addEventListener('htmx:afterSwap', function (event) {
     const data = JSON.parse(response);
 
     if (data.success) {
-      registerResponseContent.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+      registerResponseContent.innerHTML = `
+          <div role="alert" class="alert alert-success max-w-sm mx-auto">
+            <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold">${data.message}</span>
+          </div>
+          `;
               // Delay the redirection by 2 seconds (adjust the delay as needed)
               setTimeout(function() {
                 window.location.href = '/';
               }, 2000);
     } else {
-      registerResponseContent.innerHTML = `<div class="alert alert-error">${data.message}</div>`;
+      registerResponseContent.innerHTML = `
+          <div role="alert" class="alert alert-error max-w-sm mx-auto">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold justify-center">${data.message}</span>
+          </div>
+          `;
       console.error('Registration failed:', data.message);
     }
   }
