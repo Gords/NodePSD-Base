@@ -13,11 +13,7 @@
     as="style">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
     rel="stylesheet">
-  <link href="./css/fileUpload.css" rel="stylesheet">
   <link href="./css/output.css" rel="stylesheet">
-  <!-- Need this library for the drag and drop feature of file upload -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-  <script src="./js/fileUpload.js" defer></script>
   <script src="./js/login.js"></script>
 </head>
 
@@ -27,12 +23,9 @@
     <nav hx-get="components.html" hx-select="#user-panel-navbar-component" hx-trigger="load"></nav>
   </header>
   <main>
-    <!-- User Panel Component -->
-    <div id="user-panel-component"
-      class="flex flex-col h-full min-h-screen justify-center items-center pt-20 bg-neutral">
-      <!-- Data and File Upload Container -->
-      <div class="w-full max-w-2xl py-4"> <!-- Adjust the width as needed -->
-        <!-- User personal info -->
+    <div id="admin-panel-component" class="flex flex-col h-full min-h-screen items-center pt-20 bg-neutral">
+      <div class="w-full max-w-4xl py-4">
+        <!-- Admin personal info -->
         <div class="card bg-base-100 shadow-xl mb-6">
           <div class="card-body">
             <div id="user-info" class="card-title flex flex-row items-center">
@@ -47,40 +40,16 @@
                 <div id="user-email" class="text-sm">email.del@usuario.com</div>
               </div>
             </div>
-            <div id="user-data">
-              <!-- Replace using Javascript like we did with the username and email -->
-              <div class="flex flex-col font-semibold pl-2">
-                Nro. de Cedula: <span id="user-cedula" class="font-normal">1.234.567.-</span>
-                Nro. de Telefono: <span id="user-phone" class="font-normal">+595 981 123 456</span>
-                Domicilio: <span id="user-address" class="font-normal">Dr. Vasconcellos 622 esq. Tte Luis Miranda</span>
-              </div>
-            </div>
           </div>
         </div>
-        <div id="user-files" class="card bg-base-100 shadow-xl tex-center my-10">
-          <div class="card-body items-center">
-            <h3 class="card-title font-semibold text-2xl">Documentos</h3>
+        <!-- List of all Flash Center users -->
+        <div id="list-of-users" class="card bg-base-100 shadow-xl tex-center my-10">
+          <div id="testing-htmx" class="card-body items-center">
+            <h2 class="card-title font-semibold">Lista de Usuarios</h2>
             <div class="border-b border-black mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto">
-            </div> <!-- Controls the white line under title -->
-            <ul id="file-name-display" hx-get="/images/user-images" hx-trigger="load" class="pl-6">
-              <!-- User files present in the DB will be listed here -->
-            </ul>
-          </div>
-        </div>
-
-
-        <div id="file-drop-area" class="card bg-secondary shadow-xl">
-          <div class="card-body items-center">
-            <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo o arrastralo aqui</h3>
-            <p class="text-base text-neutral mb-4">Puedes cargar hasta 4 archivos de 25 MB. cada uno</p>
-            <form hx-encoding="multipart/form-data" hx-post="/images">
-              <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar archivos</label>
-                <input type="file" id="files-to-upload" name="files" multiple accept="image/jpeg, image/png, application/pdf" style="display: none">
-              <button id="submit-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" type="submit">Cargar
-                Archivos</button>
-            </form>
-            <div id="file-upload-list">
-              <!-- Response from /images will be inserted here -->
+            </div> <!-- Controls the line under title -->
+            <div id="user-table-container" hx-get="/users" hx-trigger="load" class="pt-4">
+              <!-- The table returned from /users will be inserted here -->
             </div>
           </div>
         </div>

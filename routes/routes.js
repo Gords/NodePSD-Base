@@ -29,7 +29,9 @@ const isAuthenticated = (req, res, next) => {
   res.status(401).json({ error: 'Please log in to access this page.' })
 }
 
+
 module.exports = (User, Image) => {
+
   // User registration
   router.post('/register', async (req, res) => {
     try {
@@ -42,12 +44,14 @@ module.exports = (User, Image) => {
         isVerified: false
       })
 
+
       // Generate verification token
       const verificationToken = jwt.sign(
         { userId: user.id },
         process.env.JWT_SECRET,
         { expiresIn: '1h' }
       )
+
 
       // Send verification email
       await emailService.sendVerificationEmail(email, verificationToken)
@@ -67,7 +71,8 @@ module.exports = (User, Image) => {
     }
   })
 
-  // verify email
+
+  // Verify email
   router.get('/verify-email', async (req, res) => {
     const { token } = req.query
 
@@ -90,23 +95,34 @@ module.exports = (User, Image) => {
     }
   })
 
-  // User login
-  router.post('/login', passport.authenticate('local', {
-    failureRedirect: '/login'
-  }), (req, res) => {
-    const user = req.user
-    if (!user.isVerified) {
-      return res.status(401).json({
-        success: false,
-        message: 'Please verify your email before logging in.'
-      })
-    }
 
-    res.status(200).json({
-      success: true,
-      message: 'Login successful'
-    })
-  })
+// User login
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return res.status(500).json({ success: false, message: 'Ocurrió un error durante el proceso de inicio de sesión' });
+    }
+    if (!user) {
+      return res.status(401).json({ success: false, message: info.message || 'Ese usuario no existe'});
+    }
+    req.logIn(user, (loginErr) => {
+      if (loginErr) {
+        return res.status(500).json({ success: false, message: 'Ocurrió un error durante el proceso de inicio de sesión'});
+      }
+      if (!user.isVerified) {
+        return res.status(401).json({
+          success: false,
+          message: 'Por favor verifica tu correo electrónico para continuar'
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        message: 'Inicio de sesión exitoso'
+      });
+    });
+  })(req, res, next);
+});
+
 
   // Get login form section
   router.get('/login', (req, res) => {
@@ -134,6 +150,7 @@ module.exports = (User, Image) => {
     })
   })
 
+
   // Get a single user
   router.get('/check-login', (req, res) => {
     if (req.isAuthenticated()) {
@@ -146,28 +163,50 @@ module.exports = (User, Image) => {
     }
   })
 
+
   // Get all users
   router.get('/users', isAuthenticated, async (req, res) => {
     try {
-      const users = await User.findAll()
-      const usersHtml = users
-        .map(
-          (user) => `
-        <div id="user-item-${user.id}">
-          <p>ID: ${user.id}</p>
-          <p>Name: ${user.name}</p>
-          <p>Email: ${user.email}</p>
-          <button hx-delete="/users/${user.id}" hx-target="#user-item-${user.id}" hx-swap="outerHTML">Delete</button>
-        </div>
-      `
-        )
-        .join('')
-      res.send(`<div id="user-list">${usersHtml}</div>`)
+    const users = await User.findAll();
+      const tableHtml = `
+      <div class="overflow-x-auto">
+        <table class="table table-pin-rows w-full text-l">
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Nombre</th>
+              <th>Telefono</th>
+              <th>Email</th>
+              <th>Documentos</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${users.map((user) => `
+              <tr class="hover">
+                <th>${user.id}</th>
+                <td>${user.name}</td>
+                <td>${user.phone}</td>
+                <td>${user.email}</td>
+                <td>
+                  <a href="/images/user-images/${user.id}" 
+                    hx-get="/images/user-images/${user.id}" 
+                    hx-target="#list-of-users" 
+                    hx-swap="outerHTML">Ver documentos</a>
+                </td>
+              </tr>
+            `).join('')}
+
+          </tbody>
+        </table>
+      </div>
+    `;
+    res.send(tableHtml);
     } catch (error) {
-      console.error('Error fetching users:', error)
-      res.status(500).json({ error: 'Error fetching users' })
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Error fetching users' });
     }
-  })
+});
+
 
   // Update a user
   router.put('/users/:id', isAuthenticated, async (req, res) => {
@@ -184,6 +223,7 @@ module.exports = (User, Image) => {
     }
   })
 
+
   // Delete a user
   router.delete('/users/:id', isAuthenticated, async (req, res) => {
     try {
@@ -194,6 +234,7 @@ module.exports = (User, Image) => {
       res.status(500).json({ error: 'Error deleting user' })
     }
   })
+
 
   // Post (Upload) a file within an array of files, max 4 files
   router.post('/images', isAuthenticated, upload.array('files', 4), async (req, res) => {
@@ -232,6 +273,7 @@ module.exports = (User, Image) => {
     }
   })
 
+
   // Get all images
   router.get('/images', isAuthenticated, async (req, res) => {
     try {
@@ -258,6 +300,7 @@ module.exports = (User, Image) => {
     }
   })
 
+
   // Get all images for the currently authenticated user
   router.get('/images/user-images', isAuthenticated, async (req, res) => {
     try {
@@ -271,7 +314,7 @@ module.exports = (User, Image) => {
           // Check if image.path is not null
           // Add "X" icon to delete an image
           if (image.path) {
-            const deleteIcon = `<svg style="margin-left: auto;" onclick="confirmDelete(${image.id})" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
+            const deleteIcon = `<svg style="margin-left: auto;" onclick="confirmDelete(${image.id})" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`
             imagesHTML += `<li class="flex justify-between text-center items-center py-2">${path.basename(image.path)} ${deleteIcon}</li>`
           }
         })
@@ -283,34 +326,83 @@ module.exports = (User, Image) => {
     }
   })
 
+
+  // Get images for a specific user
+  router.get('/images/user-images/:userId', isAuthenticated, async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const userImages = await Image.findAll({
+        where: { userId }
+      });
+
+      const userImagesHtml = `
+    <div class="card bg-base-100 shadow-xl tex-center my-10">
+      <div id="testing-htmx" class="card-body items-center">
+        <h2 class="card-title font-semibold">Documentos del Usuario</h2>
+        <div class="border-b border-black mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto">
+        </div>
+        <div class="overflow-x-auto pt-2">
+          <table class="table w-full">
+            <thead>
+              <tr class="hover">
+                <th>Nombre del Archivo</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${userImages.map(image => `
+                <tr class="hover" id="image-${image.id}">
+                  <td>${path.basename(image.path)}</td>
+                  <td>
+                    <button class="btn btn-error btn-xs" hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar esta imagen?">Eliminar</button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+      `;
+
+      res.send(userImagesHtml);
+    } catch (error) {
+      console.error('Error fetching user images:', error);
+      res.status(500).json({ error: 'Error fetching user images' });
+    }
+  });
+
+
   // Delete an image
   router.delete('/images/:imageId', isAuthenticated, async (req, res) => {
     try {
       const { imageId } = req.params
       const image = await Image.findByPk(imageId)
       if (!image) {
-        return res.status(404).send('Image not found')
+        return res.status(404).send('No se han encontrado archivos')
       }
       // Delete the image file from the file system
       if (image.path) {
         await fs.promises.unlink(image.path)
       } else {
         console.error('Error: image.path is undefined')
-        return res.status(500).send('Error deleting image file')
+        return res.status(500).send('Error eliminando archivo')
       }
       // Delete the image record from the database
       await image.destroy()
-      res.status(204).send('Image deleted successfully')
+      res.status(204).send('Archivo eliminado exitosamente')
     } catch (error) {
       console.error('Error fetching images:', error)
       res.status(500).json({ error: 'Error fetching images' })
     }
   })
 
+
+  // Get interest rate
   router.get('/interest-rate', async (req, res) => {
-    const interestRate = 0.3027; // Annual interest rate of 30.27% (fixed on the server)
-    res.send(interestRate.toString());
-  });
+    const interestRate = 0.3027 // Annual interest rate of 30.27% (fixed on the server)
+    res.send(interestRate.toString())
+  })
 
   return router
 }

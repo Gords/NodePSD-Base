@@ -25,8 +25,13 @@
     <section id="spa-content">
       <section id="home" hx-trigger="load" hx-get="components.html" hx-select="#home-component" hx-swap="afterbegin">
       </section>
-      <section id="services" hx-trigger="load" hx-get="components.html" hx-select="#services-component"
-        hx-swap="afterbegin"></section>
+      <div id="products-and-calculator" class="grid lg:grid-cols-2 mx-auto items-center pt-32 pb-28 bg-neutral">
+        <section id="products" hx-trigger="load" hx-get="components.html" hx-select="#products-component"
+          hx-swap="afterbegin">
+        </section>
+        <section id="calculator" hx-trigger="load" hx-get="components.html" hx-select="#loan-calculator-component"
+          hx-swap="afterbegin"></section>
+      </div>
       <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion-component"
         hx-swap="afterbegin">
       </section>
@@ -35,7 +40,6 @@
       <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form-component"
         hx-swap="afterbegin">
       </section>
-      <section id="calculator" hx-trigger="load" hx-get="components.html" hx-select="#loan-calculator-component" hx-swap="afterbegin"></section>
     </section>
     <section id="register-content">
       <section href="/register" id="register" hx-trigger="load" hx-get="components.html"
@@ -46,7 +50,7 @@
     <section id="login-content">
       <section href="/login" id="login" hx-trigger="load" hx-get="components.html" hx-select="#login-form-component"
         hx-swap="innerHTML"></section>
-      <div id="login-response"></div>
+      <div id="login-response" class="py-8"></div>
     </section>
   </main>
   <footer>

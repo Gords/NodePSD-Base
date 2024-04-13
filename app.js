@@ -33,11 +33,11 @@ passport.use(new LocalStrategy(
     try {
       const user = await User.findOne({ where: { email: username } })
       if (!user) {
-        return done(null, false, { message: 'Incorrect username' })
+        return done(null, false, { message: 'Usuario incorrecto' })
       }
       const isPasswordValid = await bcrypt.compare(password, user.password)
       if (!isPasswordValid) {
-        return done(null, false, { message: 'Incorrect password' })
+        return done(null, false, { message: 'Contraseña incorrecta' })
       }
       return done(null, user)
     } catch (error) {
