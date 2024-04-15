@@ -53,6 +53,11 @@ Before running this project, ensure that you have the following installed on you
     ```
     This command will stop and remove the containers.
 
+    To remove the containers and volumes you can run:
+    ```
+    docker-compose down -v
+    ```
+
 ## Project Structure
 
 The project structure is as follows:
