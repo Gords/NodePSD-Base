@@ -81,7 +81,7 @@
 <div id="products-component" class="pl-56">
   <div class="text-center">
     <h1 class="text-3xl font-bold tracking-widest pt-2 pb-8">NUESTROS PRODUCTOS</h1>
-    <hr class="border-black h-2">
+    <div class="divider"></div>
     <div class="grid md:grid-cols-2 pt-8">
       <div class="px-0 mb-4">
         <img src="./assets/icons/dollar-bills.svg" alt="Icono de Billetes" class="mx-auto mb-6 w-20 h-20">
@@ -109,7 +109,6 @@
   <div class="card mr-auto max-w-md bg-base-100 shadow-xl">
     <div class="card-body flex min-h-full flex-col items-center">
       <h3 class="card-title text-3xl font-bold tracking-widest pt-2 pb-8">SIMULÁ TU PRÉSTAMO</h3>
-      <hr class="border-black h-2">
       <div class="flex flex-col items-center mt-4">
         <div class="form-control w-full max-w-md">
           <label class="label" for="occupation">
@@ -182,7 +181,7 @@
   class="mx-auto py-40 bg-gradient-to-b from-secondary to-[#01112A] text-base-100 z-10">
   <div class="text-center pb-16 max-w-3xl mx-auto">
     <h1 class="text-3xl font-bold pb-6">PREGUNTAS FRECUENTES</h1>
-    <hr style="height:2px;border-width:0;color:gray;background-color:black">
+    <div class="divider"></div>
   </div>
   <div id="accordion-item-list" class="space-y-4 max-w-3xl mx-auto">
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
@@ -235,23 +234,23 @@
 <!-- About Section -->
 <div id="about-component" class="bg-cover py-60 flex justify-center items-center"
   style="background-image: url('./assets/img/cde-skyline.jpg')">
-  <div class="max-w-4xl flex justify-center items-center">
-    <div class="card p-6 bg-base-100 opacity-80 shadow-xl max-w-md md:wd-auto">
+  <div class="flex justify-center items-center max-w-xl">
+    <div class="card p-6 bg-base-100 opacity-80 shadow-xl">
       <div class="card-body justify-start">
-        <h1 class="text-2xl font-bold mb-4 text-center">ACERCA DE FLASH CENTER</h1>
-        <hr style="height:2px;border-width:0;color:gray;background-color:black">
+        <h1 class="text-3xl font-bold pb-4 text-center">ACERCA DE FLASH CENTER</h1>
+        <div class="divider"></div>
       </div>
       <p class="text-lg pt-4">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito.
         Otorgamos
         préstamos al consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación.</p>
-      <div>
-        <h2 class="text-xl font-bold mt-6 text-center">MISION</h2>
+      <div class="text-center">
+        <h2 class="text-xl font-bold mt-6">MISION</h2>
         <p class="text-lg">Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a
           la
           sociedad, a través de productos financieros.</p>
       </div>
-      <div>
-        <h2 class="text-xl font-bold mt-6 text-center">VISION</h2>
+      <div class="text-center">
+        <h2 class="text-xl font-bold mt-6">VISION</h2>
         <p class="text-lg">Ser una banca contribuyente al estado y su gente</p>
       </div>
       <div>
@@ -283,11 +282,13 @@
   </div>
   <nav class="flex flex-col items-center">
     <h2 class="footer-title text-lg">Redes Sociales</h2>
-    <div class="flex items-center justify-center">
-      <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-8 h-8 mr-2">
-      <a href="https://www.instagram.com/flashcenter_py/"></a>
-      <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-8 h-8 mr-2">
-      <a href="https://www.facebook.com/Flashcenterpy"></a>
+    <div class="flex items-center">
+      <a href="https://www.instagram.com/flashcenter_py/">
+        <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-8 h-8 mr-2">
+      </a>
+      <a href="https://www.facebook.com/Flashcenterpy">
+        <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-8 h-8 mr-2">
+      </a>
     </div>
   </nav>
   <nav>
@@ -417,12 +418,13 @@
 
   <!-- Contact Form -->
   <form id="contact-form-component" class="bg-neutral py-36" action="#" method="POST">
-    <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contactanos</h2>
-      <p class="mt-2 text-lg leading-8 text-gray-600">Cómo te podemos ayudar?</p>
+    <div class="mx-auto max-w-xl text-center">
+      <h2 class="text-3xl font-bold pb-4">Contactanos</h2>
+      <div class="divider divider-accent"></div>
+      <p class="text-lg text-gray-600 py-8">Cómo te podemos ayudar?</p>
     </div>
-    <div class="mx-auto text-center mt-10 max-w-xl sm:mt-10">
-      <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+    <div class="mx-auto max-w-2xl text-center">
+      <div class=" grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <!-- Name Input -->
         <label for="contact-first-name">
           <input type="text" name="first-name" id="contact-first-name" autocomplete="given-name" placeholder="Nombre"

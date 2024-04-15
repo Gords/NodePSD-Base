@@ -60,7 +60,7 @@ module.exports = (User, Image) => {
       res.status(200).json({
         success: true,
         message:
-          'Registration successful. Please check your email for verification instructions.'
+          'Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.'
       })
     } catch (error) {
       console.error('Error registering user:', error)
@@ -170,20 +170,20 @@ router.post('/login', (req, res, next) => {
     const users = await User.findAll();
       const tableHtml = /*html*/`
       <div class="overflow-x-auto">
-        <table class="table table-zebra w-full text-l">
+        <table class="table table-zebra max-w-4xl text-l text-center">
           <thead>
             <tr>
-              <th>Nro. Usuario</th>
+              <th>Usuario #</th>
               <th>Nombre</th>
               <th>Telefono</th>
               <th>Email</th>
-              <th>Documentos</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             ${users.map((user) => /*html*/`
               <tr>
-                <th>${user.id}</th>
+                <th class="text-center">${user.id}</th>
                 <td>${user.name}</td>
                 <td>${user.phone}</td>
                 <td>${user.email}</td>
@@ -192,7 +192,7 @@ router.post('/login', (req, res, next) => {
                     hx-get="/images/user-images/${user.id}"
                     hx-target="#list-of-users"
                     hx-swap="outerHTML"
-                    hx-push-url="true">Ver documentos</a>
+                    hx-push-url="true" class="btn btn-xs">Ver documentos</a>
                 </td>
               </tr>
             `).join('')}
@@ -331,13 +331,11 @@ router.post('/login', (req, res, next) => {
   router.get('/images/:imageId', isAuthenticated, async (req, res) => {
     try {
       const imageId = req.params.imageId;
-      const userId = req.user.id;
 
-      // Find the image ensuring the logged in user owns it
+      // Might have to add admin privileges check here, or straight up not allow access to admin-panel.html unless the user is an admin
       const image = await Image.findOne({
         where: {
           id: imageId,
-          userId: userId
         }
       });
 
@@ -364,48 +362,51 @@ router.post('/login', (req, res, next) => {
   router.get('/images/user-images/:userId', isAuthenticated, async (req, res) => {
     try {
       const userId = req.params.userId;
+      const userEmail = req.user.email;
       const userImages = await Image.findAll({
         where: { userId }
       });
 
       const userImagesHtml = /*html*/`
-    <div class="card bg-base-100 shadow-xl tex-center my-10">
-      <div class="card-body">
-        <div class="flex justify-between items-center">
-          <h2 class="card-title font-semibold">Documentos del Usuario</h2>
-          <button id="download-all-files" class="btn btn-primary font-extrabold text-white" hx-confirm="Estas seguro que quieres descargar todos los archivos?">
-            Descargar Todos
-          </button>
-        </div>
-        <hr class=border-black my-2">
-        <div class="overflow-x-auto pt-8">
-          <table class="table w-full">
-            <thead>
-              <tr class="hover">
-                <th>Archivos</th>
-                <th>Vista Previa</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${userImages.map(image => /*html*/`
+        <div class="card bg-base-100 shadow-xl tex-center my-10">
+          <div class="card-body">
+            <div class="flex justify-between items-center mx-8">
+              <h2 class="card-title font-semibold pl-4">Documentos del usuario '${userEmail}'</h2>
+              <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
+              Descargar todo
+              </button>
+            </div>
+            <div class="divider divider-accent"></div>
+            <div class="overflow-x-auto pt-8">
+              <table class="table w-full">
+              <thead>
+                <tr>
+                  <th>Archivos</th>
+                  <th>Vista Previa</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${userImages.map(image => /*html*/`
                 <tr class="hover" id="image-${image.id}">
                   <td>${path.basename(image.path)}</td>
                   <td>
-                    <img class="img-thumbnail" src="/${image.path}" alt="Documento ${image.id}">
+                  <img class="img-thumbnail" src="/${image.path}" alt="Documento ${image.id}">
                   </td>
                   <td>
-                    <a href="/images/${image.id}" id="download-link" class="btn btn-xs download-link">Descargar</a>
-                    <button hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-error btn-xs text-white">Eliminar</button>
+                  <div class="flex flex-col">
+                    <a href="/images/${image.id}" id="download-link" class="btn btn-xs">Descargar</a>
+                    <button hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-xs">Eliminar</button>
+                  </div>
                   </td>
                 </tr>
-              `).join('')}
-            </tbody>
-          </table>
+                `).join('')}
+              </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    `;
+        `;
 
       res.send(userImagesHtml);
     } catch (error) {

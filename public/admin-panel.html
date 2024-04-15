@@ -36,7 +36,7 @@
                     class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white"></span>
                 </div>
               </div>
-              <div class="flex flex-col items-center md:items-start">
+              <div class="flex flex-col">
                 <div id="user-name" class="font-semibold text-lg">Nombre Usuario</div>
                 <div id="user-email" class="text-sm">email.del@usuario.com</div>
               </div>
@@ -44,11 +44,11 @@
           </div>
         </div>
         <!-- List of all Flash Center users -->
-        <div id="list-of-users" class="card bg-base-100 shadow-xl tex-center my-10">
-          <div class="card-body items-center">
-            <h2 class="card-title font-semibold">Lista de Usuarios</h2>
-            <hr style="height:2px;border-width:0;color:gray;background-color:black">
-            <div id="user-table-container" hx-get="/users" hx-trigger="load" class="pt-4">
+        <div id="list-of-users" class="card bg-base-100 shadow-xl my-10">
+          <div class="card-body">
+            <h2 class=" card-title font-semibold">Lista de Usuarios</h2>
+            <div class="divider max-w-3xl w-full"></div>
+            <div id="user-table-container" hx-get="/users" hx-trigger="load">
               <!-- The table returned from /users will be inserted here -->
             </div>
           </div>

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // Attach the event listener to the document or a static parent element
+  // Attach the event listener to the document or a static parent element so that it can handle events from dynamically added elements
   document.body.addEventListener('click', async function (event) {
     if (event.target.id === 'download-all-files') {
       const links = document.querySelectorAll('a[id="download-link"]');
@@ -16,12 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
           const a = document.createElement('a');
           a.href = URL.createObjectURL(blob);
           a.download = filename;
-          document.body.appendChild(a); // Append to body to ensure visibility
+          document.body.appendChild(a);
           a.click();
-          URL.revokeObjectURL(a.href); // Release object URL
-          a.remove(); // Clean up the DOM
+          URL.revokeObjectURL(a.href);
+          a.remove();
 
-          console.log(`Downloaded ${filename}`);
+          console.log(`Downloaded file '${filename}' successfully`);
         } catch (error) {
           console.error(`Error downloading ${url}:`, error);
         }

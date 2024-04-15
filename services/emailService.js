@@ -13,10 +13,10 @@ const sendVerificationEmail = async (email, token) => {
   const emailParams = new EmailParams()
     .setFrom(sentFrom)
     .setTo(recipients)
-    .setSubject('Verify Your Email Address')
-    .setHtml(`<p>Please click the following link to verify your email address:</p>
+    .setSubject('Verifica tu cuenta de FlashCenter')
+    .setHtml(`<p>Por favor haz click aqui para verificar tu cuenta:</p>
               <a href="${verificationLink}">${verificationLink}</a>`)
-    .setText(`Please click the following link to verify your email address: ${verificationLink}`)
+    .setText(`Por favor haz click aqui para verificar tu cuenta: ${verificationLink}`)
 
   try {
     await mailersend.email.send(emailParams)
