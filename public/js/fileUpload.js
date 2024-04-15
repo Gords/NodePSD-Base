@@ -114,29 +114,3 @@ document.addEventListener('DOMContentLoaded', function () {
     })
   })
 })
-
-// Delete image confirmation
-function confirmDelete (imageId) {
-  const confirmDeletion = confirm('Are you sure you want to delete this file?')
-  if (confirmDeletion) {
-    deleteImage(imageId)
-  }
-}
-
-// Delete image
-function deleteImage (imageId) {
-  fetch(`/images/${imageId}`, {
-    method: 'DELETE',
-    credentials: 'include' // Send some cookies with the request if needed for authentication
-  })
-    .then((response) => {
-      if (response.ok) {
-        alert('File deleted successfully')
-        // Refresh the list of files
-        window.location.reload()
-      } else {
-        alert('Error deleting file')
-      }
-    })
-    .catch((error) => console.error('Error deleting file:', error))
-}

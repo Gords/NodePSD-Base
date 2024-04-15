@@ -3085,16 +3085,16 @@ details.collapse summary::-webkit-details-marker {
   align-items: center;
 }
 
+.justify-start {
+  justify-content: flex-start;
+}
+
 .justify-center {
   justify-content: center;
 }
 
 .justify-between {
   justify-content: space-between;
-}
-
-.gap-10 {
-  gap: 2.5rem;
 }
 
 .gap-x-8 {
@@ -3138,22 +3138,9 @@ details.collapse summary::-webkit-details-marker {
   border-width: 0px;
 }
 
-.border-b {
-  border-bottom-width: 1px;
-}
-
-.border-t {
-  border-top-width: 1px;
-}
-
 .border-black {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
-}
-
-.border-white {
-  --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
 .bg-accent {
@@ -3217,6 +3204,10 @@ details.collapse summary::-webkit-details-marker {
   padding: 0.5rem;
 }
 
+.p-6 {
+  padding: 1.5rem;
+}
+
 .p-8 {
   padding: 2rem;
 }
@@ -3271,21 +3262,16 @@ details.collapse summary::-webkit-details-marker {
   padding-bottom: 15rem;
 }
 
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
-.pb-12 {
-  padding-bottom: 3rem;
-}
-
 .pb-16 {
   padding-bottom: 4rem;
 }
 
 .pb-28 {
   padding-bottom: 7rem;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
 }
 
 .pb-6 {
@@ -3326,10 +3312,6 @@ details.collapse summary::-webkit-details-marker {
 
 .pt-32 {
   padding-top: 8rem;
-}
-
-.pt-36 {
-  padding-top: 9rem;
 }
 
 .pt-4 {
@@ -3459,6 +3441,10 @@ details.collapse summary::-webkit-details-marker {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.opacity-80 {
+  opacity: 0.8;
+}
+
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -3515,6 +3501,11 @@ html {
   z-index: 100;
 }
 
+.img-thumbnail {
+  width: 14rem !important;
+  height: 10rem !important;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -3531,41 +3522,8 @@ html {
   border-radius: 2rem;
 }
 
-/* Override of section padding to fix spacing on top after clicking on the navbar links */
-
-/* section {
-  padding-top: 80px; 
-} */
-
 #register-content, #login-content {
   display: none;
-}
-
-.alert {
-  display: block;
-  padding: 1rem;
-  border: 1px solid black;
-  border-radius: 4rem;
-  margin-top: 1rem;
-  background-color: #669bbc;
-}
-
-.alert-success {
-  display: block;
-  padding: 1rem;
-  border: 1rem solid black;
-  border-radius: 4rem;
-  margin-top: 1rem;
-  background-color: #90D26D;
-}
-
-.alert-error {
-  display: block;
-  padding: 1rem;
-  border: 1rem solid black;
-  border-radius: 4rem;
-  margin-top: 1rem;
-  background-color: #FA7070;
 }
 
 /* Styling that adds a background pattern */
@@ -3741,10 +3699,6 @@ html {
     width: 100%;
   }
 
-  .sm\:max-w-lg {
-    max-width: 32rem;
-  }
-
   .sm\:max-w-sm {
     max-width: 24rem;
   }
@@ -3769,16 +3723,8 @@ html {
 }
 
 @media (min-width: 768px) {
-  .md\:max-w-md {
-    max-width: 28rem;
-  }
-
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .md\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .md\:items-start {
@@ -3791,11 +3737,6 @@ html {
 }
 
 @media (min-width: 1024px) {
-  .lg\:mx-auto {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   .lg\:flex {
     display: flex;
   }
@@ -3815,13 +3756,6 @@ html {
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .xl\:mx-auto {
-    margin-left: auto;
-    margin-right: auto;
   }
 }
 
