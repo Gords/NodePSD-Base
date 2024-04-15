@@ -112,7 +112,7 @@ router.post('/login', (req, res, next) => {
       if (!user.isVerified) {
         return res.status(401).json({
           success: false,
-          message: 'Por favor verifica tu correo electrónico para continuar'
+          message: 'Por favor verifica tu correo electrónico'
         });
       }
       return res.status(200).json({
@@ -170,10 +170,10 @@ router.post('/login', (req, res, next) => {
     const users = await User.findAll();
       const tableHtml = `
       <div class="overflow-x-auto">
-        <table class="table table-pin-rows w-full text-l">
+        <table class="table table-zebra w-full text-l">
           <thead>
             <tr>
-              <th>User ID</th>
+              <th>Nro. Usuario</th>
               <th>Nombre</th>
               <th>Telefono</th>
               <th>Email</th>
@@ -182,7 +182,7 @@ router.post('/login', (req, res, next) => {
           </thead>
           <tbody>
             ${users.map((user) => `
-              <tr class="hover">
+              <tr>
                 <th>${user.id}</th>
                 <td>${user.name}</td>
                 <td>${user.phone}</td>
@@ -195,7 +195,6 @@ router.post('/login', (req, res, next) => {
                 </td>
               </tr>
             `).join('')}
-
           </tbody>
         </table>
       </div>
@@ -337,15 +336,15 @@ router.post('/login', (req, res, next) => {
 
       const userImagesHtml = `
     <div class="card bg-base-100 shadow-xl tex-center my-10">
-      <div id="testing-htmx" class="card-body items-center">
+      <div class="card-body items-center">
         <h2 class="card-title font-semibold">Documentos del Usuario</h2>
-        <div class="border-b border-black mx-auto w-full sm:max-w-lg md:max-w-md lg:mx-auto xl:mx-auto">
-        </div>
-        <div class="overflow-x-auto pt-2">
+        <hr class=border-black my-2">
+        <div class="overflow-x-auto pt-8">
           <table class="table w-full">
             <thead>
               <tr class="hover">
-                <th>Nombre del Archivo</th>
+                <th>Archivos</th>
+                <th>Vista Previa</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -354,7 +353,13 @@ router.post('/login', (req, res, next) => {
                 <tr class="hover" id="image-${image.id}">
                   <td>${path.basename(image.path)}</td>
                   <td>
-                    <button class="btn btn-error btn-xs" hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar esta imagen?">Eliminar</button>
+                    <img class="img-thumbnail" src="/${image.path}" alt="Documento ${image.id}">
+                  </td>
+                  <td>
+                    <button class="btn btn-error btn-xs"
+                      hx-delete="/images/${image.id}" 
+                      hx-target="#image-${image.id}" 
+                      hx-confirm="Estas seguro que quieres eliminar este archivo?">Eliminar</button>
                   </td>
                 </tr>
               `).join('')}
@@ -363,7 +368,7 @@ router.post('/login', (req, res, next) => {
         </div>
       </div>
     </div>
-      `;
+    `;
 
       res.send(userImagesHtml);
     } catch (error) {

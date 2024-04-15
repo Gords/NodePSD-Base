@@ -26,13 +26,23 @@ document.body.addEventListener('htmx:afterSwap', function (event) {
     const data = JSON.parse(response);
 
     if (data.success) {
-      registerResponseContent.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+      registerResponseContent.innerHTML = `
+          <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+            <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold">${data.message}</span>
+          </div>
+          `;
               // Delay the redirection by 2 seconds (adjust the delay as needed)
               setTimeout(function() {
                 window.location.href = '/';
               }, 2000);
     } else {
-      registerResponseContent.innerHTML = `<div class="alert alert-error">${data.message}</div>`;
+      registerResponseContent.innerHTML = `
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold justify-center">${data.message}</span>
+          </div>
+          `;
       console.error('Registration failed:', data.message);
     }
   }
@@ -48,7 +58,7 @@ document.body.addEventListener('htmx:afterSwap', function (event) {
         localStorage.setItem('loggedIn', 'true');
         updateUI();
         loginResponseContent.innerHTML = `
-          <div role="alert" class="alert alert-success max-w-sm mx-auto">
+          <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
             <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
             <span class="font-bold">${response.message}</span>
           </div>
@@ -62,9 +72,9 @@ document.body.addEventListener('htmx:afterSwap', function (event) {
         // Login failed, display error message
         updateUI();
         loginResponseContent.innerHTML = `
-          <div role="alert" class="alert alert-error max-w-sm mx-auto">
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
             <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-            <span class="font-bold justify-center">${response.message}</span>
+            <span class="font-bold text-center">${response.message}</span>
           </div>
           `;
         console.error('Login failed:', response.message);
@@ -81,21 +91,3 @@ function logout() {
 
 // Attach the logout function to the window object
 window.logout = logout;
-
-
-// Fetch user details
-fetch('/check-login')
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Failed to fetch user data')
-    }
-    return response.json()
-  })
-  .then((user) => {
-    document.getElementById('user-name').textContent = user.name
-    document.getElementById('user-email').textContent = user.email
-
-    const usernameInitials = user.name ? user.name.charAt(0).toUpperCase() : ''
-    document.getElementById('avatar-username-initials').textContent = usernameInitials
-  })
-  .catch((error) => console.error('Error fetching user data:', error))
