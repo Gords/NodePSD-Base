@@ -168,7 +168,7 @@ router.post('/login', (req, res, next) => {
   router.get('/users', isAuthenticated, async (req, res) => {
     try {
     const users = await User.findAll();
-      const tableHtml = `
+      const tableHtml = /*html*/`
       <div class="overflow-x-auto">
         <table class="table table-zebra w-full text-l">
           <thead>
@@ -181,17 +181,18 @@ router.post('/login', (req, res, next) => {
             </tr>
           </thead>
           <tbody>
-            ${users.map((user) => `
+            ${users.map((user) => /*html*/`
               <tr>
                 <th>${user.id}</th>
                 <td>${user.name}</td>
                 <td>${user.phone}</td>
                 <td>${user.email}</td>
                 <td>
-                  <a href="/images/user-images/${user.id}" 
-                    hx-get="/images/user-images/${user.id}" 
-                    hx-target="#list-of-users" 
-                    hx-swap="outerHTML">Ver documentos</a>
+                  <a href="/images/user-images/${user.id}"
+                    hx-get="/images/user-images/${user.id}"
+                    hx-target="#list-of-users"
+                    hx-swap="outerHTML"
+                    hx-push-url="true">Ver documentos</a>
                 </td>
               </tr>
             `).join('')}
@@ -279,7 +280,7 @@ router.post('/login', (req, res, next) => {
       const images = await Image.findAll()
       const imagesHtml = images
         .map(
-          (image) => `
+          (image) => /*html*/`
         <div>
           <p>Image ID: ${image.id}</p>
           <p>User ID: ${image.userId}</p>
@@ -300,7 +301,7 @@ router.post('/login', (req, res, next) => {
   })
 
 
-  // Get all images for the currently authenticated user
+  // Get all images of the logged in user
   router.get('/images/user-images', isAuthenticated, async (req, res) => {
     try {
       const images = await Image.findAll({ where: { userId: req.user.id } })
@@ -313,7 +314,7 @@ router.post('/login', (req, res, next) => {
           // Check if image.path is not null
           // Add "X" icon to delete an image
           if (image.path) {
-            const deleteIcon = `<svg style="margin-left: auto;" onclick="confirmDelete(${image.id})" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`
+            const deleteIcon = `<img style="margin-left: auto;" onclick="confirmDelete(${image.id})" src="/assets/icons/delete-icon.svg" class="w-6 h-6 cursor-pointer"/>`
             imagesHTML += `<li class="flex justify-between text-center items-center py-2">${path.basename(image.path)} ${deleteIcon}</li>`
           }
         })
@@ -326,7 +327,40 @@ router.post('/login', (req, res, next) => {
   })
 
 
-  // Get images for a specific user
+  // Download a single image from a specific user
+  router.get('/images/:imageId', isAuthenticated, async (req, res) => {
+    try {
+      const imageId = req.params.imageId;
+      const userId = req.user.id;
+
+      // Find the image ensuring the logged in user owns it
+      const image = await Image.findOne({
+        where: {
+          id: imageId,
+          userId: userId
+        }
+      });
+
+      if (!image) {
+        return res.status(404).send('No se han encontrado archivos');
+      }
+
+      const imagePath = path.resolve(image.path);
+      res.download(imagePath, path.basename(imagePath), (err) => {
+        if (err) {
+          // Handle error, but do not expose the internal path
+          console.error('File download error:', err);
+          res.status(500).send('Error processing your download request');
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching images:', error);
+      res.status(500).json({ error: 'Error fetching images' });
+    }
+  });
+
+
+  // Get all images from a specific user
   router.get('/images/user-images/:userId', isAuthenticated, async (req, res) => {
     try {
       const userId = req.params.userId;
@@ -334,10 +368,15 @@ router.post('/login', (req, res, next) => {
         where: { userId }
       });
 
-      const userImagesHtml = `
+      const userImagesHtml = /*html*/`
     <div class="card bg-base-100 shadow-xl tex-center my-10">
-      <div class="card-body items-center">
-        <h2 class="card-title font-semibold">Documentos del Usuario</h2>
+      <div class="card-body">
+        <div class="flex justify-between items-center">
+          <h2 class="card-title font-semibold">Documentos del Usuario</h2>
+          <button id="download-all-files" class="btn btn-primary font-extrabold text-white" hx-confirm="Estas seguro que quieres descargar todos los archivos?">
+            Descargar Todos
+          </button>
+        </div>
         <hr class=border-black my-2">
         <div class="overflow-x-auto pt-8">
           <table class="table w-full">
@@ -349,17 +388,15 @@ router.post('/login', (req, res, next) => {
               </tr>
             </thead>
             <tbody>
-              ${userImages.map(image => `
+              ${userImages.map(image => /*html*/`
                 <tr class="hover" id="image-${image.id}">
                   <td>${path.basename(image.path)}</td>
                   <td>
                     <img class="img-thumbnail" src="/${image.path}" alt="Documento ${image.id}">
                   </td>
                   <td>
-                    <button class="btn btn-error btn-xs"
-                      hx-delete="/images/${image.id}" 
-                      hx-target="#image-${image.id}" 
-                      hx-confirm="Estas seguro que quieres eliminar este archivo?">Eliminar</button>
+                    <a href="/images/${image.id}" id="download-link" class="btn btn-xs download-link">Descargar</a>
+                    <button hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-error btn-xs text-white">Eliminar</button>
                   </td>
                 </tr>
               `).join('')}
