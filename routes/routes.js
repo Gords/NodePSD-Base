@@ -26,11 +26,11 @@ const isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next()
   }
-  res.status(401).json({ error: 'Please log in to access this page.' })
+  res.status(401).json({ error: 'Por favor inicia sesion para visitar esta pagina' })
 }
 
 
-module.exports = (User, Image) => {
+module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 
   // User registration
   router.post('/register', async (req, res) => {
@@ -96,32 +96,32 @@ module.exports = (User, Image) => {
   })
 
 
-// User login
-router.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    if (err) {
-      return res.status(500).json({ success: false, message: 'Ocurrió un error durante el proceso de inicio de sesión' });
-    }
-    if (!user) {
-      return res.status(401).json({ success: false, message: info.message || 'Ese usuario no existe'});
-    }
-    req.logIn(user, (loginErr) => {
-      if (loginErr) {
-        return res.status(500).json({ success: false, message: 'Ocurrió un error durante el proceso de inicio de sesión'});
+  // User login
+  router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+      if (err) {
+        return res.status(500).json({ success: false, message: 'Ocurrió un error durante el proceso de inicio de sesión' });
       }
-      if (!user.isVerified) {
-        return res.status(401).json({
-          success: false,
-          message: 'Por favor verifica tu correo electrónico'
+      if (!user) {
+        return res.status(401).json({ success: false, message: info.message || 'Ese usuario no existe'});
+      }
+      req.logIn(user, (loginErr) => {
+        if (loginErr) {
+          return res.status(500).json({ success: false, message: 'Ocurrió un error durante el proceso de inicio de sesión'});
+        }
+        if (!user.isVerified) {
+          return res.status(401).json({
+            success: false,
+            message: 'Por favor verifica tu correo electrónico'
+          });
+        }
+        return res.status(200).json({
+          success: true,
+          message: 'Inicio de sesión exitoso'
         });
-      }
-      return res.status(200).json({
-        success: true,
-        message: 'Inicio de sesión exitoso'
       });
-    });
-  })(req, res, next);
-});
+    })(req, res, next);
+  });
 
 
   // Get login form section
@@ -232,6 +232,52 @@ router.post('/login', (req, res, next) => {
       res.status(500).json({ error: 'Error deleting user' })
     }
   })
+
+  // Create new Loan type
+  router.post('/create-loan-type', isAuthenticated, async (req, res) => {
+    try {
+      const typeOfLoan = await TypeOfLoan.create({
+        name: 'Prestamo Personal',
+        description: 'Prestamo para uso personal',
+      })
+
+      res.status(201).json({ message: 'Type of loan created successfully', typeOfLoanId: typeOfLoan.id })
+    } catch (error) {
+      console.error('Failed to create type of loan:', error);
+      res.status(500).json({ message: 'Failed to create type of loan' });
+    }
+  })
+
+  // Create new Loan entry and update user's loanRequested status
+  router.post('/request-loan', isAuthenticated, async (req, res) => {
+    const userId = req.user.id;
+
+    try {
+      const result = await sequelize.transaction(async (t) => {
+        // Look for the user
+        const user = await User.findByPk(userId, { transaction: t });
+        if (!user) {
+          throw new Error('User not found');
+        }
+        // Update the user's loanRequested status
+        user.loanRequested = true;
+        await user.save({ transaction: t });
+
+        // Create a new loan record
+        const loan = await Loan.create({
+          userId,
+          typeOfLoanId: 1
+        }, { transaction: t });
+
+        return loan;
+      });
+
+      res.status(201).json({ message: 'Loan created successfully', loanId: result.id });
+    } catch (error) {
+      console.error('Failed to create loan and update user:', error);
+      res.status(500).json({ message: 'Failed to process loan request' });
+    }
+  });
 
 
   // Post (Upload) a file within an array of files, max 4 files

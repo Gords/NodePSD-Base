@@ -48,13 +48,17 @@
               </div>
             </div>
             <div id="user-data">
-              <!-- Replace using Javascript like we did with the username and email -->
               <div class="flex flex-col font-semibold pl-2">
                 Nro. de Cedula: <span id="user-cedula" class="font-normal">1.234.567.-</span>
                 Nro. de Telefono: <span id="user-phone" class="font-normal">+595 981 123 456</span>
                 Domicilio: <span id="user-address" class="font-normal">Dr. Vasconcellos 622 esq. Tte Luis Miranda</span>
               </div>
             </div>
+            <button hx-post="/request-loan" hx-target="#status-message" hx-swap="outerHTML"
+              class="btn btn-primary text-white">
+              Solicitar Credito
+            </button>
+            <div id="status-message"></div>
           </div>
         </div>
         <div id="user-files" class="card bg-base-100 shadow-xl tex-center my-10">
