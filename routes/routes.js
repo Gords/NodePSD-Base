@@ -173,7 +173,6 @@ router.post('/login', (req, res, next) => {
         <table class="table table-zebra max-w-4xl text-l text-center">
           <thead>
             <tr>
-              <th>Usuario #</th>
               <th>Nombre</th>
               <th>Telefono</th>
               <th>Email</th>
@@ -183,7 +182,6 @@ router.post('/login', (req, res, next) => {
           <tbody>
             ${users.map((user) => /*html*/`
               <tr>
-                <th class="text-center">${user.id}</th>
                 <td>${user.name}</td>
                 <td>${user.phone}</td>
                 <td>${user.email}</td>
@@ -396,7 +394,6 @@ router.post('/login', (req, res, next) => {
                   <td>
                   <div class="flex flex-col">
                     <a href="/images/${image.id}" id="download-link" class="btn btn-xs">Descargar</a>
-                    <button hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-xs">Eliminar</button>
                   </div>
                   </td>
                 </tr>
