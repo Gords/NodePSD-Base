@@ -167,7 +167,12 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
   // Get all users
   router.get('/users', isAuthenticated, async (req, res) => {
     try {
-    const users = await User.findAll();
+      const users = await User.findAll({
+        where: {
+        loanRequested: true
+      }
+    });
+
       const tableHtml = /*html*/`
       <div class="overflow-x-auto">
         <table class="table table-zebra max-w-4xl text-l text-center">
@@ -203,7 +208,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
     console.error('Error fetching users:', error);
     res.status(500).json({ error: 'Error fetching users' });
     }
-});
+  });
 
 
   // Update a user
