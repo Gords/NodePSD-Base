@@ -57,19 +57,22 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       await emailService.sendVerificationEmail(email, verificationToken)
 
       console.log('User registered successfully:', user.email)
-      res.status(200).json({
-        success: true,
-        message:
-          'Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.'
-      })
+      res.status(200).send(`
+        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
+        </div>
+      `);
     } catch (error) {
-      console.error('Error registering user:', error)
-      res.status(500).json({
-        success: false,
-        message: 'Error registering user'
-      })
+      console.error('Error registering user:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold justify-center">Error registering user</span>
+        </div>
+      `);
     }
-  })
+  });
 
 
   // Verify email
@@ -88,37 +91,62 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       user.isVerified = true
       await user.save()
 
-      res.redirect('/?message=Email verified successfully. You can now log in.')
+      res.redirect('/?message=Email verified successfully. You can now log in.');
     } catch (error) {
-      console.error('Error verifying email:', error)
-      res.status(400).json({ error: 'Invalid verification token' })
+      console.error('Error verifying email:', error);
+      res.status(400).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold justify-center">Invalid verification token</span>
+        </div>
+      `);
     }
-  })
+  });
 
 
   // User login
   router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
       if (err) {
-        return res.status(500).json({ success: false, message: 'Ocurrió un error durante el proceso de inicio de sesión' });
+        return res.status(500).send(`
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
+          </div>
+        `);
       }
       if (!user) {
-        return res.status(401).json({ success: false, message: info.message || 'Ese usuario no existe'});
+        return res.status(401).send(`
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold text-center">${info.message || 'Ese usuario no existe'}</span>
+          </div>
+        `);
       }
       req.logIn(user, (loginErr) => {
         if (loginErr) {
-          return res.status(500).json({ success: false, message: 'Ocurrió un error durante el proceso de inicio de sesión'});
+          return res.status(500).send(`
+            <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+              <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+              <span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
+            </div>
+          `);
         }
         if (!user.isVerified) {
-          return res.status(401).json({
-            success: false,
-            message: 'Por favor verifica tu correo electrónico'
-          });
+          return res.status(401).send(`
+            <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+              <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+              <span class="font-bold text-center">Por favor verifica tu correo electrónico</span>
+            </div>
+          `);
         }
-        return res.status(200).json({
-          success: true,
-          message: 'Inicio de sesión exitoso'
-        });
+        res.set('HX-Redirect', '/admin-panel.html')
+        res.status(200).send(`
+          <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+            <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold">Inicio de sesión exitoso</span>
+          </div>
+        `);
       });
     })(req, res, next);
   });
@@ -154,14 +182,21 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
   // Get a single user
   router.get('/check-login', (req, res) => {
     if (req.isAuthenticated()) {
-      return res.json({
-        name: req.user.name,
-        email: req.user.email
-      })
+      return res.send(`
+        <div>
+          <p>Name: ${req.user.name}</p>
+          <p>Email: ${req.user.email}</p>
+        </div>
+      `);
     } else {
-      res.status(401).json({ error: 'Not logged in' })
+      res.status(401).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Not logged in</span>
+        </div>
+      `);
     }
-  })
+  });
 
 
   // Get all users
@@ -204,11 +239,16 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       </div>
     `;
     res.send(tableHtml);
-    } catch (error) {
+  } catch (error) {
     console.error('Error fetching users:', error);
-    res.status(500).json({ error: 'Error fetching users' });
-    }
-  });
+    res.status(500).send(`
+      <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+        <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+        <span class="font-bold text-center">Error fetching users</span>
+      </div>
+    `);
+  }
+});
 
 
   // Update a user
@@ -219,24 +259,39 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
         { email, password, name },
         { where: { id: req.params.id } }
       )
-      res.json({ message: 'User updated successfully' })
+      res.send(`
+        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold">User updated successfully</span>
+        </div>
+      `);
     } catch (error) {
-      console.error('Error updating user:', error)
-      res.status(500).json({ error: 'Error updating user' })
+      console.error('Error updating user:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error updating user</span>
+        </div>
+      `);
     }
-  })
+  });
 
 
   // Delete a user
   router.delete('/users/:id', isAuthenticated, async (req, res) => {
     try {
       await User.destroy({ where: { id: req.params.id } })
-      res.sendStatus(204)
+      res.sendStatus(204);
     } catch (error) {
-      console.error('Error deleting user:', error)
-      res.status(500).json({ error: 'Error deleting user' })
+      console.error('Error deleting user:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error deleting user</span>
+        </div>
+      `);
     }
-  })
+  });
 
   // Create new Loan type
   router.post('/create-loan-type', isAuthenticated, async (req, res) => {
@@ -246,12 +301,22 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
         description: 'Préstamo para uso personal',
       })
 
-      res.status(201).json({ message: 'Type of loan created successfully', typeOfLoanId: typeOfLoan.id })
+      res.status(201).send(`
+        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold">Type of loan created successfully</span>
+        </div>
+      `);
     } catch (error) {
       console.error('Failed to create type of loan:', error);
-      res.status(500).json({ message: 'Failed to create type of loan' });
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Failed to create type of loan</span>
+        </div>
+      `);
     }
-  })
+  });
 
   // Create new Loan entry and update user's loanRequested status
   router.post('/request-loan', isAuthenticated, async (req, res) => {
@@ -277,10 +342,20 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
         return loan;
       });
 
-      res.status(201).json({ message: 'Loan created successfully', loanId: result.id });
+      res.status(201).send(`
+        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold">Loan created successfully</span>
+        </div>
+      `);
     } catch (error) {
       console.error('Failed to create loan and update user:', error);
-      res.status(500).json({ message: 'Failed to process loan request' });
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Failed to process loan request</span>
+        </div>
+      `);
     }
   });
 
@@ -317,10 +392,15 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 
       res.header('HX-Redirect', '/images/user-images')
     } catch (error) {
-      console.error('Error uploading files:', error)
-      res.status(500).send('Error processing your request')
+      console.error('Error uploading files:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error processing your request</span>
+        </div>
+      `);
     }
-  })
+  });
 
 
   // Get all images
@@ -338,16 +418,21 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `
         )
         .join('')
-      res.send(`
+        res.send(`
         <div id="image-list">
           ${imagesHtml}
         </div>
-      `)
+      `);
     } catch (error) {
-      console.error('Error fetching images:', error)
-      res.status(500).json({ error: 'Error fetching images' })
+      console.error('Error fetching images:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error fetching images</span>
+        </div>
+      `);
     }
-  })
+  });
 
 
   // Get all images of the logged in user
@@ -403,7 +488,12 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       res.send(userImagesHtml);
     } catch (error) {
       console.error('Error fetching user images:', error);
-      res.status(500).send('Error fetching user images');
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error fetching user images</span>
+        </div>
+      `);
     }
   });
 
@@ -430,12 +520,22 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
         if (err) {
           // Handle error, but do not expose the internal path
           console.error('File download error:', err);
-          res.status(500).send('Error processing your download request');
+          res.status(500).send(`
+            <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+              <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+              <span class="font-bold text-center">Error processing your download request</span>
+            </div>
+          `);
         }
       });
     } catch (error) {
       console.error('Error fetching images:', error);
-      res.status(500).json({ error: 'Error fetching images' });
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error fetching images</span>
+        </div>
+      `);
     }
   });
 
@@ -489,37 +589,63 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
         </div>
         `;
 
-      res.send(userImagesHtml);
-    } catch (error) {
-      console.error('Error fetching user images:', error);
-      res.status(500).json({ error: 'Error fetching user images' });
-    }
-  });
+        res.send(userImagesHtml);
+      } catch (error) {
+        console.error('Error fetching user images:', error);
+        res.status(500).send(`
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold text-center">Error fetching user images</span>
+          </div>
+        `);
+      }
+    });
+  
 
 
-  // Delete an image
-  router.delete('/images/:imageId', isAuthenticated, async (req, res) => {
-    try {
-      const { imageId } = req.params
-      const image = await Image.findByPk(imageId)
-      if (!image) {
-        return res.status(404).send('No se han encontrado archivos')
-      }
-      // Delete the image file from the file system
-      if (image.path) {
-        await fs.promises.unlink(image.path)
-      } else {
-        console.error('Error: image.path is undefined')
-        return res.status(500).send('Error eliminando archivo')
-      }
-      // Delete the image record from the database
-      await image.destroy()
-      res.status(204).send('Archivo eliminado exitosamente')
-    } catch (error) {
-      console.error('Error fetching images:', error)
-      res.status(500).json({ error: 'Error fetching images' })
+// Delete an image
+router.delete('/images/:imageId', isAuthenticated, async (req, res) => {
+  try {
+    const { imageId } = req.params;
+    const image = await Image.findByPk(imageId);
+    if (!image) {
+      return res.status(404).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">No se han encontrado archivos</span>
+        </div>
+      `);
     }
-  })
+    // Delete the image file from the file system
+    if (image.path) {
+      await fs.promises.unlink(image.path);
+    } else {
+      console.error('Error: image.path is undefined');
+      return res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error eliminando archivo</span>
+        </div>
+      `);
+    }
+    // Delete the image record from the database
+    await image.destroy();
+    res.send(`
+      <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+        <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+        <span class="font-bold">Archivo eliminado exitosamente</span>
+      </div>
+    `);
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    res.status(500).send(`
+      <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+        <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+        <span class="font-bold text-center">Error deleting image</span>
+      </div>
+    `);
+  }
+});
 
 
   // Get interest rate
