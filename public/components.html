@@ -323,7 +323,8 @@
   <!-- Login Form -->
   <div id="login-form-component" class="pt-32">
     <div class="card m-auto max-w-sm shadow-xl">
-      <form id=login-form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/login">
+      <form id=login-form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/login" hx-target="#login-response"
+      hx-swap="innerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-10 text-center text-2xl font-bold">Acceda a su cuenta</h2>
@@ -359,6 +360,9 @@
           <a href="#register" class="link link-primary font-bold">Creala aqui!</a>
         </p>
       </form>
+    </div>
+    <div id="login-response" style="padding: 20px; border: 1px solid red;">
+      <!-- Server responses will appear here -->
     </div>
   </div>
 
@@ -412,6 +416,7 @@
         </div>
       </form>
     </div>
+    <div id="register-response"></div>
   </div>
 
 
