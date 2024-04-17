@@ -16,7 +16,7 @@
       </ul>
     </div>
     <a href="/" class="btn btn-ghost flex-initial w-80">
-      <img src="./assets/img/logo-blanco.png" alt="Flash Center" class="navbar-logo object-scale-down w-80 h-6">
+      <img src="./assets/img/logo-blanco.png" alt="Flash Center" id="navbar-logo" class="object-scale-down w-80 h-6">
     </a>
   </div>
   <div class="navbar-center hidden lg:flex">
@@ -96,7 +96,8 @@
   <div class="mt-8">
     <img src="./assets/icons/bank-building.svg" alt="Icono de Edificio Bancario" class="mx-auto mb-5 w-20 h-22">
     <h3 class="text-xl font-bold mb-1">Tasa Efectiva Anual (TEA):</h3>
-    <p class="text-lg">Máximo permitido por el<br>Banco Central de Paraguay y<br>la normativa correspondiente: 30.27%
+    <p class="text-lg">Máximo permitido por el<br />Banco Central de Paraguay y<br />la normativa correspondiente:
+      30.27%
     </p>
   </div>
 </div>
@@ -148,7 +149,7 @@
     <p class="py-2">T.A.N: <span id="interest-rate"></span></p>
     <p class="py-2">Gastos administrativos: 10% || Comisión: 18%</p>
     <p class="py-2 font-bold text-xl">Cuota estimada de: <span id="amount2"></span></p>
-    <p class="pb-8"><em>Sujeto a política crediticia de la entidad</em></p>
+    <p class="pb-8 italic">Sujeto a política crediticia de la entidad</p>
   </div>
   <a id="registerRedirect" href="#register" class="btn btn-primary font-extrabold text-white">¡Solicitar ya!</a>
 </div>
@@ -248,50 +249,56 @@
 
 
 <!-- Footer -->
-<footer id="bottom-navigation-component" class="footer p-8 bg-secondary font-bold text-white">
-  <div>
-    <img src="./assets/img/logo-blanco.png" alt="Flash Center" class="footer-logo object-scale-down w-80 h-6">
-    <div class="flex items-center ml-2 mt-4">
-      <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-8 h-8 mr-2">
-      <a href="https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20"
-        class="text-base link link-hover">+595 981 221
-        177</a>
+<div id="bottom-navigation-component">
+  <footer class="footer p-6 bg-secondary font-bold text-white">
+    <div class="mx-auto">
+      <img src="./assets/img/logo-blanco.png" alt="Flash Center" id="footer-logo"
+        class="object-scale-down w-80 h-6 mt-1" />
+      <div class="flex items-center pt-4 pl-2">
+        <img src="./assets/icons/map-pin.svg" alt="Location Icon" class="w-7 h-7 mr-2">
+        <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-base link link-hover">
+          Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay</a>
+      </div>
     </div>
-    <div class="flex items-center ml-2 mt-1">
-      <img src="./assets/icons/map-pin.svg" alt="Location Icon" class="w-7 h-7 mr-2">
-      <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-base link link-hover">Edificio Sky Park Torre 2, piso
-        15C<br>San Juan XXIII 2581, Asunción, Paraguay
+    <nav class="flex flex-col items-center mx-auto">
+      <h2 class="footer-title text-lg">Redes Sociales</h2>
+      <div class="flex justify-center items-center space-x-4"> <!-- Flex container for icons with spacing -->
+        <!-- WhatsApp -->
+        <a href="https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20" class="link link-hover">
+          <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-8 h-8" />
+        </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/flashcenter_py/" class="link link-hover">
+          <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-8 h-8" />
+        </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/Flashcenterpy" class="link link-hover">
+          <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-8 h-8" />
+        </a>
+      </div>
+    </nav>
+    <nav class="flex flex-col mx-auto">
+      <h2 class="footer-title text-lg">Servicios</h2>
+      <a href="#register" class="link link-hover text-base">Crea tu cuenta</a>
+      <a href="#products-and-calculator" class="link link-hover text-base">Solicita tu credito</a>
+    </nav>
+    <nav class="flex flex-col mx-auto">
+      <h2 class="footer-title text-lg">Empresa</h2>
+      <a href="#about" class="link link-hover text-base">Nosotros</a>
+      <a href="#contact" class="link link-hover text-base">Contacto</a>
+    </nav>
+  </footer>
+  <!-- Disclaimer Footer -->
+  <div class="bg-secondary py-4">
+    <div class="flex justify-center items-center max-w-6xl border-t border-gray-200 mx-auto">
+      <p class="text-xs italic text-gray-200 px-4 text-center">
+        La información proporcionada sobre los préstamos es únicamente a título
+        informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
+        préstamos.<br />Está sujeta a las políticas de mercado y/o internas de la entidad financiera
+      </p>
     </div>
   </div>
-  <nav class="flex flex-col items-center">
-    <h2 class="footer-title text-lg">Redes Sociales</h2>
-    <div class="flex items-center">
-      <a href="https://www.instagram.com/flashcenter_py/">
-        <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-8 h-8 mr-2">
-      </a>
-      <a href="https://www.facebook.com/Flashcenterpy">
-        <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-8 h-8 mr-2">
-      </a>
-    </div>
-  </nav>
-  <nav>
-    <h2 class="footer-title text-lg">Servicios</h2>
-    <a href="#register" class="link link-hover text-base">Crea tu cuenta</a>
-    <a href="#products-and-calculator" class="link link-hover text-base">Solicita tu credito</a>
-  </nav>
-  <nav>
-    <h2 class="footer-title text-lg">Empresa</h2>
-    <a href="#about" class="link link-hover text-base">Nosotros</a>
-    <a href="#contact" class="link link-hover text-base">Contacto</a>
-  </nav>
-  <!-- <div class="mb-4">
-    //TODO: move this info to small font in the foter
-    <h3 class="text-xl font-bold mb-1">Información Adicional:</h3>
-    <p class="text-lg">La información proporcionada sobre los préstamos es únicamente a título informativo.</p>
-    <p class="text-lg">No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
-      préstamos. Está sujeta a las políticas de mercado y/o internas de la entidad financiera.</p>
-  </div> -->
-</footer>
+</div>
 
 
 

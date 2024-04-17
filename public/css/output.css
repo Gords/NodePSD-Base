@@ -966,6 +966,40 @@ select {
   --tw-backdrop-sepia:  ;
 }
 
+.container {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
 .alert {
   display: grid;
   width: 100%;
@@ -2842,10 +2876,6 @@ details.collapse summary::-webkit-details-marker {
   margin-bottom: 1.5rem;
 }
 
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
 .ml-auto {
   margin-left: auto;
 }
@@ -2994,6 +3024,10 @@ details.collapse summary::-webkit-details-marker {
   max-width: 56rem;
 }
 
+.max-w-6xl {
+  max-width: 72rem;
+}
+
 .max-w-md {
   max-width: 28rem;
 }
@@ -3055,6 +3089,12 @@ details.collapse summary::-webkit-details-marker {
   row-gap: 1.5rem;
 }
 
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
@@ -3081,6 +3121,15 @@ details.collapse summary::-webkit-details-marker {
 
 .rounded-lg {
   border-radius: 0.5rem;
+}
+
+.border-t {
+  border-top-width: 1px;
+}
+
+.border-gray-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
 .bg-accent {
@@ -3160,6 +3209,11 @@ details.collapse summary::-webkit-details-marker {
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .py-12 {
@@ -3309,6 +3363,10 @@ details.collapse summary::-webkit-details-marker {
   font-weight: 600;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .tracking-widest {
   letter-spacing: 0.1em;
 }
@@ -3321,6 +3379,11 @@ details.collapse summary::-webkit-details-marker {
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.text-gray-200 {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 
 .text-gray-500 {
@@ -3380,6 +3443,11 @@ html {
   /* Full width */
   padding-bottom: 1rem;
   z-index: 100;
+}
+
+.footer {
+  -moz-column-gap: 0.15rem;
+       column-gap: 0.15rem;
 }
 
 .table :where(thead, tfoot) {

@@ -15,6 +15,9 @@ html {
   z-index: 100;
 }
 
+.footer {
+  column-gap: 0.15rem;
+}
 .table :where(thead, tfoot) {
   font-size: 0.95rem;
 }
