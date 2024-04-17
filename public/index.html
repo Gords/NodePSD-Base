@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLASH CENTER</title>
+  <title>Flash Center</title>
   <link rel="icon" href="./assets/icons/favicon.ico" type="image/x-icon">
   <script src="https://unpkg.com/htmx.org@1.7.0"></script>
   <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
@@ -25,12 +25,13 @@
     <section id="spa-content">
       <section id="home" hx-trigger="load" hx-get="components.html" hx-select="#home-component" hx-swap="afterbegin">
       </section>
-      <div id="products-and-calculator" class="grid lg:grid-cols-2 mx-auto items-center pt-32 pb-28 bg-neutral">
+      <div id="products-and-calculator" class="flex flex-col w-full lg:flex-row pt-32 pb-28 bg-neutral">
         <section id="products" hx-trigger="load" hx-get="components.html" hx-select="#products-component"
-          hx-swap="afterbegin">
+          hx-swap="afterbegin" class="grid flex-grow">
         </section>
+        <div class="divider py-12 lg:divider-horizontal"></div>
         <section id="calculator" hx-trigger="load" hx-get="components.html" hx-select="#loan-calculator-component"
-          hx-swap="afterbegin"></section>
+          hx-swap="afterbegin" class="grid flex-grow"></section>
       </div>
       <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion-component"
         hx-swap="afterbegin">
@@ -45,12 +46,12 @@
       <section href="/register" id="register" hx-trigger="load" hx-get="components.html"
         hx-select="#register-form-component" hx-swap="innerHTML">
       </section>
-      <div id="register-response"></div>
+      <div id="register-response" class="py-4"></div>
     </section>
     <section id="login-content">
       <section href="/login" id="login" hx-trigger="load" hx-get="components.html" hx-select="#login-form-component"
         hx-swap="innerHTML"></section>
-      <div id="login-response" class="pt-4 pb-4"></div>
+      <div id="login-response" class="py-4"></div>
     </section>
   </main>
   <footer>

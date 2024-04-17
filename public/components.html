@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav id="top-navigation-component" class="navbar bg-primary font-bold text-white shadow-xl flex">
+<nav id="top-navigation-component" class="navbar bg-primary font-bold text-white shadow-md flex">
   <div class="navbar-start">
     <div class="dropdown">
       <button tabindex="0" class="btn btn-ghost lg:hidden">
@@ -40,7 +40,7 @@
 
 
 <!-- User/Admin Panel Navbar -->
-<nav id="user-panel-navbar-component" class="navbar bg-primary font-bold text-white shadow-xl flex">
+<nav id="user-panel-navbar-component" class="navbar bg-primary font-bold text-white shadow-md flex">
   <div class="navbar-start">
     <a href="/" class="btn btn-ghost flex-initial w-80">
       <img src="./assets/img/logo-blanco.png" alt="Flash Center" class="navbar-logo object-scale-down w-80 h-6">
@@ -78,117 +78,99 @@
 
 
 <!-- Products Section -->
-<div id="products-component" class="pl-56">
-  <div class="text-center">
-    <h1 class="text-3xl font-bold tracking-widest pt-2 pb-8">NUESTROS PRODUCTOS</h1>
-    <div class="divider"></div>
-    <div class="grid md:grid-cols-2 pt-8">
-      <div class="px-0 mb-4">
-        <img src="./assets/icons/dollar-bills.svg" alt="Icono de Billetes" class="mx-auto mb-6 w-20 h-20">
-        <h3 class="text-xl font-bold mb-1">Prestamos Personales</h3>
-        <p class="text-lg">Mínimo: Gs. 500.000</p>
-        <p class="text-lg">Máximo: Gs 15.000.000</p>
-      </div>
-      <div class="px-0 mb-4">
-        <img src="./assets/icons/piggy-bank.svg" alt="Icono de Alcancia" class="mx-auto mb-6 w-20 h-20">
-        <h3 class="text-xl font-bold mb-1">Financiamiento</h3>
-        <p class="text-lg">Plazos de pago desde 6 meses<br>hasta 15 meses</p>
-      </div>
+<div id="products-component" class="text-center">
+  <h1 class="text-3xl font-bold tracking-widest pt-2 pb-16">NUESTROS PRODUCTOS</h1>
+  <div class="grid md:grid-cols-2 pt-4">
+    <div class="px-0 mb-4">
+      <img src="./assets/icons/dollar-bills.svg" alt="Icono de Billetes" class="mx-auto mb-6 w-20 h-20">
+      <h3 class="text-xl font-bold mb-1">Prestamos Personales</h3>
+      <p class="text-lg">Mínimo: Gs. 500.000</p>
+      <p class="text-lg">Máximo: Gs 15.000.000</p>
     </div>
-    <div class="mt-8">
-      <img src="./assets/icons/bank-building.svg" alt="Icono de Edificio Bancario" class="mx-auto mb-5 w-20 h-22">
-      <h3 class="text-xl font-bold mb-1">Tasa Efectiva Anual (TEA):</h3>
-      <p class="text-lg">Máximo permitido por el<br>Banco Central de Paraguay y<br>la normativa correspondiente: 30.27%
-      </p>
+    <div class="px-0 mb-4">
+      <img src="./assets/icons/piggy-bank.svg" alt="Icono de Alcancia" class="mx-auto mb-6 w-20 h-20">
+      <h3 class="text-xl font-bold mb-1">Financiamiento</h3>
+      <p class="text-lg">Plazos de pago desde 6 meses<br>hasta 15 meses</p>
     </div>
+  </div>
+  <div class="mt-8">
+    <img src="./assets/icons/bank-building.svg" alt="Icono de Edificio Bancario" class="mx-auto mb-5 w-20 h-22">
+    <h3 class="text-xl font-bold mb-1">Tasa Efectiva Anual (TEA):</h3>
+    <p class="text-lg">Máximo permitido por el<br>Banco Central de Paraguay y<br>la normativa correspondiente: 30.27%
+    </p>
   </div>
 </div>
 
 <!-- Loan Calculator -->
-<div id="loan-calculator-component" class="pl-40">
-  <div class="card mr-auto max-w-md bg-base-100 shadow-xl">
-    <div class="card-body flex min-h-full flex-col items-center">
-      <h3 class="card-title text-3xl font-bold tracking-widest pt-2 pb-8">SIMULÁ TU PRÉSTAMO</h3>
-      <div class="flex flex-col items-center mt-4">
-        <div class="form-control w-full max-w-md">
-          <label class="label" for="occupation">
-            <span class="label-text">¿Cuál es tu ocupación?</span>
-          </label>
-          <select id="occupation" class="select select-bordered">
-            <option value="">Seleccióná</option>
-            <option value="employed">Empleado</option>
-            <option value="self-employed">Trabajador independiente</option>
-            <!-- Add more options as needed -->
-          </select>
-        </div>
-        <div class="form-control w-full max-w-md mt-4">
-          <label class="label" for="amount">
-            <span class="label-text">Monto Prestamo (Gs)</span>
-            <span id="loanOutput" class="label-text-alt"></span>
-          </label>
-          <input type="range" id="amount" min="1000000" max="10000000" value="1000000" class="range range-primary"
-            step="500000" />
-          <div class="w-full flex justify-between text-xs px-2">
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-          </div>
-        </div>
-        <div class="form-control w-full max-w-md mt-4">
-          <label class="label" for="days">
-            <span class="label-text">¿En cuántas cuotas querés pagarlo?</span>
-            <span id="monthsOutput" class="label-text-alt"></span>
-          </label>
-          <input type="range" id="days" min="1" max="12" value="1" class="range range-secondary" step="1" />
-          <div class="w-full flex justify-between text-xs px-2">
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-          </div>
-        </div>
-        <div class="mt-4 text-center">
-          <p>T.A.N: <span id="interest-rate"></span></p>
-          <p>T.A.E: <span id="apr"></span></p>
-          <p>Gastos administrativos: 10% Comisión: 18%</p>
-          <p class="font-bold">Cuota estimada de: <span id="amount2"></span></p>
-          <p>Sujeto a política crediticia de la entidad</p>
-        </div>
-        <a id="registerRedirect" href="#register" class="btn btn-primary mt-4 font-extrabold text-white">¡Solicitar
-          ya!</a>
-      </div>
+<div id="loan-calculator-component" class="text-center">
+  <h1 class="text-3xl font-bold tracking-widest pt-2 pb-16">SIMULÁ TU PRÉSTAMO</h1>
+  <div class="form-control w-full max-w-md mx-auto mt-4">
+    <label class="label" for="amount">
+      <span class="label-text text-lg font-semibold">Monto Prestamo (Gs)</span>
+      <span id="loanOutput" class="label-text-alt text-lg font-semibold"></span>
+    </label>
+    <input type="range" id="amount" min="1000000" max="10000000" value="1000000" class="range range-primary"
+      step="500000" />
+    <div class="w-full flex justify-between text-xs px-2">
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
     </div>
   </div>
+  <div class="form-control w-full max-w-md mx-auto mt-4">
+    <label class="label" for="days">
+      <span class="label-text text-lg font-semibold">¿En cuántas cuotas querés pagarlo?</span>
+      <span id="monthsOutput" class="label-text-alt text-lg font-semibold"></span>
+    </label>
+    <input type="range" id="days" min="1" max="12" value="1" class="range range-secondary" step="1" />
+    <div class="w-full flex justify-between text-xs px-2">
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+    </div>
+  </div>
+  <div class="mt-4 text-center">
+    <p class="py-2">T.A.E: <span id="apr"></span></p>
+    <p class="py-2">T.A.N: <span id="interest-rate"></span></p>
+    <p class="py-2">Gastos administrativos: 10% || Comisión: 18%</p>
+    <p class="py-2 font-bold text-xl">Cuota estimada de: <span id="amount2"></span></p>
+    <p class="pb-8"><em>Sujeto a política crediticia de la entidad</em></p>
+  </div>
+  <a id="registerRedirect" href="#register" class="btn btn-primary font-extrabold text-white">¡Solicitar ya!</a>
 </div>
+
 
 
 
 <!-- FAQ Accordion -->
 <section id="faq-accordion-component"
   class="mx-auto py-40 bg-gradient-to-b from-secondary to-[#01112A] text-base-100 z-10">
-  <div class="text-center pb-16 max-w-3xl mx-auto">
-    <h1 class="text-3xl font-bold pb-6">PREGUNTAS FRECUENTES</h1>
-    <div class="divider"></div>
+  <div class="max-w-3xl mx-auto text-center pb-16">
+    <h1 class="text-3xl font-bold tracking-widest pb-6">PREGUNTAS FRECUENTES</h1>
+    <div class="justify-center">
+      <div class="divider divider-neutral mx-20"></div>
+    </div>
   </div>
   <div id="accordion-item-list" class="space-y-4 max-w-3xl mx-auto">
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
       <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿POR QUÉ CRÉDITO FLASH?
       </summary>
-      <div class="collapse-content py-6 bg-base-100">
+      <div class="collapse-content py-6 bg-neutral">
         <p class="text-center text-lg text-black">Porque tenemos la respuesta mas inmediata del mercado, ya
           que contamos con un
           proceso de
@@ -199,20 +181,21 @@
       <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿QUÉ DOCUMENTACIÓN NECESITO?
       </summary>
-      <div class="collapse-content py-6 bg-base-100">
-        <p class="text-center text-lg text-black">Necesitás comprobante de ingresos, comprobante de domicilio, recibos
-          de servicios
+      <div class="collapse-content py-6 bg-neutral">
+        <p class="text-center text-lg text-black">Necesitás cédula de identidad, comprobante de ingresos, Inforcomf e
+          Infocheck,factura de servicios
           (como Copaco,
           ANDE,
-          ESSAP, etc.) y Cédula de Identidad</p>
+          ESSAP, etc.) e informe de BICSA</p>
       </div>
     </details>
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
       <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿CÓMO LO SOLICITO?
       </summary>
-      <div class="collapse-content py-6 bg-base-100">
-        <p class="text-center text-lg text-black">¡Es muy fácil! Podés solicitar tu credito completando el formulario de
+      <div class="collapse-content py-6 bg-neutral">
+        <p class="text-center text-lg text-black">¡Es muy fácil!<br>és solicitar tu credito completando el formulario
+          de
           arriba y
           con solo
           5 datos, te damos el monto habilitado.</p>
@@ -222,7 +205,7 @@
       <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿DÓNDE LO RETIRO?
       </summary>
-      <div class="collapse-content py-6 bg-base-100">
+      <div class="collapse-content py-6 bg-neutral">
         <p class="text-center text-lg text-black">Lo retirás en cualquiera de los locales que tenemos disponibles.</p>
       </div>
     </details>
@@ -235,19 +218,19 @@
 <div id="about-component" class="bg-cover py-60 flex justify-center items-center"
   style="background-image: url('./assets/img/cde-skyline.jpg')">
   <div class="flex justify-center items-center max-w-xl">
-    <div class="card p-6 bg-base-100 opacity-80 shadow-xl">
+    <div class="card p-6 bg-base-100 opacity-80 shadow-md">
       <div class="card-body justify-start">
-        <h1 class="text-3xl font-bold pb-4 text-center">ACERCA DE FLASH CENTER</h1>
+        <h1 class="text-3xl font-bold text-center">ACERCA DE FLASH CENTER</h1>
         <div class="divider"></div>
       </div>
-      <p class="text-lg pt-4">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito.
+      <p class="text-lg pt-4">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito
         Otorgamos
-        préstamos al consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación.</p>
+        préstamos al consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación</p>
       <div class="text-center">
         <h2 class="text-xl font-bold mt-6">MISION</h2>
         <p class="text-lg">Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a
           la
-          sociedad, a través de productos financieros.</p>
+          sociedad, a través de productos financieros</p>
       </div>
       <div class="text-center">
         <h2 class="text-xl font-bold mt-6">VISION</h2>
@@ -300,12 +283,6 @@
     <h2 class="footer-title text-lg">Empresa</h2>
     <a href="#about" class="link link-hover text-base">Nosotros</a>
     <a href="#contact" class="link link-hover text-base">Contacto</a>
-    <a href="#jobs" class="link link-hover text-base">Unete al equipo</a>
-  </nav>
-  <nav>
-    <h2 class="footer-title text-lg">Legal</h2>
-    <a href="#terms" class="link link-hover text-base">Términos y condiciones</a>
-    <a href="#privacy" class="link link-hover text-base">Políticas de privacidad</a>
   </nav>
   <!-- <div class="mb-4">
     //TODO: move this info to small font in the foter
@@ -322,42 +299,32 @@
 <section id="forms">
   <!-- Login Form -->
   <div id="login-form-component" class="pt-32">
-    <div class="card m-auto max-w-sm shadow-xl">
-      <form id=login-form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/login">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="card max-w-sm mx-auto shadow-md">
+      <form id="login-form" class="card-body flex flex-col justify-center lg:px-8" hx-post="/login">
+        <div class="mx-auto w-full max-w-sm">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-10 text-center text-2xl font-bold">Acceda a su cuenta</h2>
+          <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Acceda a su cuenta</h2>
         </div>
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div class="mt-10 mx-auto w-full max-w-sm">
           <div class="space-y-6">
             <div>
-              <label for="username" class="text-lg text-center font-medium">Correo electronico</label>
-              <div class=" mt-2">
-                <input id="username" name="username" type="email" autocomplete="email" required
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6">
-              </div>
+              <label for="username" class="text-base font-medium text-gray-600">Correo
+                electronico</label>
+              <input id="username" name="username" type="email" autocomplete="email" required
+                class="input input-bordered w-full" />
             </div>
             <div>
-              <div class="flex items-center justify-between">
-                <label for="login-password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
-                <div class="text-sm">
-                  <a href="#" class="link link-primary font-bold">Olvidaste tu contraseña?</a>
-                </div>
-              </div>
-              <div class="mt-2">
-                <input id="login-password" name="password" type="password" autocomplete="current-password" required
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
+              <label for="login-password" class="text-base font-medium text-gray-600">Contraseña</label>
+              <input id="login-password" name="password" type="password" autocomplete="current-password" required
+                class="input input-bordered w-full" />
             </div>
-            <button type="submit"
-              class="btn btn-primary flex w-full justify-center text-white hover:bg-secondary">Iniciar
-              sesión</button>
+            <button type="submit" class="btn btn-primary w-full text-white">Iniciar sesión</button>
           </div>
+          <p class="mt-10 text-center text-sm text-gray-500">
+            No tienes una cuenta?
+            <a href="#register" class="link link-primary font-bold">Creala aqui!</a>
+          </p>
         </div>
-        <p class="mt-10 text-center text-sm text-gray-500">
-          No tienes una cuenta?
-          <a href="#register" class="link link-primary font-bold">Creala aqui!</a>
-        </p>
       </form>
     </div>
   </div>
@@ -366,44 +333,30 @@
 
   <!-- Register Form -->
   <div id="register-form-component" class="pt-28">
-    <div class="card m-auto max-w-sm shadow-xl">
-      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/register"
-        hx-target="#register-response">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="card max-w-sm mx-auto shadow-md">
+      <form class="card-body flex flex-col justify-center lg:px-8" hx-post="/register" hx-target="#register-response">
+        <div class="mx-auto w-full max-w-sm">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Registre su cuenta
-          </h2>
+          <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Registre su cuenta</h2>
         </div>
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div class="mt-10 mx-auto w-full max-w-sm">
           <div class="space-y-6">
             <div>
-              <label for="register-name" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
-              <div class="mt-2">
-                <input id="register-name" name="name" type="text" autocomplete="name" placeholder="Fulanito" required
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
+              <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
+              <input id="register-name" name="name" type="text" autocomplete="name"
+                class="input input-bordered w-full" />
             </div>
             <div>
-              <label for="register-email" class="block text-sm font-medium leading-6 text-gray-900">Correo
-                electronico</label>
-              <div class="mt-2">
-                <input id="register-email" name="email" type="email" autocomplete="email" placeholder="de.tal@email.com"
-                  required
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
+              <label for="register-email" class="text-base font-medium text-gray-600">Correo electronico</label>
+              <input id="register-email" name="email" type="email" autocomplete="email"
+                class="input input-bordered w-full" />
             </div>
             <div>
-              <label for="register-password"
-                class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
-              <div class="mt-2">
-                <input id="register-password" name="password" type="password" autocomplete="new-password" required
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
+              <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
+              <input id="register-password" name="password" type="password" autocomplete="new-password" required
+                class="input input-bordered w-full" />
             </div>
-            <div>
-              <button type="submit"
-                class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">REGISTRARSE</button>
-            </div>
+            <button type="submit" class="btn btn-primary w-full text-white">Registrarse</button>
           </div>
           <p class="mt-10 text-center text-sm text-gray-600">
             Ya tienes una cuenta?
@@ -418,49 +371,60 @@
 
   <!-- Contact Form -->
   <form id="contact-form-component" class="bg-neutral py-36" action="#" method="POST">
-    <div class="mx-auto max-w-xl text-center">
-      <h2 class="text-3xl font-bold pb-4">Contactanos</h2>
-      <div class="divider divider-accent"></div>
-      <p class="text-lg text-gray-600 py-8">Cómo te podemos ayudar?</p>
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-bold pb-4">Contáctanos</h2>
+      <div class="divider"></div>
+      <p class="text-lg text-gray-600 pt-4 pb-8">¿Cómo te podemos ayudar?</p>
     </div>
     <div class="mx-auto max-w-2xl text-center">
       <div class=" grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+
         <!-- Name Input -->
-        <label for="contact-first-name">
-          <input type="text" name="first-name" id="contact-first-name" autocomplete="given-name" placeholder="Nombre"
-            class="input input-bordered w-full" />
+        <label for="contact-first-name" class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Nombre</span>
+          </div>
+          <input id="contact-first-name" type="text" class="input input-bordered w-full max-w-xs" />
         </label>
 
         <!-- Last Name Input -->
-        <label for="contact-last-name">
-          <input type="text" name="last-name" id="contact-last-name" autocomplete="family-name" placeholder="Apellido"
-            class="input input-bordered w-full" />
+        <label for="contact-last-name" class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Apellido</span>
+          </div>
+          <input id="contact-last-name" type="text" class="input input-bordered w-full max-w-xs" />
         </label>
 
         <!-- Email Input -->
-        <label for="contact-email">
-          <input type="email" name="email" id="contact-email" autocomplete="email" placeholder="Email"
-            class="input input-bordered w-full" />
+        <label for="contact-email" class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">E-mail</span>
+          </div>
+          <input id="contact-email" type="email" class="input input-bordered w-full max-w-xs" />
         </label>
 
         <!-- Phone Input -->
-        <label for="contact-phone">
-          <input type="tel" name="phone" id="contact-phone" autocomplete="tel" placeholder="Teléfono"
-            class="input input-bordered w-full" />
+        <label for="contact-phone" class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Teléfono</span>
+          </div>
+          <input id="contact-phone" type="text" class="input input-bordered w-full max-w-xs" />
         </label>
       </div>
 
+      <!-- Message Input -->
       <div class="pt-8">
-        <!-- Message Input -->
-        <label for="contact-message">
-          <textarea name="message" id="contact-message" placeholder="Mensaje" class="input input-bordered w-full"
-            rows="4"></textarea>
+        <label for="contact-message" class="form-control">
+          <div class="label">
+            <span class="label-text">Mensaje</span>
+          </div>
+          <textarea id="contact-message" class="textarea textarea-bordered h-24"></textarea>
         </label>
       </div>
 
       <!-- Submit Button -->
       <div class="mt-10">
-        <button type="submit" class="btn btn-primary w-full text-sm font-semibold text-white">ENVIAR MENSAJE</button>
+        <button type="submit" class="btn btn-primary w-full text-white">ENVIAR MENSAJE</button>
       </div>
     </div>
   </form>

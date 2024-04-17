@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLASH CENTER</title>
+  <title>Flash Center</title>
   <link rel="icon" href="./assets/icons/favicon.ico" type="image/x-icon">
   <script src="https://unpkg.com/htmx.org@1.7.0"></script>
   <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
@@ -27,7 +27,7 @@
     <div id="admin-panel-component" class="flex flex-col h-full min-h-screen items-center pt-20 bg-neutral">
       <div class="w-full max-w-4xl py-4">
         <!-- Admin personal info -->
-        <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card bg-base-100 shadow-md mb-6">
           <div class="card-body">
             <div id="user-info" class="card-title items-center">
               <div class="avatar">
@@ -44,7 +44,7 @@
           </div>
         </div>
         <!-- List of all Flash Center users -->
-        <div id="list-of-users" class="card bg-base-100 shadow-xl my-10">
+        <div id="list-of-users" class="card bg-base-100 shadow-md my-10">
           <div class="card-body">
             <h2 class=" card-title font-semibold">Lista de Usuarios</h2>
             <div class="divider max-w-3xl w-full"></div>
@@ -54,9 +54,9 @@
           </div>
         </div>
         <!-- Placeholder for loan type creation
-        <div id="create-loan-button" class="card bg-base-100 shadow-xl my-10">
+        <div id="create-loan-button" class="card bg-base-100 shadow-md my-10">
           <div class="card-body">
-            <h2 class=" card-title font-semibold">Crear un tipo de prestamo</h2>
+            <h2 class=" card-title font-semibold">Crear un tipo de préstamo</h2>
             <button hx-post="/create-loan-type" class="btn btn-primary text-white">
               crear loan type
             </button>

@@ -242,8 +242,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
   router.post('/create-loan-type', isAuthenticated, async (req, res) => {
     try {
       const typeOfLoan = await TypeOfLoan.create({
-        name: 'Prestamo Personal',
-        description: 'Prestamo para uso personal',
+        name: 'Préstamo Personal',
+        description: 'Préstamo para uso personal',
       })
 
       res.status(201).json({ message: 'Type of loan created successfully', typeOfLoanId: typeOfLoan.id })
@@ -360,7 +360,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
         userImagesHtml = '<div class="text-center">No files found</div>';
       } else {
         userImagesHtml = /*html*/`
-          <div class="card bg-base-100 shadow-xl text-center my-10">
+          <div class="card bg-base-100 shadow-md text-center my-10">
             <div class="card-body">
               <div class="flex justify-between items-center mx-8">
                 <h2 class="card-title font-semibold pl-4">Your Documents</h2>
@@ -450,7 +450,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       });
 
       const userImagesHtml = /*html*/`
-        <div class="card bg-base-100 shadow-xl tex-center my-10">
+        <div class="card bg-base-100 shadow-md tex-center my-10">
           <div class="card-body">
             <div class="flex justify-between items-center mx-8">
               <h2 class="card-title font-semibold pl-4">Documentos del usuario '${userEmail}'</h2>
