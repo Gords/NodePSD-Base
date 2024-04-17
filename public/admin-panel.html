@@ -14,10 +14,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
     rel="stylesheet">
   <link href="./css/output.css" rel="stylesheet">
-  <script src="./js/fetchUserDetails.js"></script>
   <script src="./js/fileDownloadAll.js"></script>
 </head>
-
 
 <body>
   <header>
@@ -26,43 +24,31 @@
   <main>
     <div id="admin-panel-component" class="flex flex-col h-full min-h-screen items-center pt-20 bg-neutral">
       <div class="w-full max-w-4xl py-4">
-        <!-- Admin personal info -->
-        <div class="card bg-base-100 shadow-xl mb-6">
-          <div class="card-body">
-            <div id="user-info" class="card-title items-center">
-              <div class="avatar">
-                <div class="w-16 h-16 rounded-full relative bg-primary">
-                  <span id="avatar-username-initials"
-                    class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white"></span>
-                </div>
-              </div>
-              <div class="flex flex-col">
-                <div id="user-name" class="font-semibold text-lg">Nombre Usuario</div>
-                <div id="user-email" class="text-sm">email.del@usuario.com</div>
-              </div>
-            </div>
-          </div>
-        </div>
+<!-- Admin personal info -->
+<div class="card bg-base-100 shadow-xl mb-6">
+  <div class="card-body">
+    <div id="user-info" hx-get="/check-login" hx-trigger="load" hx-swap="innerHTML">
+      <!-- Dynamic user info will be loaded here -->
+      <!-- The loading placeholders can be removed or customized as per design -->
+      <div class="flex justify-center items-center">
+        <div class="loader">Loading user information...</div>
+      </div>
+    </div>
+  </div>
+</div>
         <!-- List of all Flash Center users -->
         <div id="list-of-users" class="card bg-base-100 shadow-xl my-10">
           <div class="card-body">
-            <h2 class=" card-title font-semibold">Lista de Usuarios</h2>
+            <h2 class="card-title font-semibold">Lista de Usuarios</h2>
             <div class="divider max-w-3xl w-full"></div>
             <div id="user-table-container" hx-get="/users" hx-trigger="load">
-              <!-- The table returned from /users will be inserted here -->
+              <!-- User list table will be dynamically inserted here -->
             </div>
           </div>
         </div>
-        <!-- Placeholder for loan type creation
-        <div id="create-loan-button" class="card bg-base-100 shadow-xl my-10">
-          <div class="card-body">
-            <h2 class=" card-title font-semibold">Crear un tipo de prestamo</h2>
-            <button hx-post="/create-loan-type" class="btn btn-primary text-white">
-              crear loan type
-            </button>
-          </div>
-        </div> -->
       </div>
     </div>
   </main>
 </body>
+
+</html>
