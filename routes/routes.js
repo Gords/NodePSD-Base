@@ -182,10 +182,18 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
   // Get a single user
   router.get('/check-login', (req, res) => {
     if (req.isAuthenticated()) {
-      return res.send(`
-        <div>
-          <p>Name: ${req.user.name}</p>
-          <p>Email: ${req.user.email}</p>
+      // Sending a partial HTML snippet to update the user-info div
+      res.send(`
+        <div class="avatar">
+          <div class="w-16 h-16 rounded-full relative bg-primary">
+            <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">
+              ${req.user.name.charAt(0).toUpperCase()}
+            </span>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <div class="font-semibold text-lg">${req.user.name}</div>
+          <div class="text-sm">${req.user.email}</div>
         </div>
       `);
     } else {
@@ -197,6 +205,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
     }
   });
+  
 
 
   // Get all users

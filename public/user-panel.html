@@ -18,7 +18,6 @@
   <!-- Need this library for the drag and drop feature of file upload -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
   <script src="./js/fileUpload.js" defer></script>
-  <script src="./js/fetchUserDetails.js"></script>
   <script src="./js/fileDownloadAll.js"></script>
 </head>
 
@@ -36,7 +35,8 @@
         <!-- User personal info -->
         <div class="card bg-base-100 shadow-md mb-6">
           <div class="card-body">
-            <div id="user-info" class="card-title items-center">
+            <div id="user-info" class="card-title items-center" hx-get="/check-login" hx-trigger="load"
+              hx-swap="outerHTML">
               <div class="avatar">
                 <div class="w-16 h-16 rounded-full relative bg-primary">
                   <span id="avatar-username-initials"
@@ -83,10 +83,10 @@
         <div class="card-body items-center">
           <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo o arrastralo aqui</h3>
           <p class="text-base text-neutral mb-4">Puedes cargar hasta 4 archivos de 25 MB. cada uno</p>
-          <form hx-encoding="multipart/form-data" hx-post="/images">
+          <form hx-encoding="multipart/form-data" hx-post="/images" hx-target="#file-upload-list" hx-swap="outerHTML">
             <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar archivos</label>
             <input type="file" id="files-to-upload" name="files" multiple
-              accept="image/jpeg, image/png, application/pdf" style="display: none" />
+              accept="image/jpeg, image/png, application/pdf" style="display: none">
             <button id="submit-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" type="submit">Cargar
               Archivos</button>
           </form>
