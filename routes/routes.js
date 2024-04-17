@@ -265,6 +265,12 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 
 
 
+
+
+
+
+
+
   // Get all users
   router.get('/users', isAuthenticated, async (req, res) => {
     try {
