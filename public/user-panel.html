@@ -19,6 +19,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
   <script src="./js/fileUpload.js" defer></script>
   <script src="./js/fetchUserDetails.js"></script>
+  <script src="./js/fileDownloadAll.js"></script>
 </head>
 
 
@@ -31,63 +32,69 @@
     <div id="user-panel-component"
       class="flex flex-col h-full min-h-screen justify-center items-center pt-20 bg-neutral">
       <!-- Data and File Upload Container -->
-      <div class="w-full max-w-2xl py-4"> <!-- Adjust the width as needed -->
+      <div class="w-full max-w-3xl py-4"> <!-- Adjust the width as needed -->
         <!-- User personal info -->
         <div class="card bg-base-100 shadow-xl mb-6">
           <div class="card-body">
-            <div id="user-info" class="card-title flex flex-row items-center">
-              <div class="avatar ml-2 mr-4">
+            <div id="user-info" class="card-title items-center">
+              <div class="avatar">
                 <div class="w-16 h-16 rounded-full relative bg-primary">
                   <span id="avatar-username-initials"
                     class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white"></span>
                 </div>
               </div>
-              <div class="flex flex-col items-center md:items-start">
-                <div id="user-name" class="font-semibold text-lg">Nombre Usuario</div>
-                <div id="user-email" class="text-sm">email.del@usuario.com</div>
+              <div class="flex justify-between items-center w-full">
+                <div class="flex flex-col">
+                  <div id="user-name" class="font-semibold text-lg">Nombre Usuario</div>
+                  <div id="user-email" class="text-sm">email.del@usuario.com</div>
+                </div>
+                <button hx-post="/request-loan" hx-target="#status-message" hx-swap="outerHTML"
+                  class="btn btn-primary text-white self-center ml-auto">
+                  Solicitar Credito
+                </button>
               </div>
             </div>
-            <div id="user-data">
+            <div class="divider"></div>
+            <div id="user-data" class="flex justify-between items-center">
               <div class="flex flex-col font-semibold pl-2">
                 Nro. de Cedula: <span id="user-cedula" class="font-normal">1.234.567.-</span>
                 Nro. de Telefono: <span id="user-phone" class="font-normal">+595 981 123 456</span>
                 Domicilio: <span id="user-address" class="font-normal">Dr. Vasconcellos 622 esq. Tte Luis Miranda</span>
               </div>
+              <div>
+                <h1 class="font-bold">Documentos necesarios para solicitar credito</h1>
+                <ul class="list-disc">
+                  <li>Copia de Cedula (ambos lados)</li>
+                  <li>Inforcomf e Infocheck</li>
+                  <li>Comprobantes de Ingreso</li>
+                  <li>Informe de BICSA</li>
+                  <li>Factura de servicio</li>
+                </ul>
+              </div>
             </div>
-            <button hx-post="/request-loan" hx-target="#status-message" hx-swap="outerHTML"
-              class="btn btn-primary text-white">
-              Solicitar Credito
-            </button>
             <div id="status-message"></div>
           </div>
         </div>
-        <div id="user-files" class="card bg-base-100 shadow-xl tex-center my-10">
-          <div class="card-body items-center">
-            <h3 class="card-title font-semibold text-2xl">Documentos</h3>
-            <div class="divider"></div>
-            <ul id="file-name-display" hx-get="/images/user-images" hx-trigger="load" class="pl-6">
-              <!-- User files present in the DB will be listed here -->
-            </ul>
-          </div>
-        </div>
+        <div id="user-files" hx-get="images/user-images" hx-trigger="load"></div>
+      </div>
 
 
-        <div id="file-drop-area" class="card bg-secondary shadow-xl">
-          <div class="card-body items-center">
-            <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo o arrastralo aqui</h3>
-            <p class="text-base text-neutral mb-4">Puedes cargar hasta 4 archivos de 25 MB. cada uno</p>
-            <form hx-encoding="multipart/form-data" hx-post="/images">
-              <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar archivos</label>
-              <input type="file" id="files-to-upload" name="files" multiple
-                accept="image/jpeg, image/png, application/pdf" style="display: none">
-              <button id="submit-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" type="submit">Cargar
-                Archivos</button>
-            </form>
-            <div id="file-upload-list">
-              <!-- Response from /images will be inserted here -->
-            </div>
+      <div id="file-drop-area" class="card bg-secondary shadow-xl">
+        <div class="card-body items-center">
+          <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo o arrastralo aqui</h3>
+          <p class="text-base text-neutral mb-4">Puedes cargar hasta 4 archivos de 25 MB. cada uno</p>
+          <form hx-encoding="multipart/form-data" hx-post="/images">
+            <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar archivos</label>
+            <input type="file" id="files-to-upload" name="files" multiple
+              accept="image/jpeg, image/png, application/pdf" style="display: none">
+            <button id="submit-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" type="submit">Cargar
+              Archivos</button>
+          </form>
+          <div id="file-upload-list">
+            <!-- Response from /images will be inserted here -->
           </div>
         </div>
       </div>
+    </div>
   </main>
 </body>

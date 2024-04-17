@@ -353,27 +353,60 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
   // Get all images of the logged in user
   router.get('/images/user-images', isAuthenticated, async (req, res) => {
     try {
-      const images = await Image.findAll({ where: { userId: req.user.id } })
-      let imagesHTML = ''
+      const images = await Image.findAll({ where: { userId: req.user.id } });
+      let userImagesHtml = '';
 
       if (images.length === 0) {
-        imagesHTML = '<li>No files found</li>'
+        userImagesHtml = '<div class="text-center">No files found</div>';
       } else {
-        images.forEach((image) => {
-          // Check if image.path is not null
-          // Add "X" icon to delete an image
-          if (image.path) {
-            const deleteIcon = `<img style="margin-left: auto;" onclick="confirmDelete(${image.id})" src="/assets/icons/delete-icon.svg" class="w-6 h-6 cursor-pointer"/>`
-            imagesHTML += `<li class="flex justify-between text-center items-center py-2">${path.basename(image.path)} ${deleteIcon}</li>`
-          }
-        })
+        userImagesHtml = /*html*/`
+          <div class="card bg-base-100 shadow-xl text-center my-10">
+            <div class="card-body">
+              <div class="flex justify-between items-center mx-8">
+                <h2 class="card-title font-semibold pl-4">Your Documents</h2>
+                <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
+                  Download All
+                </button>
+              </div>
+              <div class="divider divider-accent"></div>
+              <div class="overflow-x-auto pt-8">
+                <table class="table w-full">
+                <thead>
+                  <tr>
+                    <th>File</th>
+                    <th>Preview</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${images.map(image => /*html*/`
+                  <tr class="hover" id="image-${image.id}">
+                    <td>${path.basename(image.path)}</td>
+                    <td>
+                      <img class="img-thumbnail" src="/${image.path}" alt="Document ${image.id}">
+                    </td>
+                    <td>
+                      <div class="flex flex-col">
+                        <a href="/images/${image.id}" id="download-link" class="btn btn-xs">Download</a>
+                        <img style="margin-left: auto;" onclick="confirmDelete(${image.id})" src="/assets/icons/delete-icon.svg" class="w-6 h-6 cursor-pointer"/>
+                      </div>
+                    </td>
+                  </tr>
+                  `).join('')}
+                </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `;
       }
-      res.send(`<ul>${imagesHTML}</ul>`)
+      res.send(userImagesHtml);
     } catch (error) {
-      console.error('Error fetching user images:', error)
-      res.status(500).send('Error fetching user images')
+      console.error('Error fetching user images:', error);
+      res.status(500).send('Error fetching user images');
     }
-  })
+  });
+
 
 
   // Download a single image from a specific user
