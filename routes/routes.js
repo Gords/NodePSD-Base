@@ -55,14 +55,19 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 
       // Send verification email
       await emailService.sendVerificationEmail(email, verificationToken)
-
-      console.log('User registered successfully:', user.email)
+      console.log('User registered successfully:', user.email);
       res.status(200).send(`
-        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
+      <div id="register-form-component" class="pt-28">
+        <div class="card m-auto max-w-sm shadow-xl">
+          <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
+            <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+              <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+              <span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
+            </div>
+          </div>
         </div>
-      `);
+      </div>
+    `);
     } catch (error) {
       console.error('Error registering user:', error);
       res.status(500).send(`
