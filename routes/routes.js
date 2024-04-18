@@ -140,7 +140,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
             </div>
           `);
         }
-        res.set('HX-Redirect', '/admin-panel.html')
+        res.set('HX-Redirect', '/user-panel.html')
         res.status(200).send(`
           <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
             <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
@@ -183,7 +183,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
   router.get('/check-login', (req, res) => {
     if (req.isAuthenticated()) {
       // Sending a partial HTML snippet to update the user-info div
-      res.send(`
+      res.send(/*html*/`
         <div class="avatar">
           <div class="w-16 h-16 rounded-full relative bg-primary">
             <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">
@@ -191,13 +191,18 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
             </span>
           </div>
         </div>
-        <div class="flex flex-col">
-          <div class="font-semibold text-lg">${req.user.name}</div>
-          <div class="text-sm">${req.user.email}</div>
+        <div class="flex justify-between items-center w-full">
+          <div class="flex flex-col">
+            <div class="font-semibold text-lg">${req.user.name}</div>
+            <div class="text-sm">${req.user.email}</div>
+          </div>
+          <button hx-post="/request-loan" hx-target="#request-loan-button" hx-swap="outerHTML" id="request-loan-button" class="btn btn-primary text-white self-center">
+            Solicitar credito
+          </button>
         </div>
       `);
     } else {
-      res.status(401).send(`
+      res.status(401).send(/*html*/`
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
           <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
           <span class="font-bold text-center">Not logged in</span>
@@ -205,7 +210,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
     }
   });
-  
+
 
 
   // Get all users
@@ -352,18 +357,16 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       });
 
       res.status(201).send(`
-        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold">Loan created successfully</span>
-        </div>
+        <button class="btn btn-success self-center text-white">
+          Solicitud enviada
+        </button>
       `);
     } catch (error) {
       console.error('Failed to create loan and update user:', error);
       res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">Failed to process loan request</span>
-        </div>
+        <button disabled class="btn btn-accent no-animation text-white self-center ml-auto">
+          Error al enviar
+        </button>
       `);
     }
   });
@@ -457,19 +460,18 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
           <div class="card bg-base-100 shadow-md text-center my-10">
             <div class="card-body">
               <div class="flex justify-between items-center mx-8">
-                <h2 class="card-title font-semibold pl-4">Your Documents</h2>
+                <h2 class="card-title font-semibold pl-4">Tus documentos</h2>
                 <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
-                  Download All
+                  Descargar todo
                 </button>
               </div>
-              <div class="divider divider-accent"></div>
               <div class="overflow-x-auto pt-8">
                 <table class="table w-full">
                 <thead>
                   <tr>
-                    <th>File</th>
-                    <th>Preview</th>
-                    <th>Actions</th>
+                    <th>Archivo</th>
+                    <th>Vista Previa</th>
+                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -609,7 +611,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
         `);
       }
     });
-  
+
 
 
 // Delete an image

@@ -33,28 +33,23 @@
       <!-- Data and File Upload Container -->
       <div class="w-full max-w-3xl py-4"> <!-- Adjust the width as needed -->
         <!-- User personal info -->
-        <div class="card bg-base-100 shadow-md mb-6">
+        <div class="card bg-base-100 shadow-md">
           <div class="card-body">
-            <div id="user-info" class="card-title items-center" hx-get="/check-login" hx-trigger="load"
-              hx-swap="outerHTML">
-              <div class="avatar">
+            <div id="user-info" hx-get="/check-login" hx-trigger="load" hx-swap="innerHTML"
+              class="card-title items-center pb-4">
+              <!-- <div class="avatar">
                 <div class="w-16 h-16 rounded-full relative bg-primary">
                   <span id="avatar-username-initials"
-                    class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white"></span>
+                    class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">A</span>
                 </div>
               </div>
               <div class="flex justify-between items-center w-full">
                 <div class="flex flex-col">
-                  <div id="user-name" class="font-semibold text-lg">Nombre Usuario</div>
+                  <div id="user-name" class="font-semibold text-lg">Usuario</div>
                   <div id="user-email" class="text-sm">email.del@usuario.com</div>
                 </div>
-                <button hx-post="/request-loan" hx-target="#status-message" hx-swap="outerHTML"
-                  class="btn btn-primary text-white self-center ml-auto">
-                  Solicitar Credito
-                </button>
-              </div>
+              </div> -->
             </div>
-            <div class="divider"></div>
             <div id="user-data" class="flex justify-between items-center">
               <div class="flex flex-col font-semibold pl-2">
                 Nro. de Cedula: <span id="user-cedula" class="font-normal">1.234.567.-</span>

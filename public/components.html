@@ -61,15 +61,14 @@
   <video autoplay muted loop class="absolute -z-10 w-full h-full object-cover">
     <source src="./assets/img/skyline-video.mp4" type="video/mp4">
   </video>
-  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-8 md:p-12 lg:p-16">
+  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-6 mx-1">
     <div class="max-w-3xl">
       <h2 class="mb-5 text-3xl font-semibold">Obten tu credito pre aprobado en menos de 24hs</h2>
-      <p class="mb-5 text-xl">Acompanhamos en la busqueda del producto ideal, a cada cliente, en cualquier parte del
+      <p class="mb-5 text-xl">Acompañamos en la busqueda del producto ideal, a cada cliente, en cualquier parte del
         mundo.
         Salvaguardamos su interes,
         garantizando un trato simple y efectivo. En menos de 5 minutos te decimos si contas con una pre-aprobacion</p>
-      <a href="#register"
-        class="btn btn-accent btn-wide btn-xs sm:btn-sm md:btn-md lg:btn-lg text-white font-bold">SOLICITA TU
+      <a href="#register" class="btn btn-primary glass btn-lg text-white font-bold">SOLICITA TU
         CREDITO</a>
     </div>
   </div>
@@ -157,9 +156,8 @@
 
 
 
-<!-- FAQ Accordion -->
-<section id="faq-accordion-component"
-  class="mx-auto py-40 bg-gradient-to-b from-secondary to-[#01112A] text-base-100 z-10">
+<!-- FAQ Section -->
+<section id="faq-component" class="mx-auto pt-40 pb-34 bg-gradient-to-b from-secondary to-[#01112A] text-base-100 z-10">
   <div class="max-w-3xl mx-auto text-center pb-16">
     <h1 class="text-3xl font-bold tracking-widest pb-6">PREGUNTAS FRECUENTES</h1>
     <div class="justify-center">
@@ -216,14 +214,13 @@
 
 
 <!-- About Section -->
-<div id="about-component" class="bg-cover py-60 flex justify-center items-center"
+<div id="about-component" class="bg-cover pt-40 pb-32 flex justify-center items-center"
   style="background-image: url('./assets/img/cde-skyline.jpg')">
   <div class="flex justify-center items-center max-w-xl">
-    <div class="card p-6 bg-base-100 opacity-80 shadow-md">
+    <div class="card bg-base-100 opacity-80 shadow-md">
       <div class="card-body justify-start">
         <h1 class="text-3xl font-bold text-center">ACERCA DE FLASH CENTER</h1>
         <div class="divider"></div>
-      </div>
       <p class="text-lg">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito
         Otorgamos
         préstamos al consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación</p>
@@ -240,6 +237,7 @@
       <div>
         <h2 class="text-xl font-bold mt-6 text-center">VALORES</h2>
         <p class="text-lg text-center">Accesibilidad<br>Agilidad<br>Amabilidad<br>Lealtad<br>Respeto</p>
+        </div>
       </div>
     </div>
   </div>
@@ -250,56 +248,41 @@
 
 <!-- Footer -->
 <div id="bottom-navigation-component">
-  <footer class="footer p-6 bg-secondary text-white">
-    <!-- <div class="mx-auto">
-      <img src="./assets/img/logo-blanco.png" alt="Flash Center" id="footer-logo"
-        class="object-scale-down w-80 h-6 mt-1" />
-      <div class="flex items-center pt-4 pl-2">
-        <img src="./assets/icons/map-pin.svg" alt="Location Icon" class="w-7 h-7 mr-2">
-        <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-base link link-hover">
-          Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay</a>
-      </div>
-    </div> -->
-    <nav class="flex flex-col items-center mx-auto">
-      <h2 class="footer-title text-lg">Redes Sociales</h2>
-      <div class="flex justify-center items-center space-x-4">
+  <footer class="footer footer-center pt-8 pb-4 bg-secondary text-white">
+    <nav class="grid grid-flow-col gap-4 font-bold">
+      <a class="link link-hover">Inicio</a>
+      <a class="link link-hover">Productos</a>
+      <a class="link link-hover">Preguntas Frecuentes</a>
+      <a class="link link-hover">Nosotros</a>
+      <a class="link link-hover">Contacto</a>
+    </nav>
+    <nav>
+      <div class="grid grid-flow-col gap-6">
         <!-- WhatsApp -->
         <a href="https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20" class="link link-hover">
-          <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-10 h-10" />
+          <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-6 h-6" />
         </a>
         <!-- Instagram -->
         <a href="https://www.instagram.com/flashcenter_py/" class="link link-hover">
-          <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-8 h-8" />
+          <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-6 h-6" />
         </a>
         <!-- Facebook -->
         <a href="https://www.facebook.com/Flashcenterpy" class="link link-hover">
-          <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-8 h-8" />
+          <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-6 h-6" />
         </a>
       </div>
     </nav>
-    <nav class="flex flex-col mx-auto font-bold">
-      <h2 class="footer-title text-lg">Servicios</h2>
-      <a href="#register" class="link link-hover text-base">Crea tu cuenta</a>
-      <a href="#products-and-calculator" class="link link-hover text-base">Solicita tu credito</a>
-    </nav>
-    <nav class="flex flex-col mx-auto">
-      <h2 class="footer-title text-lg">Empresa</h2>
-      <a href="#about" class="link link-hover text-base font-bold">Nosotros</a>
-      <a href="#contact" class="link link-hover text-base font-bold">Contacto</a>
+    <aside>
       <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-xs">
         Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay</a>
-    </nav>
-  </footer>
-  <!-- Disclaimer Footer -->
-  <div class="bg-secondary py-4">
-    <div class="flex justify-center items-center max-w-4xl mx-auto">
-      <p class="text-xs italic text-gray-200 px-4 text-center">
-        La información proporcionada sobre los préstamos es únicamente a título
+      <p class="text-xs italic text-gray-200 px-4 text-center">La información proporcionada sobre los préstamos es
+        únicamente a título
         informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
-        préstamos. Está sujeta a las políticas de mercado y/o internas de la entidad financiera
+        préstamos. <br />Está sujeta a las políticas de mercado y/o internas de la entidad financiera
       </p>
-    </div>
-  </div>
+      </nav>
+    </aside>
+  </footer>
 </div>
 
 
@@ -384,14 +367,14 @@
 
 
   <!-- Contact Form -->
-  <form id="contact-form-component" class="bg-neutral py-36" action="#" method="POST">
+  <form id="contact-form-component" class="bg-neutral pt-28 pb-12" action="#" method="POST">
     <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-bold pb-4">Contáctanos</h2>
-      <div class="divider"></div>
-      <p class="text-lg text-gray-600 pt-4 pb-8">¿Cómo te podemos ayudar?</p>
+      <h2 class="text-3xl font-bold pb-3">Contáctanos</h2>
+      <div class="divider mx-20"></div>
+      <p class="text-lg text-gray-600 pt-2 pb-6">¿Cómo te podemos ayudar?</p>
     </div>
     <div class="mx-auto max-w-2xl text-center">
-      <div class=" grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+      <div class=" grid grid-cols-2">
 
         <!-- Name Input -->
         <label for="contact-first-name" class="form-control w-full max-w-xs">
@@ -427,7 +410,7 @@
       </div>
 
       <!-- Message Input -->
-      <div class="pt-8">
+      <div class="pt-2">
         <label for="contact-message" class="form-control">
           <div class="label">
             <span class="label-text">Mensaje</span>
@@ -471,26 +454,24 @@
           </path>
         </svg></a>
     </div>
-  </nav>
-  <aside>
-    <p>Copyright © 2024 - All right reserved by ACME Industries Ltd</p>
-  </aside>
-</footer>
-
-<div id="alternative-footer">
-  <footer class="footer footer-center pt-10 pb-4 bg-secondary text-white">
-    <nav class="grid grid-flow-col gap-4 font-bold">
-      <a class="link link-hover">Inicio</a>
-      <a class="link link-hover">Productos</a>
-      <a class="link link-hover">Preguntas Frecuentes</a>
-      <a class="link link-hover">Nosotros</a>
-      <a class="link link-hover">Contacto</a>
-    </nav>
-    <nav>
-      <div class="grid grid-flow-col gap-6">
+<!-- Old Footer -->
+<div id="old-footer-component">
+  <footer class="footer p-6 bg-secondary text-white">
+    <div class="mx-auto">
+      <img src="./assets/img/logo-blanco.png" alt="Flash Center" id="footer-logo"
+        class="object-scale-down w-80 h-6 mt-1" />
+      <div class="flex items-center pt-4 pl-2">
+        <img src="./assets/icons/map-pin.svg" alt="Location Icon" class="w-7 h-7 mr-2">
+        <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-base link link-hover">
+          Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay</a>
+      </div>
+    </div>
+    <nav class="flex flex-col items-center mx-auto">
+      <h2 class="footer-title text-lg">Redes Sociales</h2>
+      <div class="flex justify-center items-center space-x-4">
         <!-- WhatsApp -->
         <a href="https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20" class="link link-hover">
-          <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-8 h-8" />
+          <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-10 h-10" />
         </a>
         <!-- Instagram -->
         <a href="https://www.instagram.com/flashcenter_py/" class="link link-hover">
@@ -502,15 +483,27 @@
         </a>
       </div>
     </nav>
-    <aside>
-      <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-sm">
+    <nav class="flex flex-col mx-auto font-bold">
+      <h2 class="footer-title text-lg">Servicios</h2>
+      <a href="#register" class="link link-hover text-base">Crea tu cuenta</a>
+      <a href="#products-and-calculator" class="link link-hover text-base">Solicita tu credito</a>
+    </nav>
+    <nav class="flex flex-col mx-auto">
+      <h2 class="footer-title text-lg">Empresa</h2>
+      <a href="#about" class="link link-hover text-base font-bold">Nosotros</a>
+      <a href="#contact" class="link link-hover text-base font-bold">Contacto</a>
+      <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-xs">
         Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay</a>
-      <p class="text-xs italic text-gray-200 px-4 text-center">La información proporcionada sobre los préstamos es
-        únicamente a título
-        informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
-        préstamos. <br />Está sujeta a las políticas de mercado y/o internas de la entidad financiera
-      </p>
-      </nav>
-    </aside>
+    </nav>
   </footer>
+  <!-- Disclaimer Footer -->
+  <div class="bg-secondary py-4">
+    <div class="flex justify-center items-center max-w-4xl mx-auto">
+      <p class="text-xs italic text-gray-200 px-4 text-center">
+        La información proporcionada sobre los préstamos es únicamente a título
+        informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
+        préstamos. Está sujeta a las políticas de mercado y/o internas de la entidad financiera
+      </p>
+    </div>
+  </div>
 </div>

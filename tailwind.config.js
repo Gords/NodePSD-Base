@@ -1,5 +1,8 @@
 module.exports = {
   content: ['./public/**/*.{html,js}'],
+  safelist: [
+    'btn-success'
+  ],
   plugins: [require('daisyui'), require('@tailwindcss/forms')],
   theme: {
     extend: {}

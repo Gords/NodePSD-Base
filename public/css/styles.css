@@ -29,13 +29,18 @@ html {
   height: 4rem !important;
 }
 
+/* TODO: mostrarle a nando como tailwind no funca en server response al menos que este hard-coded (certain things) */
+.btn-success-custom {
+  background-color: #84CC7D;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
 
 /* Override DaisyUI default 2rem padding on card body */
 .card-body {
-  padding: 1rem;
+  padding: 1.25rem;
 }
 
 /* Override DaisyUI border radius default property for hero-content */
@@ -48,6 +53,9 @@ html {
   display: none;
 }
 
+.pb-34 {
+  padding-bottom: 8.5rem/* 128px */;
+}
 
 /* Styling that adds a background pattern */
 /* main::before {

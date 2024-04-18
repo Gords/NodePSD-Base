@@ -33,8 +33,7 @@
         <section id="calculator" hx-trigger="load" hx-get="components.html" hx-select="#loan-calculator-component"
           hx-swap="afterbegin" class="grid flex-grow"></section>
       </div>
-      <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-accordion-component"
-        hx-swap="afterbegin">
+      <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-component" hx-swap="afterbegin">
       </section>
       <section id="about" hx-trigger="load" hx-get="components.html" hx-select="#about-component" hx-swap="afterbegin">
       </section>
@@ -55,7 +54,7 @@
     </section>
   </main>
   <footer>
-    <nav hx-get="components.html" hx-select="#alternative-footer" hx-trigger="load"></nav>
+    <nav hx-get="components.html" hx-select="#bottom-navigation-component" hx-trigger="load"></nav>
   </footer>
   <script src="./js/verifyEmailMessage.js"></script>
   <script src="./js/contentToggle.js"></script>
