@@ -25,8 +25,12 @@ html {
 }
 
 .img-thumbnail {
-  width: 4rem !important;
+  width: 5rem !important;
   height: 4rem !important;
+}
+
+.about-img {
+  opacity: 1 !important;
 }
 
 /* TODO: mostrarle a nando como tailwind no funca en server response al menos que este hard-coded (certain things) */
@@ -55,6 +59,16 @@ html {
 
 .pb-34 {
   padding-bottom: 8.5rem/* 128px */;
+}
+
+.mx-4 {
+  margin-left: 1rem/* 16px */;
+  margin-right: 1rem/* 16px */;
+}
+
+.mx-8 {
+  margin-left: 2rem/* 32px */;
+  margin-right: 2rem/* 32px */;
 }
 
 /* Styling that adds a background pattern */

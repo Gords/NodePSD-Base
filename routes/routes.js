@@ -454,12 +454,10 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       let userImagesHtml = '';
 
       if (images.length === 0) {
-        userImagesHtml = '<div class="text-center">No files found</div>';
-      } else {
         userImagesHtml = /*html*/`
           <div class="card bg-base-100 shadow-md text-center my-10">
             <div class="card-body">
-              <div class="flex justify-between items-center mx-8">
+              <div class="flex justify-between items-center mx-4">
                 <h2 class="card-title font-semibold pl-4">Tus documentos</h2>
                 <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
                   Descargar todo
@@ -467,24 +465,57 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
               </div>
               <div class="overflow-x-auto pt-8">
                 <table class="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Archivo</th>
+                      <th class="flex flex-row justify-center">Vista Previa</th>
+                      <th class="flex flex-row justify-center">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Placeholder for images -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        userImagesHtml = /*html*/`
+          <div class="card bg-base-100 shadow-md text-center my-10">
+            <div class="card-body">
+              <div class="flex justify-between items-center mx-4">
+                <h2 class="card-title font-semibold pl-4">Tus documentos</h2>
+                <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
+                  Descargar todo
+                </button>
+              </div>
+              <div class="overflow-x-auto pt-8">
+                <table class="table table-pin-rows w-full">
                 <thead>
                   <tr>
                     <th>Archivo</th>
-                    <th>Vista Previa</th>
-                    <th>Acciones</th>
+                    <th class="text-center">Vista Previa</th>
+                    <th class="text-center">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   ${images.map(image => /*html*/`
                   <tr class="hover" id="image-${image.id}">
-                    <td>${path.basename(image.path)}</td>
-                    <td>
+                    <td id="Archivo">${path.basename(image.path)}</td>
+
+                    <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${image.path}', '_blank')">
                       <img class="img-thumbnail" src="/${image.path}" alt="Document ${image.id}">
                     </td>
-                    <td>
-                      <div class="flex flex-col">
-                        <a href="/images/${image.id}" id="download-link" class="btn btn-xs">Download</a>
-                        <img style="margin-left: auto;" onclick="confirmDelete(${image.id})" src="/assets/icons/delete-icon.svg" class="w-6 h-6 cursor-pointer"/>
+
+                    <td id="Acciones">
+                      <div class="flex justify-center gap-1">
+                        <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
+                          <img src="/assets/icons/download.svg" alt="Descargar">
+                        </a>
+                        <button hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
+                          <img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -507,6 +538,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
     }
   });
+
 
 
 
@@ -641,12 +673,7 @@ router.delete('/images/:imageId', isAuthenticated, async (req, res) => {
     }
     // Delete the image record from the database
     await image.destroy();
-    res.send(`
-      <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-        <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-        <span class="font-bold">Archivo eliminado exitosamente</span>
-      </div>
-    `);
+    res.send();
   } catch (error) {
     console.error('Error deleting image:', error);
     res.status(500).send(`

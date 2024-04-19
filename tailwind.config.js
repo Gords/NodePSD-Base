@@ -1,7 +1,15 @@
 module.exports = {
   content: ['./public/**/*.{html,js}'],
   safelist: [
-    'btn-success'
+    'btn-success',
+    'btn-sm',
+    'btn-md',
+    'hover',
+    'hover:',
+    'hover:cursor-pointer',
+    'table',
+    'display:grid',
+    'table-pin-rows'
   ],
   plugins: [require('daisyui'), require('@tailwindcss/forms')],
   theme: {
