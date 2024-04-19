@@ -15,8 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-
-
 // Logout function
 function logout() {
   localStorage.removeItem('loggedIn');
