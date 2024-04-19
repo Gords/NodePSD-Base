@@ -140,7 +140,12 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
             </div>
           `);
         }
-        res.set('HX-Redirect', '/user-panel.html')
+        // Check if user is an admin
+        if (user.isAdmin) {
+          res.set('HX-Redirect', '/admin-panel.html');
+        } else {
+          res.set('HX-Redirect', '/user-panel.html');
+        }
         res.status(200).send(`
           <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
             <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
@@ -179,8 +184,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
   })
 
 
-  // Get a single user
-  router.get('/check-login', (req, res) => {
+  // Get logged in user details
+  router.get('/check-login-user', (req, res) => {
     if (req.isAuthenticated()) {
       // Sending a partial HTML snippet to update the user-info div
       res.send(/*html*/`
@@ -210,6 +215,35 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
     }
   });
+
+
+   // Get admin details
+  router.get('/check-login-admin', (req, res) => {
+    if (req.isAuthenticated()) {
+      // Sending a partial HTML snippet to update the user-info div
+      res.send(/*html*/`
+      <div class="flex flex-col items-center justify-center">
+        <div class="avatar text-center">
+          <div class="w-16 h-16 rounded-full bg-primary">
+            <span class="absolute top-0 left-0 w-full h-full text-4xl font-semibold text-white">
+              ${req.user.name.charAt(0).toUpperCase()}
+            </span>
+          </div>
+        </div>
+          <div class="font-semibold text-lg">${req.user.name}</div>
+          <div class="text-sm">${req.user.email}</div>
+      </div>
+      `);
+    } else {
+      res.status(401).send(/*html*/`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Not logged in</span>
+        </div>
+      `);
+    }
+  });
+
 
 
 
@@ -505,7 +539,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
                     <td id="Archivo">${path.basename(image.path)}</td>
 
                     <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${image.path}', '_blank')">
-                      <img class="img-thumbnail" src="/${image.path}" alt="Document ${image.id}">
+                      <img class="img-thumbnail hover:pointer" src="/${image.path}" alt="Document ${image.id}">
                     </td>
 
                     <td id="Acciones">

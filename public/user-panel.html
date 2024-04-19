@@ -29,13 +29,13 @@
   <main>
     <!-- User Panel Component -->
     <div id="user-panel-component"
-      class="flex flex-col h-full min-h-screen justify-center items-center pt-20 bg-neutral">
+      class="flex flex-col h-full min-h-screen justify-center items-center pt-32 pb-20 bg-neutral">
       <!-- Data and File Upload Container -->
       <div class="w-full max-w-3xl py-4"> <!-- Adjust the width as needed -->
         <!-- User personal info -->
         <div class="card bg-base-100 shadow-md">
           <div class="card-body">
-            <div id="user-info" hx-get="/check-login" hx-trigger="load" hx-swap="innerHTML"
+            <div id="user-info" hx-get="/check-login-user" hx-trigger="load" hx-swap="innerHTML"
               class="card-title items-center pb-4">
               <!-- <div class="avatar">
                 <div class="w-16 h-16 rounded-full relative bg-primary">

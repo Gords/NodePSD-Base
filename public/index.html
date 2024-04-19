@@ -17,7 +17,8 @@
   <script src="js/login.js"></script>
 </head>
 
-<body class="h-full flex flex-col min-h-screen" htmx:afterOnLoad="console.log('HTMX load event:', event.detail)">
+<body class="h-full flex flex-col min-h-screen sm::mx-4"
+  htmx:afterOnLoad="console.log('HTMX load event:', event.detail)">
   <header>
     <nav hx-get="components.html" hx-select="#top-navigation-component" hx-trigger="load"></nav>
   </header>
@@ -42,8 +43,8 @@
       </section>
     </section>
     <section id="register-content">
-      <section id="register" hx-trigger="load" hx-get="components.html"
-        hx-select="#register-form-component" hx-swap="innerHTML">
+      <section id="register" hx-trigger="load" hx-get="components.html" hx-select="#register-form-component"
+        hx-swap="innerHTML">
       </section>
       <div id="register-response" class="py-4"></div>
     </section>
