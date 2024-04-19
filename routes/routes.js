@@ -57,7 +57,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       await emailService.sendVerificationEmail(email, verificationToken)
       console.log('User registered successfully:', user.email);
       res.status(200).send(`
-      <div id="register-form-component" class="pt-28">
+      <div id="register-form-component">
         <div class="card m-auto max-w-sm shadow-xl">
           <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
             <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
@@ -67,7 +67,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
           </div>
         </div>
       </div>
-    `);
+    `.trim());
     } catch (error) {
       console.error('Error registering user:', error);
       res.status(500).send(`
