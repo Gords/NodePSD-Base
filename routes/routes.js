@@ -67,7 +67,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
           </div>
         </div>
       </div>
-    `.trim());
+    `);
     } catch (error) {
       console.error('Error registering user:', error);
       res.status(500).send(`
