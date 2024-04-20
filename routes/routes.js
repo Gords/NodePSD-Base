@@ -26,11 +26,11 @@ const isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next()
   }
-  res.status(401).json({ error: 'Please log in to access this page.' })
+  res.status(401).json({ error: 'Por favor inicia sesion para visitar esta pagina' })
 }
 
 
-module.exports = (User, Image) => {
+module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 
   // User registration
   router.post('/register', async (req, res) => {
@@ -55,21 +55,35 @@ module.exports = (User, Image) => {
 
       // Send verification email
       await emailService.sendVerificationEmail(email, verificationToken)
-
-      console.log('User registered successfully:', user.email)
-      res.status(200).json({
-        success: true,
-        message:
-          'Registration successful. Please check your email for verification instructions.'
-      })
+      console.log('User registered successfully:', user.email);
+      res.status(200).send(`
+      <div id="register-form-component">
+        <div class="card m-auto max-w-sm shadow-xl">
+          <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
+            <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+              <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+              <span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
     } catch (error) {
-      console.error('Error registering user:', error)
-      res.status(500).json({
-        success: false,
-        message: 'Error registering user'
-      })
+      console.error('Error registering user:', error);
+      res.status(500).send(`
+      <div id="register-form-component">
+        <div class="card m-auto max-w-sm shadow-xl">
+          <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
+            <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+              <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+              <span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      `.trim());
     }
-  })
+  });
 
 
   // Verify email
@@ -88,40 +102,71 @@ module.exports = (User, Image) => {
       user.isVerified = true
       await user.save()
 
-      res.redirect('/?message=Email verified successfully. You can now log in.')
+      res.redirect('/?message=Email verified successfully. You can now log in.');
+
     } catch (error) {
-      console.error('Error verifying email:', error)
-      res.status(400).json({ error: 'Invalid verification token' })
+      console.error('Error verifying email:', error);
+      res.status(400).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold justify-center">Invalid verification token</span>
+        </div>
+      `);
     }
-  })
+  });
 
 
-// User login
-router.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    if (err) {
-      return res.status(500).json({ success: false, message: 'Ocurrió un error durante el proceso de inicio de sesión' });
-    }
-    if (!user) {
-      return res.status(401).json({ success: false, message: info.message || 'Ese usuario no existe'});
-    }
-    req.logIn(user, (loginErr) => {
-      if (loginErr) {
-        return res.status(500).json({ success: false, message: 'Ocurrió un error durante el proceso de inicio de sesión'});
+  // User login
+  router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+      if (err) {
+        return res.status(500).send(`
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
+          </div>
+        `);
       }
-      if (!user.isVerified) {
-        return res.status(401).json({
-          success: false,
-          message: 'Por favor verifica tu correo electrónico'
-        });
+      if (!user) {
+        return res.status(401).send(`
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold text-center">${info.message || 'Ese usuario no existe'}</span>
+          </div>
+        `);
       }
-      return res.status(200).json({
-        success: true,
-        message: 'Inicio de sesión exitoso'
+      req.logIn(user, (loginErr) => {
+        if (loginErr) {
+          return res.status(500).send(`
+            <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+              <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+              <span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
+            </div>
+          `);
+        }
+        if (!user.isVerified) {
+          return res.status(401).send(`
+            <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+              <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+              <span class="font-bold text-center">Por favor verifica tu correo electrónico</span>
+            </div>
+          `);
+        }
+        // Check if user is an admin
+        if (user.isAdmin) {
+          res.set('HX-Redirect', '/admin-panel.html');
+        } else {
+          res.set('HX-Redirect', '/user-panel.html');
+        }
+        res.status(200).send(`
+          <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+            <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold">Inicio de sesión exitoso</span>
+          </div>
+        `);
       });
-    });
-  })(req, res, next);
-});
+    })(req, res, next);
+  });
 
 
   // Get login form section
@@ -151,15 +196,63 @@ router.post('/login', (req, res, next) => {
   })
 
 
-  // Get a single user
-  router.get('/check-login', (req, res) => {
+  // Get logged in user details
+  router.get('/check-login-user', (req, res) => {
     if (req.isAuthenticated()) {
-      return res.json({
-        name: req.user.name,
-        email: req.user.email
-      })
+      // Sending a partial HTML snippet to update the user-info div
+      res.send(/*html*/`
+        <div class="avatar">
+          <div class="w-16 h-16 rounded-full relative bg-primary">
+            <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">
+              ${req.user.name.charAt(0).toUpperCase()}
+            </span>
+          </div>
+        </div>
+        <div class="flex justify-between items-center w-full">
+          <div class="flex flex-col">
+            <div class="font-semibold text-lg">${req.user.name}</div>
+            <div class="text-sm">${req.user.email}</div>
+          </div>
+          <button hx-post="/request-loan" hx-target="#request-loan-button" hx-swap="outerHTML" id="request-loan-button" class="btn btn-primary text-white self-center">
+            Solicitar credito
+          </button>
+        </div>
+      `);
     } else {
-      res.status(401).json({ error: 'Not logged in' })
+      res.status(401).send(/*html*/`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Not logged in</span>
+        </div>
+      `);
+    }
+  });
+
+
+   // Get admin details
+  router.get('/check-login-admin', (req, res) => {
+    if (req.isAuthenticated()) {
+      // Sending a partial HTML snippet to update the user-info div
+      res.send(/*html*/`
+      <div class="flex flex-col items-center justify-center">
+        <div class="avatar text-center">
+          <div class="w-16 h-16 rounded-full bg-primary">
+            <span class="absolute top-0 left-0 w-full h-full text-4xl font-semibold text-white">
+              ${req.user.name.charAt(0).toUpperCase()}
+            </span>
+          </div>
+        </div>
+          <div class="font-semibold text-lg">${req.user.name}</div>
+          <div class="text-sm">${req.user.email}</div>
+      </div>
+      `);
+    } else {
+      res.status(401).send(/*html*/`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Not logged in</span>
+        </div>
+      `);
     }
   })
 
@@ -167,31 +260,35 @@ router.post('/login', (req, res, next) => {
   // Get all users
   router.get('/users', isAuthenticated, async (req, res) => {
     try {
-    const users = await User.findAll();
-      const tableHtml = `
+      const users = await User.findAll({
+        where: {
+        loanRequested: true
+      }
+    });
+
+      const tableHtml = /*html*/`
       <div class="overflow-x-auto">
-        <table class="table table-zebra w-full text-l">
+        <table class="table table-zebra max-w-4xl text-l text-center">
           <thead>
             <tr>
-              <th>Nro. Usuario</th>
               <th>Nombre</th>
               <th>Telefono</th>
               <th>Email</th>
-              <th>Documentos</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            ${users.map((user) => `
+            ${users.map((user) => /*html*/`
               <tr>
-                <th>${user.id}</th>
                 <td>${user.name}</td>
                 <td>${user.phone}</td>
                 <td>${user.email}</td>
                 <td>
-                  <a href="/images/user-images/${user.id}" 
-                    hx-get="/images/user-images/${user.id}" 
-                    hx-target="#list-of-users" 
-                    hx-swap="outerHTML">Ver documentos</a>
+                  <a href="/images/user-images/${user.id}"
+                    hx-get="/images/user-images/${user.id}"
+                    hx-target="#list-of-users"
+                    hx-swap="outerHTML"
+                    hx-push-url="true" class="btn btn-xs">Ver documentos</a>
                 </td>
               </tr>
             `).join('')}
@@ -200,10 +297,15 @@ router.post('/login', (req, res, next) => {
       </div>
     `;
     res.send(tableHtml);
-    } catch (error) {
+  } catch (error) {
     console.error('Error fetching users:', error);
-    res.status(500).json({ error: 'Error fetching users' });
-    }
+    res.status(500).send(`
+      <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+        <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+        <span class="font-bold text-center">Error fetching users</span>
+      </div>
+    `);
+  }
 });
 
 
@@ -215,24 +317,106 @@ router.post('/login', (req, res, next) => {
         { email, password, name },
         { where: { id: req.params.id } }
       )
-      res.json({ message: 'User updated successfully' })
+      res.send(`
+        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold">User updated successfully</span>
+        </div>
+      `);
     } catch (error) {
-      console.error('Error updating user:', error)
-      res.status(500).json({ error: 'Error updating user' })
+      console.error('Error updating user:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error updating user</span>
+        </div>
+      `);
     }
-  })
+  });
 
 
   // Delete a user
   router.delete('/users/:id', isAuthenticated, async (req, res) => {
     try {
       await User.destroy({ where: { id: req.params.id } })
-      res.sendStatus(204)
+      res.sendStatus(204);
+      res.sendStatus(204);
     } catch (error) {
-      console.error('Error deleting user:', error)
-      res.status(500).json({ error: 'Error deleting user' })
+      console.error('Error deleting user:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error deleting user</span>
+        </div>
+      `);
     }
-  })
+  });
+
+  // Create new Loan type
+  router.post('/create-loan-type', isAuthenticated, async (req, res) => {
+    try {
+      const typeOfLoan = await TypeOfLoan.create({
+        name: 'Préstamo Personal',
+        description: 'Préstamo para uso personal',
+      })
+
+      res.status(201).send(`
+        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold">Type of loan created successfully</span>
+        </div>
+      `);
+    } catch (error) {
+      console.error('Failed to create type of loan:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Failed to create type of loan</span>
+        </div>
+      `);
+    }
+  });
+
+  // Create new Loan entry and update user's loanRequested status
+  router.post('/request-loan', isAuthenticated, async (req, res) => {
+    const userId = req.user.id;
+
+    try {
+      const result = await sequelize.transaction(async (t) => {
+        // Look for the user
+        const user = await User.findByPk(userId, { transaction: t });
+        if (!user) {
+          throw new Error('User not found');
+        }
+        // Update the user's loanRequested status
+        user.loanRequested = true;
+        await user.save({ transaction: t });
+
+        // Create a new loan record
+        const loan = await Loan.create({
+          userId,
+          typeOfLoanId: 1
+        }, { transaction: t });
+
+        return loan;
+      });
+
+      res.status(201).send(`
+        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold">Loan created successfully</span>
+        </div>
+      `);
+    } catch (error) {
+      console.error('Failed to create loan and update user:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Failed to process loan request</span>
+        </div>
+      `);
+    }
+  });
 
 
   // Post (Upload) a file within an array of files, max 4 files
@@ -267,10 +451,15 @@ router.post('/login', (req, res, next) => {
 
       res.header('HX-Redirect', '/images/user-images')
     } catch (error) {
-      console.error('Error uploading files:', error)
-      res.status(500).send('Error processing your request')
+      console.error('Error uploading files:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error processing your request</span>
+        </div>
+      `);
     }
-  })
+  });
 
 
   // Get all images
@@ -279,7 +468,7 @@ router.post('/login', (req, res, next) => {
       const images = await Image.findAll()
       const imagesHtml = images
         .map(
-          (image) => `
+          (image) => /*html*/`
         <div>
           <p>Image ID: ${image.id}</p>
           <p>User ID: ${image.userId}</p>
@@ -288,119 +477,265 @@ router.post('/login', (req, res, next) => {
       `
         )
         .join('')
-      res.send(`
+        res.send(`
         <div id="image-list">
           ${imagesHtml}
         </div>
-      `)
+      `);
     } catch (error) {
-      console.error('Error fetching images:', error)
-      res.status(500).json({ error: 'Error fetching images' })
-    }
-  })
-
-
-  // Get all images for the currently authenticated user
-  router.get('/images/user-images', isAuthenticated, async (req, res) => {
-    try {
-      const images = await Image.findAll({ where: { userId: req.user.id } })
-      let imagesHTML = ''
-
-      if (images.length === 0) {
-        imagesHTML = '<li>No files found</li>'
-      } else {
-        images.forEach((image) => {
-          // Check if image.path is not null
-          // Add "X" icon to delete an image
-          if (image.path) {
-            const deleteIcon = `<svg style="margin-left: auto;" onclick="confirmDelete(${image.id})" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`
-            imagesHTML += `<li class="flex justify-between text-center items-center py-2">${path.basename(image.path)} ${deleteIcon}</li>`
-          }
-        })
-      }
-      res.send(`<ul>${imagesHTML}</ul>`)
-    } catch (error) {
-      console.error('Error fetching user images:', error)
-      res.status(500).send('Error fetching user images')
-    }
-  })
-
-
-  // Get images for a specific user
-  router.get('/images/user-images/:userId', isAuthenticated, async (req, res) => {
-    try {
-      const userId = req.params.userId;
-      const userImages = await Image.findAll({
-        where: { userId }
-      });
-
-      const userImagesHtml = `
-    <div class="card bg-base-100 shadow-xl tex-center my-10">
-      <div class="card-body items-center">
-        <h2 class="card-title font-semibold">Documentos del Usuario</h2>
-        <hr class=border-black my-2">
-        <div class="overflow-x-auto pt-8">
-          <table class="table w-full">
-            <thead>
-              <tr class="hover">
-                <th>Archivos</th>
-                <th>Vista Previa</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${userImages.map(image => `
-                <tr class="hover" id="image-${image.id}">
-                  <td>${path.basename(image.path)}</td>
-                  <td>
-                    <img class="img-thumbnail" src="/${image.path}" alt="Documento ${image.id}">
-                  </td>
-                  <td>
-                    <button class="btn btn-error btn-xs"
-                      hx-delete="/images/${image.id}" 
-                      hx-target="#image-${image.id}" 
-                      hx-confirm="Estas seguro que quieres eliminar este archivo?">Eliminar</button>
-                  </td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
+      console.error('Error fetching images:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error fetching images</span>
         </div>
-      </div>
-    </div>
-    `;
-
-      res.send(userImagesHtml);
-    } catch (error) {
-      console.error('Error fetching user images:', error);
-      res.status(500).json({ error: 'Error fetching user images' });
+      `);
     }
   });
 
 
-  // Delete an image
-  router.delete('/images/:imageId', isAuthenticated, async (req, res) => {
+  // Get all images of the logged in user
+  router.get('/images/user-images', isAuthenticated, async (req, res) => {
     try {
-      const { imageId } = req.params
-      const image = await Image.findByPk(imageId)
-      if (!image) {
-        return res.status(404).send('No se han encontrado archivos')
-      }
-      // Delete the image file from the file system
-      if (image.path) {
-        await fs.promises.unlink(image.path)
+      const images = await Image.findAll({ where: { userId: req.user.id } });
+      let userImagesHtml = '';
+
+      if (images.length === 0) {
+        userImagesHtml = /*html*/`
+          <div class="card bg-base-100 shadow-md text-center my-10">
+            <div class="card-body">
+              <div class="flex justify-between items-center mx-4">
+                <h2 class="card-title font-semibold pl-4">Tus documentos</h2>
+                <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
+                  Descargar todo
+                </button>
+              </div>
+              <div class="overflow-x-auto pt-8">
+                <table class="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Archivo</th>
+                      <th class="flex flex-row justify-center">Vista Previa</th>
+                      <th class="flex flex-row justify-center">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Placeholder for images -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `;
       } else {
-        console.error('Error: image.path is undefined')
-        return res.status(500).send('Error eliminando archivo')
+        userImagesHtml = /*html*/`
+          <div class="card bg-base-100 shadow-md text-center my-10">
+            <div class="card-body">
+              <div class="flex justify-between items-center mx-4">
+                <h2 class="card-title font-semibold pl-4">Tus documentos</h2>
+                <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
+                  Descargar todo
+                </button>
+              </div>
+              <div class="overflow-x-auto pt-8">
+                <table class="table table-pin-rows w-full">
+                <thead>
+                  <tr>
+                    <th>Archivo</th>
+                    <th class="text-center">Vista Previa</th>
+                    <th class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${images.map(image => /*html*/`
+                  <tr class="hover" id="image-${image.id}">
+                    <td id="Archivo">${path.basename(image.path)}</td>
+
+                    <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${image.path}', '_blank')">
+                      <img class="img-thumbnail hover:pointer" src="/${image.path}" alt="Document ${image.id}">
+                    </td>
+
+                    <td id="Acciones">
+                      <div class="flex justify-center gap-1">
+                        <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
+                          <img src="/assets/icons/download.svg" alt="Descargar">
+                        </a>
+                        <button hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
+                          <img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  `).join('')}
+                </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `;
       }
-      // Delete the image record from the database
-      await image.destroy()
-      res.status(204).send('Archivo eliminado exitosamente')
+      res.send(userImagesHtml);
     } catch (error) {
-      console.error('Error fetching images:', error)
-      res.status(500).json({ error: 'Error fetching images' })
+      console.error('Error fetching user images:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error fetching user images</span>
+        </div>
+      `);
     }
-  })
+  });
+
+
+
+
+  // Download a single image from a specific user
+  router.get('/images/:imageId', isAuthenticated, async (req, res) => {
+    try {
+      const imageId = req.params.imageId;
+
+      // Might have to add admin privileges check here, or straight up not allow access to admin-panel.html unless the user is an admin
+      const image = await Image.findOne({
+        where: {
+          id: imageId,
+        }
+      });
+
+      if (!image) {
+        return res.status(404).send('No se han encontrado archivos');
+      }
+
+      const imagePath = path.resolve(image.path);
+      res.download(imagePath, path.basename(imagePath), (err) => {
+        if (err) {
+          // Handle error, but do not expose the internal path
+          console.error('File download error:', err);
+          res.status(500).send(`
+            <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+              <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+              <span class="font-bold text-center">Error processing your download request</span>
+            </div>
+          `);
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching images:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error fetching images</span>
+        </div>
+      `);
+    }
+  });
+
+
+  // Get all images from a specific user
+  router.get('/images/user-images/:userId', isAuthenticated, async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const userEmail = req.user.email;
+      const userImages = await Image.findAll({
+        where: { userId }
+      });
+
+      const userImagesHtml = /*html*/`
+        <div class="card bg-base-100 shadow-md tex-center my-10">
+          <div class="card-body">
+            <div class="flex justify-between items-center mx-8">
+              <h2 class="card-title font-semibold pl-4">Documentos del usuario '${userEmail}'</h2>
+              <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
+              Descargar todo
+              </button>
+            </div>
+            <div class="divider divider-accent"></div>
+            <div class="overflow-x-auto pt-8">
+              <table class="table w-full">
+              <thead>
+                <tr>
+                  <th>Archivos</th>
+                  <th>Vista Previa</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${userImages.map(image => /*html*/`
+                <tr class="hover" id="image-${image.id}">
+                  <td>${path.basename(image.path)}</td>
+                  <td>
+                  <img class="img-thumbnail" src="/${image.path}" alt="Documento ${image.id}">
+                  </td>
+                  <td>
+                  <div class="flex flex-col">
+                    <a href="/images/${image.id}" id="download-link" class="btn btn-xs">Descargar</a>
+                  </div>
+                  </td>
+                </tr>
+                `).join('')}
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        `;
+
+        res.send(userImagesHtml);
+      } catch (error) {
+        console.error('Error fetching user images:', error);
+        res.status(500).send(`
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold text-center">Error fetching user images</span>
+          </div>
+        `);
+      }
+    });
+  
+
+
+// Delete an image
+router.delete('/images/:imageId', isAuthenticated, async (req, res) => {
+  try {
+    const { imageId } = req.params;
+    const image = await Image.findByPk(imageId);
+    if (!image) {
+      return res.status(404).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">No se han encontrado archivos</span>
+        </div>
+      `);
+    }
+    // Delete the image file from the file system
+    if (image.path) {
+      await fs.promises.unlink(image.path);
+    } else {
+      console.error('Error: image.path is undefined');
+      return res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error eliminando archivo</span>
+        </div>
+      `);
+    }
+    // Delete the image record from the database
+    await image.destroy();
+    res.send(`
+      <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+        <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+        <span class="font-bold">Archivo eliminado exitosamente</span>
+      </div>
+    `);
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    res.status(500).send(`
+      <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+        <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+        <span class="font-bold text-center">Error deleting image</span>
+      </div>
+    `);
+  }
+});
 
 
   // Get interest rate

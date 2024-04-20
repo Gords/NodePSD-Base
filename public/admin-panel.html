@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLASH CENTER</title>
+  <title>Flash Center</title>
   <link rel="icon" href="./assets/icons/favicon.ico" type="image/x-icon">
   <script src="https://unpkg.com/htmx.org@1.7.0"></script>
   <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
@@ -14,9 +14,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
     rel="stylesheet">
   <link href="./css/output.css" rel="stylesheet">
-  <script src="./js/fetchUserDetails.js"></script>
+  <script src="./js/fileDownloadAll.js"></script>
 </head>
-
 
 <body>
   <header>
@@ -28,30 +27,27 @@
         <!-- Admin personal info -->
         <div class="card bg-base-100 shadow-xl mb-6">
           <div class="card-body">
-            <div id="user-info" class="card-title flex flex-row items-center">
-              <div class="avatar ml-2 mr-4">
-                <div class="w-16 h-16 rounded-full relative bg-primary">
-                  <span id="avatar-username-initials"
-                    class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white"></span>
-                </div>
-              </div>
-              <div class="flex flex-col items-center md:items-start">
-                <div id="user-name" class="font-semibold text-lg">Nombre Usuario</div>
-                <div id="user-email" class="text-sm">email.del@usuario.com</div>
+            <div id="user-info" hx-get="/check-login-admin" hx-trigger="load" hx-swap="innerHTML">
+              <!-- Dynamic user info will be loaded here -->
+              <!-- The loading placeholders can be removed or customized as per design -->
+              <div class="flex justify-center items-center">
+                <div class="loader">Loading user information...</div>
               </div>
             </div>
           </div>
         </div>
         <!-- List of all Flash Center users -->
-        <div id="list-of-users" class="card bg-base-100 shadow-xl tex-center my-10">
-          <div class="card-body items-center">
+        <div id="list-of-users" class="card bg-base-100 shadow-md my-10">
+          <div class="card-body">
             <h2 class="card-title font-semibold">Lista de Usuarios</h2>
-            <hr style="height:2px;border-width:0;color:gray;background-color:black">
-            <div id="user-table-container" hx-get="/users" hx-trigger="load" class="pt-4">
-              <!-- The table returned from /users will be inserted here -->
+            <div id="user-table-container" hx-get="/users" hx-trigger="load">
+              <!-- User list table will be dynamically inserted here -->
             </div>
           </div>
         </div>
       </div>
+    </div>
   </main>
 </body>
+
+</html>

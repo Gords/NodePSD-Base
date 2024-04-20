@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav id="top-navigation-component" class="navbar bg-primary font-bold text-white shadow-xl flex">
+<nav id="top-navigation-component" class="navbar bg-primary font-bold text-white shadow-md flex">
   <div class="navbar-start">
     <div class="dropdown">
       <button tabindex="0" class="btn btn-ghost lg:hidden">
@@ -16,7 +16,7 @@
       </ul>
     </div>
     <a href="/" class="btn btn-ghost flex-initial w-80">
-      <img src="./assets/img/logo-blanco.png" alt="Flash Center" class="navbar-logo object-scale-down w-80 h-6">
+      <img src="./assets/img/logo-blanco.png" alt="Flash Center" id="navbar-logo" class="object-scale-down w-80 h-6">
     </a>
   </div>
   <div class="navbar-center hidden lg:flex">
@@ -40,7 +40,7 @@
 
 
 <!-- User/Admin Panel Navbar -->
-<nav id="user-panel-navbar-component" class="navbar bg-primary font-bold text-white shadow-xl flex">
+<nav id="user-panel-navbar-component" class="navbar bg-primary font-bold text-white shadow-md flex">
   <div class="navbar-start">
     <a href="/" class="btn btn-ghost flex-initial w-80">
       <img src="./assets/img/logo-blanco.png" alt="Flash Center" class="navbar-logo object-scale-down w-80 h-6">
@@ -61,15 +61,14 @@
   <video autoplay muted loop class="absolute -z-10 w-full h-full object-cover">
     <source src="./assets/img/skyline-video.mp4" type="video/mp4">
   </video>
-  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-8 md:p-12 lg:p-16">
+  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-6 mx-1">
     <div class="max-w-3xl">
       <h2 class="mb-5 text-3xl font-semibold">Obten tu credito pre aprobado en menos de 24hs</h2>
-      <p class="mb-5 text-xl">Acompanhamos en la busqueda del producto ideal, a cada cliente, en cualquier parte del
+      <p class="mb-5 text-xl">Acompañamos en la busqueda del producto ideal, a cada cliente, en cualquier parte del
         mundo.
         Salvaguardamos su interes,
         garantizando un trato simple y efectivo. En menos de 5 minutos te decimos si contas con una pre-aprobacion</p>
-      <a href="#register"
-        class="btn btn-accent btn-wide btn-xs sm:btn-sm md:btn-md lg:btn-lg text-white font-bold">SOLICITA TU
+      <a href="#register" class="btn btn-primary btn-lg text-white font-bold">SOLICITA TU
         CREDITO</a>
     </div>
   </div>
@@ -78,124 +77,99 @@
 
 
 <!-- Products Section -->
-<div id="products-component" class="pl-56">
-  <div class="text-center">
-    <h1 class="text-3xl font-bold tracking-widest pt-2 pb-8">NUESTROS PRODUCTOS</h1>
-    <hr style="height:2px;border-width:0;color:gray;background-color:black">
-    <div class="grid md:grid-cols-2 pt-8">
-      <div class="px-0 mb-4">
-        <img src="./assets/icons/dollar-bills.svg" alt="Icono de Billetes" class="mx-auto mb-6 w-20 h-20">
-        <h3 class="text-xl font-bold mb-1">Prestamos Personales</h3>
-        <p class="text-lg">Mínimo: Gs. 500.000</p>
-        <p class="text-lg">Máximo: Gs 15.000.000</p>
-      </div>
-      <div class="px-0 mb-4">
-        <img src="./assets/icons/piggy-bank.svg" alt="Icono de Alcancia" class="mx-auto mb-6 w-20 h-20">
-        <h3 class="text-xl font-bold mb-1">Financiamiento</h3>
-        <p class="text-lg">Plazos de pago desde 6 meses<br>hasta 15 meses</p>
-      </div>
+<div id="products-component" class="text-center">
+  <h1 class="text-3xl font-bold tracking-widest pt-2 pb-16">NUESTROS PRODUCTOS</h1>
+  <div class="grid md:grid-cols-2 pt-4">
+    <div class="px-0 mb-4">
+      <img src="./assets/icons/dollar-bills.svg" alt="Icono de Billetes" class="mx-auto mb-6 w-20 h-20">
+      <h3 class="text-xl font-bold mb-1">Prestamos Personales</h3>
+      <p class="text-lg">Mínimo: Gs. 500.000</p>
+      <p class="text-lg">Máximo: Gs 15.000.000</p>
     </div>
-    <div class="mt-8">
-      <img src="./assets/icons/bank-building.svg" alt="Icono de Edificio Bancario" class="mx-auto mb-5 w-20 h-22">
-      <h3 class="text-xl font-bold mb-1">Tasa Efectiva Anual (TEA):</h3>
-      <p class="text-lg">Máximo permitido por el<br>Banco Central de Paraguay y<br>la normativa correspondiente: 30.27%
-      </p>
+    <div class="px-0 mb-4">
+      <img src="./assets/icons/piggy-bank.svg" alt="Icono de Alcancia" class="mx-auto mb-6 w-20 h-20">
+      <h3 class="text-xl font-bold mb-1">Financiamiento</h3>
+      <p class="text-lg">Plazos de pago desde 6 meses<br>hasta 15 meses</p>
     </div>
-    <!-- <div class="mb-4">
-        //TODO: move this info to small font in the foter
-        <h3 class="text-xl font-bold mb-1">Información Adicional:</h3>
-        <p class="text-lg">La información proporcionada sobre los préstamos es únicamente a título informativo.</p>
-        <p class="text-lg">No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
-          préstamos. Está sujeta a las políticas de mercado y/o internas de la entidad financiera.</p>
-      </div> -->
+  </div>
+  <div class="mt-8">
+    <img src="./assets/icons/bank-building.svg" alt="Icono de Edificio Bancario" class="mx-auto mb-5 w-20 h-22">
+    <h3 class="text-xl font-bold mb-1">Tasa Efectiva Anual (TEA):</h3>
+    <p class="text-lg">Máximo permitido por el<br />Banco Central de Paraguay y<br />la normativa correspondiente:
+      30.27%
+    </p>
   </div>
 </div>
 
 <!-- Loan Calculator -->
-<div id="loan-calculator-component" class="pl-40">
-  <div class="card mr-auto max-w-md bg-base-100 shadow-xl">
-    <div class="card-body flex min-h-full flex-col items-center">
-      <h3 class="card-title text-3xl font-bold tracking-widest pt-2 pb-8">SIMULÁ TU PRÉSTAMO</h3>
-      <div class="flex flex-col items-center mt-4">
-        <div class="form-control w-full max-w-md">
-          <label class="label" for="occupation">
-            <span class="label-text">¿Cuál es tu ocupación?</span>
-          </label>
-          <select id="occupation" class="select select-bordered">
-            <option value="">Seleccióná</option>
-            <option value="employed">Empleado</option>
-            <option value="self-employed">Trabajador independiente</option>
-            <!-- Add more options as needed -->
-          </select>
-        </div>
-        <div class="form-control w-full max-w-md mt-4">
-          <label class="label" for="amount">
-            <span class="label-text">Monto Prestamo (Gs)</span>
-            <span id="loanOutput" class="label-text-alt"></span>
-          </label>
-          <input type="range" id="amount" min="1000000" max="10000000" value="1000000" class="range range-primary"
-            step="500000" />
-          <div class="w-full flex justify-between text-xs px-2">
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-          </div>
-        </div>
-        <div class="form-control w-full max-w-md mt-4">
-          <label class="label" for="days">
-            <span class="label-text">¿En cuántas cuotas querés pagarlo?</span>
-            <span id="monthsOutput" class="label-text-alt"></span>
-          </label>
-          <input type="range" id="days" min="1" max="12" value="1" class="range range-secondary" step="1" />
-          <div class="w-full flex justify-between text-xs px-2">
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-          </div>
-        </div>
-        <div class="mt-4 text-center">
-          <p>T.A.N: <span id="interest-rate"></span></p>
-          <p>T.A.E: <span id="apr"></span></p>
-          <p>Gastos administrativos: 10% Comisión: 18%</p>
-          <p class="font-bold">Cuota estimada de: <span id="amount2"></span></p>
-          <p>Sujeto a política crediticia de la entidad</p>
-        </div>
-        <a id="registerRedirect" href="#register" class="btn btn-primary mt-4 font-extrabold text-white">¡Solicitar
-          ya!</a>
-      </div>
+<div id="loan-calculator-component" class="text-center mx-10">
+  <h1 class="text-3xl font-bold tracking-widest pt-2 pb-16">SIMULÁ TU PRÉSTAMO</h1>
+  <div class="form-control w-full max-w-md mx-auto mt-4">
+    <label class="label" for="amount">
+      <span class="label-text text-lg font-semibold">Monto Prestamo (Gs)</span>
+      <span id="loanOutput" class="label-text-alt text-lg font-semibold"></span>
+    </label>
+    <input type="range" id="amount" min="1000000" max="10000000" value="1000000" class="range range-primary"
+      step="500000" />
+    <div class="w-full flex justify-between text-xs px-2">
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
     </div>
   </div>
+  <div class="form-control w-full max-w-md mx-auto mt-4">
+    <label class="label" for="days">
+      <span class="label-text text-lg font-semibold">¿En cuántas cuotas querés pagarlo?</span>
+      <span id="monthsOutput" class="label-text-alt text-lg font-semibold"></span>
+    </label>
+    <input type="range" id="days" min="1" max="12" value="1" class="range range-secondary" step="1" />
+    <div class="w-full flex justify-between text-xs px-2">
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+      <span>|</span>
+    </div>
+  </div>
+  <div class="mt-4 text-center">
+    <p class="py-2">T.A.E: <span id="apr"></span></p>
+    <p class="py-2">T.A.N: <span id="interest-rate"></span></p>
+    <p class="py-2">Gastos administrativos: 10% || Comisión: 18%</p>
+    <p class="py-2 font-bold text-xl">Cuota estimada de: <span id="amount2"></span></p>
+    <p class="pb-8 italic">Sujeto a política crediticia de la entidad</p>
+  </div>
+  <a id="registerRedirect" href="#register" class="btn btn-primary font-extrabold text-white">¡Solicitar ya!</a>
 </div>
 
 
 
-<!-- FAQ Accordion -->
-<section id="faq-accordion-component"
-  class="mx-auto py-40 bg-gradient-to-b from-secondary to-[#01112A] text-base-100 z-10">
-  <div class="text-center pb-16 max-w-3xl mx-auto">
-    <h1 class="text-3xl font-bold pb-6">PREGUNTAS FRECUENTES</h1>
-    <hr style="height:2px;border-width:0;color:gray;background-color:black">
+
+<!-- FAQ Section -->
+<div id="faq-component" class="mx-auto pt-40 pb-34 bg-gradient-to-b from-secondary to-[#01112A] text-base-100">
+  <div class="max-w-3xl mx-auto text-center pb-16">
+    <h1 class="text-3xl font-bold tracking-widest pb-6">PREGUNTAS FRECUENTES</h1>
+    <div class="justify-center">
+      <div class="divider divider-neutral mx-20"></div>
+    </div>
   </div>
   <div id="accordion-item-list" class="space-y-4 max-w-3xl mx-auto">
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
       <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿POR QUÉ CRÉDITO FLASH?
       </summary>
-      <div class="collapse-content py-6 bg-base-100">
+      <div class="collapse-content py-6 bg-neutral">
         <p class="text-center text-lg text-black">Porque tenemos la respuesta mas inmediata del mercado, ya
           que contamos con un
           proceso de
@@ -206,20 +180,21 @@
       <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿QUÉ DOCUMENTACIÓN NECESITO?
       </summary>
-      <div class="collapse-content py-6 bg-base-100">
-        <p class="text-center text-lg text-black">Necesitás comprobante de ingresos, comprobante de domicilio, recibos
-          de servicios
+      <div class="collapse-content py-6 bg-neutral">
+        <p class="text-center text-lg text-black">Necesitás cédula de identidad, comprobante de ingresos, Inforcomf e
+          Infocheck,factura de servicios
           (como Copaco,
           ANDE,
-          ESSAP, etc.) y Cédula de Identidad</p>
+          ESSAP, etc.) e informe de BICSA</p>
       </div>
     </details>
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
       <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿CÓMO LO SOLICITO?
       </summary>
-      <div class="collapse-content py-6 bg-base-100">
-        <p class="text-center text-lg text-black">¡Es muy fácil! Podés solicitar tu credito completando el formulario de
+      <div class="collapse-content py-6 bg-neutral">
+        <p class="text-center text-lg text-black">¡Es muy fácil!<br>és solicitar tu credito completando el formulario
+          de
           arriba y
           con solo
           5 datos, te damos el monto habilitado.</p>
@@ -229,90 +204,85 @@
       <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿DÓNDE LO RETIRO?
       </summary>
-      <div class="collapse-content py-6 bg-base-100">
+      <div class="collapse-content py-6 bg-neutral">
         <p class="text-center text-lg text-black">Lo retirás en cualquiera de los locales que tenemos disponibles.</p>
       </div>
     </details>
   </div>
-</section>
+</div>
 
 
 
 <!-- About Section -->
-<div id="about-component" class="bg-cover py-60 flex justify-center items-center"
+<div id="about-component" class="bg-cover pt-40 pb-32 flex justify-center items-center"
   style="background-image: url('./assets/img/cde-skyline.jpg')">
-  <div class="max-w-4xl flex justify-center items-center">
-    <div class="card p-6 bg-base-100 opacity-80 shadow-xl max-w-md md:wd-auto">
+  <div class="flex justify-center items-center max-w-xl">
+    <div class="card bg-base-100 opacity-80 shadow-md">
       <div class="card-body justify-start">
-        <h1 class="text-2xl font-bold mb-4 text-center">ACERCA DE FLASH CENTER</h1>
-        <hr style="height:2px;border-width:0;color:gray;background-color:black">
-      </div>
-      <p class="text-lg pt-4">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito.
-        Otorgamos
-        préstamos al consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación.</p>
-      <div>
-        <h2 class="text-xl font-bold mt-6 text-center">MISION</h2>
-        <p class="text-lg">Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a
-          la
-          sociedad, a través de productos financieros.</p>
-      </div>
-      <div>
-        <h2 class="text-xl font-bold mt-6 text-center">VISION</h2>
-        <p class="text-lg">Ser una banca contribuyente al estado y su gente</p>
-      </div>
-      <div>
-        <h2 class="text-xl font-bold mt-6 text-center">VALORES</h2>
-        <p class="text-lg text-center">Accesibilidad<br>Agilidad<br>Amabilidad<br>Lealtad<br>Respeto</p>
+        <h1 class="text-3xl font-bold text-center">ACERCA DE FLASH CENTER</h1>
+        <div class="divider"></div>
+        <p class="text-lg">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito
+          Otorgamos
+          préstamos al consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación</p>
+        <div class="text-center">
+          <h2 class="text-xl font-bold mt-6">MISION</h2>
+          <p class="text-lg">Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a
+            la
+            sociedad, a través de productos financieros</p>
+        </div>
+        <div class="text-center">
+          <h2 class="text-xl font-bold mt-6">VISION</h2>
+          <p class="text-lg">Ser una banca contribuyente al estado y su gente</p>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold mt-6 text-center">VALORES</h2>
+          <p class="text-lg text-center">Accesibilidad<br>Agilidad<br>Amabilidad<br>Lealtad<br>Respeto</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 
 
 <!-- Footer -->
-<footer id="bottom-navigation-component" class="footer p-8 bg-secondary font-bold text-white">
-  <div>
-    <img src="./assets/img/logo-blanco.png" alt="Flash Center" class="footer-logo object-scale-down w-80 h-6">
-    <div class="flex items-center ml-2 mt-4">
-      <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-8 h-8 mr-2">
-      <a href="https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20"
-        class="text-base link link-hover">+595 981 221
-        177</a>
-    </div>
-    <div class="flex items-center ml-2 mt-1">
-      <img src="./assets/icons/map-pin.svg" alt="Location Icon" class="w-7 h-7 mr-2">
-      <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-base link link-hover">Edificio Sky Park Torre 2, piso
-        15C<br>San Juan XXIII 2581, Asunción, Paraguay
-    </div>
-  </div>
-  <nav class="flex flex-col items-center">
-    <h2 class="footer-title text-lg">Redes Sociales</h2>
-    <div class="flex items-center justify-center">
-      <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-8 h-8 mr-2">
-      <a href="https://www.instagram.com/flashcenter_py/"></a>
-      <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-8 h-8 mr-2">
-      <a href="https://www.facebook.com/Flashcenterpy"></a>
-    </div>
-  </nav>
-  <nav>
-    <h2 class="footer-title text-lg">Servicios</h2>
-    <a href="#register" class="link link-hover text-base">Crea tu cuenta</a>
-    <a href="#products-and-calculator" class="link link-hover text-base">Solicita tu credito</a>
-  </nav>
-  <nav>
-    <h2 class="footer-title text-lg">Empresa</h2>
-    <a href="#about" class="link link-hover text-base">Nosotros</a>
-    <a href="#contact" class="link link-hover text-base">Contacto</a>
-    <a href="#jobs" class="link link-hover text-base">Unete al equipo</a>
-  </nav>
-  <nav>
-    <h2 class="footer-title text-lg">Legal</h2>
-    <a href="#terms" class="link link-hover text-base">Términos y condiciones</a>
-    <a href="#privacy" class="link link-hover text-base">Políticas de privacidad</a>
-  </nav>
-</footer>
+<div id="bottom-navigation-component">
+  <footer class="footer footer-center pt-8 pb-4 bg-secondary text-white">
+    <nav class="grid grid-flow-col gap-4 font-bold">
+      <a class="link link-hover">Inicio</a>
+      <a class="link link-hover">Productos</a>
+      <a class="link link-hover">Preguntas Frecuentes</a>
+      <a class="link link-hover">Nosotros</a>
+      <a class="link link-hover">Contacto</a>
+    </nav>
+    <nav>
+      <div class="grid grid-flow-col gap-6">
+        <!-- WhatsApp -->
+        <a href="https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20" class="link link-hover">
+          <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-6 h-6" />
+        </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/flashcenter_py/" class="link link-hover">
+          <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-6 h-6" />
+        </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/Flashcenterpy" class="link link-hover">
+          <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-6 h-6" />
+        </a>
+      </div>
+    </nav>
+    <aside>
+      <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-xs">
+        Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay</a>
+      <p class="text-xs italic text-gray-200 px-4 text-center">La información proporcionada sobre los préstamos es
+        únicamente a título
+        informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
+        préstamos. <br />Está sujeta a las políticas de mercado y/o internas de la entidad financiera
+      </p>
+      </nav>
+    </aside>
+  </footer>
+</div>
 
 
 
@@ -321,41 +291,32 @@
   <!-- Login Form -->
   <div id="login-form-component" class="pt-32">
     <div class="card m-auto max-w-sm shadow-xl">
-      <form id=login-form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/login">
+      <form id=login-form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/login"
+        hx-target="#login-response" hx-swap="innerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-10 text-center text-2xl font-bold">Acceda a su cuenta</h2>
+          <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Acceda a su cuenta</h2>
         </div>
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div class="mt-10 mx-auto w-full max-w-sm">
           <div class="space-y-6">
             <div>
-              <label for="username" class="text-lg text-center font-medium">Correo electronico</label>
-              <div class=" mt-2">
-                <input id="username" name="username" type="email" autocomplete="email" required
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6">
-              </div>
+              <label for="username" class="text-base font-medium text-gray-600">Correo
+                electronico</label>
+              <input id="username" name="username" type="email" autocomplete="email" required
+                class="input input-bordered w-full" />
             </div>
             <div>
-              <div class="flex items-center justify-between">
-                <label for="login-password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
-                <div class="text-sm">
-                  <a href="#" class="link link-primary font-bold">Olvidaste tu contraseña?</a>
-                </div>
-              </div>
-              <div class="mt-2">
-                <input id="login-password" name="password" type="password" autocomplete="current-password" required
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
+              <label for="login-password" class="text-base font-medium text-gray-600">Contraseña</label>
+              <input id="login-password" name="password" type="password" autocomplete="current-password" required
+                class="input input-bordered w-full" />
             </div>
-            <button type="submit"
-              class="btn btn-primary flex w-full justify-center text-white hover:bg-secondary">Iniciar
-              sesión</button>
+            <button type="submit" class="btn btn-primary w-full text-white">Iniciar sesión</button>
           </div>
+          <p class="mt-10 text-center text-sm text-gray-500">
+            No tienes una cuenta?
+            <a href="#register" class="link link-primary font-bold">Creala aqui!</a>
+          </p>
         </div>
-        <p class="mt-10 text-center text-sm text-gray-500">
-          No tienes una cuenta?
-          <a href="#register" class="link link-primary font-bold">Creala aqui!</a>
-        </p>
       </form>
     </div>
   </div>
@@ -365,43 +326,29 @@
   <!-- Register Form -->
   <div id="register-form-component" class="pt-28">
     <div class="card m-auto max-w-sm shadow-xl">
-      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/register"
-        hx-target="#register-response">
+      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-target="#register-form-component" hx-target-5xx='#errorResponse'  hx-post="/register" hx-swap="outerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Registre su cuenta
-          </h2>
+          <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Registre su cuenta</h2>
         </div>
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div class="mt-10 mx-auto w-full max-w-sm">
           <div class="space-y-6">
             <div>
-              <label for="register-name" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
-              <div class="mt-2">
-                <input id="register-name" name="name" type="text" autocomplete="name" placeholder="Fulanito" required
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
+              <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
+              <input id="register-name" name="name" type="text" autocomplete="name"
+                class="input input-bordered w-full" />
             </div>
             <div>
-              <label for="register-email" class="block text-sm font-medium leading-6 text-gray-900">Correo
-                electronico</label>
-              <div class="mt-2">
-                <input id="register-email" name="email" type="email" autocomplete="email" placeholder="de.tal@email.com"
-                  required
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
+              <label for="register-email" class="text-base font-medium text-gray-600">Correo electronico</label>
+              <input id="register-email" name="email" type="email" autocomplete="email"
+                class="input input-bordered w-full" />
             </div>
             <div>
-              <label for="register-password"
-                class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
-              <div class="mt-2">
-                <input id="register-password" name="password" type="password" autocomplete="new-password" required
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
+              <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
+              <input id="register-password" name="password" type="password" autocomplete="new-password" required
+                class="input input-bordered w-full" />
             </div>
-            <div>
-              <button type="submit"
-                class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">REGISTRARSE</button>
-            </div>
+            <button type="submit" class="btn btn-primary w-full text-white">Registrarse</button>
           </div>
           <p class="mt-10 text-center text-sm text-gray-600">
             Ya tienes una cuenta?
@@ -409,57 +356,127 @@
           </p>
         </div>
       </form>
+    <div id="errorResponse">
+        <!-- Here goes the error response from the server -->
+    </div>
     </div>
   </div>
 
 
 
   <!-- Contact Form -->
-  <form id="contact-form-component" class="bg-neutral py-36" action="#" method="POST">
+  <form id="contact-form-component" class="bg-neutral pt-28 pb-12" action="#" method="POST">
     <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contactanos</h2>
-      <p class="mt-2 text-lg leading-8 text-gray-600">Cómo te podemos ayudar?</p>
+      <h2 class="text-3xl font-bold pb-3">Contáctanos</h2>
+      <div class="divider mx-20"></div>
+      <p class="text-lg text-gray-600 pt-2 pb-6">¿Cómo te podemos ayudar?</p>
     </div>
-    <div class="mx-auto text-center mt-10 max-w-xl sm:mt-10">
-      <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+    <div class="mx-auto max-w-2xl text-center">
+      <div class=" grid grid-cols-2">
+
         <!-- Name Input -->
-        <label for="contact-first-name">
-          <input type="text" name="first-name" id="contact-first-name" autocomplete="given-name" placeholder="Nombre"
-            class="input input-bordered w-full" />
+        <label for="contact-first-name" class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Nombre</span>
+          </div>
+          <input id="contact-first-name" type="text" class="input input-bordered w-full max-w-xs" />
         </label>
 
         <!-- Last Name Input -->
-        <label for="contact-last-name">
-          <input type="text" name="last-name" id="contact-last-name" autocomplete="family-name" placeholder="Apellido"
-            class="input input-bordered w-full" />
+        <label for="contact-last-name" class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Apellido</span>
+          </div>
+          <input id="contact-last-name" type="text" class="input input-bordered w-full max-w-xs" />
         </label>
 
         <!-- Email Input -->
-        <label for="contact-email">
-          <input type="email" name="email" id="contact-email" autocomplete="email" placeholder="Email"
-            class="input input-bordered w-full" />
+        <label for="contact-email" class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">E-mail</span>
+          </div>
+          <input id="contact-email" type="email" class="input input-bordered w-full max-w-xs" />
         </label>
 
         <!-- Phone Input -->
-        <label for="contact-phone">
-          <input type="tel" name="phone" id="contact-phone" autocomplete="tel" placeholder="Teléfono"
-            class="input input-bordered w-full" />
+        <label for="contact-phone" class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Teléfono</span>
+          </div>
+          <input id="contact-phone" type="text" class="input input-bordered w-full max-w-xs" />
         </label>
       </div>
 
-      <div class="pt-8">
-        <!-- Message Input -->
-        <label for="contact-message">
-          <textarea name="message" id="contact-message" placeholder="Mensaje" class="input input-bordered w-full"
-            rows="4"></textarea>
+      <!-- Message Input -->
+      <div class="pt-2">
+        <label for="contact-message" class="form-control">
+          <div class="label">
+            <span class="label-text">Mensaje</span>
+          </div>
+          <textarea id="contact-message" class="textarea textarea-bordered h-24"></textarea>
         </label>
       </div>
 
       <!-- Submit Button -->
       <div class="mt-10">
-        <button type="submit" class="btn btn-primary w-full text-sm font-semibold text-white">ENVIAR MENSAJE</button>
+        <button type="submit" class="btn btn-primary w-full text-white">ENVIAR MENSAJE</button>
       </div>
     </div>
   </form>
 
 </section>
+
+
+<!-- Old Footer -->
+<div id="old-footer-component">
+  <footer class="footer p-6 bg-secondary text-white">
+    <div class="mx-auto">
+      <img src="./assets/img/logo-blanco.png" alt="Flash Center" id="footer-logo"
+        class="object-scale-down w-80 h-6 mt-1" />
+      <div class="flex items-center pt-4 pl-2">
+        <img src="./assets/icons/map-pin.svg" alt="Location Icon" class="w-7 h-7 mr-2">
+        <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-base link link-hover">
+          Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay</a>
+      </div>
+    </div>
+    <nav class="flex flex-col items-center mx-auto">
+      <h2 class="footer-title text-lg">Redes Sociales</h2>
+      <div class="flex justify-center items-center space-x-4">
+        <!-- WhatsApp -->
+        <a href="https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20" class="link link-hover">
+          <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-10 h-10" />
+        </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/flashcenter_py/" class="link link-hover">
+          <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-8 h-8" />
+        </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/Flashcenterpy" class="link link-hover">
+          <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-8 h-8" />
+        </a>
+      </div>
+    </nav>
+    <nav class="flex flex-col mx-auto font-bold">
+      <h2 class="footer-title text-lg">Servicios</h2>
+      <a href="#register" class="link link-hover text-base">Crea tu cuenta</a>
+      <a href="#products-and-calculator" class="link link-hover text-base">Solicita tu credito</a>
+    </nav>
+    <nav class="flex flex-col mx-auto">
+      <h2 class="footer-title text-lg">Empresa</h2>
+      <a href="#about" class="link link-hover text-base font-bold">Nosotros</a>
+      <a href="#contact" class="link link-hover text-base font-bold">Contacto</a>
+      <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-xs">
+        Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay</a>
+    </nav>
+  </footer>
+  <!-- Disclaimer Footer -->
+  <div class="bg-secondary py-4">
+    <div class="flex justify-center items-center max-w-4xl mx-auto">
+      <p class="text-xs italic text-gray-200 px-4 text-center">
+        La información proporcionada sobre los préstamos es únicamente a título
+        informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
+        préstamos. Está sujeta a las políticas de mercado y/o internas de la entidad financiera
+      </p>
+    </div>
+  </div>
+</div>
