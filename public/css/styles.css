@@ -15,13 +15,27 @@ html {
   z-index: 100;
 }
 
+.footer {
+  column-gap: 0.15rem;
+  row-gap: 1rem;
+}
+
 .table :where(thead, tfoot) {
   font-size: 0.95rem;
 }
 
 .img-thumbnail {
-  width: 4rem !important;
+  width: 5rem !important;
   height: 4rem !important;
+}
+
+.about-img {
+  opacity: 1 !important;
+}
+
+/* TODO: mostrarle a nando como tailwind no funca en server response al menos que este hard-coded (certain things) */
+.btn-success-custom {
+  background-color: #84CC7D;
 }
 
 .cursor-pointer {
@@ -30,7 +44,7 @@ html {
 
 /* Override DaisyUI default 2rem padding on card body */
 .card-body {
-  padding: 1rem;
+  padding: 1.25rem;
 }
 
 /* Override DaisyUI border radius default property for hero-content */
@@ -43,6 +57,19 @@ html {
   display: none;
 }
 
+.pb-34 {
+  padding-bottom: 8.5rem/* 128px */;
+}
+
+.mx-4 {
+  margin-left: 1rem/* 16px */;
+  margin-right: 1rem/* 16px */;
+}
+
+.mx-8 {
+  margin-left: 2rem/* 32px */;
+  margin-right: 2rem/* 32px */;
+}
 
 /* Styling that adds a background pattern */
 /* main::before {

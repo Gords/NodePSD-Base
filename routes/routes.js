@@ -103,7 +103,15 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       await user.save()
 
       res.redirect('/?message=Email verified successfully. You can now log in.');
+      res.redirect('/?message=Email verified successfully. You can now log in.');
     } catch (error) {
+      console.error('Error verifying email:', error);
+      res.status(400).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold justify-center">Invalid verification token</span>
+        </div>
+      `);
       console.error('Error verifying email:', error);
       res.status(400).send(`
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
@@ -125,8 +133,20 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
             <span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
           </div>
         `);
+        return res.status(500).send(`
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
+          </div>
+        `);
       }
       if (!user) {
+        return res.status(401).send(`
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold text-center">${info.message || 'Ese usuario no existe'}</span>
+          </div>
+        `);
         return res.status(401).send(`
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
             <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
@@ -151,7 +171,12 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
             </div>
           `);
         }
-        res.set('HX-Redirect', '/admin-panel.html')
+        // Check if user is an admin
+        if (user.isAdmin) {
+          res.set('HX-Redirect', '/admin-panel.html');
+        } else {
+          res.set('HX-Redirect', '/user-panel.html');
+        }
         res.status(200).send(`
           <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
             <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
@@ -190,11 +215,11 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
   })
 
 
-  // Get a single user
-  router.get('/check-login', (req, res) => {
+  // Get logged in user details
+  router.get('/check-login-user', (req, res) => {
     if (req.isAuthenticated()) {
       // Sending a partial HTML snippet to update the user-info div
-      res.send(`
+      res.send(/*html*/`
         <div class="avatar">
           <div class="w-16 h-16 rounded-full relative bg-primary">
             <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">
@@ -202,13 +227,18 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
             </span>
           </div>
         </div>
-        <div class="flex flex-col">
-          <div class="font-semibold text-lg">${req.user.name}</div>
-          <div class="text-sm">${req.user.email}</div>
+        <div class="flex justify-between items-center w-full">
+          <div class="flex flex-col">
+            <div class="font-semibold text-lg">${req.user.name}</div>
+            <div class="text-sm">${req.user.email}</div>
+          </div>
+          <button hx-post="/request-loan" hx-target="#request-loan-button" hx-swap="outerHTML" id="request-loan-button" class="btn btn-primary text-white self-center">
+            Solicitar credito
+          </button>
         </div>
       `);
     } else {
-      res.status(401).send(`
+      res.status(401).send(/*html*/`
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
           <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
           <span class="font-bold text-center">Not logged in</span>
@@ -216,7 +246,34 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
     }
   });
-  
+
+
+   // Get admin details
+  router.get('/check-login-admin', (req, res) => {
+    if (req.isAuthenticated()) {
+      // Sending a partial HTML snippet to update the user-info div
+      res.send(/*html*/`
+      <div class="flex flex-col items-center justify-center">
+        <div class="avatar text-center">
+          <div class="w-16 h-16 rounded-full bg-primary">
+            <span class="absolute top-0 left-0 w-full h-full text-4xl font-semibold text-white">
+              ${req.user.name.charAt(0).toUpperCase()}
+            </span>
+          </div>
+        </div>
+          <div class="font-semibold text-lg">${req.user.name}</div>
+          <div class="text-sm">${req.user.email}</div>
+      </div>
+      `);
+    } else {
+      res.status(401).send(/*html*/`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Not logged in</span>
+        </div>
+      `);
+    }
+  })
 
 
   // Get all users
@@ -285,7 +342,20 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
           <span class="font-bold">User updated successfully</span>
         </div>
       `);
+      res.send(`
+        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold">User updated successfully</span>
+        </div>
+      `);
     } catch (error) {
+      console.error('Error updating user:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error updating user</span>
+        </div>
+      `);
       console.error('Error updating user:', error);
       res.status(500).send(`
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
@@ -302,7 +372,15 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
     try {
       await User.destroy({ where: { id: req.params.id } })
       res.sendStatus(204);
+      res.sendStatus(204);
     } catch (error) {
+      console.error('Error deleting user:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error deleting user</span>
+        </div>
+      `);
       console.error('Error deleting user:', error);
       res.status(500).send(`
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
@@ -317,8 +395,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
   router.post('/create-loan-type', isAuthenticated, async (req, res) => {
     try {
       const typeOfLoan = await TypeOfLoan.create({
-        name: 'Prestamo Personal',
-        description: 'Prestamo para uso personal',
+        name: 'Préstamo Personal',
+        description: 'Préstamo para uso personal',
       })
 
       res.status(201).send(`
@@ -327,8 +405,20 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
           <span class="font-bold">Type of loan created successfully</span>
         </div>
       `);
+      res.status(201).send(`
+        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold">Type of loan created successfully</span>
+        </div>
+      `);
     } catch (error) {
       console.error('Failed to create type of loan:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Failed to create type of loan</span>
+        </div>
+      `);
       res.status(500).send(`
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
           <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
@@ -419,6 +509,13 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
           <span class="font-bold text-center">Error processing your request</span>
         </div>
       `);
+      console.error('Error uploading files:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error processing your request</span>
+        </div>
+      `);
     }
   });
 
@@ -451,6 +548,13 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
           <span class="font-bold text-center">Error fetching images</span>
         </div>
       `);
+      console.error('Error fetching images:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error fetching images</span>
+        </div>
+      `);
     }
   });
 
@@ -462,38 +566,68 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       let userImagesHtml = '';
 
       if (images.length === 0) {
-        userImagesHtml = '<div class="text-center">No files found</div>';
-      } else {
         userImagesHtml = /*html*/`
-          <div class="card bg-base-100 shadow-xl text-center my-10">
+          <div class="card bg-base-100 shadow-md text-center my-10">
             <div class="card-body">
-              <div class="flex justify-between items-center mx-8">
-                <h2 class="card-title font-semibold pl-4">Your Documents</h2>
+              <div class="flex justify-between items-center mx-4">
+                <h2 class="card-title font-semibold pl-4">Tus documentos</h2>
                 <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
-                  Download All
+                  Descargar todo
                 </button>
               </div>
-              <div class="divider divider-accent"></div>
               <div class="overflow-x-auto pt-8">
                 <table class="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Archivo</th>
+                      <th class="flex flex-row justify-center">Vista Previa</th>
+                      <th class="flex flex-row justify-center">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Placeholder for images -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        userImagesHtml = /*html*/`
+          <div class="card bg-base-100 shadow-md text-center my-10">
+            <div class="card-body">
+              <div class="flex justify-between items-center mx-4">
+                <h2 class="card-title font-semibold pl-4">Tus documentos</h2>
+                <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
+                  Descargar todo
+                </button>
+              </div>
+              <div class="overflow-x-auto pt-8">
+                <table class="table table-pin-rows w-full">
                 <thead>
                   <tr>
-                    <th>File</th>
-                    <th>Preview</th>
-                    <th>Actions</th>
+                    <th>Archivo</th>
+                    <th class="text-center">Vista Previa</th>
+                    <th class="text-center">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   ${images.map(image => /*html*/`
                   <tr class="hover" id="image-${image.id}">
-                    <td>${path.basename(image.path)}</td>
-                    <td>
-                      <img class="img-thumbnail" src="/${image.path}" alt="Document ${image.id}">
+                    <td id="Archivo">${path.basename(image.path)}</td>
+
+                    <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${image.path}', '_blank')">
+                      <img class="img-thumbnail hover:pointer" src="/${image.path}" alt="Document ${image.id}">
                     </td>
-                    <td>
-                      <div class="flex flex-col">
-                        <a href="/images/${image.id}" id="download-link" class="btn btn-xs">Download</a>
-                        <img style="margin-left: auto;" onclick="confirmDelete(${image.id})" src="/assets/icons/delete-icon.svg" class="w-6 h-6 cursor-pointer"/>
+
+                    <td id="Acciones">
+                      <div class="flex justify-center gap-1">
+                        <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
+                          <img src="/assets/icons/download.svg" alt="Descargar">
+                        </a>
+                        <button hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
+                          <img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -514,8 +648,15 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
           <span class="font-bold text-center">Error fetching user images</span>
         </div>
       `);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error fetching user images</span>
+        </div>
+      `);
     }
   });
+
 
 
 
@@ -546,10 +687,22 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
               <span class="font-bold text-center">Error processing your download request</span>
             </div>
           `);
+          res.status(500).send(`
+            <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+              <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+              <span class="font-bold text-center">Error processing your download request</span>
+            </div>
+          `);
         }
       });
     } catch (error) {
       console.error('Error fetching images:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error fetching images</span>
+        </div>
+      `);
       res.status(500).send(`
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
           <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
@@ -570,7 +723,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       });
 
       const userImagesHtml = /*html*/`
-        <div class="card bg-base-100 shadow-xl tex-center my-10">
+        <div class="card bg-base-100 shadow-md tex-center my-10">
           <div class="card-body">
             <div class="flex justify-between items-center mx-8">
               <h2 class="card-title font-semibold pl-4">Documentos del usuario '${userEmail}'</h2>
