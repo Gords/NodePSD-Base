@@ -371,7 +371,7 @@
   <!-- Register Form -->
   <div id="register-form-component" class="pt-28">
     <div class="card m-auto max-w-sm shadow-xl">
-      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/register" hx-swap="outerHTML">
+      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-target="#register-form-component" hx-target-5xx='#errorResponse'  hx-post="/register" hx-swap="outerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Registre su cuenta
@@ -414,6 +414,9 @@
           </p>
         </div>
       </form>
+    <div id="errorResponse">
+        <!-- Here goes the error response from the server -->
+    </div>
     </div>
   </div>
 

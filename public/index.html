@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FLASH CENTER</title>
   <link rel="icon" href="./assets/icons/favicon.ico" type="image/x-icon">
-  <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
   <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
   <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
@@ -41,7 +41,7 @@
         hx-swap="afterbegin">
       </section>
     </section>
-    <section id="register-content">
+    <section id="register-content" hx-ext="response-targets">
       <section id="register" hx-trigger="load" hx-get="components.html"
         hx-select="#register-form-component" hx-swap="innerHTML">
       </section>
