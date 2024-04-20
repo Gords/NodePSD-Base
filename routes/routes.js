@@ -71,20 +71,18 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
     } catch (error) {
       console.error('Error registering user:', error);
       res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold justify-center">Error registering user</span>
+      <div id="register-form-component">
+        <div class="card m-auto max-w-sm shadow-xl">
+          <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
+            <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+              <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+              <span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
+            </div>
+          </div>
         </div>
-      `);
-      console.error('Error registering user:', error);
-      res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold justify-center">Error registering user</span>
-        </div>
-      `);
+      </div>
+      `.trim());
     }
-  });
   });
 
 
