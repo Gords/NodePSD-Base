@@ -225,7 +225,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       <div class="flex flex-col items-center justify-center">
         <div class="avatar text-center">
           <div class="w-16 h-16 rounded-full bg-primary">
-            <span class="absolute top-0 left-0 w-full h-full text-4xl font-semibold text-white">
+            <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">
               ${req.user.name.charAt(0).toUpperCase()}
             </span>
           </div>
@@ -391,7 +391,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       });
 
       res.status(201).send(`
-        <button class="btn btn-success self-center text-white">
+        <button class="btn btn-success no-animation" self-center text-white">
           Solicitud enviada
         </button>
       `);
