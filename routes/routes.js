@@ -103,6 +103,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       await user.save()
 
       res.redirect('/?message=Email verified successfully. You can now log in.');
+
     } catch (error) {
       console.error('Error verifying email:', error);
       res.status(400).send(`
