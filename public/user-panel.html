@@ -38,15 +38,18 @@
             <div id="user-info" hx-get="/check-login-user" hx-trigger="load" hx-swap="innerHTML"
               class="card-title items-center pb-4">
               <div class="flex flex-col md:flex-row justify-center items-center md:justify-between w-full">
-                <div class="flex flex-col items-center md:justify-start md:items-start md:pl-2">
+                <div
+                  class="flex flex-col md:flex-row items-center text-center justify-center md:text-start md:items-start md:pl-2">
                   <div class="avatar text-center pb-2">
                     <div class="w-16 h-16 rounded-full relative bg-primary">
                       <span
                         class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">A</span>
                     </div>
                   </div>
-                  <div id="user-name" class="font-semibold text-lg">Usuario</div>
-                  <div id="user-email" class="text-sm pb-4">email.del@usuario.com</div>
+                  <div class="md:flex-col md:ml-4 md:justify-center md:items-center">
+                    <div id="user-name" class="font-semibold text-lg md:mt-2">Usuario</div>
+                    <div id="user-email" class="text-sm mb-4">email.del@usuario.com</div>
+                  </div>
                 </div>
                 <div class="flex">
                   <button hx-post="/request-loan" hx-target="#request-loan-button" hx-swap="outerHTML"
@@ -63,7 +66,7 @@
                 Domicilio: <span id="user-address" class="font-normal">Dr. Vasconcellos 622 esq. Tte Luis Miranda</span>
               </div>
               <div>
-                <h1 class="font-bold">Documentos necesarios para solicitar credito</h1>
+                <h1 class="font-bold">Documentos requeridos</h1>
                 <ul class="list-disc pl-3">
                   <li>Copia de Cedula (ambos lados)</li>
                   <li>Inforcomf e Infocheck</li>

@@ -201,21 +201,20 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
     if (req.isAuthenticated()) {
       // Sending a partial HTML snippet to update the user-info div
       res.send(/*html*/`
-        <div class="flex flex-col md:flex-row justify-center items-center w-full">
-          <div class="flex flex-col md:w-1/2 items-center">
-            <div class="avatar text-center">
+        <div class="flex flex-col md:flex-row justify-center items-center md:justify-between w-full">
+          <div class="flex flex-col md:flex-row items-center text-center justify-center md:text-start md:items-start md:pl-2">
+            <div class="avatar text-center pb-2">
               <div class="w-16 h-16 rounded-full relative bg-primary">
-                <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">
-                  ${req.user.name.charAt(0).toUpperCase()}
+                <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">                  ${req.user.name.charAt(0).toUpperCase()}
                 </span>
               </div>
             </div>
-            <div class="flex flex-col">
-              <div class="font-semibold text-lg">${req.user.name}</div>
-              <div class="text-sm">${req.user.email}</div>
+            <div class="md:flex-col md:ml-4 md:justify-center md:items-center">
+              <div class="font-semibold text-lg md:mt-2">${req.user.name}</div>
+              <div class="text-sm mb-4">${req.user.email}</div>
             </div>
           </div>
-          <div class="flex mg:w-1/2">
+          <div class="flex">
             <button hx-post="/request-loan" hx-target="#request-loan-button" hx-swap="outerHTML" id="request-loan-button" class="btn btn-primary text-white self-center">
               Solicitar credito
             </button>
