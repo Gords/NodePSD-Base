@@ -68,7 +68,7 @@ NodePSD-Base/
 ├── migrations/
 │   └── ...
 ├── models/
-│   └── User.js
+│   └── ...
 ├── config/
 │   └── config.js
 ├── .env
