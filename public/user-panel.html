@@ -53,16 +53,15 @@
                 </div>
                 <div class="flex">
                   <button hx-post="/request-loan" hx-target="#request-loan-button" hx-swap="outerHTML"
-                    id="request-loan-button" class="btn btn-primary text-white self-center items-center">
-                    Solicitar credito
-                  </button>
+                    id="request-loan-button" class="btn btn-primary text-white self-center items-center">Solicitar
+                    crédito</button>
                 </div>
               </div>
             </div>
             <div id="user-data" class="flex justify-between">
               <div class="flex flex-col font-semibold pl-2">
-                Nro. de Cedula: <span id="user-cedula" class="font-normal">1.234.567.-</span>
-                Nro. de Telefono: <span id="user-phone" class="font-normal">+595 981 123 456</span>
+                Nro. de cédula: <span id="user-cedula" class="font-normal">1.234.567.-</span>
+                Nro. de teléfono: <span id="user-phone" class="font-normal">+595 981 123 456</span>
                 Domicilio: <span id="user-address" class="font-normal">Dr. Vasconcellos 622 esq. Tte Luis Miranda</span>
               </div>
               <div>
@@ -96,8 +95,8 @@
 
         <div id="file-drop-area" class="card bg-secondary shadow-md">
           <div class="card-body items-center">
-            <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo o arrastralo aqui</h3>
-            <p class="text-base text-neutral mb-4">Puedes cargar hasta 4 archivos de 25 MB. cada uno</p>
+            <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo o arrástralo aquí</h3>
+            <p class="text-base text-neutral mb-4">Puedes cargar hasta 4 archivos de 25 MB cada uno.</p>
             <form hx-encoding="multipart/form-data" hx-post="/images" hx-target="#file-upload-list" hx-swap="outerHTML">
               <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar
                 archivos</label>

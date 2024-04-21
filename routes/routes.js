@@ -205,7 +205,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
           <div class="flex flex-col md:flex-row items-center text-center justify-center md:text-start md:items-start md:pl-2">
             <div class="avatar text-center pb-2">
               <div class="w-16 h-16 rounded-full relative bg-primary">
-                <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">                  ${req.user.name.charAt(0).toUpperCase()}
+                <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">${req.user.name.charAt(0).toUpperCase()}
                 </span>
               </div>
             </div>
@@ -216,7 +216,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
           </div>
           <div class="flex">
             <button hx-post="/request-loan" hx-target="#request-loan-button" hx-swap="outerHTML" id="request-loan-button" class="btn btn-primary text-white self-center">
-              Solicitar credito
+              Solicitar crédito
             </button>
           </div>
         </div>
