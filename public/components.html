@@ -7,7 +7,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
         </svg>
       </button>
-      <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-primary rounded-md w-52">
+      <ul tabindex="0" class="menu menu-compact dropdown-content mt-4 p-2 shadow bg-accent rounded-md w-52">
         <li><a href="#home">Inicio</a></li>
         <li><a href="#products-and-calculator">Productos</a></li>
         <li><a href="#faq">Preguntas Frecuentes</a></li>
@@ -61,7 +61,7 @@
   <video autoplay muted loop class="absolute -z-10 w-full h-full object-cover">
     <source src="./assets/img/skyline-video.mp4" type="video/mp4">
   </video>
-  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 mx-4 mt-60 lg:mx-auto">
+  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 mx-4 mt-72 lg:my-auto">
     <div class="max-w-3xl">
       <h2 class="mb-5 text-3xl font-semibold">Obten tu credito pre aprobado en menos de 24hs</h2>
       <p class="mb-5 text-xl">Acompañamos en la busqueda del producto ideal, a cada cliente, en cualquier parte del
@@ -102,7 +102,7 @@
 </div>
 
 <!-- Loan Calculator -->
-<div id="loan-calculator-component" class="text-center mx-10">
+<div id="loan-calculator-component" class="text-center lg:mx-10">
   <h1 class="text-3xl font-bold tracking-widest pt-2 pb-16">SIMULÁ TU PRÉSTAMO</h1>
   <div class="form-control w-full max-w-md mx-auto mt-4">
     <label class="label" for="amount">
@@ -158,7 +158,7 @@
 
 
 <!-- FAQ Section -->
-<div id="faq-component" class="mx-auto pt-40 pb-34 bg-gradient-to-b from-secondary to-[#01112A] text-base-100">
+<div id="faq-component" class="mx-auto pt-40 pb-36 bg-gradient-to-b from-secondary to-[#01112A] text-base-100">
   <div class="max-w-3xl mx-auto text-center pb-16">
     <h1 class="text-3xl font-bold tracking-widest pb-6">PREGUNTAS FRECUENTES</h1>
     <div class="justify-center">
@@ -259,22 +259,24 @@
     <nav>
       <div class="grid grid-flow-col gap-6">
         <!-- WhatsApp -->
-        <a href="https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20" class="link link-hover">
+        <a onclick="window.open('https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20', '_blank')"
+          class="link link-hover">
           <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-6 h-6" />
         </a>
         <!-- Instagram -->
-        <a href="https://www.instagram.com/flashcenter_py/" class="link link-hover">
+        <a onclick="window.open('https://www.instagram.com/flashcenter_py/', '_blank')" class="link link-hover">
           <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-6 h-6" />
         </a>
         <!-- Facebook -->
-        <a href="https://www.facebook.com/Flashcenterpy" class="link link-hover">
+        <a onclick="window.open('https://www.facebook.com/Flashcenterpy', '_blank')" class="link link-hover">
           <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-6 h-6" />
         </a>
       </div>
     </nav>
     <aside>
-      <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-xs">
-        Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay</a>
+      <a onclick="window.open('https://goo.gl/maps/Y2UQwyauSucte7GV7', '_blank')" class="text-xs link link-hover">
+        Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay
+      </a>
       <p class="text-xs italic text-gray-200 px-4 text-center">La información proporcionada sobre los préstamos es
         únicamente a título
         informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
@@ -365,7 +367,7 @@
 
 
   <!-- Contact Form -->
-  <form id="contact-form-component" class="bg-neutral pt-28 pb-12" action="#" method="POST">
+  <form id="contact-form-component" class="bg-neutral pt-24 pb-12" action="#" method="POST">
     <div class="xs:mx-4">
       <div class="mx-auto max-w-2xl text-center">
         <h2 class="text-3xl font-bold pb-3">Contáctanos</h2>
@@ -421,3 +423,39 @@
   </form>
 
 </section>
+
+
+
+<!-- About Section
+<div id="about-component" class="bg-cover pt-40 pb-32 flex justify-center items-center"
+  style="background-image: url('./assets/img/cde-skyline.jpg')">
+  <div class="flex justify-center items-center max-w-4xl xs:mx-4 mb-52">
+    <div class="card bg-base-100 opacity-80 shadow-md">
+      <div class="card-body justify-start">
+        <h1 class="text-3xl font-bold text-center">ACERCA DE FLASH CENTER</h1>
+        <div class="divider"></div>
+        <p class="text-lg xs:text-center">Somos una empresa pionera en Paraguay, líder en microfinanzas
+          digitales. Nos especializamos en proporcionar
+          préstamos al consumidor a través de un proceso completamente digital, asegurando una aprobación rápida y
+          eficiente.</p>
+        <div class="text-center">
+          <h2 class="text-xl font-bold mt-6">MISION</h2>
+          <p class="text-lg">Mejorar la calidad de vida de nuestros empleados, clientes, accionistas y la comunidad.
+            Logramos esto
+            mediante productos financieros innovadores diseñados para satisfacer sus diversas necesidades./p>
+        </div>
+        <div class="flex flex-row text-center text-xl">
+          <div class="w-3/5">
+            <h2 class="font-bold mt-6">VISION</h2>
+            <p class="text-lg">ser reconocidos como una institución financiera esencial que contribuye al bienestar del
+              estado y sus ciudadanos.</p>
+          </div>
+          <div class="w-2/5">
+            <h2 class="font-bold mt-6">VALORES</h2>
+            <p class="text-lg">Accesibilidad Agilidad Amabilidad<br>Lealtad Respeto</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

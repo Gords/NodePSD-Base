@@ -34,23 +34,29 @@
       <div class="w-full max-w-3xl py-4"> <!-- Adjust the width as needed -->
         <!-- User personal info -->
         <div class="card bg-base-100 shadow-md">
-          <div class="card-body">
+          <div class="card-body mx-4">
             <div id="user-info" hx-get="/check-login-user" hx-trigger="load" hx-swap="innerHTML"
               class="card-title items-center pb-4">
-              <!-- <div class="avatar">
-                <div class="w-16 h-16 rounded-full relative bg-primary">
-                  <span id="avatar-username-initials"
-                    class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">A</span>
+              <div class="flex flex-col md:flex-row justify-center items-center md:justify-between w-full">
+                <div class="flex flex-col items-center md:justify-start md:items-start md:pl-2">
+                  <div class="avatar text-center pb-2">
+                    <div class="w-16 h-16 rounded-full relative bg-primary">
+                      <span
+                        class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">A</span>
+                    </div>
+                  </div>
+                  <div id="user-name" class="font-semibold text-lg">Usuario</div>
+                  <div id="user-email" class="text-sm pb-4">email.del@usuario.com</div>
+                </div>
+                <div class="flex">
+                  <button hx-post="/request-loan" hx-target="#request-loan-button" hx-swap="outerHTML"
+                    id="request-loan-button" class="btn btn-primary text-white self-center items-center">
+                    Solicitar credito
+                  </button>
                 </div>
               </div>
-              <div class="flex justify-between items-center w-full">
-                <div class="flex flex-col">
-                  <div id="user-name" class="font-semibold text-lg">Usuario</div>
-                  <div id="user-email" class="text-sm">email.del@usuario.com</div>
-                </div>
-              </div> -->
             </div>
-            <div id="user-data" class="flex justify-between items-center">
+            <div id="user-data" class="flex justify-between">
               <div class="flex flex-col font-semibold pl-2">
                 Nro. de Cedula: <span id="user-cedula" class="font-normal">1.234.567.-</span>
                 Nro. de Telefono: <span id="user-phone" class="font-normal">+595 981 123 456</span>
@@ -70,26 +76,37 @@
             <div id="status-message"></div>
           </div>
         </div>
-        <div id="user-files" hx-get="images/user-images" hx-trigger="load"></div>
-      </div>
-
-
-      <div id="file-drop-area" class="card bg-secondary shadow-md">
-        <div class="card-body items-center">
-          <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo o arrastralo aqui</h3>
-          <p class="text-base text-neutral mb-4">Puedes cargar hasta 4 archivos de 25 MB. cada uno</p>
-          <form hx-encoding="multipart/form-data" hx-post="/images" hx-target="#file-upload-list" hx-swap="outerHTML">
-            <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar archivos</label>
-            <input type="file" id="files-to-upload" name="files" multiple
-              accept="image/jpeg, image/png, application/pdf" style="display: none">
-            <button id="submit-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" type="submit">Cargar
-              Archivos</button>
-          </form>
-          <div id="file-upload-list">
-            <!-- Response from /images will be inserted here -->
+        <div class="card bg-base-100 shadow-md text-center my-10">
+          <div class="card-body">
+            <div class="flex justify-between items-center mx-4">
+              <h2 class="card-title font-semibold">Tus documentos</h2>
+              <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
+                Descargar todo
+              </button>
+            </div>
+            <div id="user-files" hx-get="images/user-images" hx-trigger="load" class="overflow-x-auto">
+              <!-- User files loaded dynamically here -->
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+
+
+        <div id="file-drop-area" class="card bg-secondary shadow-md">
+          <div class="card-body items-center">
+            <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo o arrastralo aqui</h3>
+            <p class="text-base text-neutral mb-4">Puedes cargar hasta 4 archivos de 25 MB. cada uno</p>
+            <form hx-encoding="multipart/form-data" hx-post="/images" hx-target="#file-upload-list" hx-swap="outerHTML">
+              <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar
+                archivos</label>
+              <input type="file" id="files-to-upload" name="files" multiple
+                accept="image/jpeg, image/png, application/pdf" style="display: none">
+              <button id="submit-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" type="submit">Cargar
+                Archivos</button>
+            </form>
+            <div id="file-upload-list">
+              <!-- Response from /images will be inserted here -->
+            </div>
+          </div>
+        </div>
   </main>
 </body>

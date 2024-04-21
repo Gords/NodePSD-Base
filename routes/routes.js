@@ -189,21 +189,25 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
     if (req.isAuthenticated()) {
       // Sending a partial HTML snippet to update the user-info div
       res.send(/*html*/`
-        <div class="avatar">
-          <div class="w-16 h-16 rounded-full relative bg-primary">
-            <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">
-              ${req.user.name.charAt(0).toUpperCase()}
-            </span>
+        <div class="flex flex-col md:flex-row justify-center items-center w-full">
+          <div class="flex flex-col md:w-1/2 items-center">
+            <div class="avatar text-center">
+              <div class="w-16 h-16 rounded-full relative bg-primary">
+                <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">
+                  ${req.user.name.charAt(0).toUpperCase()}
+                </span>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="font-semibold text-lg">${req.user.name}</div>
+              <div class="text-sm">${req.user.email}</div>
+            </div>
           </div>
-        </div>
-        <div class="flex justify-between items-center w-full">
-          <div class="flex flex-col">
-            <div class="font-semibold text-lg">${req.user.name}</div>
-            <div class="text-sm">${req.user.email}</div>
+          <div class="flex mg:w-1/2">
+            <button hx-post="/request-loan" hx-target="#request-loan-button" hx-swap="outerHTML" id="request-loan-button" class="btn btn-primary text-white self-center">
+              Solicitar credito
+            </button>
           </div>
-          <button hx-post="/request-loan" hx-target="#request-loan-button" hx-swap="outerHTML" id="request-loan-button" class="btn btn-primary text-white self-center">
-            Solicitar credito
-          </button>
         </div>
       `);
     } else {
@@ -257,7 +261,6 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
     });
 
       const tableHtml = /*html*/`
-      <div class="overflow-x-auto">
         <table class="table table-zebra max-w-4xl text-l text-center">
           <thead>
             <tr>
@@ -278,14 +281,13 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
                     hx-get="/images/user-images/${user.id}"
                     hx-target="#list-of-users"
                     hx-swap="outerHTML"
-                    hx-push-url="true" class="btn btn-xs">Ver documentos</a>
+                    hx-push-url="true" class="btn btn-md">Ver documentos</a>
                 </td>
               </tr>
             `).join('')}
           </tbody>
         </table>
-      </div>
-    `;
+      `;
     res.send(tableHtml);
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -489,75 +491,57 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 
       if (images.length === 0) {
         userImagesHtml = /*html*/`
-          <div class="card bg-base-100 shadow-md text-center my-10">
-            <div class="card-body">
-              <div class="flex justify-between items-center mx-4">
-                <h2 class="card-title font-semibold pl-4">Tus documentos</h2>
-                <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
-                  Descargar todo
-                </button>
-              </div>
-              <div class="overflow-x-auto pt-8">
-                <table class="table w-full">
-                  <thead>
-                    <tr>
-                      <th>Archivo</th>
-                      <th class="flex flex-row justify-center">Vista Previa</th>
-                      <th class="flex flex-row justify-center">Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!-- Placeholder for images -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          <div class="overflow-x-auto pt-8">
+            <table class="table w-full">
+              <thead>
+                <tr>
+                  <th>Archivo</th>
+                  <th class="flex flex-row justify-center">Vista Previa</th>
+                  <th class="flex flex-row justify-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
           </div>
         `;
       } else {
         userImagesHtml = /*html*/`
-          <div class="card bg-base-100 shadow-md text-center my-10">
-            <div class="card-body">
-              <div class="flex justify-between items-center mx-4">
-                <h2 class="card-title font-semibold pl-4">Tus documentos</h2>
-                <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
-                  Descargar todo
-                </button>
-              </div>
-              <div class="overflow-x-auto pt-8">
-                <table class="table table-pin-rows w-full">
-                <thead>
-                  <tr>
-                    <th>Archivo</th>
-                    <th class="text-center">Vista Previa</th>
-                    <th class="text-center">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${images.map(image => /*html*/`
-                  <tr class="hover" id="image-${image.id}">
-                    <td id="Archivo">${path.basename(image.path)}</td>
+          <div class="overflow-x-auto pt-8">
+            <table class="table table-pin-rows w-full">
+            <thead>
+              <tr>
+                <th>Archivo</th>
+                <th class="text-center">Vista Previa</th>
+                <th class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${images.map(image => /*html*/`
+              <tr class="hover" id="image-${image.id}">
+                <td id="Archivo" onclick="window.open('/${image.path}', '_blank')">${path.basename(image.path)}</td>
 
-                    <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${image.path}', '_blank')">
-                      <img class="img-thumbnail hover:pointer" src="/${image.path}" alt="Document ${image.id}">
-                    </td>
+                <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${image.path}', '_blank')">
+                  <img class="img-thumbnail hover:pointer" src="/${image.path}" alt="Document ${image.id}">
+                </td>
 
-                    <td id="Acciones">
-                      <div class="flex justify-center gap-1">
-                        <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
-                          <img src="/assets/icons/download.svg" alt="Descargar">
-                        </a>
-                        <button hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
-                          <img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  `).join('')}
-                </tbody>
-                </table>
-              </div>
-            </div>
+                <td id="Acciones">
+                  <div class="flex justify-center gap-1">
+
+                    <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
+                      <img src="/assets/icons/download.svg" alt="Descargar">
+                    </a>
+
+                    <button hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
+                      <img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
+                    </button>
+
+                  </div>
+                </td>
+              </tr>
+              `).join('')}
+            </tbody>
+            </table>
           </div>
         `;
       }
@@ -573,6 +557,72 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
     }
   });
 
+
+
+  // Get all images from a specific user
+  router.get('/images/user-images/:userId', isAuthenticated, async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const user = await User.findOne({ where: { id: userId } });
+      const userEmail = user ? user.email : 'User not found';
+      const images = await Image.findAll({
+        where: { userId }
+      });
+
+      const userImagesHtml = /*html*/`
+        <div class="card bg-base-100 shadow-md text-center my-10">
+          <div class="card-body">
+            <div class="flex justify-between items-center mx-4">
+              <h2 class="card-title font-semibold">Documentos del usuario ${userEmail}</h2>
+              <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
+                Descargar todo
+              </button>
+            </div>
+            <div class="overflow-x-auto pt-8">
+              <table class="table table-pin-rows w-full">
+              <thead>
+                <tr>
+                  <th>Archivo</th>
+                  <th class="text-center">Vista Previa</th>
+                  <th class="text-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${images.map(image => /*html*/`
+                <tr class="hover" id="image-${image.id}">
+                  <td id="Archivo" onclick="window.open('/${image.path}', '_blank')">${path.basename(image.path)}</td>
+
+                  <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${image.path}', '_blank')">
+                    <img class="img-thumbnail hover:pointer" src="/${image.path}" alt="Document ${image.id}">
+                  </td>
+
+                  <td id="Acciones">
+                    <div class="flex justify-center gap-1">
+                      <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
+                        <img src="/assets/icons/download.svg" alt="Descargar">
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                `).join('')}
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+
+        res.send(userImagesHtml);
+      } catch (error) {
+        console.error('Error fetching user images:', error);
+        res.status(500).send(`
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold text-center">Error fetching user images</span>
+          </div>
+        `);
+      }
+    });
 
 
 
@@ -615,68 +665,6 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
     }
   });
-
-
-  // Get all images from a specific user
-  router.get('/images/user-images/:userId', isAuthenticated, async (req, res) => {
-    try {
-      const userId = req.params.userId;
-      const userEmail = req.user.email;
-      const userImages = await Image.findAll({
-        where: { userId }
-      });
-
-      const userImagesHtml = /*html*/`
-        <div class="card bg-base-100 shadow-md tex-center my-10">
-          <div class="card-body">
-            <div class="flex justify-between items-center mx-8">
-              <h2 class="card-title font-semibold pl-4">Documentos del usuario '${userEmail}'</h2>
-              <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
-              Descargar todo
-              </button>
-            </div>
-            <div class="divider divider-accent"></div>
-            <div class="overflow-x-auto pt-8">
-              <table class="table w-full">
-              <thead>
-                <tr>
-                  <th>Archivos</th>
-                  <th>Vista Previa</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${userImages.map(image => /*html*/`
-                <tr class="hover" id="image-${image.id}">
-                  <td>${path.basename(image.path)}</td>
-                  <td>
-                  <img class="img-thumbnail" src="/${image.path}" alt="Documento ${image.id}">
-                  </td>
-                  <td>
-                  <div class="flex flex-col">
-                    <a href="/images/${image.id}" id="download-link" class="btn btn-xs">Descargar</a>
-                  </div>
-                  </td>
-                </tr>
-                `).join('')}
-              </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        `;
-
-        res.send(userImagesHtml);
-      } catch (error) {
-        console.error('Error fetching user images:', error);
-        res.status(500).send(`
-          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-            <span class="font-bold text-center">Error fetching user images</span>
-          </div>
-        `);
-      }
-    });
 
 
 
