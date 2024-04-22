@@ -31,6 +31,20 @@ const linkClickHandler = (event) => {
 };
 
 const navLinks = document.querySelectorAll("nav a");
-for (const section of contentSections) {
-	section.style.display = section.id === contentId ? "block" : "none";
+for (const link of navLinks) {
+	link.addEventListener("click", linkClickHandler);
 }
+
+window.addEventListener("popstate", () => {
+	route();
+});
+
+function showContent(contentId) {
+	const contentSections = document.querySelectorAll('section[id$="-content"]');
+	for (const section of contentSections) {
+		section.style.display = section.id === contentId ? "block" : "none";
+	}
+}
+
+// Call the route function initially
+route();
