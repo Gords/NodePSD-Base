@@ -7,8 +7,9 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node app.js",
 		"build:css": "tailwindcss -i ./public/css/styles.css -o ./public/css/output.css",
-		"format": "npx @biomejs/biome lint /Users/gords/Documents/flashcenter",
-		"lint": "npx @biomejs/biome lint --write /Users/gords/Documents/flashcenter",
+		"format": "npx @biomejs/biome lint .",
+		"lint": "npx @biomejs/biome lint --write .",
+		"check": "npx @biomejs/biome check .",
 		"db:migrate": "run-script-os",
 		"db:migrate:darwin": "docker-compose exec app npx sequelize-cli db:migrate",
 		"db:migrate:linux": "docker compose exec app npx sequelize-cli db:migrate"
