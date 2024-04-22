@@ -10,6 +10,12 @@
 		}
 	},
 	"files": {
-		"ignore": ["node_modules", "models", "migrations"]
+		"ignore": [
+			"node_modules",
+			"models",
+			"migrations",
+			".vscode",
+			"tailwind.config.js"
+		]
 	}
 }

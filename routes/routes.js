@@ -296,7 +296,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 								(user) => /*html*/ `
               <tr>
                 <td>${user.name}</td>
-                <td>${user.phone}</td>
+                <td>0981-420-681</td>
                 <td>${user.email}</td>
                 <td>
                   <a href="/images/user-images/${user.id}"
