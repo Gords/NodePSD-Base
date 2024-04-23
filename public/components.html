@@ -57,11 +57,16 @@
 
 
 <!-- Home section with background-->
-<div id="home-component" class="hero lg:h-dvh">
-  <video autoplay muted loop class="absolute -z-10 w-full h-[140%] lg:h-full object-cover">
-    <source src="./assets/img/skyline-video.mp4" type="video/mp4">
-  </video>
-  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 mx-4 mt-72 mb-20 lg:my-auto">
+<div id="home-component" class="hero min-h-screen">
+  <div class="video-background">
+    <iframe
+      class="video-iframe"
+      src="https://www.youtube.com/embed/-WPDrSCNwdc?autoplay=1&mute=1&loop=1&playlist=-WPDrSCNwdc&controls=0&vq=hd1080&modestbranding=1&rel=0&showinfo=0&disablekb=1&start=65"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
+  </div>
+  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-6 mx-1">
     <div class="max-w-3xl">
       <h2 class="mb-5 text-3xl font-semibold">Obtén tu crédito preaprobado en menos de 24 hs
       </h2>
@@ -74,6 +79,7 @@
     </div>
   </div>
 </div>
+
 
 
 
@@ -319,18 +325,15 @@
         </div>
       </form>
     </div>
-    <div id="login-response" style="padding: 20px;">
-      <!-- Server responses will appear here -->
-    </div>
   </div>
 
 
 
   <!-- Register Form -->
   <div id="register-form-component" class="pt-28">
-    <div class="card max-w-sm mx-auto shadow-md">
-      <form class="card-body flex flex-col justify-center lg:px-8" hx-post="/register" hx-target="#register-response">
-        <div class="mx-auto w-full max-w-sm">
+    <div class="card m-auto max-w-sm shadow-xl">
+      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-target="#register-form-component" hx-target-5xx='#errorResponse'  hx-post="/register" hx-swap="outerHTML">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
         </div>
@@ -359,9 +362,9 @@
           </p>
         </div>
       </form>
-      <div id="errorResponse">
+    <div id="errorResponse">
         <!-- Here goes the error response from the server -->
-      </div>
+    </div>
     </div>
   </div>
 
