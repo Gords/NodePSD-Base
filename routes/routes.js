@@ -7,15 +7,6 @@ const jwt = require("jsonwebtoken");
 const emailService = require("../services/emailService");
 const path = require("node:path");
 const fs = require("node:fs");
-const express = require("express");
-const router = express.Router();
-const multer = require("multer");
-const passport = require("passport");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const emailService = require("../services/emailService");
-const path = require("node:path");
-const fs = require("node:fs");
 
 // Configure Multer storage
 const storage = multer.diskStorage({
@@ -27,27 +18,11 @@ const storage = multer.diskStorage({
 		cb(null, `${uniqueSuffix}-${file.originalname}`);
 	},
 });
-	destination: (req, file, cb) => {
-		cb(null, "uploads/");
-	},
-	filename: (req, file, cb) => {
-		const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-		cb(null, `${uniqueSuffix}-${file.originalname}`);
-	},
-});
 
-const upload = multer({ storage });
 const upload = multer({ storage });
 
 // Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
-	if (req.isAuthenticated()) {
-		return next();
-	}
-	res
-		.status(401)
-		.json({ error: "Por favor inicia sesion para visitar esta pagina" });
-};
 	if (req.isAuthenticated()) {
 		return next();
 	}
@@ -68,24 +43,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 				name,
 				isVerified: false,
 			});
-	// User registration
-	router.post("/register", async (req, res) => {
-		try {
-			const { email, password, name } = req.body;
-			const hashedPassword = await bcrypt.hash(password, 10);
-			const user = await User.create({
-				email,
-				password: hashedPassword,
-				name,
-				isVerified: false,
-			});
 
-			// Generate verification token
-			const verificationToken = jwt.sign(
-				{ userId: user.id },
-				process.env.JWT_SECRET,
-				{ expiresIn: "1h" },
-			);
 			// Generate verification token
 			const verificationToken = jwt.sign(
 				{ userId: user.id },
@@ -120,39 +78,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
               <span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
             </div>
           </div>
-			// Send verification email
-			await emailService.sendVerificationEmail(email, verificationToken);
-			console.log("User registered successfully:", user.email);
-			res.status(200).send(`
-      <div id="register-form-component">
-        <div class="card m-auto max-w-sm shadow-xl">
-          <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
-            <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-              <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-              <span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
-            </div>
-          </div>
         </div>
-      </div>
-    `);
-		} catch (error) {
-			console.error("Error registering user:", error);
-			res.status(500).send(
-				`
-      <div id="register-form-component">
-        <div class="card m-auto max-w-sm shadow-xl">
-          <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
-            <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-              <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-              <span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      `.trim(),
-			);
-		}
-	});
       </div>
       `.trim(),
 			);
@@ -162,13 +88,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 	// Verify email
 	router.get("/verify-email", async (req, res) => {
 		const { token } = req.query;
-	// Verify email
-	router.get("/verify-email", async (req, res) => {
-		const { token } = req.query;
 
-		try {
-			const decoded = jwt.verify(token, process.env.JWT_SECRET);
-			const userId = decoded.userId;
 		try {
 			const decoded = jwt.verify(token, process.env.JWT_SECRET);
 			const userId = decoded.userId;
@@ -177,22 +97,10 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 			if (!user) {
 				return res.status(400).json({ error: "Invalid verification token" });
 			}
-			const user = await User.findByPk(userId);
-			if (!user) {
-				return res.status(400).json({ error: "Invalid verification token" });
-			}
 
 			user.isVerified = true;
 			await user.save();
-			user.isVerified = true;
-			await user.save();
 
-			res.redirect(
-				"/?message=Email verified successfully. You can now log in.",
-			);
-		} catch (error) {
-			console.error("Error verifying email:", error);
-			res.status(400).send(`
 			res.redirect(
 				"/?message=Email verified successfully. You can now log in.",
 			);
@@ -206,14 +114,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
 		}
 	});
-		}
-	});
 
-	// User login
-	router.post("/login", (req, res, next) => {
-		passport.authenticate("local", (err, user, info) => {
-			if (err) {
-				return res.status(500).send(`
 	// User login
 	router.post("/login", (req, res, next) => {
 		passport.authenticate("local", (err, user, info) => {
@@ -227,14 +128,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 			}
 			if (!user) {
 				return res.status(401).send(`
-			}
-			if (!user) {
-				return res.status(401).send(`
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
             <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-            <span class="font-bold text-center">${
-							info.message || "Ese usuario no existe"
-						}</span>
             <span class="font-bold text-center">${
 							info.message || "Ese usuario no existe"
 						}</span>
@@ -244,18 +139,11 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 			req.logIn(user, (loginErr) => {
 				if (loginErr) {
 					return res.status(500).send(`
-			}
-			req.logIn(user, (loginErr) => {
-				if (loginErr) {
-					return res.status(500).send(`
             <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
               <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
               <span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
             </div>
           `);
-				}
-				if (!user.isVerified) {
-					return res.status(401).send(`
 				}
 				if (!user.isVerified) {
 					return res.status(401).send(`
@@ -272,14 +160,6 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 					res.set("HX-Redirect", "/user-panel.html");
 				}
 				res.status(200).send(`
-				}
-				// Check if user is an admin
-				if (user.isAdmin) {
-					res.set("HX-Redirect", "/admin-panel.html");
-				} else {
-					res.set("HX-Redirect", "/user-panel.html");
-				}
-				res.status(200).send(`
           <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
             <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
             <span class="font-bold">Inicio de sesión exitoso</span>
@@ -288,9 +168,6 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 			});
 		})(req, res, next);
 	});
-			});
-		})(req, res, next);
-	});
 
 	// Get login form section
 	router.get("/login", (req, res) => {
@@ -308,32 +185,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 				const loginFormSectionRegex =
 					/<div id="login-form-section">([\s\S]*?)<\/div>/;
 				const match = data.match(loginFormSectionRegex);
-	// Get login form section
-	router.get("/login", (req, res) => {
-		const loginHtmlPath = path.join(
-			__dirname,
-			"..",
-			"public",
-			"components.html",
-		);
-		fs.readFile(loginHtmlPath, "utf8", (err, data) => {
-			if (err) {
-				console.error("Error reading file:", err);
-				res.status(500).send("Internal Server Error");
-			} else {
-				const loginFormSectionRegex =
-					/<div id="login-form-section">([\s\S]*?)<\/div>/;
-				const match = data.match(loginFormSectionRegex);
 
-				if (match && match.length > 1) {
-					const loginFormSection = match[1];
-					res.json({ "login-form-section": loginFormSection });
-				} else {
-					res.status(404).send("Login form section not found");
-				}
-			}
-		});
-	});
 				if (match && match.length > 1) {
 					const loginFormSection = match[1];
 					res.json({ "login-form-section": loginFormSection });
@@ -371,8 +223,6 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
 		} else {
 			res.status(401).send(/*html*/ `
-		} else {
-			res.status(401).send(/*html*/ `
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
           <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
           <span class="font-bold text-center">Not logged in</span>
@@ -380,14 +230,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
 		}
 	});
-		}
-	});
 
-	// Get admin details
-	router.get("/check-login-admin", (req, res) => {
-		if (req.isAuthenticated()) {
-			// Sending a partial HTML snippet to update the user-info div
-			res.send(/*html*/ `
 	// Get admin details
 	router.get("/check-login-admin", (req, res) => {
 		if (req.isAuthenticated()) {
@@ -405,8 +248,6 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
           <div class="text-sm">${req.user.email}</div>
       </div>
       `);
-		} else {
-			res.status(401).send(/*html*/ `
 		} else {
 			res.status(401).send(/*html*/ `
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
@@ -437,16 +278,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 					loanRequested: true,
 				},
 			});
-	// Get all users
-	router.get("/users", isAuthenticated, async (req, res) => {
-		try {
-			const users = await User.findAll({
-				where: {
-					loanRequested: true,
-				},
-			});
 
-			const tableHtml = /*html*/ `
 			const tableHtml = /*html*/ `
       <div class="overflow-x-auto">
         <table class="table table-zebra max-w-4xl text-l text-center">
@@ -459,9 +291,6 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
             </tr>
           </thead>
           <tbody>
-            ${users
-							.map(
-								(user) => /*html*/ `
             ${users
 							.map(
 								(user) => /*html*/ `
@@ -480,9 +309,6 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
             `,
 							)
 							.join("")}
-            `,
-							)
-							.join("")}
           </tbody>
         </table>
       `;
@@ -497,18 +323,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
     `);
 		}
 	});
-		}
-	});
 
-	// Update a user
-	router.put("/users/:id", isAuthenticated, async (req, res) => {
-		try {
-			const { email, password, name } = req.body;
-			await User.update(
-				{ email, password, name },
-				{ where: { id: req.params.id } },
-			);
-			res.send(`
 	// Update a user
 	router.put("/users/:id", isAuthenticated, async (req, res) => {
 		try {
@@ -526,9 +341,6 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 		} catch (error) {
 			console.error("Error updating user:", error);
 			res.status(500).send(`
-		} catch (error) {
-			console.error("Error updating user:", error);
-			res.status(500).send(`
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
           <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
           <span class="font-bold text-center">Error updating user</span>
@@ -536,18 +348,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
 		}
 	});
-		}
-	});
 
-	// Delete a user
-	router.delete("/users/:id", isAuthenticated, async (req, res) => {
-		try {
-			await User.destroy({ where: { id: req.params.id } });
-			res.sendStatus(204);
-			res.sendStatus(204);
-		} catch (error) {
-			console.error("Error deleting user:", error);
-			res.status(500).send(`
 	// Delete a user
 	router.delete("/users/:id", isAuthenticated, async (req, res) => {
 		try {
@@ -564,8 +365,6 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
 		}
 	});
-		}
-	});
 
 	// Create new Loan type
 	router.post("/create-loan-type", isAuthenticated, async (req, res) => {
@@ -574,24 +373,13 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 				name: "Préstamo Personal",
 				description: "Préstamo para uso personal",
 			});
-	// Create new Loan type
-	router.post("/create-loan-type", isAuthenticated, async (req, res) => {
-		try {
-			const typeOfLoan = await TypeOfLoan.create({
-				name: "Préstamo Personal",
-				description: "Préstamo para uso personal",
-			});
 
-			res.status(201).send(`
 			res.status(201).send(`
         <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
           <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
           <span class="font-bold">Type of loan created successfully</span>
         </div>
       `);
-		} catch (error) {
-			console.error("Failed to create type of loan:", error);
-			res.status(500).send(`
 		} catch (error) {
 			console.error("Failed to create type of loan:", error);
 			res.status(500).send(`
@@ -602,26 +390,11 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
 		}
 	});
-		}
-	});
 
 	// Create new Loan entry and update user's loanRequested status
 	router.post("/request-loan", isAuthenticated, async (req, res) => {
 		const userId = req.user.id;
-	// Create new Loan entry and update user's loanRequested status
-	router.post("/request-loan", isAuthenticated, async (req, res) => {
-		const userId = req.user.id;
 
-		try {
-			const result = await sequelize.transaction(async (t) => {
-				// Look for the user
-				const user = await User.findByPk(userId, { transaction: t });
-				if (!user) {
-					throw new Error("User not found");
-				}
-				// Update the user's loanRequested status
-				user.loanRequested = true;
-				await user.save({ transaction: t });
 		try {
 			const result = await sequelize.transaction(async (t) => {
 				// Look for the user
@@ -641,17 +414,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 					},
 					{ transaction: t },
 				);
-				// Create a new loan record
-				const loan = await Loan.create(
-					{
-						userId,
-						typeOfLoanId: 1,
-					},
-					{ transaction: t },
-				);
 
-				return loan;
-			});
 				return loan;
 			});
 
@@ -660,27 +423,16 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
           Solicitud enviada
         </button>
       `);
-		} catch (error) {
-			console.error("Failed to create loan and update user:", error);
-			res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">Failed to process loan request</span>
-        </div>
+    } catch (error) {
+      console.error('Failed to create loan and update user:', error);
+      res.status(500).send(`
+        <button disabled class="btn btn-accent no-animation text-white self-center ml-auto">
+          Error al enviar
+        </button>
       `);
 		}
 	});
-		}
-	});
 
-	// Post (Upload) a file within an array of files, max 4 files
-	router.post(
-		"/images",
-		isAuthenticated,
-		upload.array("files", 4),
-		async (req, res) => {
-			try {
-				const userId = req.user.id;
 	// Post (Upload) a file within an array of files, max 4 files
 	router.post(
 		"/images",
@@ -694,14 +446,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 				if (!req.files || req.files.length === 0) {
 					return res.status(400).send("No files uploaded.");
 				}
-				// Check if there are files to process
-				if (!req.files || req.files.length === 0) {
-					return res.status(400).send("No files uploaded.");
-				}
 
-				const fileProcessingPromises = req.files.map(async (file) => {
-					const imagePath = file.path;
-					const savedImagePath = path.join("uploads", file.filename);
 				const fileProcessingPromises = req.files.map(async (file) => {
 					const imagePath = file.path;
 					const savedImagePath = path.join("uploads", file.filename);
@@ -712,26 +457,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 						console.error("Error moving file:", error);
 						throw new Error("Error processing file");
 					}
-					try {
-						await fs.promises.rename(imagePath, savedImagePath);
-					} catch (error) {
-						console.error("Error moving file:", error);
-						throw new Error("Error processing file");
-					}
 
-					// Save the image record to the database
-					const image = await Image.create({
-						userId,
-						path: savedImagePath,
-					});
-				});
-
-				await Promise.all(fileProcessingPromises);
-
-				res.header("HX-Redirect", "/images/user-images");
-			} catch (error) {
-				console.error("Error uploading files:", error);
-				res.status(500).send(`
 					// Save the image record to the database
 					const image = await Image.create({
 						userId,
@@ -753,17 +479,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 			}
 		},
 	);
-			}
-		},
-	);
 
-	// Get all images
-	router.get("/images", isAuthenticated, async (req, res) => {
-		try {
-			const images = await Image.findAll();
-			const imagesHtml = images
-				.map(
-					(image) => /*html*/ `
 	// Get all images
 	router.get("/images", isAuthenticated, async (req, res) => {
 		try {
@@ -780,17 +496,10 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 				)
 				.join("");
 			res.send(`
-      `,
-				)
-				.join("");
-			res.send(`
         <div id="image-list">
           ${imagesHtml}
         </div>
       `);
-		} catch (error) {
-			console.error("Error fetching images:", error);
-			res.status(500).send(`
 		} catch (error) {
 			console.error("Error fetching images:", error);
 			res.status(500).send(`
@@ -801,14 +510,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
 		}
 	});
-		}
-	});
 
-	// Get all images of the logged in user
-	router.get("/images/user-images", isAuthenticated, async (req, res) => {
-		try {
-			const images = await Image.findAll({ where: { userId: req.user.id } });
-			let userImagesHtml = "";
 	// Get all images of the logged in user
 	router.get("/images/user-images", isAuthenticated, async (req, res) => {
 		try {
@@ -870,11 +572,11 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
             </table>
           </div>
         `;
-			}
-			res.send(userImagesHtml);
-		} catch (error) {
-			console.error("Error fetching user images:", error);
-			res.status(500).send(`
+      }
+      res.send(userImagesHtml);
+    } catch (error) {
+      console.error('Error fetching user images:', error);
+      res.status(500).send(`
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
           <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
           <span class="font-bold text-center">Error fetching user images</span>
@@ -930,9 +632,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
                     </div>
                   </td>
                 </tr>
-                `,
-									)
-									.join("")}
+                `).join('')}
               </tbody>
               </table>
             </div>
@@ -940,10 +640,10 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
         </div>
       `;
 
-				res.send(userImagesHtml);
-			} catch (error) {
-				console.error("Error fetching user images:", error);
-				res.status(500).send(`
+        res.send(userImagesHtml);
+      } catch (error) {
+        console.error('Error fetching user images:', error);
+        res.status(500).send(`
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
             <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
             <span class="font-bold text-center">Error fetching user images</span>
@@ -1003,13 +703,6 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 			const image = await Image.findByPk(imageId);
 			if (!image) {
 				return res.status(404).send(`
-	// Delete an image
-	router.delete("/images/:imageId", isAuthenticated, async (req, res) => {
-		try {
-			const { imageId } = req.params;
-			const image = await Image.findByPk(imageId);
-			if (!image) {
-				return res.status(404).send(`
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
           <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
           <span class="font-bold text-center">No se han encontrado archivos</span>
@@ -1022,30 +715,18 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 			} else {
 				console.error("Error: image.path is undefined");
 				return res.status(500).send(`
-			}
-			// Delete the image file from the file system
-			if (image.path) {
-				await fs.promises.unlink(image.path);
-			} else {
-				console.error("Error: image.path is undefined");
-				return res.status(500).send(`
         <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
           <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
           <span class="font-bold text-center">Error eliminando archivo</span>
         </div>
       `);
-			}
-			// Delete the image record from the database
-			await image.destroy();
-			res.send(`
-      <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-        <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-        <span class="font-bold">Archivo eliminado exitosamente</span>
-      </div>
-    `);
-		} catch (error) {
-			console.error("Error deleting image:", error);
-			res.status(500).send(`
+    }
+    // Delete the image record from the database
+    await image.destroy();
+    res.send();
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    res.status(500).send(`
       <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
         <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
         <span class="font-bold text-center">Error deleting image</span>
@@ -1053,17 +734,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
     `);
 		}
 	});
-		}
-	});
 
-	// Get interest rate
-	router.get("/interest-rate", async (req, res) => {
-		const interestRate = 0.3027; // Annual interest rate of 30.27% (fixed on the server)
-		res.send(interestRate.toString());
-	});
-
-	return router;
-};
 	// Get interest rate
 	router.get("/interest-rate", async (req, res) => {
 		const interestRate = 0.3027; // Annual interest rate of 30.27% (fixed on the server)
