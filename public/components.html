@@ -1,13 +1,13 @@
 <!-- Navbar -->
 <nav id="top-navigation-component" class="navbar bg-primary font-bold text-white shadow-md flex">
   <div class="navbar-start">
-    <div class="dropdown">
+    <div class="dropdown opacity-90">
       <button tabindex="0" class="btn btn-ghost lg:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
         </svg>
       </button>
-      <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52">
+      <ul tabindex="0" class="menu menu-compact dropdown-content mt-4 p-2 shadow bg-accent rounded-md w-52">
         <li><a href="#home">Inicio</a></li>
         <li><a href="#products-and-calculator">Productos</a></li>
         <li><a href="#faq">Preguntas Frecuentes</a></li>
@@ -16,23 +16,23 @@
       </ul>
     </div>
     <a href="/" class="btn btn-ghost flex-initial w-80">
-      <img src="./assets/img/logo-blanco.png" alt="Flash Center" id="navbar-logo" class="object-scale-down w-80 h-6">
+      <img src="./assets/img/logo-blanco.png" alt="Flash Center" id="navbar-logo" class="object-scale-down w-75">
     </a>
   </div>
   <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal">
-      <li><a href="#home" class="text-md">Inicio</a></li>
-      <li><a href="#products-and-calculator" class="text-md">Productos</a></li>
-      <li><a href="#faq" class="text-md">Preguntas Frecuentes</a></li>
-      <li><a href="#about" class="text-md">Nosotros</a></li>
-      <li><a href="#contact" class="text-md">Contacto</a></li>
+    <ul class="menu menu-horizontal lg:text-xs lg:font-[1000] xl:text-base">
+      <li><a href="#home">Inicio</a></li>
+      <li><a href="#products-and-calculator">Productos</a></li>
+      <li><a href="#faq">Preguntas Frecuentes</a></li>
+      <li><a href="#about">Nosotros</a></li>
+      <li><a href="#contact">Contacto</a></li>
     </ul>
   </div>
   <div class="navbar-end">
-    <div class="lg:flex">
-      <a class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md mr-1" id="registerButton" href="#register">Registro</a>
-      <a class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" id="loginButton" href="#login">Iniciar sesión</a>
-      <a class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md hidden" id="logoutButton" href="/">Cerrar sesión</a>
+    <div class="flex">
+      <a class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md mr-2" id="registerButton" href="#register">Registro</a>
+      <a class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" id="loginButton" href="#login">Iniciar
+        sesión</a>
     </div>
   </div>
 </nav>
@@ -68,9 +68,14 @@
   </div>
   <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-6 mx-1">
     <div class="max-w-3xl">
-      <h2 class="mb-5 text-3xl font-semibold">Obten tu credito pre aprobado en menos de 24hs</h2>
-      <p class="mb-5 text-xl">Acompañamos en la busqueda del producto ideal, a cada cliente, en cualquier parte del mundo. Salvaguardamos su interes, garantizando un trato simple y efectivo. En menos de 5 minutos te decimos si contas con una pre-aprobacion</p>
-      <a href="#register" class="btn btn-primary btn-lg text-white font-bold">SOLICITA TU CREDITO</a>
+      <h2 class="mb-5 text-3xl font-semibold">Obtén tu crédito preaprobado en menos de 24 hs
+      </h2>
+      <p class="mb-5 text-xl">Acompañamos en la búsqueda del producto ideal, a cada cliente, en cualquier parte del
+        mundo.
+        Salvaguardamos su interes,
+        garantizando un trato simple y efectivo. En menos de 5 minutos te decimos si contas con una pre-aprobacion</p>
+      <a href="#register" class="btn btn-primary btn-lg text-white font-bold">SOLICITA TU
+        CREDITO</a>
     </div>
   </div>
 </div>
@@ -104,7 +109,7 @@
 </div>
 
 <!-- Loan Calculator -->
-<div id="loan-calculator-component" class="text-center mx-10">
+<div id="loan-calculator-component" class="text-center lg:mx-10">
   <h1 class="text-3xl font-bold tracking-widest pt-2 pb-16">SIMULÁ TU PRÉSTAMO</h1>
   <div class="form-control w-full max-w-md mx-auto mt-4">
     <label class="label" for="amount">
@@ -152,21 +157,22 @@
     <p class="py-2 font-bold text-xl">Cuota estimada de: <span id="amount2"></span></p>
     <p class="pb-8 italic">Sujeto a política crediticia de la entidad</p>
   </div>
-  <a id="registerRedirect" href="#register" class="btn btn-primary font-extrabold text-white">¡Solicitar ya!</a>
+  <a id="registerRedirect" href="#register" class="btn btn-primary btn-wide font-extrabold text-white">¡SOLICITAR
+    YA!</a>
 </div>
 
 
 
 
 <!-- FAQ Section -->
-<div id="faq-component" class="mx-auto pt-40 pb-34 bg-gradient-to-b from-secondary to-[#01112A] text-base-100">
+<div id="faq-component" class="mx-auto pt-40 pb-36 bg-gradient-to-b from-secondary to-[#01112A] text-base-100">
   <div class="max-w-3xl mx-auto text-center pb-16">
     <h1 class="text-3xl font-bold tracking-widest pb-6">PREGUNTAS FRECUENTES</h1>
     <div class="justify-center">
       <div class="divider divider-neutral mx-20"></div>
     </div>
   </div>
-  <div id="accordion-item-list" class="space-y-4 max-w-3xl mx-auto">
+  <div id="accordion-item-list" class="space-y-4 max-w-3xl mx-4 sm:mx-auto">
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
       <summary class="collapse-title text-xl font-bold text-center bg-accent">
         ¿POR QUÉ CRÉDITO FLASH?
@@ -175,7 +181,7 @@
         <p class="text-center text-lg text-black">Porque tenemos la respuesta mas inmediata del mercado, ya
           que contamos con un
           proceso de
-          aprobación de créditos 100% digital</p>
+          aprobación de créditos 100% digital.</p>
       </div>
     </details>
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
@@ -187,7 +193,7 @@
           Infocheck,factura de servicios
           (como Copaco,
           ANDE,
-          ESSAP, etc.) e informe de BICSA</p>
+          ESSAP, etc.) e informe de BICSA.</p>
       </div>
     </details>
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
@@ -195,11 +201,9 @@
         ¿CÓMO LO SOLICITO?
       </summary>
       <div class="collapse-content py-6 bg-neutral">
-        <p class="text-center text-lg text-black">¡Es muy fácil!<br>és solicitar tu credito completando el formulario
-          de
-          arriba y
-          con solo
-          5 datos, te damos el monto habilitado.</p>
+        <p class="text-center text-lg text-black">¡Es muy fácil!<br>Creas tu cuenta aquí, cargas los documentos
+          requeridos y te
+          damos el monto habilitado en menos de 24 hs.</p>
       </div>
     </details>
     <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
@@ -218,22 +222,22 @@
 <!-- About Section -->
 <div id="about-component" class="bg-cover pt-40 pb-32 flex justify-center items-center"
   style="background-image: url('./assets/img/cde-skyline.jpg')">
-  <div class="flex justify-center items-center max-w-xl">
+  <div class="flex justify-center items-center max-w-xl xs:mx-4">
     <div class="card bg-base-100 opacity-80 shadow-md">
       <div class="card-body justify-start">
         <h1 class="text-3xl font-bold text-center">ACERCA DE FLASH CENTER</h1>
         <div class="divider"></div>
-        <p class="text-lg">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito
+        <p class="text-lg xs:text-center">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito
           Otorgamos
           préstamos al consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación</p>
         <div class="text-center">
-          <h2 class="text-xl font-bold mt-6">MISION</h2>
+          <h2 class="text-xl font-bold mt-6">MISIÓN</h2>
           <p class="text-lg">Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a
             la
             sociedad, a través de productos financieros</p>
         </div>
         <div class="text-center">
-          <h2 class="text-xl font-bold mt-6">VISION</h2>
+          <h2 class="text-xl font-bold mt-6">VISIÓN</h2>
           <p class="text-lg">Ser una banca contribuyente al estado y su gente</p>
         </div>
         <div>
@@ -250,32 +254,34 @@
 <!-- Footer -->
 <div id="bottom-navigation-component">
   <footer class="footer footer-center pt-8 pb-4 bg-secondary text-white">
-    <nav class="grid grid-flow-col gap-4 font-bold">
-      <a class="link link-hover">Inicio</a>
-      <a class="link link-hover">Productos</a>
-      <a class="link link-hover">Preguntas Frecuentes</a>
-      <a class="link link-hover">Nosotros</a>
-      <a class="link link-hover">Contacto</a>
+    <nav class="hidden sm:grid grid-flow-col gap-4 font-bold text-base">
+      <a href="#home">Inicio</a></li>
+      <li><a href="#products-and-calculator">Productos</a></li>
+      <li><a href="#faq">Preguntas Frecuentes</a></li>
+      <li><a href="#about">Nosotros</a></li>
+      <li><a href="#contact">Contacto</a></li>
     </nav>
     <nav>
       <div class="grid grid-flow-col gap-6">
         <!-- WhatsApp -->
-        <a href="https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20" class="link link-hover">
+        <a onclick="window.open('https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20', '_blank')"
+          class="link link-hover">
           <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-6 h-6" />
         </a>
         <!-- Instagram -->
-        <a href="https://www.instagram.com/flashcenter_py/" class="link link-hover">
+        <a onclick="window.open('https://www.instagram.com/flashcenter_py/', '_blank')" class="link link-hover">
           <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-6 h-6" />
         </a>
         <!-- Facebook -->
-        <a href="https://www.facebook.com/Flashcenterpy" class="link link-hover">
+        <a onclick="window.open('https://www.facebook.com/Flashcenterpy', '_blank')" class="link link-hover">
           <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-6 h-6" />
         </a>
       </div>
     </nav>
     <aside>
-      <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-xs">
-        Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay</a>
+      <a onclick="window.open('https://maps.app.goo.gl/qgH35BhhbNsH9mvw6', '_blank')" class="text-xs link link-hover">
+        Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay
+      </a>
       <p class="text-xs italic text-gray-200 px-4 text-center">La información proporcionada sobre los préstamos es
         únicamente a título
         informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
@@ -292,13 +298,11 @@
 <section id="forms">
   <!-- Login Form -->
   <div id="login-form-component" class="pt-32">
-    <div class="card m-auto max-w-sm shadow-xl">
+    <div class="card m-auto max-w-sm shadow-md">
       <form id=login-form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/login"
         hx-target="#login-response" hx-swap="innerHTML">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Acceda a su cuenta</h2>
-        </div>
+        <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
+        <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Accede a tu cuenta</h2>
         <div class="mt-10 mx-auto w-full max-w-sm">
           <div class="space-y-6">
             <div>
@@ -331,7 +335,7 @@
       <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-target="#register-form-component" hx-target-5xx='#errorResponse'  hx-post="/register" hx-swap="outerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Registre su cuenta</h2>
+          <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
         </div>
         <div class="mt-10 mx-auto w-full max-w-sm">
           <div class="space-y-6">
@@ -367,118 +371,100 @@
 
 
   <!-- Contact Form -->
-  <form id="contact-form-component" class="bg-neutral pt-28 pb-12" action="#" method="POST">
-    <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-bold pb-3">Contáctanos</h2>
-      <div class="divider mx-20"></div>
-      <p class="text-lg text-gray-600 pt-2 pb-6">¿Cómo te podemos ayudar?</p>
-    </div>
-    <div class="mx-auto max-w-2xl text-center">
-      <div class=" grid grid-cols-2">
-
-        <!-- Name Input -->
-        <label for="contact-first-name" class="form-control w-full max-w-xs">
-          <div class="label">
-            <span class="label-text">Nombre</span>
-          </div>
-          <input id="contact-first-name" type="text" class="input input-bordered w-full max-w-xs" />
-        </label>
-
-        <!-- Last Name Input -->
-        <label for="contact-last-name" class="form-control w-full max-w-xs">
-          <div class="label">
-            <span class="label-text">Apellido</span>
-          </div>
-          <input id="contact-last-name" type="text" class="input input-bordered w-full max-w-xs" />
-        </label>
-
-        <!-- Email Input -->
-        <label for="contact-email" class="form-control w-full max-w-xs">
-          <div class="label">
-            <span class="label-text">E-mail</span>
-          </div>
-          <input id="contact-email" type="email" class="input input-bordered w-full max-w-xs" />
-        </label>
-
-        <!-- Phone Input -->
-        <label for="contact-phone" class="form-control w-full max-w-xs">
-          <div class="label">
-            <span class="label-text">Teléfono</span>
-          </div>
-          <input id="contact-phone" type="text" class="input input-bordered w-full max-w-xs" />
-        </label>
+  <div id="contact-and-location-component"
+    class="flex flex-col lg:flex-row justify-center items-center bg-neutral pt-24 pb-12 px-4">
+    <form id="contact-form-component" action="#" method="POST" class="w-full lg:w-1/2">
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="text-3xl font-bold pb-3">Contáctanos</h2>
+        <div class="divider mx-20"></div>
+        <p class="text-lg text-gray-600 pt-2 pb-6">¿Cómo te podemos ayudar?</p>
       </div>
-
-      <!-- Message Input -->
-      <div class="pt-2">
-        <label for="contact-message" class="form-control">
-          <div class="label">
-            <span class="label-text">Mensaje</span>
-          </div>
-          <textarea id="contact-message" class="textarea textarea-bordered h-24"></textarea>
-        </label>
+      <div class="mx-auto max-w-2xl text-center items-center">
+        <div class="mx-auto grid grid-cols-2 max-w-lg gap-x-12 gap-y-8">
+          <!-- Name Input -->
+          <label for="contact-first-name" class="form-control max-w-[16rem]">
+            <div class="label">
+              <span class="label-text">Nombre</span>
+            </div>
+            <input id="contact-first-name" type="text" class="input input-bordered w-full max-w-[16rem]" />
+          </label>
+          <!-- Last Name Input -->
+          <label for="contact-last-name" class="form-control max-w-[16rem]">
+            <div class="label">
+              <span class="label-text">Apellido</span>
+            </div>
+            <input id="contact-last-name" type="text" class="input input-bordered max-w-[16rem]" />
+          </label>
+          <!-- Email Input -->
+          <label for="contact-email" class="form-control max-w-[16rem]">
+            <div class="label">
+              <span class="label-text">E-mail</span>
+            </div>
+            <input id="contact-email" type="email" class="input input-bordered max-w-[16rem]" />
+          </label>
+          <!-- Phone Input -->
+          <label for="contact-phone" class="form-control max-w-[16rem]">
+            <div class="label">
+              <span class="label-text">Teléfono</span>
+            </div>
+            <input id="contact-phone" type="text" class="input input-bordered max-w-[16rem]" />
+          </label>
+        </div>
+        <!-- Message Input -->
+        <div class="pt-10 mx-auto max-w-lg">
+          <label for="contact-message" class="form-control">
+            <div class="label">
+              <span class="label-text">Mensaje</span>
+            </div>
+            <textarea id="contact-message" class="textarea textarea-bordered h-24"></textarea>
+          </label>
+        </div>
+        <!-- Submit Button -->
+        <div class="mt-10">
+          <button type="submit" class="btn btn-primary btn-md md:btn-wide text-white">ENVIAR MENSAJE</button>
+        </div>
       </div>
-
-      <!-- Submit Button -->
-      <div class="mt-10">
-        <button type="submit" class="btn btn-primary w-full text-white">ENVIAR MENSAJE</button>
-      </div>
-    </div>
-  </form>
+    </form>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d830.6724838245427!2d-57.562132031261086!3d-25.282108083153144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da9085c8ed16f%3A0x64fa7eb3f1d80819!2sFlash%20Center!5e0!3m2!1ses-419!2sde!4v1713780956699!5m2!1ses-419!2sde"
+      width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade" class="pt-8 lg:pt-0 lg:mx-4 lg:max-w-xl"></iframe>
+  </div>
 
 </section>
 
 
-<!-- Old Footer -->
-<div id="old-footer-component">
-  <footer class="footer p-6 bg-secondary text-white">
-    <div class="mx-auto">
-      <img src="./assets/img/logo-blanco.png" alt="Flash Center" id="footer-logo"
-        class="object-scale-down w-80 h-6 mt-1" />
-      <div class="flex items-center pt-4 pl-2">
-        <img src="./assets/icons/map-pin.svg" alt="Location Icon" class="w-7 h-7 mr-2">
-        <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-base link link-hover">
-          Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay</a>
+
+<!-- About Section
+<div id="about-component" class="bg-cover pt-40 pb-32 flex justify-center items-center"
+  style="background-image: url('./assets/img/cde-skyline.jpg')">
+  <div class="flex justify-center items-center max-w-4xl xs:mx-4 mb-52">
+    <div class="card bg-base-100 opacity-80 shadow-md">
+      <div class="card-body justify-start">
+        <h1 class="text-3xl font-bold text-center">ACERCA DE FLASH CENTER</h1>
+        <div class="divider"></div>
+        <p class="text-lg xs:text-center">Somos una empresa pionera en Paraguay, líder en microfinanzas
+          digitales. Nos especializamos en proporcionar
+          préstamos al consumidor a través de un proceso completamente digital, asegurando una aprobación rápida y
+          eficiente.</p>
+        <div class="text-center">
+          <h2 class="text-xl font-bold mt-6">MISION</h2>
+          <p class="text-lg">Mejorar la calidad de vida de nuestros empleados, clientes, accionistas y la comunidad.
+            Logramos esto
+            mediante productos financieros innovadores diseñados para satisfacer sus diversas necesidades./p>
+        </div>
+        <div class="flex flex-row text-center text-xl">
+          <div class="w-3/5">
+            <h2 class="font-bold mt-6">VISION</h2>
+            <p class="text-lg">ser reconocidos como una institución financiera esencial que contribuye al bienestar del
+              estado y sus ciudadanos.</p>
+          </div>
+          <div class="w-2/5">
+            <h2 class="font-bold mt-6">VALORES</h2>
+            <p class="text-lg">Accesibilidad Agilidad Amabilidad<br>Lealtad Respeto</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <nav class="flex flex-col items-center mx-auto">
-      <h2 class="footer-title text-lg">Redes Sociales</h2>
-      <div class="flex justify-center items-center space-x-4">
-        <!-- WhatsApp -->
-        <a href="https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20" class="link link-hover">
-          <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-10 h-10" />
-        </a>
-        <!-- Instagram -->
-        <a href="https://www.instagram.com/flashcenter_py/" class="link link-hover">
-          <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-8 h-8" />
-        </a>
-        <!-- Facebook -->
-        <a href="https://www.facebook.com/Flashcenterpy" class="link link-hover">
-          <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-8 h-8" />
-        </a>
-      </div>
-    </nav>
-    <nav class="flex flex-col mx-auto font-bold">
-      <h2 class="footer-title text-lg">Servicios</h2>
-      <a href="#register" class="link link-hover text-base">Crea tu cuenta</a>
-      <a href="#products-and-calculator" class="link link-hover text-base">Solicita tu credito</a>
-    </nav>
-    <nav class="flex flex-col mx-auto">
-      <h2 class="footer-title text-lg">Empresa</h2>
-      <a href="#about" class="link link-hover text-base font-bold">Nosotros</a>
-      <a href="#contact" class="link link-hover text-base font-bold">Contacto</a>
-      <a href="https://goo.gl/maps/Y2UQwyauSucte7GV7" class="text-xs">
-        Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay</a>
-    </nav>
-  </footer>
-  <!-- Disclaimer Footer -->
-  <div class="bg-secondary py-4">
-    <div class="flex justify-center items-center max-w-4xl mx-auto">
-      <p class="text-xs italic text-gray-200 px-4 text-center">
-        La información proporcionada sobre los préstamos es únicamente a título
-        informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
-        préstamos. Está sujeta a las políticas de mercado y/o internas de la entidad financiera
-      </p>
     </div>
   </div>
-</div>
+</div> -->

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Flash Center</title>
   <link rel="icon" href="./assets/icons/favicon.ico" type="image/x-icon">
   <script src="https://unpkg.com/htmx.org@1.9.12"></script>
@@ -17,8 +17,7 @@
   <script src="js/login.js"></script>
 </head>
 
-<body class="h-full flex flex-col min-h-screen sm::mx-4"
-  htmx:afterOnLoad="console.log('HTMX load event:', event.detail)">
+<body class="h-full flex flex-col" htmx:afterOnLoad="console.log('HTMX load event:', event.detail)">
   <header>
     <nav hx-get="components.html" hx-select="#top-navigation-component" hx-trigger="load"></nav>
   </header>
@@ -28,17 +27,17 @@
       </section>
       <div id="products-and-calculator" class="flex flex-col w-full lg:flex-row pt-32 pb-28 bg-neutral">
         <section id="products" hx-trigger="load" hx-get="components.html" hx-select="#products-component"
-          hx-swap="afterbegin" class="grid flex-grow">
+          hx-swap="afterbegin" class="grid flex-grow xs:mx-4">
         </section>
         <div class="divider py-12 lg:divider-horizontal"></div>
         <section id="calculator" hx-trigger="load" hx-get="components.html" hx-select="#loan-calculator-component"
-          hx-swap="afterbegin" class="grid flex-grow"></section>
+          hx-swap="afterbegin" class="grid flex-grow xs:mx-4"></section>
       </div>
       <section id="faq" hx-trigger="load" hx-get="components.html" hx-select="#faq-component" hx-swap="afterbegin">
       </section>
       <section id="about" hx-trigger="load" hx-get="components.html" hx-select="#about-component" hx-swap="afterbegin">
       </section>
-      <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-form-component"
+      <section id="contact" hx-trigger="load" hx-get="components.html" hx-select="#contact-and-location-component"
         hx-swap="afterbegin">
       </section>
     </section>
