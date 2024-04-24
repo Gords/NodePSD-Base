@@ -258,18 +258,6 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
     }
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
 	// Get all users
 	router.get("/users", isAuthenticated, async (req, res) => {
 		try {
@@ -740,6 +728,44 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 		const interestRate = 0.3027; // Annual interest rate of 30.27% (fixed on the server)
 		res.send(interestRate.toString());
 	});
+
+  router.post('/contact', async (req, res) => {
+    console.log('Received form data:', req.body);
+    const {
+      'contact-first-name': firstName,
+      'contact-last-name': lastName,
+      'contact-id': idNumber,
+      'contact-email': email,
+      'contact-phone': phone,
+      'contact-message': message,
+    } = req.body;
+  
+    try {
+      await emailService.sendContactEmail({
+        firstName,
+        lastName,
+        idNumber,
+        email,
+        phone,
+        message,
+      });
+  
+      res.send(`
+        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold">Contact form submitted successfully!</span>
+        </div>
+      `);
+    } catch (error) {
+      console.error('Error handling contact form submission:', error);
+      res.status(500).send(`
+        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+          <span class="font-bold text-center">Error submitting contact form. Please try again.</span>
+        </div>
+      `);
+    }
+  });
 
 	return router;
 };
