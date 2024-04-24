@@ -71,41 +71,14 @@ html {
   margin-right: 2rem/* 32px */;
 }
 
-/* Styling that adds a background pattern */
-/* main::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #ffffff;
-  opacity: 1;
-  background-image:  radial-gradient(#c7c7c7 0.8500000000000001px, transparent 0.8500000000000001px), radial-gradient(#c7c7c7 0.8500000000000001px, #ffffff 0.8500000000000001px);
-  background-size: 34px 34px;
-  background-position: 0 0,17px 17px;
-  z-index: -1;
-  pointer-events: none;
-} */
-
-.video-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: -1;
-}
-
 .video-iframe {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1.1);
   width: 100vw;
   height: 56.25vw; /* 16:9 aspect ratio */
-  min-height: 100vh;
+  min-height: 100dvh;
   min-width: 177.77vh; /* 16:9 aspect ratio */
 }
 

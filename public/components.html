@@ -57,28 +57,25 @@
 
 
 <!-- Home section with background-->
-<div id="home-component" class="hero min-h-screen">
-  <div class="video-background">
-    <iframe
-      class="video-iframe"
+<div id="home-component" class="relative hero min-h-screen">
+  <div class="absolute inset-0 overflow-hidden">
+    <iframe class="video-iframe"
       src="https://www.youtube.com/embed/-WPDrSCNwdc?autoplay=1&mute=1&loop=1&playlist=-WPDrSCNwdc&controls=0&vq=hd1080&modestbranding=1&rel=0&showinfo=0&disablekb=1&start=65"
-      frameborder="0"
-      allowfullscreen
-    ></iframe>
+      frameborder="0" allow="autoplay; fullscreen"></iframe>
   </div>
-  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-6 mx-1">
-    <div class="max-w-3xl">
-      <h2 class="mb-5 text-3xl font-semibold">Obtén tu crédito preaprobado en menos de 24 hs
-      </h2>
-      <p class="mb-5 text-xl">Acompañamos en la búsqueda del producto ideal, a cada cliente, en cualquier parte del
-        mundo.
-        Salvaguardamos su interes,
-        garantizando un trato simple y efectivo. En menos de 5 minutos te decimos si contas con una pre-aprobacion</p>
-      <a href="#register" class="btn btn-primary btn-lg text-white font-bold">SOLICITA TU
-        CREDITO</a>
+  <div class="z-10 mx-4 mt-[17rem] mb-8 lg:my-auto">
+    <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-6">
+      <div class="max-w-3xl">
+        <h1 class="mb-5 text-2xl md:text-3xl font-semibold">Obtén tu crédito preaprobado en menos de 24 hs</h1>
+        <p class="mb-5 text-xl">Acompañamos en la búsqueda del producto ideal.
+          Salvaguardamos su interes,
+          garantizando un trato simple y efectivo. En menos de 5 minutos te decimos si contas con una pre-aprobacion</p>
+        <a href="#register" class="btn btn-primary btn-md md:btn-lg text-white font-bold">SOLICITA TU CREDITO</a>
+      </div>
     </div>
   </div>
 </div>
+
 
 
 
@@ -253,7 +250,7 @@
 
 <!-- Footer -->
 <div id="bottom-navigation-component">
-  <footer class="footer footer-center pt-8 pb-4 bg-secondary text-white">
+  <footer class="footer footer-center pt-6 pb-4 bg-secondary text-white">
     <nav class="hidden sm:grid grid-flow-col gap-4 font-bold text-base">
       <a href="#home">Inicio</a></li>
       <li><a href="#products-and-calculator">Productos</a></li>
@@ -331,53 +328,71 @@
 
   <!-- Register Form -->
   <div id="register-form-component" class="pt-28">
-    <div class="card m-auto max-w-sm shadow-xl">
-      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-target="#register-form-component" hx-target-5xx='#errorResponse'  hx-post="/register" hx-swap="outerHTML">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <!-- add card and shadow below -->
+    <div class="card m-auto max-w-lg shadow-md">
+      <!-- add card-body below -->
+      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-target="#register-form-component"
+        hx-target-5xx='#errorResponse' hx-post="/register" hx-swap="outerHTML">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
+          <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
         </div>
-        <div class="mt-10 mx-auto w-full max-w-sm">
-          <div class="space-y-6">
+        <div class="mt-4 mx-auto w-full max-w-md">
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Name and Surname -->
             <div>
               <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
               <input id="register-name" name="name" type="text" autocomplete="name"
                 class="input input-bordered w-full" />
             </div>
             <div>
-              <label for="register-email" class="text-base font-medium text-gray-600">Correo electronico</label>
+              <label for="register-surname" class="text-base font-medium text-gray-600">Apellido</label>
+              <input id="register-lastName" name="lastName" type="text" class="input input-bordered w-full" />
+            </div>
+            <!-- ID Number and Phone -->
+            <div>
+              <label for="register-idNumber" class="text-base font-medium text-gray-600">Nro. de Cédula</label>
+              <input id="register-idNumber" name="idNumber" type="text" class="input input-bordered w-full" />
+            </div>
+            <div>
+              <label for="register-phoneNumber" class="text-base font-medium text-gray-600">Teléfono</label>
+              <input id="register-phoneNumber" name="phoneNumber" type="text" class="input input-bordered w-full" />
+            </div>
+            <!-- Email and Password -->
+            <div class="col-span-2">
+              <label for="register-email" class="text-base font-medium text-gray-600">Correo electrónico</label>
               <input id="register-email" name="email" type="email" autocomplete="email"
                 class="input input-bordered w-full" />
             </div>
-            <div>
+            <div class="col-span-2">
               <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
               <input id="register-password" name="password" type="password" autocomplete="new-password" required
                 class="input input-bordered w-full" />
             </div>
-            <button type="submit" class="btn btn-primary w-full text-white">Registrarse</button>
           </div>
-          <p class="mt-10 text-center text-sm text-gray-600">
+          <button type="submit" class="btn btn-primary w-full text-white mt-6">Registrarse</button>
+          <p class="mt-4 text-center text-sm text-gray-600">
             Ya tienes una cuenta?
-            <a href="#login" class="link link-primary font-bold">Inicia sesión aqui!</a>
+            <a href="#login" class="link link-primary font-bold">Inicia sesión aquí!</a>
           </p>
         </div>
       </form>
-    <div id="errorResponse">
+      <div id="errorResponse">
         <!-- Here goes the error response from the server -->
-    </div>
+      </div>
     </div>
   </div>
+
 
 
 
   <!-- Contact Form -->
   <div id="contact-and-location-component"
     class="flex flex-col lg:flex-row justify-center items-center bg-neutral pt-24 pb-12 px-4">
-    <form id="contact-form-component" action="#" method="POST" class="w-full lg:w-1/2">
+    <form id="contact-form-component" hx-post="/contact" hx-target="#contact-form-response" class="w-full lg:w-1/2">
       <div class="mx-auto max-w-2xl text-center">
-        <h2 class="text-3xl font-bold pb-3">Contáctanos</h2>
+        <h2 class="text-3xl font-bold pb-3">Solicitá tu Crédito Flash</h2>
         <div class="divider mx-20"></div>
-        <p class="text-lg text-gray-600 pt-2 pb-6">¿Cómo te podemos ayudar?</p>
       </div>
       <div class="mx-auto max-w-2xl text-center items-center">
         <div class="mx-auto grid grid-cols-2 max-w-lg gap-x-12 gap-y-8">
@@ -386,44 +401,52 @@
             <div class="label">
               <span class="label-text">Nombre</span>
             </div>
-            <input id="contact-first-name" type="text" class="input input-bordered w-full max-w-[16rem]" />
+            <input id="contact-first-name" name="contact-first-name" type="text"
+              class="input input-bordered w-full max-w-[16rem]" />
           </label>
           <!-- Last Name Input -->
           <label for="contact-last-name" class="form-control max-w-[16rem]">
             <div class="label">
               <span class="label-text">Apellido</span>
             </div>
-            <input id="contact-last-name" type="text" class="input input-bordered max-w-[16rem]" />
+            <input id="contact-last-name" name="contact-last-name" type="text"
+              class="input input-bordered max-w-[16rem]" />
+          </label>
+          <!-- Id Number Input-->
+          <label for="contact-id" class="form-control max-w-[16rem]">
+            <div class="label">
+              <span class="label-text">Nro. de Documento</span>
+            </div>
+            <input id="contact-id" name="contact-id" type="text" class="input input-bordered max-w-[16rem]" />
           </label>
           <!-- Email Input -->
           <label for="contact-email" class="form-control max-w-[16rem]">
             <div class="label">
               <span class="label-text">E-mail</span>
             </div>
-            <input id="contact-email" type="email" class="input input-bordered max-w-[16rem]" />
+            <input id="contact-email" name="contact-email" type="email" class="input input-bordered max-w-[16rem]" />
           </label>
           <!-- Phone Input -->
           <label for="contact-phone" class="form-control max-w-[16rem]">
             <div class="label">
-              <span class="label-text">Teléfono</span>
+              <span class="label-text">Nro. de Teléfono</span>
             </div>
-            <input id="contact-phone" type="text" class="input input-bordered max-w-[16rem]" />
+            <input id="contact-phone" name="contact-phone" type="text" class="input input-bordered max-w-[16rem]" />
           </label>
-        </div>
-        <!-- Message Input -->
-        <div class="pt-10 mx-auto max-w-lg">
+          <!-- Message Input -->
           <label for="contact-message" class="form-control">
             <div class="label">
               <span class="label-text">Mensaje</span>
             </div>
-            <textarea id="contact-message" class="textarea textarea-bordered h-24"></textarea>
+            <textarea id="contact-message" name="contact-message" class="textarea textarea-bordered h-12"></textarea>
           </label>
         </div>
         <!-- Submit Button -->
         <div class="mt-10">
-          <button type="submit" class="btn btn-primary btn-md md:btn-wide text-white">ENVIAR MENSAJE</button>
+          <button type="submit" class="btn btn-primary btn-md md:btn-wide text-white">SOLICITAR YA</button>
         </div>
       </div>
+      <div id="contact-form-response"></div>
     </form>
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d830.6724838245427!2d-57.562132031261086!3d-25.282108083153144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da9085c8ed16f%3A0x64fa7eb3f1d80819!2sFlash%20Center!5e0!3m2!1ses-419!2sde!4v1713780956699!5m2!1ses-419!2sde"
