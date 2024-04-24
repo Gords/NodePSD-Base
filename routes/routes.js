@@ -31,7 +31,9 @@ const isAuthenticated = (req, res, next) => {
 		.json({ error: "Por favor inicia sesion para visitar esta pagina" });
 };
 
+
 module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
+
 	// User registration
 	router.post("/register", async (req, res) => {
 		try {
@@ -88,6 +90,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 		}
 	});
 
+
+
 	// Verify email
 	router.get("/verify-email", async (req, res) => {
 		const { token } = req.query;
@@ -117,6 +121,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
 		}
 	});
+
+
 
 	// User login
 	router.post("/login", (req, res, next) => {
@@ -172,6 +178,20 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 		})(req, res, next);
 	});
 
+
+
+  // User logout
+  router.post('/logout', (req, res, next) => {
+    req.logout((err) => {
+      if (err) { return next(err); }
+      res.setHeader('HX-Redirect', '/'); // Setting the HX-Redirect header
+      res.status(200).send(); // Send an OK response with the redirect header
+    });
+  });
+
+
+
+
 	// Get login form section
 	router.get("/login", (req, res) => {
 		const loginHtmlPath = path.join(
@@ -198,6 +218,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 			}
 		});
 	});
+
+
 
   // Get logged in user details
   router.get('/check-login-user', (req, res) => {
@@ -234,6 +256,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 		}
 	});
 
+
+
 	// Get admin details
 	router.get("/check-login-admin", (req, res) => {
 		if (req.isAuthenticated()) {
@@ -260,6 +284,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
     }
   });
+
+
 
 	// Get all users
 	router.get("/users", isAuthenticated, async (req, res) => {
@@ -315,6 +341,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 		}
 	});
 
+
+
 	// Update a user
 	router.put("/users/:id", isAuthenticated, async (req, res) => {
 		try {
@@ -340,6 +368,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 		}
 	});
 
+
+
 	// Delete a user
 	router.delete("/users/:id", isAuthenticated, async (req, res) => {
 		try {
@@ -356,6 +386,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
 		}
 	});
+
+
 
 	// Create new Loan type
 	router.post("/create-loan-type", isAuthenticated, async (req, res) => {
@@ -381,6 +413,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
 		}
 	});
+
+
 
 	// Create new Loan entry and update user's loanRequested status
 	router.post("/request-loan", isAuthenticated, async (req, res) => {
@@ -423,6 +457,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
 		}
 	});
+
+
 
 	// Post (Upload) a file within an array of files, max 4 files
 	router.post(
@@ -471,6 +507,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 		},
 	);
 
+
+
 	// Get all images
 	router.get("/images", isAuthenticated, async (req, res) => {
 		try {
@@ -501,6 +539,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       `);
 		}
 	});
+
+
 
 	// Get all images of the logged in user
 	router.get("/images/user-images", isAuthenticated, async (req, res) => {
@@ -726,6 +766,8 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 		}
 	});
 
+
+
 	// Get interest rate
 	router.get("/interest-rate", async (req, res) => {
 		const interestRate = 0.3027; // Annual interest rate of 30.27% (fixed on the server)
@@ -742,7 +784,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
       'contact-phone': phone,
       'contact-message': message,
     } = req.body;
-  
+
     try {
       await emailService.sendContactEmail({
         firstName,
@@ -752,7 +794,7 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
         phone,
         message,
       });
-  
+
       res.send(`
         <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
           <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
