@@ -16,6 +16,18 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		lastName: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
+		idNumber: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
+		phoneNumber: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 		isVerified: {
 			type: DataTypes.BOOLEAN,
 			allowNull: false,

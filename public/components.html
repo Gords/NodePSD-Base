@@ -250,7 +250,7 @@
 
 <!-- Footer -->
 <div id="bottom-navigation-component">
-  <footer class="footer footer-center pt-8 pb-4 bg-secondary text-white">
+  <footer class="footer footer-center pt-6 pb-4 bg-secondary text-white">
     <nav class="hidden sm:grid grid-flow-col gap-4 font-bold text-base">
       <a href="#home">Inicio</a></li>
       <li><a href="#products-and-calculator">Productos</a></li>
@@ -328,35 +328,52 @@
 
   <!-- Register Form -->
   <div id="register-form-component" class="pt-28">
-    <div class="card m-auto max-w-sm shadow-xl">
+    <!-- add card and shadow below -->
+    <div class="card m-auto max-w-lg shadow-md">
+      <!-- add card-body below -->
       <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-target="#register-form-component"
         hx-target-5xx='#errorResponse' hx-post="/register" hx-swap="outerHTML">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
+          <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
         </div>
-        <div class="mt-10 mx-auto w-full max-w-sm">
-          <div class="space-y-6">
+        <div class="mt-4 mx-auto w-full max-w-md">
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Name and Surname -->
             <div>
               <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
               <input id="register-name" name="name" type="text" autocomplete="name"
                 class="input input-bordered w-full" />
             </div>
             <div>
-              <label for="register-email" class="text-base font-medium text-gray-600">Correo electronico</label>
+              <label for="register-surname" class="text-base font-medium text-gray-600">Apellido</label>
+              <input id="register-lastName" name="lastName" type="text" class="input input-bordered w-full" />
+            </div>
+            <!-- ID Number and Phone -->
+            <div>
+              <label for="register-idNumber" class="text-base font-medium text-gray-600">Nro. de Cédula</label>
+              <input id="register-idNumber" name="idNumber" type="text" class="input input-bordered w-full" />
+            </div>
+            <div>
+              <label for="register-phoneNumber" class="text-base font-medium text-gray-600">Teléfono</label>
+              <input id="register-phoneNumber" name="phoneNumber" type="text" class="input input-bordered w-full" />
+            </div>
+            <!-- Email and Password -->
+            <div class="col-span-2">
+              <label for="register-email" class="text-base font-medium text-gray-600">Correo electrónico</label>
               <input id="register-email" name="email" type="email" autocomplete="email"
                 class="input input-bordered w-full" />
             </div>
-            <div>
+            <div class="col-span-2">
               <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
               <input id="register-password" name="password" type="password" autocomplete="new-password" required
                 class="input input-bordered w-full" />
             </div>
-            <button type="submit" class="btn btn-primary w-full text-white">Registrarse</button>
           </div>
-          <p class="mt-10 text-center text-sm text-gray-600">
+          <button type="submit" class="btn btn-primary w-full text-white mt-6">Registrarse</button>
+          <p class="mt-4 text-center text-sm text-gray-600">
             Ya tienes una cuenta?
-            <a href="#login" class="link link-primary font-bold">Inicia sesión aqui!</a>
+            <a href="#login" class="link link-primary font-bold">Inicia sesión aquí!</a>
           </p>
         </div>
       </form>
@@ -365,6 +382,7 @@
       </div>
     </div>
   </div>
+
 
 
 
