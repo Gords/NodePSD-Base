@@ -35,12 +35,15 @@ module.exports = (User, Image, Loan, TypeOfLoan, sequelize) => {
 	// User registration
 	router.post("/register", async (req, res) => {
 		try {
-			const { email, password, name } = req.body;
+			const { email, password, name, lastName, idNumber, phoneNumber } = req.body;
 			const hashedPassword = await bcrypt.hash(password, 10);
 			const user = await User.create({
 				email,
 				password: hashedPassword,
 				name,
+        lastName,
+        idNumber,
+        phoneNumber,
 				isVerified: false,
 			});
 
