@@ -57,28 +57,25 @@
 
 
 <!-- Home section with background-->
-<div id="home-component" class="hero min-h-screen">
-  <div class="video-background">
-    <iframe
-      class="video-iframe"
+<div id="home-component" class="relative hero min-h-screen">
+  <div class="absolute inset-0 overflow-hidden">
+    <iframe class="video-iframe"
       src="https://www.youtube.com/embed/-WPDrSCNwdc?autoplay=1&mute=1&loop=1&playlist=-WPDrSCNwdc&controls=0&vq=hd1080&modestbranding=1&rel=0&showinfo=0&disablekb=1&start=65"
-      frameborder="0"
-      allowfullscreen
-    ></iframe>
+      frameborder="0" allow="autoplay; fullscreen"></iframe>
   </div>
-  <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-6 mx-1">
-    <div class="max-w-3xl">
-      <h2 class="mb-5 text-3xl font-semibold">Obtén tu crédito preaprobado en menos de 24 hs
-      </h2>
-      <p class="mb-5 text-xl">Acompañamos en la búsqueda del producto ideal, a cada cliente, en cualquier parte del
-        mundo.
-        Salvaguardamos su interes,
-        garantizando un trato simple y efectivo. En menos de 5 minutos te decimos si contas con una pre-aprobacion</p>
-      <a href="#register" class="btn btn-primary btn-lg text-white font-bold">SOLICITA TU
-        CREDITO</a>
+  <div class="z-10 mx-4 mt-[17rem] mb-8 lg:my-auto">
+    <div class="hero-content backdrop-grayscale bg-secondary/60 text-center text-base-100 p-6">
+      <div class="max-w-3xl">
+        <h1 class="mb-5 text-2xl md:text-3xl font-semibold">Obtén tu crédito preaprobado en menos de 24 hs</h1>
+        <p class="mb-5 text-xl">Acompañamos en la búsqueda del producto ideal.
+          Salvaguardamos su interes,
+          garantizando un trato simple y efectivo. En menos de 5 minutos te decimos si contas con una pre-aprobacion</p>
+        <a href="#register" class="btn btn-primary btn-md md:btn-lg text-white font-bold">SOLICITA TU CREDITO</a>
+      </div>
     </div>
   </div>
 </div>
+
 
 
 
@@ -332,7 +329,8 @@
   <!-- Register Form -->
   <div id="register-form-component" class="pt-28">
     <div class="card m-auto max-w-sm shadow-xl">
-      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-target="#register-form-component" hx-target-5xx='#errorResponse'  hx-post="/register" hx-swap="outerHTML">
+      <form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-target="#register-form-component"
+        hx-target-5xx='#errorResponse' hx-post="/register" hx-swap="outerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
@@ -362,9 +360,9 @@
           </p>
         </div>
       </form>
-    <div id="errorResponse">
+      <div id="errorResponse">
         <!-- Here goes the error response from the server -->
-    </div>
+      </div>
     </div>
   </div>
 
