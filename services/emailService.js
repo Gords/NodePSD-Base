@@ -3,7 +3,7 @@ const postmark = require('postmark');
 const client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
 
 const sendVerificationEmail = async (email, token) => {
-  const verificationLink = `http://localhost:3000/verify-email?token=${token}`;
+  const verificationLink = `http://184.73.230.40:3000/verify-email?token=${token}`;
 
   const mailOptions = {
     From: process.env.POSTMARK_SENDER_EMAIL,
