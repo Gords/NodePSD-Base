@@ -16,12 +16,20 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		}
 	});
+
+	// Handle successful login state
+	document.body.addEventListener("htmx:afterSwap", (event) => {
+		const loginSuccessMessage = document.getElementById("login-success");
+		if (loginSuccessMessage) {
+			localStorage.setItem("loggedIn", true);
+		}
+	});
 });
 
 // Logout function
 function logout() {
 	localStorage.removeItem("loggedIn");
-	window.location.reload();
+	window.location.href = "/";
 }
 
 // Attach the logout function to the window object
