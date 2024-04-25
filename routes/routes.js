@@ -52,7 +52,7 @@ router.post(
 		.isLength({ max: 8 })
 		.withMessage("ID number should be less than or equal to 8 digits"),
 	  body("phoneNumber")
-		.matches(/^\+595\d{10}$/)
+		.matches(/^\+595\d{9}$/)
 		.withMessage("Invalid Paraguay phone number"),
 	],
 	async (req, res) => {
