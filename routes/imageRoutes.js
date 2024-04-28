@@ -183,18 +183,15 @@ module.exports = (Image, User) => {
 		}
 	});
 
-	// Get all images from a specific user
-	router.get(
-		"/images/user/:userId",
-		isAuthenticated,
-		async (req, res) => {
-			try {
-				const userId = req.params.userId;
-				const user = await User.findOne({ where: { id: userId } });
-				const userEmail = user ? user.email : "User not found";
-				const images = await Image.findAll({
-					where: { userId },
-				});
+	/// Get all images from a specific user
+router.get("/images/user/:userId", isAuthenticated, async (req, res) => {
+	try {
+	  const userId = req.params.userId;
+	  const user = await User.findOne({ where: { id: userId } });
+	  const userEmail = user ? user.email : "User not found";
+	  const images = await Image.findAll({
+		where: { userId },
+	  });
 
 				const userImagesHtml = /*html*/ `
         <div class="card bg-base-100 shadow-md text-center my-10">
@@ -253,14 +250,13 @@ module.exports = (Image, User) => {
 			} catch (error) {
 				console.error("Error fetching user images:", error);
 				res.status(500).send(`
-          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-            <span class="font-bold text-center">Error fetching user images</span>
-          </div>
-        `);
-			}
-		},
-	);
+				  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					<span class="font-bold text-center">Error fetching user images</span>
+				  </div>
+				`);
+			  }
+			});
 
 	// Download a single image from a specific user
 	router.get("/images/:imageId", isAuthenticated, async (req, res) => {
