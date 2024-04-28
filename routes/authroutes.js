@@ -3,12 +3,13 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const emailService = require("../services/emailService");
-const { body, validationResul } = require("express-validator");
+const { body, validationResult } = require("express-validator");
+const passport = require("passport");
 
 module.exports = (User) => {
 // User registration
 router.post(
-	"/register",
+	"/auth/register",
 	[
 	  body("email").isEmail().withMessage("Invalid email address"),
 	  body("password")
@@ -102,7 +103,7 @@ router.post(
   );
 
 	// Verify email
-	router.get("/verify-email", async (req, res) => {
+	router.get("/auth/email", async (req, res) => {
 		const { token } = req.query;
 
 		try {
@@ -132,7 +133,7 @@ router.post(
 	});
 
 	// User login
-	router.post("/login", (req, res, next) => {
+	router.post("/auth/login", (req, res, next) => {
 		passport.authenticate("local", (err, user, info) => {
 			if (err) {
 				return res.status(500).send(`

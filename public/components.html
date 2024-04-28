@@ -296,7 +296,7 @@
   <!-- Login Form -->
   <div id="login-form-component" class="pt-32">
     <div class="card m-auto max-w-sm shadow-md">
-      <form id=login-form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/login"
+      <form id=login-form class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/auth/login"
         hx-target="#login-response" hx-swap="innerHTML">
         <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
         <h2 class="mt-10 text-center text-2xl font-bold text-gray-600">Accede a tu cuenta</h2>
@@ -331,7 +331,7 @@
   <!-- add card and shadow below -->
   <div class="card m-auto max-w-lg shadow-md">
     <!-- add card-body below -->
-    <form id="register-form" class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-target="#register-form-component" hx-target-5xx='#errorResponse' hx-post="/register" hx-swap="outerHTML">
+    <form id="register-form" class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-target="#register-form-component" hx-target-5xx='#errorResponse' hx-post="/auth/register" hx-swap="outerHTML">
       <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
         <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>

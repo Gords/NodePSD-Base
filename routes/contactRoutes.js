@@ -4,7 +4,7 @@ const emailService = require("../services/emailService");
 
 module.exports = () => {
   // Post contact form
-  router.post("/", async (req, res) => {
+  router.post("/contact", async (req, res) => {
     console.log("Received form data:", req.body);
     const {
       "contact-first-name": firstName,

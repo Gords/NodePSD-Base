@@ -25,7 +25,7 @@ module.exports = (User) => {
             </div>
           </div>
           <div class="flex">
-            <button hx-post="/request-loan" hx-target="#request-loan-button" hx-swap="outerHTML" id="request-loan-button" class="btn btn-primary text-white self-center">
+            <button hx-post="/loans/request" hx-target="#request-loan-button" hx-swap="outerHTML" id="request-loan-button" class="btn btn-primary text-white self-center">
               Solicitar crédito
             </button>
           </div>

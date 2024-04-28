@@ -83,13 +83,13 @@ const Image = require("./models/Image.js")(sequelize, DataTypes);
 const Loan = require("./models/Loan.js")(sequelize, DataTypes);
 const TypeOfLoan = require("./models/TypeOfLoan.js")(sequelize, DataTypes);
 
-const routes = require("./routes/routes.js")(
+const routes = require("./routes/routes.js")({
 	User,
 	Image,
 	Loan,
 	TypeOfLoan,
 	sequelize,
-);
+  });
 app.use("/", routes);
 
 sequelize

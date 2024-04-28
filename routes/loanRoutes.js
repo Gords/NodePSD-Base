@@ -4,7 +4,7 @@ const { isAuthenticated } = require("../services/authService");
 
 module.exports = (Loan, TypeOfLoan, sequelize) => {
     // Create new Loan type
-	router.post("/loan", isAuthenticated, async (req, res) => {
+	router.post("/loans", isAuthenticated, async (req, res) => {
 		try {
 			const typeOfLoan = await TypeOfLoan.create({
 				name: "Préstamo Personal",
@@ -29,7 +29,7 @@ module.exports = (Loan, TypeOfLoan, sequelize) => {
 	});
 
 	// Create new Loan entry and update user's loanRequested status
-	router.post("/request-loan", isAuthenticated, async (req, res) => {
+	router.post("/loans/request", isAuthenticated, async (req, res) => {
 		const userId = req.user.id;
 
 		try {
@@ -71,7 +71,7 @@ module.exports = (Loan, TypeOfLoan, sequelize) => {
 	});
 
     	// Get interest rate
-	router.get("/interest-rate", async (req, res) => {
+	router.get("/loans/interest", async (req, res) => {
 		const interestRate = 0.3027; // Annual interest rate of 30.27% (fixed on the server)
 		res.send(interestRate.toString());
 	});
