@@ -132,58 +132,91 @@ router.post(
 		}
 	});
 
-	// User login
-	router.post("/auth/login", (req, res, next) => {
-		passport.authenticate("local", (err, user, info) => {
-			if (err) {
-				return res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
-        </div>
-      `);
-			}
-			if (!user) {
-				return res.status(401).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">${
-						info.message || "Ese usuario no existe"
-					}</span>
-        </div>
-      `);
-			}
-			req.logIn(user, (loginErr) => {
-				if (loginErr) {
-					return res.status(500).send(`
-          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-            <span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
-          </div>
-        `);
-				}
-				if (!user.isVerified) {
-					return res.status(401).send(`
-          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-            <span class="font-bold text-center">Por favor verifica tu correo electrónico</span>
-          </div>
-        `);
-				}
-				// Set the appropriate redirect URL based on user role
-				const redirectUrl = user.isAdmin
-					? "/admin-panel.html"
-					: "/user-panel.html";
-				res.set("HX-Redirect", redirectUrl);
-				res.status(200).send(`
-        <div id="login-success" role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold">Inicio de sesión exitoso</span>
-        </div>
-      `);
-			});
-		})(req, res, next);
-	});
+// User login
+router.post(
+	"/auth/login",
+	[
+	  body("username").isEmail().withMessage("Invalid email address"),
+	  body("password").notEmpty().withMessage("Password is required"),
+	],
+	(req, res, next) => {
+	  const errors = validationResult(req);
+	  if (!errors.isEmpty()) {
+		const errorMessages = errors.array().map((error) => error.msg);
+		return res.status(400).send(`
+		  <div id="loginResponse">
+			<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+			  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+			  <span class="font-bold">Error en el inicio de sesión:</span>
+			  <ul class="list-disc pl-5">
+				${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
+			  </ul>
+			</div>
+		  </div>
+		`);
+	  }
+  
+	  passport.authenticate("local", (err, user, info) => {
+		if (err) {
+		  return res.status(500).send(`
+			<div id="loginResponse">
+			  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+				<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+				<span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
+			  </div>
+			</div>
+		  `);
+		}
+  
+		if (!user) {
+		  return res.status(401).send(`
+			<div id="loginResponse">
+			  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+				<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+				<span class="font-bold text-center">${info.message || "Ese usuario no existe"}</span>
+			  </div>
+			</div>
+		  `);
+		}
+  
+		req.logIn(user, (loginErr) => {
+		  if (loginErr) {
+			return res.status(500).send(`
+			  <div id="loginResponse">
+				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+				  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+				  <span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
+				</div>
+			  </div>
+			`);
+		  }
+  
+		  if (!user.isVerified) {
+			return res.status(401).send(`
+			  <div id="loginResponse">
+				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+				  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+				  <span class="font-bold text-center">Por favor verifica tu correo electrónico</span>
+				</div>
+			  </div>
+			`);
+		  }
+  
+		  // Set the appropriate redirect URL based on user role
+		  const redirectUrl = user.isAdmin ? "/admin-panel.html" : "/user-panel.html";
+		  res.header("HX-Redirect", redirectUrl);
+		  return res.send(`
+			<div id="loginResponse">
+			  <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+				<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+				<span class="font-bold">Inicio de sesión exitoso</span>
+			  </div>
+			</div>
+		  `);
+		});
+	  })(req, res, next);
+	}
+  );
 
     return router
 };
