@@ -30,17 +30,3 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 });
-
-// Function to generate a random number within a specified range
-function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// Generate 6 random numbers
-const randomNumbers = [];
-for (let i = 0; i < 6; i++) {
-  const randomNumber = getRandomNumber(1, 100); // Adjust the range as needed
-  randomNumbers.push(randomNumber);
-}
-
-console.log("Random numbers:", randomNumbers);

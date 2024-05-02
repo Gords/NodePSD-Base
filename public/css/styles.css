@@ -71,7 +71,8 @@ html {
   margin-right: 2rem/* 32px */;
 }
 
-.video-iframe {
+video {
+  z-index: -1;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -82,3 +83,15 @@ html {
   min-width: 177.77vh; /* 16:9 aspect ratio */
 }
 
+#safari-video {
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.1);
+  width: 100vw;
+  height: 56.25vw; /* 16:9 aspect ratio */
+  min-height: 100dvh;
+  min-width: 177.77vh; /* 16:9 aspect ratio */
+  background-image: url("../assets/videos/skyline.mp4");
+}
