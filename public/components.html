@@ -59,9 +59,11 @@
 <!-- Home section with background-->
 <div id="home-component" class="relative hero min-h-screen">
   <div class="absolute inset-0 overflow-hidden">
-    <iframe class="video-iframe"
-      src="https://www.youtube.com/embed/-WPDrSCNwdc?autoplay=1&mute=1&loop=1&playlist=-WPDrSCNwdc&controls=0&vq=hd1080&modestbranding=1&rel=0&showinfo=0&disablekb=1&start=65"
-      frameborder="0" allow="autoplay; fullscreen"></iframe>
+    <div id="safari-video">
+    </div>
+    <video autoplay muted loop id="skyline-video">
+      <source src="./assets/videos/skyline.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="z-10 mx-4 mt-[17rem] mb-8 lg:my-auto">
     <div class="hero-content bg-neutral/70 text-center text-neutral p-6">
