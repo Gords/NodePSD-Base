@@ -48,3 +48,34 @@ function showContent(contentId) {
 
 // Call the route function initially
 route();
+
+// // Hamburger menu toggle
+document.body.addEventListener("htmx:load", (event) => {
+	attachDropdownToggle();
+});
+
+function attachDropdownToggle() {
+	const dropdownToggle = document.getElementById("dropdown-toggle");
+	const dropdownMenu = document.getElementById("dropdown-menu");
+
+	if (dropdownToggle && dropdownMenu) {
+		// Remove existing event listeners to avoid duplicates
+		dropdownToggle.removeEventListener("click", toggleDropdown);
+		// Reattach the event listener
+		dropdownToggle.addEventListener("click", toggleDropdown);
+	} else {
+		console.log("Dropdown elements not found:", dropdownToggle, dropdownMenu);
+	}
+}
+
+function toggleDropdown() {
+	const dropdownMenu = document.getElementById("dropdown-menu");
+	if (dropdownMenu) {
+		dropdownMenu.classList.toggle("hidden");
+	} else {
+		console.log("Failed to find dropdown menu for toggling.");
+	}
+}
+
+// Attach the listener when the page loads
+attachDropdownToggle();
