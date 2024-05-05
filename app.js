@@ -32,21 +32,39 @@ app.use(passport.session());
 // Configure Passport Local Strategy
 passport.use(
 	new LocalStrategy(async (username, password, done) => {
-		try {
-			const user = await User.findOne({ where: { email: username } });
-			if (!user) {
-				return done(null, false, { message: "Usuario incorrecto" });
-			}
-			const isPasswordValid = await bcrypt.compare(password, user.password);
-			if (!isPasswordValid) {
-				return done(null, false, { message: "Contraseña incorrecta" });
-			}
-			return done(null, user);
-		} catch (error) {
-			return done(error);
+	  try {
+		const user = await User.findOne({ where: { email: username } });
+		if (!user) {
+		  return done(null, false, {
+			message: `
+			  <div id="loginResponse">
+				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+				  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+				  <span class="font-bold text-center">Usuario incorrecto</span>
+				</div>
+			  </div>
+			`,
+		  });
 		}
-	}),
-);
+		const isPasswordValid = await bcrypt.compare(password, user.password);
+		if (!isPasswordValid) {
+		  return done(null, false, {
+			message: `
+			  <div id="loginResponse">
+				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+				  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+				  <span class="font-bold text-center">Contraseña incorrecta</span>
+				</div>
+			  </div>
+			`,
+		  });
+		}
+		return done(null, user);
+	  } catch (error) {
+		return done(error);
+	  }
+	})
+  );
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
