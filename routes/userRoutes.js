@@ -71,11 +71,7 @@ module.exports = (User) => {
 	// Get all users
 	router.get("/users", isAuthenticated, async (req, res) => {
 		try {
-			const users = await User.findAll({
-				where: {
-					loanRequested: true,
-				},
-			});
+			const users = await User.findAll();
 
 			const tableHtml = /*html*/ `
       <div class="overflow-x-auto">
