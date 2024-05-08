@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {isAuthenticated} = require("../services/authService")
+const { Op } = require("sequelize");
 
 
 module.exports = (User) => {
@@ -68,55 +69,104 @@ module.exports = (User) => {
 		}
 	});
 
-	// Get all users
-	router.get("/users", isAuthenticated, async (req, res) => {
-		try {
-			const users = await User.findAll();
+// Get all users or search users by name
+router.get("/users", isAuthenticated, async (req, res) => {
+  try {
+    const searchQuery = req.query['search-input'];
+    let users;
 
-			const tableHtml = /*html*/ `
-      <div class="overflow-x-auto">
-        <table class="table table-zebra max-w-4xl text-l text-center">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Telefono</th>
-              <th>Email</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${users
-							.map(
-								(user) => /*html*/ `
-              <tr>
-                <td>${user.name}</td>
-                <td>0981-420-681</td>
-                <td>${user.email}</td>
-                <td>
-                  <a href="/images/user/${user.id}"
-                    hx-get="/images/user/${user.id}"
-                    hx-target="#list-of-users"
-                    hx-swap="outerHTML"
-                    hx-push-url="true" class="btn btn-md">Ver documentos</a>
-                </td>
-              </tr>
-            `,
-							)
-							.join("")}
-          </tbody>
-        </table>
-      `;
-			res.send(tableHtml);
-		} catch (error) {
-			console.error("Error fetching users:", error);
-			res.status(500).send(`
-      <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-        <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-        <span class="font-bold text-center">Error fetching users</span>
-      </div>
+    if (searchQuery) {
+      users = await User.findAll({
+        where: {
+          name: { [Op.iLike]: `%${searchQuery}%` },
+        },
+      });
+    } else {
+      users = await User.findAll();
+    }
+
+    const tableRows = users
+      .map(
+        (user) => /*html*/ `
+          <tr>
+            <td>${user.name}</td>
+            <td>0981-420-681</td>
+            <td>${user.email}</td>
+            <td>
+              <a href="/images/user/${user.id}"
+                hx-get="/images/user/${user.id}"
+                hx-target="#list-of-users"
+                hx-swap="outerHTML"
+                hx-push-url="true"
+                class="btn btn-md">Ver documentos</a>
+            </td>
+          </tr>
+        `,
+      )
+      .join("");
+
+    res.send(tableRows);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).send(/*html*/ `
+      <tr>
+        <td colspan="4">
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold text-center">Error fetching users</span>
+          </div>
+        </td>
+      </tr>
     `);
-		}
-	});
+  }
+});
+
+// Search users by name
+router.get("/users/search", isAuthenticated, async (req, res) => {
+  try {
+    const searchQuery = req.query['search-input'] || ''; // Ensure a fallback to an empty string if undefined
+
+    const users = await User.findAll({
+      where: {
+        name: { [Op.iLike]: `%${searchQuery}%` }
+      }
+    });
+
+    const tableRows = users
+      .map(
+        (user) => /*html*/ `
+          <tr>
+            <td>${user.name}</td>
+            <td>0981-420-681</td>
+            <td>${user.email}</td>
+            <td>
+              <a href="/images/user/${user.id}"
+                hx-get="/images/user/${user.id}"
+                hx-target="#list-of-users"
+                hx-swap="outerHTML"
+                hx-push-url="true"
+                class="btn btn-md">Ver documentos</a>
+            </td>
+          </tr>
+        `,
+      )
+      .join("");
+
+    res.send(tableRows);
+  } catch (error) {
+    console.error("Error searching users:", error);
+    res.status(500).send(/*html*/ `
+      <tr>
+        <td colspan="4">
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold text-center">Error searching users</span>
+          </div>
+        </td>
+      </tr>
+    `);
+  }
+});
 
 	// Update a user
 	router.put("/users/:id", isAuthenticated, async (req, res) => {
