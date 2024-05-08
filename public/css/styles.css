@@ -95,3 +95,7 @@ video {
   min-width: 177.77vh; /* 16:9 aspect ratio */
   background-image: url("../assets/videos/skyline.mp4");
 }
+
+.tab {
+  font-weight: 600;
+}

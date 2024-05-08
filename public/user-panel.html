@@ -32,7 +32,7 @@
     <div id="user-panel-component"
       class="flex flex-col h-full min-h-screen justify-center items-center pt-32 pb-20 bg-neutral">
       <!-- Data and File Upload Container -->
-      <div class="w-full max-w-3xl py-4"> <!-- Adjust the width as needed -->
+      <div class="w-full max-w-4xl py-4"> <!-- Adjust the width as needed -->
         <!-- User personal info -->
         <div class="card bg-base-100 shadow-md">
           <div class="card-body mx-4">
@@ -93,8 +93,58 @@
           </div>
         </div>
 
+        <!-- New multi-step file upload form component -->
+        <div class="card bg-base-100 shadow-md">
+          <div class="card-body">
+            <div role="tablist" class="tabs tabs-lifted py-4">
+              <input type="radio" name="my_tabs_2" role="tab" class="tab my-auto" aria-label="Cédula de Identidad"
+                checked />
+              <div role="tabpanel" class="tab-content bg-base-100 border-base-300 p-6">
 
-        <div id="file-drop-area" class="card bg-secondary shadow-md">
+                <!-- File dropzone -->
+                <div class="flex items-center justify-center max-w-3xl mx-auto">
+                  <label for="dropzone-file"
+                    class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                      <img src="assets/icons/file-upload.svg" alt="" class="w-12 h-12 mb-4">
+                      <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Arrastra el archivo aquí</span>
+                        o haz click en el botón</p>
+                      <p class="text-xs text-gray-500 dark:text-gray-400">Se aceptan archivos en formato PDF, PNG, o JPG
+                      </p>
+                    </div>
+                    <input id="dropzone-file" type="file" class="hidden" />
+                    <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar
+                      archivos</label>
+                    <input type="file" id="files-to-upload" name="files" multiple
+                      accept="image/jpeg, image/png, application/pdf" style="display: none">
+                  </label>
+                </div>
+              </div>
+
+              <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Inforcomf e Infocheck" />
+              <div role="tabpanel" class="tab-content bg-base-100 border-base-300 p-6">
+                <input type="file" class="file-input file-input-bordered w-full max-w-xs" />
+              </div>
+
+              <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Comprobantes de Ingreso" />
+              <div role="tabpanel" class="tab-content bg-base-100 border-base-300 p-6"></div>
+
+              <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Informe de BICSA" />
+              <div role="tabpanel" class="tab-content bg-base-100 border-base-300 p-6">
+              </div>
+
+              <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Factura de Servicio" />
+              <div role="tabpanel" class="tab-content bg-base-100 border-base-300 p-6">
+              </div>
+            </div>
+            <div id="file-upload-list" class="max-w-2xl mx-auto">
+              <!-- Response from /images will be inserted here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- old file upload component -->
+        <div id="file-drop-area" class="card bg-secondary shadow-md mt-8">
           <div class="card-body items-center">
             <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo o arrástralo aquí</h3>
             <p class="text-base text-neutral mb-4">Puedes cargar hasta 4 archivos de 25 MB cada uno.</p>
@@ -106,10 +156,15 @@
               <button id="submit-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" type="submit">Cargar
                 Archivos</button>
             </form>
-            <div id="file-upload-list">
-              <!-- Response from /images will be inserted here -->
-            </div>
+            <!-- <div id="file-upload-list"> -->
+            <!-- Response from /images will be inserted here -->
+            <!-- </div> -->
           </div>
         </div>
+
+
+      </div>
+
+
   </main>
 </body>
