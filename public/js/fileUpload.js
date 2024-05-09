@@ -38,7 +38,7 @@ function updateUploadFileList() {
 		const listItem = document.createElement("div");
 		listItem.id = "file-upload-list-item";
 		listItem.className =
-			"bg-neutral p-2 flex justify-between items-center rounded-lg mb-2";
+			"bg-neutral p-2 flex justify-between items-center rounded-lg mb-2 z-10";
 		listItem.setAttribute("data-index", index);
 		listItem.innerHTML = `
       <span>${fileIcon}</span>
@@ -46,8 +46,9 @@ function updateUploadFileList() {
       <div class="remove-file">${removeIcon}</div>
     `;
 		// Attach click event listener to the remove button of each file
-		//TODO: ITS NOT WORKING! Linked to issue https://github.com/Runewerk/flashcenter/issues/32
+		//TODO: ITS NOT WORKING! Removes the item from the list but it still gets uploaded if submittd. Linked to issue https://github.com/Runewerk/flashcenter/issues/32
 		listItem.querySelector(".remove-file").addEventListener("click", () => {
+			event.stopPropagation;
 			fileList.splice(index, 1);
 			updateUploadFileList();
 		});
