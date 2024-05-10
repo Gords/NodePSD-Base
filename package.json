@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node app.js",
-		"build:css": "tailwindcss -i ./public/css/styles.css -o ./public/css/output.css",
+		"build:css": "tailwindcss -i ./public/css/styles.css -o ./public/css/output.css --minify",
 		"format": "npx @biomejs/biome format --write .",
 		"lint": "npx @biomejs/biome lint .",
 		"check": "npx @biomejs/biome check .",
