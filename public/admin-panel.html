@@ -17,7 +17,6 @@
   <script src="./js/fileDownloadAll.js"></script>
   <script src="./js/login.js"></script>
 </head>
-
 <body>
   <header>
     <nav hx-get="components.html" hx-select="#user-panel-navbar-component" hx-trigger="load"></nav>
@@ -40,9 +39,31 @@
         <!-- List of all Flash Center users -->
         <div id="list-of-users" class="card bg-base-100 shadow-md my-10">
           <div class="card-body">
-            <h2 class="card-title font-semibold pl-2 pb-4 justify-center">Lista de Usuarios</h2>
-            <div id="user-table-container" hx-get="/users" hx-trigger="load" class="overflow-x-auto">
-              <!-- User list table will be dynamically inserted here -->
+            <h2 class="card-title font-semibold pl-2 pb-4 justify-center">
+              Lista de Usuarios
+            </h2>
+            <div class="flex justify-center mb-4">
+              <input type="search" id="search-input" name="search-input" class="input input-bordered" placeholder="Search by name"
+              hx-get="/users/search"
+              hx-trigger="keyup changed delay:500ms"
+              hx-target="#user-table-body"
+              hx-include="this"
+              hx-indicator=".htmx-indicator">
+            </div>
+            <div class="overflow-x-auto">
+              <table class="table table-zebra max-w-4xl text-l text-center">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="user-table-body" hx-get="/users" hx-trigger="load">
+                  <!-- User table rows will be dynamically inserted here -->
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -50,5 +71,4 @@
     </div>
   </main>
 </body>
-
 </html>
