@@ -45,17 +45,8 @@
       <section id="register" hx-trigger="load" hx-get="components.html" hx-select="#register-form-component"
         hx-swap="innerHTML">
       </section>
-      <div id="register-response" class="py-4">
-        <dialog class="modal">
-          <div class="modal-box">
-            <form method="dialog">
-              <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-            </form>
-            <h3 class="font-bold text-lg"></h3>
-            <p class="py-4"></p>
-          </div>
-        </dialog>
-      </div>
+      <div id="register-response" hx-trigger="load" hx-get="components.html" hx-select="#modal-component"
+        hx-swap="afterbegin" class="py-4"> </div>
     </section>
     <section id="login-content">
       <section id="login" hx-trigger="load" hx-get="components.html" hx-select="#login-form-component"
