@@ -6,10 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		const registerFormComponent = document.getElementById(
 			"register-form-component",
 		);
+		const modal = document.getElementById("modal-response");
+
 		if (registerFormComponent?.contains(event.target)) {
-			const alertSuccess =
-				registerFormComponent.querySelector(".alert-success");
+			const alertSuccess = registerFormComponent.querySelector(".modal");
 			if (alertSuccess) {
+				modal.showModal();
 				setTimeout(() => {
 					window.location.href = "/";
 				}, 3000);

@@ -333,8 +333,7 @@
     <div class="card m-auto max-w-lg shadow-md">
       <!-- add card-body below -->
       <form id="register-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
-        hx-target="#register-form-component" hx-target-5xx='#errorResponse' hx-post="/auth/register"
-        hx-swap="outerHTML">
+        hx-post="/auth/register" hx-target="#register-response" hx-target-5xx='#errorResponse' hx-swap="beforeend">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
@@ -475,13 +474,15 @@
 
 <!-- Modal component placeholder for Tailwind utilities -->
 <div id="modal-component">
-  <dialog id="modal-response" class="modal">
+  <dialog class="modal modal-open">
     <div class="modal-box">
       <form method="dialog">
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
       </form>
-      <h3 class="font-bold text-lg">Placeholder title</h3>
-      <p class="py-4">Placeholder text body</p>
+      <!-- Title -->
+      <h3 class="font-bold text-lg"></h3>
+      <!-- Body -->
+      <p class="py-4"></p>
     </div>
   </dialog>
 </div>

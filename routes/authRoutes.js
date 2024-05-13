@@ -74,17 +74,18 @@ module.exports = (User) => {
 				await emailService.sendVerificationEmail(email, verificationToken);
 				console.log("User registered successfully:", user.email);
 				res.status(200).send(`
-		  <div id="register-form-component">
-			<div class="card m-auto max-w-sm shadow-xl">
-			  <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
-				<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-				  <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-				  <span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
-				</div>
-			  </div>
-			</div>
-		  </div>
-		`);
+					<div id="register-form-component">
+						<dialog id="modal-response" class="modal modal-open">
+							<div class="modal-box">
+								<form method="dialog">
+									<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+								</form>
+								<h3 class="font-bold text-lg">Title Test</h3>
+								<p class="py-4">Body</p>
+							</div>
+						</dialog>
+					</div>
+				`);
 			} catch (error) {
 				console.error("Error registering user:", error);
 				res.status(500).send(
