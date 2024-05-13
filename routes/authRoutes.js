@@ -85,25 +85,43 @@ module.exports = (User) => {
 			</div>
 		  </div>
 		`);
-			} catch (error) {
-				console.error("Error registering user:", error);
-				res.status(500).send(
-					`
-		  <div id="register-form-component">
-			<div class="card m-auto max-w-sm shadow-xl">
-			  <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
-				<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-				  <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-				  <span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
+    } catch (error) {
+		console.error("Error registering user:", error);
+		if (error.name === "SequelizeUniqueConstraintError") {
+		  // Handle unique constraint violation error
+		  res.status(400).send(
+			`
+			  <div id="register-form-component">
+				<div class="card m-auto max-w-sm shadow-xl">
+				  <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
+					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+					  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					  <span class="font-bold">El correo electrónico ya está registrado. Por favor, utiliza otro correo electrónico.</span>
+					</div>
+				  </div>
 				</div>
 			  </div>
-			</div>
-		  </div>
-		`.trim(),
-				);
-			}
-		},
-	);
+			`.trim()
+		  );
+		} else {
+		  res.status(500).send(
+			`
+			  <div id="register-form-component">
+				<div class="card m-auto max-w-sm shadow-xl">
+				  <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
+					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+					  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					  <span class="font-bold">Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.</span>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			`.trim()
+		  );
+		}
+	  }
+	}
+  );
 
 	// Verify email
 	router.get("/auth/email", async (req, res) => {
