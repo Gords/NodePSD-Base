@@ -75,7 +75,7 @@ module.exports = (User) => {
 				console.log("User registered successfully:", user.email);
 				res.status(200).send(`
 					<div id="register-form-component">
-						<dialog id="modal-response" class="modal modal-open alert-success">
+						<dialog id="modal-response" class="modal modal-open success">
 							<div class="modal-box">
 								<form method="dialog">
 									<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
