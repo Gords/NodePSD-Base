@@ -11,42 +11,44 @@ module.exports = (User) => {
 	router.post(
 		"/auth/register",
 		[
-			body("email").isEmail().withMessage("Invalid email address"),
+			body("email")
+				.isEmail()
+				.withMessage("Dirección de correo electrónico no válida"),
 			body("password")
 				.isLength({ min: 6 })
-				.withMessage("Password must be at least 6 characters long"),
+				.withMessage("La contraseña debe tener al menos 6 caracteres"),
 			body("name")
 				.matches(/^[A-Za-z\s]+$/)
-				.withMessage("Name should only contain letters and spaces"),
+				.withMessage("El nombre solo debe contener letras y espacios"),
 			body("lastName")
 				.matches(/^[A-Za-z\s]+$/)
-				.withMessage("Last name should only contain letters and spaces"),
+				.withMessage("El apellido solo debe contener letras y espacios"),
 			body("idNumber")
-				.isLength({ max: 8 })
-				.withMessage("ID number should be less than or equal to 8 digits"),
+				.isLength({ min: 6, max: 8 })
+				.withMessage("El número de cédula debe tener entre 6 y 8 dígitos"),
 			body("phoneNumber")
 				.matches(/^\+595\d{9}$/)
-				.withMessage("Invalid Paraguay phone number"),
+				.withMessage("Número de teléfono de Paraguay no válido"),
 		],
 		async (req, res) => {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
 				const errorMessages = errors.array().map((error) => error.msg);
 				return res.status(500).send(`
-			<div id="register-form-component">
-			  <div class="card m-auto max-w-sm shadow-xl">
-				<div class="card-body flex min-h-full flex-col justify-center lg:px-8">
-				  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-					<span class="font-bold">Error en el registro:</span>
-					<ul class="list-disc pl-5">
-					  ${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
-					</ul>
-				  </div>
-				</div>
-			  </div>
-			</div>
-		  `);
+					<div id="register-form-component">
+						<dialog id="modal-response" class="modal modal-open error">
+							<div class="modal-box text-center items-center justify-center align-middle">
+							<form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+              </form>
+								<h3 class="font-bold text-lg">Error en el registro de usuario</h3>
+								<ul class="list-disc pl-5 text-left mt-4">
+									${errorMessages}
+								</ul>
+							</div>
+						</dialog>
+					</div>
+				`);
 			}
 
 			try {
@@ -73,6 +75,7 @@ module.exports = (User) => {
 				// Send verification email
 				await emailService.sendVerificationEmail(email, verificationToken);
 				console.log("User registered successfully:", user.email);
+				// Registration success modal
 				res.status(200).send(`
 					<div id="register-form-component">
 						<dialog id="modal-response" class="modal modal-open success">
@@ -88,16 +91,14 @@ module.exports = (User) => {
 				res.status(500).send(
 					`
 					<div id="register-form-component">
-						<div class="card m-auto max-w-sm shadow-xl">
-							<div class="card-body flex min-h-full flex-col justify-center lg:px-8">
-								<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-									<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-									<span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
-								</div>
-							</div>
-						</div>
+							<dialog id="modal-response" class="modal modal-open error">
+									<div class="modal-box text-center items-center justify-center align-middle">
+											<h3 class="font-bold text-lg">Error en el registro de usuario</h3>
+											<p class="py-4">Hubo un problema al crear tu cuenta.<br><br> Inténtalo de nuevo.</p>
+									</div>
+							</dialog>
 					</div>
-					`.trim(),
+				`.trim(),
 				);
 			}
 		},
