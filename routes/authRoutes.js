@@ -76,12 +76,9 @@ module.exports = (User) => {
 				res.status(200).send(`
 					<div id="register-form-component">
 						<dialog id="modal-response" class="modal modal-open success">
-							<div class="modal-box">
-								<form method="dialog">
-									<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-								</form>
-								<h3 class="font-bold text-lg">Title Test</h3>
-								<p class="py-4">Body</p>
+							<div class="modal-box text-center items-center justify-center align-middle">
+								<h3 class="font-bold text-lg">Registro de usuario exitoso!</h3>
+								<p class="py-4">Verifica tu correo electrónico para activar tu cuenta. <br><br> Redireccionando a la pagina principal...</p>
 							</div>
 						</dialog>
 					</div>
@@ -90,17 +87,17 @@ module.exports = (User) => {
 				console.error("Error registering user:", error);
 				res.status(500).send(
 					`
-		  <div id="register-form-component">
-			<div class="card m-auto max-w-sm shadow-xl">
-			  <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
-				<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-				  <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-				  <span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
-				</div>
-			  </div>
-			</div>
-		  </div>
-		`.trim(),
+					<div id="register-form-component">
+						<div class="card m-auto max-w-sm shadow-xl">
+							<div class="card-body flex min-h-full flex-col justify-center lg:px-8">
+								<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+									<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+									<span class="font-bold">Registro de usuario exitoso. Por favor verifica tu correo electrónico para activar tu cuenta.</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					`.trim(),
 				);
 			}
 		},
@@ -122,17 +119,54 @@ module.exports = (User) => {
 			user.isVerified = true;
 			await user.save();
 
-			res.redirect(
-				"/?message=Email verified successfully. You can now log in.",
-			);
+			// Render HTML with success message and auto-redirect
+			res.send(`
+				<!DOCTYPE html>
+				<html class="h-full" data-theme="mytheme">
+
+				<head>
+					<meta charset="UTF-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<title>Email Verified</title>
+					<link href="/css/output.css" rel="stylesheet">
+					<script>
+						setTimeout(function () {
+							window.location.href = '/';
+						}, 3000);
+					</script>
+				</head>
+
+				<body>
+					<header class="navbar bg-primary font-bold text-white shadow-md flex">
+						<div class="navbar-start">
+							<a href="/" class="btn btn-ghost flex-initial w-80">
+								<img src="/assets/img/logo-blanco.png" alt="Flash Center" class="navbar-logo object-scale-down w-80 h-6">
+							</a>
+						</div>
+						<div class="navbar-end">
+						</div>
+						</nav>
+					</header>
+					<div class="flex items-center justify-center min-h-screen bg-neutral">
+						<div class="card bg-base-100 shadow-md">
+							<div class="card-body text-center">
+								<h2 class="text-2xl font-bold text-green-600">Verificacion de cuenta exitosa!</h2>
+								<p class="mt-4 text-xl">Por favor inicia sesion para poder acceder a nuestros servicios.</p>
+							</div>
+						</div>
+					</div>
+				</body>
+
+				</html>
+			`);
 		} catch (error) {
 			console.error("Error verifying email:", error);
 			res.status(400).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold justify-center">Invalid verification token</span>
-        </div>
-      `);
+			<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+				<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+				<span class="font-bold justify-center">Invalid verification token</span>
+			</div>
+		`);
 		}
 	});
 
