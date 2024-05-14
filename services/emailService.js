@@ -1,43 +1,37 @@
-const AWS = require('aws-sdk');
+const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
 
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION
-});
-
-const ses = new AWS.SES();
+const ses = new SESClient({ region: process.env.AWS_REGION });
 
 const sendVerificationEmail = async (email, token) => {
   const verificationLink = process.env.VERIFICATION_EMAIL_LINK + token;
 
   const params = {
     Destination: {
-      ToAddresses: [email]
+      ToAddresses: [email],
     },
     Message: {
       Body: {
         Text: {
-          Data: `Please click the following link to verify your account: ${verificationLink}`
+          Data: `Please click the following link to verify your account: ${verificationLink}`,
         },
         Html: {
           Data: `<p>Please click the following link to verify your account:</p>
-                 <a href="${verificationLink}">${verificationLink}</a>`
-        }
+                 <a href="${verificationLink}">${verificationLink}</a>`,
+        },
       },
       Subject: {
-        Data: 'Verify your FlashCenter account'
-      }
+        Data: "Verify your FlashCenter account",
+      },
     },
-    Source: process.env.AWS_VERIFIED_EMAIL
+    Source: process.env.AWS_VERIFIED_EMAIL,
   };
 
   try {
-    await ses.sendEmail(params).promise();
-    console.log('Verification email sent successfully');
+    await ses.send(new SendEmailCommand(params));
+    console.log("Verification email sent successfully");
   } catch (error) {
-    console.error('Error sending verification email:', error);
-    throw new Error('Failed to send verification email');
+    console.error("Error sending verification email:", error);
+    throw new Error("Failed to send verification email");
   }
 };
 
@@ -46,7 +40,7 @@ const sendContactEmail = async (formData) => {
 
   const params = {
     Destination: {
-      ToAddresses: [process.env.AWS_VERIFIED_EMAIL]
+      ToAddresses: [process.env.AWS_VERIFIED_EMAIL],
     },
     Message: {
       Body: {
@@ -58,7 +52,7 @@ const sendContactEmail = async (formData) => {
             Email: ${email}
             Nro. de Telefono: ${phone}
             Mensaje: ${message}
-          `
+          `,
         },
         Html: {
           Data: `
@@ -68,26 +62,26 @@ const sendContactEmail = async (formData) => {
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Nro. de Telefono:</strong> ${phone}</p>
             <p><strong>Mensaje:</strong> ${message}</p>
-          `
-        }
+          `,
+        },
       },
       Subject: {
-        Data: 'Nueva solicitud de Credito'
-      }
+        Data: "Nueva solicitud de Credito",
+      },
     },
-    Source: process.env.AWS_VERIFIED_EMAIL
+    Source: process.env.AWS_VERIFIED_EMAIL,
   };
 
   try {
-    await ses.sendEmail(params).promise();
-    console.log('Contact email sent successfully');
+    await ses.send(new SendEmailCommand(params));
+    console.log("Contact email sent successfully");
   } catch (error) {
-    console.error('Error sending contact email:', error);
-    throw new Error('Failed to send contact email');
+    console.error("Error sending contact email:", error);
+    throw new Error("Failed to send contact email");
   }
 };
 
 module.exports = {
   sendVerificationEmail,
-  sendContactEmail
+  sendContactEmail,
 };
