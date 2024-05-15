@@ -41,6 +41,16 @@ window.onload = () => {
 	if (successHtml) {
 		const targetElement = document.getElementById("verification-response");
 		targetElement.innerHTML = decodeURIComponent(successHtml);
+
+		// Add event listener to the close button
+		const closeButton = targetElement.querySelector("#close-button");
+		console.log("This is the close button:", closeButton);
+		const modal = targetElement.querySelector("#modal-response");
+		console.log(modal);
+
+		closeButton.addEventListener("click", () => {
+			modal.close();
+		});
 	} else if (errorHtml) {
 		const targetElement = document.getElementById("verification-response");
 		targetElement.innerHTML = decodeURIComponent(errorHtml);

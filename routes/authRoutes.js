@@ -121,11 +121,11 @@ module.exports = (User) => {
 			await user.save();
 
 			const successHtml = encodeURIComponent(`
-				<div id="register-form-component">
+				<div id="register-response">
 					<dialog id="modal-response" class="modal modal-open auth-success">
 						<div class="modal-box text-center items-center justify-center align-middle">
 							<form method="dialog">
-								<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+								<button id="close-button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
 							</form>
 							<h3 class="font-bold text-lg">Verificacion de cuenta exitosa!</h3>
 							<p class="py-4">Por favor inicia sesion para acceder a nuestros servicios.</p>
