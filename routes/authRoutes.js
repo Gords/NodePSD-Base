@@ -120,46 +120,21 @@ module.exports = (User) => {
 			user.isVerified = true;
 			await user.save();
 
-			// Render HTML with success message and auto-redirect
-			res.send(`
-				<!DOCTYPE html>
-				<html class="h-full" data-theme="mytheme">
-
-				<head>
-					<meta charset="UTF-8">
-					<meta name="viewport" content="width=device-width, initial-scale=1.0">
-					<title>Email Verified</title>
-					<link href="/css/output.css" rel="stylesheet">
-					<script>
-						setTimeout(function () {
-							window.location.href = '/';
-						}, 3000);
-					</script>
-				</head>
-
-				<body>
-					<header class="navbar bg-primary font-bold text-white shadow-md flex">
-						<div class="navbar-start">
-							<a href="/" class="btn btn-ghost flex-initial w-80">
-								<img src="/assets/img/logo-blanco.png" alt="Flash Center" class="navbar-logo object-scale-down w-80 h-6">
-							</a>
+			const successHtml = encodeURIComponent(`
+				<div id="register-form-component">
+					<dialog id="modal-response" class="modal modal-open auth-success">
+						<div class="modal-box text-center items-center justify-center align-middle">
+							<form method="dialog">
+								<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+							</form>
+							<h3 class="font-bold text-lg">Verificacion de cuenta exitosa!</h3>
+							<p class="py-4">Por favor inicia sesion para acceder a nuestros servicios.</p>
 						</div>
-						<div class="navbar-end">
-						</div>
-						</nav>
-					</header>
-					<div class="flex items-center justify-center min-h-screen bg-neutral">
-						<div class="card bg-base-100 shadow-md">
-							<div class="card-body text-center">
-								<h2 class="text-2xl font-bold text-green-600">Verificacion de cuenta exitosa!</h2>
-								<p class="mt-4 text-xl">Por favor inicia sesion para poder acceder a nuestros servicios.</p>
-							</div>
-						</div>
-					</div>
-				</body>
-
-				</html>
+					</dialog>
+				</div>
 			`);
+
+			res.redirect(`/?success=${successHtml}`);
 		} catch (error) {
 			console.error("Error verifying email:", error);
 			res.status(400).send(`
