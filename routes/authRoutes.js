@@ -38,7 +38,7 @@ module.exports = (User) => {
 				// Error response for invalid input in user registration
 				return res.status(500).send(`
 					<div id="register-form-component">
-						<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit hx-ext"remove-me" remove-me="10s"">
+						<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit" hx-ext"remove-me" remove-me="10s">
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 							<ul class="list-disc pl-5 font-semibold">
 								${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
@@ -132,7 +132,7 @@ module.exports = (User) => {
 		} catch (error) {
 			console.error("Error verifying email:", error);
 
-			// TODO: Implement error response for invalid verification token. Ask Nando if we should approach this the same as success response above
+			// TODO: Implement error response for invalid verification token. Ask Nando if we should approach this the same as success response above (i.e. use a modal with a message and redirect to homepage)
 			res.status(400).send(`
 				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
 					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
@@ -153,6 +153,8 @@ module.exports = (User) => {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
 				const errorMessages = errors.array().map((error) => error.msg);
+
+				// TODO: Remove unnecessary login-responses, some are in app.js as  well @Gords
 				return res.status(400).send(`
 					<div id="loginResponse">
 						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
