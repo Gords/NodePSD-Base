@@ -8,6 +8,7 @@
   <link rel="icon" href="./assets/icons/favicon.ico" type="image/x-icon">
   <script src="https://unpkg.com/htmx.org@1.9.12"></script>
   <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/remove-me.js"></script>
   <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
     as="style">
@@ -17,7 +18,7 @@
   <script src="js/login.js"></script>
 </head>
 
-<body class="h-full flex flex-col" htmx:afterOnLoad="console.log('HTMX load event:', event.detail)">
+<body class="h-full flex flex-col" htmx:afterOnLoad="console.log('HTMX load event:', event.detail)" hx-ext="remove-me">
   <header>
     <nav hx-get="components.html" hx-select="#top-navigation-component" hx-trigger="load"></nav>
   </header>
@@ -45,13 +46,15 @@
       <section id="register" hx-trigger="load" hx-get="components.html" hx-select="#register-form-component"
         hx-swap="innerHTML">
       </section>
-      <div id="register-response" class="py-4"></div>
+      <div id="register-response" hx-trigger="load" hx-get="components.html" hx-select="#modal-component"
+        hx-swap="afterbegin"> </div>
     </section>
     <section id="login-content">
       <section id="login" hx-trigger="load" hx-get="components.html" hx-select="#login-form-component"
         hx-swap="innerHTML"></section>
-      <div id="login-response" class="py-4"></div>
+      <div id="login-response"></div>
     </section>
+    <div id="verification-response"></div>
   </main>
   <footer>
     <nav hx-get="components.html" hx-select="#bottom-navigation-component" hx-trigger="load"></nav>

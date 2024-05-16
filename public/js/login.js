@@ -3,12 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Handle registration response
 	document.body.addEventListener("htmx:afterSwap", (event) => {
-		const registerFormComponent = document.getElementById(
-			"register-form-component",
-		);
-		if (registerFormComponent?.contains(event.target)) {
-			const alertSuccess =
-				registerFormComponent.querySelector(".alert-success");
+		const registerResponse = document.getElementById("register-response");
+		if (registerResponse?.contains(event.target)) {
+			const alertSuccess = registerResponse.querySelector(".success");
 			if (alertSuccess) {
 				setTimeout(() => {
 					window.location.href = "/";
