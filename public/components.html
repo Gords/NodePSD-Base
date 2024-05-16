@@ -470,3 +470,30 @@
       referrerpolicy="no-referrer-when-downgrade" class="pt-8 lg:pt-0 lg:mx-4 lg:max-w-xl"></iframe>
   </div>
 </section>
+
+<!-- File Dropzone Component -->
+<div id="file-dropzone-component">
+  <div class="flex items-center justify-center max-w-3xl mx-auto">
+    <label for="dropzone-file-${tabId}"
+      class="flex flex-col items-center justify-center w-full h-96 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+      <div class="flex flex-col items-center justify-center pt-5 pb-6">
+        <img src="assets/icons/file-upload.svg" alt="" class="w-8 h-8 mb-4">
+        <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Arrastra el archivo aquí</span>
+          o haz click en el botón</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Se aceptan archivos en formato PDF, PNG, o JPG
+        </p>
+        <div id="file-upload-list-${tabId}" class="max-w-2xl mx-auto">
+          <!-- Response from /images will be inserted here -->
+        </div>
+      </div>
+      <input id="dropzone-file-${tabId}" type="file" class="hidden" />
+      <label for="files-to-upload-${tabId}" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar
+        archivos</label>
+      <input type="file" id="files-to-upload-${tabId}" name="files" multiple
+        accept="image/jpeg, image/png, application/pdf" style="display: none" 
+        hx-post="/images" hx-target="#file-upload-list-${tabId}"  hx-swap="innerHTML"> 
+        <!-- Hidden input field for tabId -->
+        <input type="hidden" name="tabId" value="${tabId}" /> 
+    </label>
+  </div>
+</div>

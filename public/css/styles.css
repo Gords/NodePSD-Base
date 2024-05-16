@@ -52,7 +52,6 @@ html {
   border-radius: 2rem;
 }
 
-
 #register-content, #login-content {
   display: none;
 }
@@ -98,4 +97,57 @@ video {
 
 .tab {
   font-weight: 600;
+}
+
+#drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #283048;
+  color: #fff;
+  transition: all 0.4s ease;
+}
+
+#drop-area.highlight {
+  border-color: #fff;
+  background: #34495e;
+}
+
+#file-upload-list {
+  margin-top: 10px;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.file-upload-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.file-upload-list-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.remove-file {
+  color: #e74c3c;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.remove-file:hover {
+  color: #c0392b;
 }

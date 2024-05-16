@@ -19,244 +19,113 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 module.exports = (Image, User) => {
-    	// Post (Upload) a file within an array of files, max 4 files
-	router.post(
-		"/images",
-		isAuthenticated,
-		upload.array("files", 4),
-		async (req, res) => {
-			try {
-				const userId = req.user.id;
+  // Post (Upload) a file within an array of files, max 4 files
+  router.post(
+    "/images",
+    isAuthenticated,
+    upload.array("files", 4),
+    async (req, res) => {
+      try {
+        const userId = req.user.id;
 
-				// Check if there are files to process
-				if (!req.files || req.files.length === 0) {
-					return res.status(400).send("No files uploaded.");
-				}
+        // Check if there are files to process
+        if (!req.files || req.files.length === 0) {
+          return res.status(400).send("No files uploaded.");
+        }
 
-				const fileProcessingPromises = req.files.map(async (file) => {
-					const imagePath = file.path;
-					const savedImagePath = path.join("uploads", file.filename);
+        const fileProcessingPromises = req.files.map(async (file) => {
+          const imagePath = file.path;
+          const savedImagePath = path.join("uploads", file.filename);
 
-					try {
-						await fs.promises.rename(imagePath, savedImagePath);
-					} catch (error) {
-						console.error("Error moving file:", error);
-						throw new Error("Error processing file");
-					}
+          try {
+            await fs.promises.rename(imagePath, savedImagePath);
+          } catch (error) {
+            console.error("Error moving file:", error);
+            throw new Error("Error processing file");
+          }
 
-					// Save the image record to the database
-					const image = await Image.create({
-						userId,
-						path: savedImagePath,
-					});
-				});
+          // Save the image record to the database
+          await Image.create({
+            userId,
+            path: savedImagePath,
+          });
+        });
 
-				await Promise.all(fileProcessingPromises);
+        await Promise.all(fileProcessingPromises);
 
-				res.header("HX-Redirect", "/images/user");
-			} catch (error) {
-				console.error("Error uploading files:", error);
-				res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">Error processing your request</span>
-        </div>
-      `);
-			}
-		},
-	);
+        // Get the tabId from the request body
+        const tabId = req.body.tabId; // Assuming you send tabId in the request
 
-	// Get all images
-	router.get("/images", isAuthenticated, async (req, res) => {
-		try {
-			const images = await Image.findAll();
-			const imagesHtml = images
-				.map(
-					(image) => /*html*/ `
-        <div>
-          <p>Image ID: ${image.id}</p>
-          <p>User ID: ${image.userId}</p>
-          <img src="${image.path}" alt="Image ${image.id}">
-        </div>
-      `,
-				)
-				.join("");
-			res.send(`
-        <div id="image-list">
-          ${imagesHtml}
-        </div>
-      `);
-		} catch (error) {
-			console.error("Error fetching images:", error);
-			res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">Error fetching images</span>
-        </div>
-      `);
-		}
-	});
+        // Fetch the updated image list for the specific tab
+        const images = await Image.findAll({ 
+          where: { userId: req.user.id, tabId: tabId } // Filter by tabId
+        });
+        
+        let userImagesHtml = "";
 
-	// Get all images of the logged in user
-	router.get("/images/user", isAuthenticated, async (req, res) => {
-		try {
-			const images = await Image.findAll({ where: { userId: req.user.id } });
-			let userImagesHtml = "";
-
-			if (images.length === 0) {
-				userImagesHtml = /*html*/ `
-          <div class="overflow-x-auto pt-8">
-            <table class="table w-full">
-              <thead>
-                <tr>
-                  <th>Archivo</th>
-                  <th class="flex flex-row justify-center">Vista Previa</th>
-                  <th class="flex flex-row justify-center">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-        `;
-			} else {
-				userImagesHtml = /*html*/ `
-          <div class="overflow-x-auto pt-8">
-            <table class="table table-pin-rows w-full">
-            <thead>
-              <tr>
-                <th>Archivo</th>
-                <th class="text-center">Vista Previa</th>
-                <th class="text-center">Acciones</th>
-              </tr>
-            </thead>
+        if (images.length === 0) {
+          userImagesHtml = /*html*/ `
+            <tbody>
+            </tbody>
+          `;
+        } else {
+          userImagesHtml = /*html*/ `
             <tbody>
               ${images
-								.map(
-									(image) => /*html*/ `
-              <tr class="hover" id="image-${image.id}">
-                <td id="Archivo" onclick="window.open('/${
-									image.path
-								}', '_blank')">${path.basename(image.path)}</td>
+                .map(
+                  (image) => /*html*/ `
+                  <tr class="hover" id="image-${image.id}">
+                    <td id="Archivo" onclick="window.open('/${
+                      image.path
+                    }', '_blank')">${path.basename(image.path)}</td>
 
-                <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${
-									image.path
-								}', '_blank')">
-                  <img class="img-thumbnail hover:pointer" src="/${
-										image.path
-									}" alt="Document ${image.id}">
-                </td>
+                    <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${
+                      image.path
+                    }', '_blank')">
+                      <img class="img-thumbnail hover:pointer" src="/${
+                        image.path
+                      }" alt="Document ${image.id}">
+                    </td>
 
-                <td id="Acciones">
-                  <div class="flex justify-center gap-1">
+                    <td id="Acciones">
+                      <div class="flex justify-center gap-1">
 
-                    <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
-                      <img src="/assets/icons/download.svg" alt="Descargar">
-                    </a>
+                        <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
+                          <img src="/assets/icons/download.svg" alt="Descargar">
+                        </a>
 
-                    <button hx-delete="/images/${image.id}" hx-target="#image-${
-											image.id
-										}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
-                      <img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
-                    </button>
+                        <button hx-delete="/images/${
+                          image.id
+                        }" hx-target="#image-${
+                image.id
+              }" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
+                          <img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
+                        </button>
 
-                  </div>
-                </td>
-              </tr>
-              `,
-								)
-								.join("")}
+                      </div>
+                    </td>
+                  </tr>
+                  `,
+                )
+                .join("")}
             </tbody>
-            </table>
+          `;
+        }
+
+        // Send the updated image list HTML
+        res.send(userImagesHtml);
+
+      } catch (error) {
+        console.error("Error uploading files:", error);
+        res.status(500).send(`
+          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+            <span class="font-bold text-center">Error processing your request</span>
           </div>
-        `;
-			}
-			res.send(userImagesHtml);
-		} catch (error) {
-			console.error("Error fetching user images:", error);
-			res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">Error fetching user images</span>
-        </div>
-      `);
-		}
-	});
-
-	/// Get all images from a specific user
-router.get("/images/user/:userId", isAuthenticated, async (req, res) => {
-	try {
-	  const userId = req.params.userId;
-	  const user = await User.findOne({ where: { id: userId } });
-	  const userEmail = user ? user.email : "User not found";
-	  const images = await Image.findAll({
-		where: { userId },
-	  });
-
-				const userImagesHtml = /*html*/ `
-        <div class="card bg-base-100 shadow-md text-center my-10">
-          <div class="card-body">
-            <div class="flex justify-between items-center mx-4">
-              <h2 class="card-title font-semibold">Documentos del usuario ${userEmail}</h2>
-              <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
-                Descargar todo
-              </button>
-            </div>
-            <div class="overflow-x-auto pt-8">
-              <table class="table table-pin-rows w-full">
-              <thead>
-                <tr>
-                  <th>Archivo</th>
-                  <th class="text-center">Vista Previa</th>
-                  <th class="text-center">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${images
-									.map(
-										(image) => /*html*/ `
-                <tr class="hover" id="image-${image.id}">
-                  <td id="Archivo" onclick="window.open('/${
-										image.path
-									}', '_blank')">${path.basename(image.path)}</td>
-
-                  <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${
-										image.path
-									}', '_blank')">
-                    <img class="img-thumbnail hover:pointer" src="/${
-											image.path
-										}" alt="Document ${image.id}">
-                  </td>
-
-                  <td id="Acciones">
-                    <div class="flex justify-center gap-1">
-                      <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
-                        <img src="/assets/icons/download.svg" alt="Descargar">
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                `,
-									)
-									.join("")}
-              </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      `;
-
-				res.send(userImagesHtml);
-			} catch (error) {
-				console.error("Error fetching user images:", error);
-				res.status(500).send(`
-				  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-					<span class="font-bold text-center">Error fetching user images</span>
-				  </div>
-				`);
-			  }
-			});
+        `);
+      }
+    },
+  );
 
 	// Download a single image from a specific user
 	router.get("/images/:imageId", isAuthenticated, async (req, res) => {
