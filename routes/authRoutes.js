@@ -36,15 +36,13 @@ module.exports = (User) => {
 				const errorMessages = errors.array().map((error) => error.msg);
 				return res.status(500).send(`
 					<div id="register-form-component">
-						<dialog id="modal-response" class="modal modal-open error">
+						<dialog id="modal-response" class="modal modal-open error" hx-ext="remove-me" remove-me="3s">
 							<div class="modal-box text-center items-center justify-center align-middle">
-							<form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-              </form>
-								<h3 class="font-bold text-lg">Error en el registro de usuario</h3>
+								<h3 class="font-bold text-lg">Error:</h3>
 								<ul class="list-disc pl-5 text-left mt-4">
 									${errorMessages}
 								</ul>
+								<h3 class="font-bold">Por favor, inténtalo de nuevo.</h3>
 							</div>
 						</dialog>
 					</div>
@@ -91,7 +89,7 @@ module.exports = (User) => {
 				res.status(500).send(
 					`
 					<div id="register-form-component">
-							<dialog id="modal-response" class="modal modal-open error">
+							<dialog id="modal-response" class="modal modal-open error" hx-ext="remove-me" remove-me="3s">
 									<div class="modal-box text-center items-center justify-center align-middle">
 											<h3 class="font-bold text-lg">Error en el registro de usuario</h3>
 											<p class="py-4">Hubo un problema al crear tu cuenta.<br><br> Inténtalo de nuevo.</p>
