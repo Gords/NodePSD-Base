@@ -6,5 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (successHtml) {
 		const targetElement = document.getElementById("verification-response");
 		targetElement.innerHTML = decodeURIComponent(successHtml);
+
+		// Remove the element after 3 seconds (adjust the delay as needed)
+		removeElementAfterDelay("modal-response", 3000);
 	}
 });
+
+function removeElementAfterDelay(elementId, delay) {
+	setTimeout(() => {
+		const element = document.getElementById(elementId);
+		if (element) {
+			element.remove();
+		}
+	}, delay);
+}

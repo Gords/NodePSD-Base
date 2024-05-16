@@ -119,7 +119,7 @@ module.exports = (User) => {
 			// Encode the succesful verification modal and pass it in the redirect URL
 			const successHtml = encodeURIComponent(`
 				<div id="register-response">
-					<dialog id="modal-response" class="modal modal-open auth-success" hx-ext="remove-me" remove-me="3s">
+					<dialog id="modal-response" class="modal modal-open auth-success">
 						<div class="modal-box bg-success border-2 border-black text-center items-center">
 							<h3 class="font-bold text-lg">Verificacion de cuenta exitosa!</h3>
 							<p class="py-4">Por favor inicia sesion para acceder a nuestros servicios.</p>
