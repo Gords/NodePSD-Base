@@ -77,7 +77,7 @@ module.exports = (User) => {
 				res.status(200).send(`
 					<div id="register-form-component">
 						<dialog id="modal-response" class="modal modal-open success">
-							<div class="modal-box text-center items-center justify-center align-middle">
+							<div class="modal-box bg-success border-2 border-black text-center items-center">
 								<h3 class="font-bold text-lg">Registro de usuario exitoso!</h3>
 								<p class="py-4">Verifica tu correo electrónico para activar tu cuenta. <br><br> Redireccionando a la pagina principal...</p>
 							</div>
@@ -120,7 +120,7 @@ module.exports = (User) => {
 			const successHtml = encodeURIComponent(`
 				<div id="register-response">
 					<dialog id="modal-response" class="modal modal-open auth-success" hx-ext="remove-me" remove-me="3s">
-						<div class="modal-box text-center items-center justify-center align-middle">
+						<div class="modal-box bg-success border-2 border-black text-center items-center">
 							<h3 class="font-bold text-lg">Verificacion de cuenta exitosa!</h3>
 							<p class="py-4">Por favor inicia sesion para acceder a nuestros servicios.</p>
 						</div>
