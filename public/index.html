@@ -18,7 +18,7 @@
   <script src="js/login.js"></script>
 </head>
 
-<body class="h-full flex flex-col" htmx:afterOnLoad="console.log('HTMX load event:', event.detail)">
+<body class="h-full flex flex-col" htmx:afterOnLoad="console.log('HTMX load event:', event.detail)" hx-ext="remove-me">
   <header>
     <nav hx-get="components.html" hx-select="#top-navigation-component" hx-trigger="load"></nav>
   </header>

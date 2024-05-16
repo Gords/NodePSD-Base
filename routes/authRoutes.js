@@ -36,15 +36,12 @@ module.exports = (User) => {
 				const errorMessages = errors.array().map((error) => error.msg);
 				return res.status(500).send(`
 					<div id="register-form-component">
-						<dialog id="modal-response" class="modal modal-open error" hx-ext="remove-me" remove-me="3s">
-							<div class="modal-box text-center items-center justify-center align-middle">
-								<h3 class="font-bold text-lg">Error:</h3>
-								<ul class="list-disc pl-5 text-left mt-4">
-									${errorMessages}
-								</ul>
-								<h3 class="font-bold">Por favor, inténtalo de nuevo.</h3>
-							</div>
-						</dialog>
+						<div role="alert" class="alert alert-error border-black mb-2 mx-4 max-w-fit">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<ul class="list-disc pl-5">
+								${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
+							</ul>
+						</div>
 					</div>
 				`);
 			}
@@ -89,12 +86,16 @@ module.exports = (User) => {
 				res.status(500).send(
 					`
 					<div id="register-form-component">
-							<dialog id="modal-response" class="modal modal-open error" hx-ext="remove-me" remove-me="3s">
-									<div class="modal-box text-center items-center justify-center align-middle">
-											<h3 class="font-bold text-lg">Error en el registro de usuario</h3>
+						<div class="card m-auto max-w-sm shadow-xl">
+							<div class="card-body flex min-h-full flex-col justify-center lg:px-8">
+								<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+									<span class="font-bold">Error en el registro:</span>
+									<h3 class="font-bold text-lg">Error en el registro de usuario</h3>
 											<p class="py-4">Hubo un problema al crear tu cuenta.<br><br> Inténtalo de nuevo.</p>
-									</div>
-							</dialog>
+								</div>
+							</div>
+						</div>
 					</div>
 				`.trim(),
 				);
@@ -120,11 +121,8 @@ module.exports = (User) => {
 
 			const successHtml = encodeURIComponent(`
 				<div id="register-response">
-					<dialog id="modal-response" class="modal modal-open auth-success">
+					<dialog id="modal-response" class="modal modal-open auth-success" hx-ext="remove-me" remove-me="3s">
 						<div class="modal-box text-center items-center justify-center align-middle">
-							<form method="dialog">
-								<button id="close-button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-							</form>
 							<h3 class="font-bold text-lg">Verificacion de cuenta exitosa!</h3>
 							<p class="py-4">Por favor inicia sesion para acceder a nuestros servicios.</p>
 						</div>
@@ -132,7 +130,7 @@ module.exports = (User) => {
 				</div>
 			`);
 
-			res.redirect(`/?success=${successHtml}`);
+			res.redirect(`/?message=${successHtml}`);
 		} catch (error) {
 			console.error("Error verifying email:", error);
 			res.status(400).send(`
