@@ -34,11 +34,13 @@ module.exports = (User) => {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
 				const errorMessages = errors.array().map((error) => error.msg);
+
+				// Error response for invalid input in user registration
 				return res.status(500).send(`
 					<div id="register-form-component">
-						<div role="alert" class="alert alert-error border-black mb-2 mx-4 max-w-fit">
+						<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit hx-ext"remove-me" remove-me="10s"">
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-							<ul class="list-disc pl-5">
+							<ul class="list-disc pl-5 font-semibold">
 								${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
 							</ul>
 						</div>
@@ -70,6 +72,7 @@ module.exports = (User) => {
 				// Send verification email
 				await emailService.sendVerificationEmail(email, verificationToken);
 				console.log("User registered successfully:", user.email);
+
 				// Registration success modal
 				res.status(200).send(`
 					<div id="register-form-component">
@@ -83,22 +86,16 @@ module.exports = (User) => {
 				`);
 			} catch (error) {
 				console.error("Error registering user:", error);
-				res.status(500).send(
-					`
+
+				// Error response for failed user registration (e.g. email already exists)
+				return res.status(500).send(`
 					<div id="register-form-component">
-						<div class="card m-auto max-w-sm shadow-xl">
-							<div class="card-body flex min-h-full flex-col justify-center lg:px-8">
-								<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-									<span class="font-bold">Error en el registro:</span>
-									<h3 class="font-bold text-lg">Error en el registro de usuario</h3>
-											<p class="py-4">Hubo un problema al crear tu cuenta.<br><br> Inténtalo de nuevo.</p>
-								</div>
-							</div>
+						<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit hx-ext"remove-me" remove-me="10s"">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<p class="font-semibold">Hubo un problema al crear tu cuenta, inténtalo de nuevo.</p>
 						</div>
 					</div>
-				`.trim(),
-				);
+				`);
 			}
 		},
 	);
@@ -119,6 +116,7 @@ module.exports = (User) => {
 			user.isVerified = true;
 			await user.save();
 
+			// Encode the succesful verification modal and pass it in the redirect URL
 			const successHtml = encodeURIComponent(`
 				<div id="register-response">
 					<dialog id="modal-response" class="modal modal-open auth-success" hx-ext="remove-me" remove-me="3s">
@@ -133,12 +131,14 @@ module.exports = (User) => {
 			res.redirect(`/?message=${successHtml}`);
 		} catch (error) {
 			console.error("Error verifying email:", error);
+
+			// TODO: Implement error response for invalid verification token. Ask Nando if we should approach this the same as success response above
 			res.status(400).send(`
-			<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-				<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-				<span class="font-bold justify-center">Invalid verification token</span>
-			</div>
-		`);
+				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					<span class="font-bold justify-center">Invalid verification token</span>
+				</div>
+			`);
 		}
 	});
 
@@ -154,64 +154,64 @@ module.exports = (User) => {
 			if (!errors.isEmpty()) {
 				const errorMessages = errors.array().map((error) => error.msg);
 				return res.status(400).send(`
-		  <div id="loginResponse">
-			<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-			  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-			  <span class="font-bold">Error en el inicio de sesión:</span>
-			  <ul class="list-disc pl-5">
-				${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
-			  </ul>
-			</div>
-		  </div>
-		`);
+					<div id="loginResponse">
+						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<span class="font-bold">Error en el inicio de sesión:</span>
+							<ul class="list-disc pl-5">
+							${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
+							</ul>
+						</div>
+					</div>
+				`);
 			}
 
 			passport.authenticate("local", (err, user, info) => {
 				if (err) {
 					return res.status(500).send(`
-			<div id="loginResponse">
-			  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-				<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-				<span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
-			  </div>
-			</div>
-		  `);
+						<div id="loginResponse">
+							<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+								<span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
+							</div>
+						</div>
+						`);
 				}
 
 				if (!user) {
 					return res.status(401).send(`
-			<div id="loginResponse">
-			  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-				<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-				<span class="font-bold text-center">${
-					info.message || "Ese usuario no existe"
-				}</span>
-			  </div>
-			</div>
-		  `);
+						<div id="loginResponse">
+							<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+								<span class="font-bold text-center">${
+									info.message || "Ese usuario no existe"
+								}</span>
+							</div>
+						</div>
+					`);
 				}
 
 				req.logIn(user, (loginErr) => {
 					if (loginErr) {
 						return res.status(500).send(`
-			  <div id="loginResponse">
-				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-				  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-				  <span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
-				</div>
-			  </div>
-			`);
+							<div id="loginResponse">
+								<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+									<span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
+								</div>
+							</div>
+						`);
 					}
 
 					if (!user.isVerified) {
 						return res.status(401).send(`
-			  <div id="loginResponse">
-				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-				  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-				  <span class="font-bold text-center">Por favor verifica tu correo electrónico</span>
-				</div>
-			  </div>
-			`);
+							<div id="loginResponse">
+								<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+									<span class="font-bold text-center">Por favor verifica tu correo electrónico</span>
+								</div>
+							</div>
+						`);
 					}
 
 					// Set the appropriate redirect URL based on user role
@@ -220,13 +220,13 @@ module.exports = (User) => {
 						: "/user-panel.html";
 					res.header("HX-Redirect", redirectUrl);
 					return res.send(`
-			<div id="loginResponse">
-			  <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-				<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-				<span class="font-bold">Inicio de sesión exitoso</span>
-			  </div>
-			</div>
-		  `);
+						<div id="loginResponse">
+							<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+								<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+								<span class="font-bold">Inicio de sesión exitoso</span>
+							</div>
+						</div>
+					`);
 				});
 			})(req, res, next);
 		},
