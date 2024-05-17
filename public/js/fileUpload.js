@@ -1,77 +1,105 @@
 // Behaviour for the file upload section in the user panel
 
 // Global access to fileList array and updateUploadFileList function
-// (the code migrated from codepen that was written in jquery wouldn't run unless these were global)
 const fileList = [];
 
 // Update the list of files that are ready to be uploaded
 function updateUploadFileList(tabId) {
-  const fileListElement = document.getElementById(`file-upload-list-${tabId}`);
-  fileListElement.innerHTML = ""; // Clear existing entries
+  setTimeout(() => {
+    const fileListElement = document.getElementById(`file-upload-list-${tabId}`);
+    if (!fileListElement) return; // Guard against errors if element is not found
+    fileListElement.innerHTML = ""; // Clear existing entries
 
-  // Determine icon based on file type
-  fileList.forEach((file, index) => {
-    // Default document icon
-    let fileIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    // Determine icon based on file type
+    fileList.forEach((file, index) => {
+      // Default document icon
+      let fileIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
 </svg>
 `;
-    // Image icon
-    if (file.type.includes("image")) {
-      fileIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      // Image icon
+      if (file.type.includes("image")) {
+        fileIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
 </svg>`;
 
-      // PDF icon
-    } else if (file.type === "application/pdf") {
-      fileIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        // PDF icon
+      } else if (file.type === "application/pdf") {
+        fileIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
 </svg>
 `;
-    }
+      }
 
-    // X Icon to remove file from upload list
-    const removeIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      // X Icon to remove file from upload list
+      const removeIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
 
-    // Create the list that includes each file in the upload form
-    const listItem = document.createElement("div");
-    listItem.id = "file-upload-list-item";
-    listItem.className =
-      "bg-neutral p-2 flex justify-between items-center rounded-lg mb-2 z-10";
-    listItem.setAttribute("data-index", index);
-    listItem.innerHTML = `
-      <span>${fileIcon}</span>
-      <div>${file.name}</div>
-      <div class="remove-file">${removeIcon}</div>
-    `;
-    // Attach click event listener to the remove button of each file
-    listItem.querySelector(".remove-file").addEventListener("click", (event) => {
-      event.stopPropagation();
-      event.preventDefault();
-      fileList.splice(index, 1);
-      updateUploadFileList(tabId);
-    });
+      // Create the list that includes each file in the upload form
+      const listItem = document.createElement("div");
+      listItem.id = `file-upload-list-item-${index}`; // Added index to make ID unique
+      listItem.className =
+        "bg-neutral p-2 flex justify-between items-center rounded-lg mb-2 z-10";
+      listItem.setAttribute("data-index", index);
+      listItem.setAttribute("data-tab-id", tabId); 
+      listItem.innerHTML = `
+        <span>${fileIcon}</span>
+        <div>${file.name}</div>
+        <div class="remove-file">${removeIcon}</div>
+      `;
 
-    fileListElement.appendChild(listItem);
-  });
+      // Attach click event listener to the remove button of each file
+      listItem.querySelector(".remove-file").addEventListener("click", (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        setTimeout(() => {
+          const index = Number.parseInt(listItem.getAttribute("data-index"));
+          const tabId = listItem.getAttribute("data-tab-id");
+          fileList.splice(index, 1);
+          updateUploadFileList(tabId);
+        }, 100);
+      });
+
+      // Attach click event listener to the list item to open the file
+      listItem.addEventListener("click", (event) => {
+        setTimeout(() => {
+          const listItem = event.target.closest(`[id^="file-upload-list-item-"]`); // Modified selector
+          const index = Number.parseInt(listItem.getAttribute("data-index"));
+          const tabId = listItem.getAttribute("data-tab-id");
+          const file = fileList[index];
+          console.log(file);
+          window.open(`/uploads/${file.name}`);
+        }, 100);
+      });
+
+      fileListElement.appendChild(listItem);
+    });
+  }, 100); 
 }
 
+document.addEventListener('click', (event) => {
+  if (event.target.classList.contains('next-tab')) {
+    const currentTab = event.target.closest('.tab-content');
+    const nextTab = currentTab.nextElementSibling;
+    if (nextTab) {
+      nextTab.querySelector('input[type="radio"]').checked = true;
+    }
+  }
+});
+
 // Initialize the file list
-document.addEventListener("htmx:afterSettle", (event) => { // Use htmx:afterSettle
-	const fileDropzoneComponent = event.detail.target; // Use target for the element
-	const tabId = fileDropzoneComponent.getAttribute("hx-vals")
-	  ? JSON.parse(fileDropzoneComponent.getAttribute("hx-vals")).tabId
-	  : "";
+document.addEventListener("htmx:afterSettle", (event) => {
+  const fileDropzoneComponent = event.detail.target;
+  const tabId = fileDropzoneComponent.closest(".tab-content").id;
 
   const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
 
-  function handleFiles(files) {
+  function handleFiles(files, tabId) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const isFileTypeAllowed = allowedTypes.includes(file.type);
       const isFileAlreadyAdded = fileList.some(
-        (existingFile) => existingFile.name === file.name,
+        (existingFile) => existingFile.name === file.name
       );
 
       if (isFileTypeAllowed && !isFileAlreadyAdded) {
@@ -83,13 +111,13 @@ document.addEventListener("htmx:afterSettle", (event) => { // Use htmx:afterSett
   }
 
   fileDropzoneComponent
-    .querySelector(`#files-to-upload-${tabId}`) // Ensure this selector is correct
+    .querySelector("#files-to-upload")
     .addEventListener("change", function () {
-      handleFiles(this.files);
+      const tabId = fileDropzoneComponent.closest('.tab-content').id; // Get tabId from parent
+      handleFiles(this.files, tabId);
     });
 
   // Drag and drop functionality and styling
-  // Why the heck is the color being manipulated here?
   const dropArea = fileDropzoneComponent.querySelector("#drop-area");
   dropArea.addEventListener("dragover", (e) => {
     e.preventDefault();
@@ -110,7 +138,8 @@ document.addEventListener("htmx:afterSettle", (event) => { // Use htmx:afterSett
   dropArea.addEventListener("drop", (e) => {
     e.preventDefault();
     const files = e.dataTransfer.files;
-    handleFiles(files);
+    const tabId = fileDropzoneComponent.closest('.tab-content').id; // Get tabId from parent
+    handleFiles(files, tabId); 
     gsap.to("#drop-area", {
       borderColor: "#ccc",
       background: "#283048",
