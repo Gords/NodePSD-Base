@@ -292,7 +292,8 @@
   <div id="login-form-component" class="pt-28">
     <div class="card m-auto max-w-lg shadow-md">
       <form id="login-form" class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/auth/login"
-        hx-target="#login-response" hx-swap="innerHTML">
+        hx-target="#login-response" hx-target-4xx='#loginErrorResponse' hx-target-5xx='#loginErrorResponse'
+        hx-swap="afterbegin">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Accede a tu cuenta</h2>
@@ -320,7 +321,7 @@
           </p>
         </div>
       </form>
-      <div id="loginResponse">
+      <div id="loginErrorResponse" class="flex flex-col items-center">
         <!-- Here goes the response from the server -->
       </div>
     </div>
