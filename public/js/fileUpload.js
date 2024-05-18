@@ -1,16 +1,15 @@
 // Behaviour for the file upload section in the user panel
 
-// Global access to fileList array and updateUploadFileList function
-const fileList = [];
+// Global access to fileList array
+let fileList = []; // Store files for the currently active tab
 
-// Update the list of files that are ready to be uploaded
-function updateUploadFileList(tabId) {
+// Update the list of files in the current tab
+function updateUploadFileList() {
   setTimeout(() => {
-    const fileListElement = document.getElementById(`file-upload-list-${tabId}`);
+    const fileListElement = document.getElementById("file-upload-list");
     if (!fileListElement) return; // Guard against errors if element is not found
     fileListElement.innerHTML = ""; // Clear existing entries
 
-    // Determine icon based on file type
     fileList.forEach((file, index) => {
       // Default document icon
       let fileIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -35,51 +34,30 @@ function updateUploadFileList(tabId) {
       const removeIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
 
-      // Create the list that includes each file in the upload form
+      // Create the list item
       const listItem = document.createElement("div");
-      listItem.id = `file-upload-list-item-${index}`; // Added index to make ID unique
-      listItem.className =
-        "bg-neutral p-2 flex justify-between items-center rounded-lg mb-2 z-10";
-      listItem.setAttribute("data-index", index);
-      listItem.setAttribute("data-tab-id", tabId); 
+      listItem.className = "file-item"; // Use a simple class for styling
       listItem.innerHTML = `
-        <span>${fileIcon}</span>
-        <div>${file.name}</div>
-        <div class="remove-file">${removeIcon}</div>
+        <span>${fileIcon} ${file.name}</span>
+        <button class="remove-file">${removeIcon}</button> 
       `;
 
-      // Attach click event listener to the remove button of each file
+      // Attach click event listener to the remove button 
       listItem.querySelector(".remove-file").addEventListener("click", (event) => {
         event.stopPropagation();
         event.preventDefault();
-        setTimeout(() => {
-          const index = Number.parseInt(listItem.getAttribute("data-index"));
-          const tabId = listItem.getAttribute("data-tab-id");
-          fileList.splice(index, 1);
-          updateUploadFileList(tabId);
-        }, 100);
-      });
-
-      // Attach click event listener to the list item to open the file
-      listItem.addEventListener("click", (event) => {
-        setTimeout(() => {
-          const listItem = event.target.closest(`[id^="file-upload-list-item-"]`); // Modified selector
-          const index = Number.parseInt(listItem.getAttribute("data-index"));
-          const tabId = listItem.getAttribute("data-tab-id");
-          const file = fileList[index];
-          console.log(file);
-          window.open(`/uploads/${file.name}`);
-        }, 100);
+        fileList.splice(index, 1);
+        updateUploadFileList();
       });
 
       fileListElement.appendChild(listItem);
     });
-  }, 100); 
+  }, 100);
 }
 
-document.addEventListener('click', (event) => {
-  if (event.target.classList.contains('next-tab')) {
-    const currentTab = event.target.closest('.tab-content');
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("next-tab")) {
+    const currentTab = event.target.closest(".tab-content");
     const nextTab = currentTab.nextElementSibling;
     if (nextTab) {
       nextTab.querySelector('input[type="radio"]').checked = true;
@@ -90,11 +68,11 @@ document.addEventListener('click', (event) => {
 // Initialize the file list
 document.addEventListener("htmx:afterSettle", (event) => {
   const fileDropzoneComponent = event.detail.target;
-  const tabId = fileDropzoneComponent.closest(".tab-content").id;
+  fileList = []; // Clear the fileList when a new tab is loaded
 
   const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
 
-  function handleFiles(files, tabId) {
+  function handleFiles(files) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const isFileTypeAllowed = allowedTypes.includes(file.type);
@@ -107,14 +85,13 @@ document.addEventListener("htmx:afterSettle", (event) => {
       }
     }
 
-    updateUploadFileList(tabId);
+    updateUploadFileList();
   }
 
   fileDropzoneComponent
     .querySelector("#files-to-upload")
     .addEventListener("change", function () {
-      const tabId = fileDropzoneComponent.closest('.tab-content').id; // Get tabId from parent
-      handleFiles(this.files, tabId);
+      handleFiles(this.files);
     });
 
   // Drag and drop functionality and styling
@@ -138,8 +115,7 @@ document.addEventListener("htmx:afterSettle", (event) => {
   dropArea.addEventListener("drop", (e) => {
     e.preventDefault();
     const files = e.dataTransfer.files;
-    const tabId = fileDropzoneComponent.closest('.tab-content').id; // Get tabId from parent
-    handleFiles(files, tabId); 
+    handleFiles(files);
     gsap.to("#drop-area", {
       borderColor: "#ccc",
       background: "#283048",

@@ -485,7 +485,8 @@
       </div>
       <input id="dropzone-file" type="file" class="hidden" />
       <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar archivos</label>
-      <input type="file" id="files-to-upload" name="files" multiple accept="image/jpeg, image/png, application/pdf" style="display: none" hx-post="/images" hx-target="#file-upload-list" hx-swap="innerHTML">
-    </label>
+      <input type="file" id="files-to-upload" name="files" multiple 
+      accept="image/jpeg, image/png, application/pdf" style="display: none" 
+      hx-post="/images/user" hx-target="#file-upload-list" hx-swap="innerHTML">    </label>
   </div>
 </div>

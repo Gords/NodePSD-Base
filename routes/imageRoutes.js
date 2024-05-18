@@ -8,17 +8,17 @@ const { Op } = require("sequelize");
 
 // Configure Multer storage
 const storage = multer.diskStorage({
-	destination: (req, file, cb) => {
-	  cb(null, "uploads/");
-	},
-	filename: (req, file, cb) => {
-		const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-		const username = req.user.name; // Get the username
-		const tabId = req.body.tabId; // Get the tabId from the request 
-		const filename = `${username}_${tabId}_${uniqueSuffix}-${file.originalname}`;
-		cb(null, filename);
-	  },
-	});
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    const username = req.user.name; // Get the username
+    const tabId = req.body.tabId; // Get the FULL tab ID (e.g., "cedula-tab")
+    const filename = `${username}_${tabId}_${uniqueSuffix}-${file.originalname}`;
+    cb(null, filename);
+  },
+});
 
 const upload = multer({ storage });
 
@@ -31,6 +31,7 @@ module.exports = (Image, User) => {
     async (req, res) => {
       try {
         const userId = req.user.id;
+        const tabId = req.body.tabId; // "cedula-tab", "inforcomf-tab", etc.
 
         // Check if there are files to process
         if (!req.files || req.files.length === 0) {
@@ -58,68 +59,43 @@ module.exports = (Image, User) => {
         await Promise.all(fileProcessingPromises);
 
 
-        // Fetch the updated image list for the specific user
-		const images = await Image.findAll({
-			where: {
-			  userId: req.user.id,
-			},
-		  });
+// Fetch the updated image list for the specific user AND tab
+const images = await Image.findAll({
+	where: {
+	  userId: req.user.id,
+	  path: {
+		[Op.like]: `${req.user.name}_${tabId}_%`, // Filter using the FULL tabId
+	  },
+	},
+  });
 
-        let userImagesHtml = "";
+  let userImagesHtml = "";
 
-        if (images.length === 0) {
-          userImagesHtml = /*html*/ `
-            <tbody>
-            </tbody>
-          `;
-        } else {
-          userImagesHtml = /*html*/ `
-            <tbody>
-              ${images
-                .map(
-                  (image) => /*html*/ `
-                  <tr class="hover" id="image-${image.id}">
-                    <td id="Archivo" onclick="window.open('/${
-                      image.path
-                    }', '_blank')">${path.basename(image.path)}</td>
+  if (images.length === 0) {
+	userImagesHtml = /*html*/ `
+	  <div id="file-upload-list-${tabId}"></div> // Empty div if no images
+	`;
+  } else {
+	userImagesHtml = /*html*/ `
+	  <div id="file-upload-list-${tabId}">
+		${images
+		  .map(
+			(image) => /*html*/ `
+			<div class="file-item"> 
+			  <span>${image.path}</span>
+			  <button hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?">X</button>
+			</div>
+			`
+		  )
+		  .join("")}
+	  </div>
+	`;
+  }
 
-                    <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${
-                      image.path
-                    }', '_blank')">
-                      <img class="img-thumbnail hover:pointer" src="/${
-                        image.path
-                      }" alt="Document ${image.id}">
-                    </td>
+  // Send the updated image list HTML
+  res.send(userImagesHtml);
 
-                    <td id="Acciones">
-                      <div class="flex justify-center gap-1">
-
-                        <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
-                          <img src="/assets/icons/download.svg" alt="Descargar">
-                        </a>
-
-                        <button hx-delete="/images/${
-                          image.id
-                        }" hx-target="#image-${
-                          image.id
-                        }" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
-                          <img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
-                        </button>
-
-                      </div>
-                    </td>
-                  </tr>
-                  `,
-                )
-                .join("")}
-            </tbody>
-          `;
-        }
-
-        // Send the updated image list HTML
-        res.send(userImagesHtml);
-
-      } catch (error) {
+} catch (error) {
         console.error("Error uploading files:", error);
         res.status(500).send(`
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
