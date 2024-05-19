@@ -92,19 +92,19 @@
           </div>
         </div>
 
-        <!-- New multi-step file upload form component -->
-        <div role="tablist" class="tabs tabs-lifted py-4">
-          <input type="radio" name="my_tabs_2" role="tab" class="tab my-auto" aria-label="Cédula" checked />
-          <div role="tabpanel" class="tab-content bg-base-100 rounded-box shadow-md border-base-300 p-10" id="cedula-tab">
-            <div hx-get="components.html" hx-select="#file-dropzone-component" hx-trigger="load"></div>
-            <button class="btn btn-primary next-tab">Next</button>
-          </div>
-        
-          <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Inforcomf" />
-          <div role="tabpanel" class="tab-content bg-base-100 rounded-box border-base-300 p-6" id="inforcomf-tab">
-            <div hx-get="components.html" hx-select="#file-dropzone-component" hx-trigger="load"></div>
-            <button class="btn btn-primary next-tab">Next</button>
-          </div>
+<!-- New multi-step file upload form component -->
+<div role="tablist" class="tabs tabs-lifted py-4">
+  <input type="radio" name="my_tabs_2" role="tab" class="tab my-auto" aria-label="Cédula" checked />
+  <div role="tabpanel" class="tab-content bg-base-100 rounded-box shadow-md border-base-300 p-10" id="cedula-tab">
+    <div hx-get="components.html" hx-select="#file-dropzone-component" hx-trigger="load" hx-vals='{"tabId": "cedula-tab"}'></div> 
+    <button class="btn btn-primary next-tab">Next</button>
+  </div>
+
+  <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Inforcomf" />
+  <div role="tabpanel" class="tab-content bg-base-100 rounded-box border-base-300 p-6" id="inforcomf-tab">
+    <div hx-get="components.html" hx-select="#file-dropzone-component" hx-trigger="load" hx-vals='{"tabId": "inforcomf-tab"}'></div>
+    <button class="btn btn-primary next-tab">Next</button>
+  </div>
           <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Infocheck" />
           <div role="tabpanel" class="tab-content bg-base-100 rounded-box border-base-300 p-6">
             <input type="file" class="file-input file-input-bordered w-full max-w-xs" />

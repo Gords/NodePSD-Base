@@ -23,15 +23,15 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 module.exports = (Image, User) => {
-  // Post (Upload) a file within an array of files, max 4 files
-  router.post(
-    "/images",
-    isAuthenticated,
-    upload.array("files", 4),
-    async (req, res) => {
-      try {
-        const userId = req.user.id;
-        const tabId = req.body.tabId; // "cedula-tab", "inforcomf-tab", etc.
+// Post (Upload) a file within an array of files, max 4 files
+router.post(
+	"/images/user",
+	isAuthenticated,
+	upload.array("files", 4),
+	async (req, res) => {
+	  try {
+		const userId = req.user.id;
+		const tabId = req.body.tabId; // Get tabId from the hidden input
 
         // Check if there are files to process
         if (!req.files || req.files.length === 0) {
@@ -58,44 +58,45 @@ module.exports = (Image, User) => {
 
         await Promise.all(fileProcessingPromises);
 
+      // Fetch the updated image list for the specific user AND tab
+      const images = await Image.findAll({
+        where: {
+          userId: req.user.id,
+          path: {
+            [Op.like]: `${req.user.name}_${tabId}_%`,
+          },
+        },
+      });
 
-// Fetch the updated image list for the specific user AND tab
-const images = await Image.findAll({
-	where: {
-	  userId: req.user.id,
-	  path: {
-		[Op.like]: `${req.user.name}_${tabId}_%`, // Filter using the FULL tabId
-	  },
-	},
-  });
+      let userImagesHtml = "";
 
-  let userImagesHtml = "";
+      if (images.length === 0) {
+        userImagesHtml = /*html*/ `
+          <div id="file-upload-list-${tabId}"></div> 
+        `;
+      } else {
+        userImagesHtml = /*html*/ `
+          <div id="file-upload-list-${tabId}">
+            ${images.map((image) => /*html*/ `
+              <div class="file-item"> 
+                <span>${image.path}</span>
+                <button 
+                  hx-delete="/images/${image.id}" 
+                  hx-target="#file-upload-list-${tabId}" // Target correct list
+                  hx-swap="innerHTML" 
+                  hx-confirm="Estas seguro que quieres eliminar este archivo?">
+                  X
+                </button>
+              </div>
+            `).join("")}
+          </div>
+        `;
+      }
 
-  if (images.length === 0) {
-	userImagesHtml = /*html*/ `
-	  <div id="file-upload-list-${tabId}"></div> // Empty div if no images
-	`;
-  } else {
-	userImagesHtml = /*html*/ `
-	  <div id="file-upload-list-${tabId}">
-		${images
-		  .map(
-			(image) => /*html*/ `
-			<div class="file-item"> 
-			  <span>${image.path}</span>
-			  <button hx-delete="/images/${image.id}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?">X</button>
-			</div>
-			`
-		  )
-		  .join("")}
-	  </div>
-	`;
-  }
+      // Send the updated image list HTML
+      res.send(userImagesHtml);
 
-  // Send the updated image list HTML
-  res.send(userImagesHtml);
-
-} catch (error) {
+    } catch (error) { 
         console.error("Error uploading files:", error);
         res.status(500).send(`
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
