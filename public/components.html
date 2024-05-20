@@ -289,10 +289,11 @@
 <!-- Forms -->
 <section id="forms">
   <!-- Login Form -->
-  <div id="login-form-component" class="pt-28">
+  <div id="login-form-component" class="pt-28 pb-4">
     <div class="card m-auto max-w-lg shadow-md">
       <form id="login-form" class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/auth/login"
-        hx-target="#login-response" hx-swap="innerHTML">
+        hx-target="#login-response" hx-target-4xx='#loginErrorResponse' hx-target-5xx='#loginErrorResponse'
+        hx-swap="innerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Accede a tu cuenta</h2>
@@ -320,7 +321,7 @@
           </p>
         </div>
       </form>
-      <div id="loginResponse">
+      <div id="loginErrorResponse" class="flex items-center">
         <!-- Here goes the response from the server -->
       </div>
     </div>
@@ -333,7 +334,7 @@
     <div class="card m-auto max-w-lg shadow-md">
       <!-- add card-body below -->
       <form id="register-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
-        hx-post="/auth/register" hx-target="#register-response" hx-target-5xx='#errorResponse' hx-swap="afterbegin">
+        hx-post="/auth/register" hx-target="#register-response" hx-target-5xx='#errorResponse' hx-swap="innerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
@@ -394,7 +395,7 @@
           </p>
         </div>
       </form>
-      <div id="errorResponse" class="flex flex-col items-center">
+      <div id="errorResponse" class="flex justify-center max-w-fit">
         <!-- Here goes the error response from the server -->
       </div>
     </div>
@@ -490,7 +491,8 @@
 
 <!-- Error response component -->
 <div id="error-response-component">
-  <div role="alert" class="alert alert-error border-2 border-black mb-2 mx-4 max-w-fit">
+  <div role="alert"
+    class="alert alert-error alert-warning border-black border-2 mb-2 mx-4 min-w-full max-w-full w-full">
     <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
     <span class="font-bold"></span>
     <ul class="list-disc pl-5 font-semibold">

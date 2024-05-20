@@ -49,12 +49,13 @@
       <div id="register-response" hx-trigger="load" hx-get="components.html" hx-select="#modal-component"
         hx-swap="afterbegin"></div>
     </section>
-    <section id="login-content">
+    <section id="login-content" hx-ext="response-targets">
       <section id="login" hx-trigger="load" hx-get="components.html" hx-select="#login-form-component"
         hx-swap="innerHTML"></section>
       <div id="login-response"></div>
     </section>
-    <div id="verification-response"></div>
+    <!-- Element below is container for the verification modal provided in the verification URL send to the new user -->
+    <div id=" verification-response"></div>
   </main>
   <footer>
     <nav hx-get="components.html" hx-select="#bottom-navigation-component" hx-trigger="load"></nav>

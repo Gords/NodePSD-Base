@@ -38,7 +38,7 @@ module.exports = (User) => {
 				// Error response for invalid input in user registration
 				return res.status(500).send(`
 					<div id="register-form-component">
-						<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit" hx-ext"remove-me" remove-me="10s">
+						<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 							<ul class="list-disc pl-5 font-semibold">
 								${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
@@ -90,7 +90,7 @@ module.exports = (User) => {
 				// Error response for failed user registration (e.g. email already exists)
 				return res.status(500).send(`
 					<div id="register-form-component">
-						<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit hx-ext"remove-me" remove-me="10s"">
+						<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 							<p class="font-semibold">Hubo un problema al crear tu cuenta, inténtalo de nuevo.</p>
 						</div>
@@ -154,7 +154,7 @@ module.exports = (User) => {
 			if (!errors.isEmpty()) {
 				const errorMessages = errors.array().map((error) => error.msg);
 
-				// TODO: Remove unnecessary login-responses, some are in app.js as  well @Gords
+				// TODO: Remove unnecessary login-responses
 				return res.status(400).send(`
 					<div id="loginResponse">
 						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
@@ -168,15 +168,16 @@ module.exports = (User) => {
 				`);
 			}
 
+			// TODO: only login response that gets triggered at the moment
 			passport.authenticate("local", (err, user, info) => {
 				if (err) {
 					return res.status(500).send(`
-						<div id="loginResponse">
-							<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-								<span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
-							</div>
+					<div id="login-form-component">
+						<div role="alert" class="alert alert-warning border-black border-2 mb-2 mx-4 max-w-fit w-full">
+							<img src="./assets/icons/warning.svg" alt="Warning Symbol" class="w-6 h-6 inline-block">
+							<p class="font-semibold">Usuario o contraseña incorrecto. Por favor intenta de nuevo</p>
 						</div>
+					</div>
 						`);
 				}
 
@@ -199,7 +200,7 @@ module.exports = (User) => {
 							<div id="loginResponse">
 								<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
 									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-									<span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
+									<span class="font-bold text-center">500 i see u not</span>
 								</div>
 							</div>
 						`);

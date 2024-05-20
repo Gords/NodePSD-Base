@@ -32,39 +32,21 @@ app.use(passport.session());
 // Configure Passport Local Strategy
 passport.use(
 	new LocalStrategy(async (username, password, done) => {
-	  try {
-		const user = await User.findOne({ where: { email: username } });
-		if (!user) {
-		  return done(null, false, {
-			message: `
-			  <div id="loginResponse">
-				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-				  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-				  <span class="font-bold text-center">Usuario incorrecto</span>
-				</div>
-			  </div>
-			`,
-		  });
+		try {
+			const user = await User.findOne({ where: { email: username } });
+			if (!user) {
+				return done(null, false);
+			}
+			const isPasswordValid = await bcrypt.compare(password, user.password);
+			if (!isPasswordValid) {
+				return done(null, false);
+			}
+			return done(null, user);
+		} catch (error) {
+			return done(error);
 		}
-		const isPasswordValid = await bcrypt.compare(password, user.password);
-		if (!isPasswordValid) {
-		  return done(null, false, {
-			message: `
-			  <div id="loginResponse">
-				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-				  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-				  <span class="font-bold text-center">Contraseña incorrecta</span>
-				</div>
-			  </div>
-			`,
-		  });
-		}
-		return done(null, user);
-	  } catch (error) {
-		return done(error);
-	  }
-	})
-  );
+	}),
+);
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
@@ -107,7 +89,7 @@ const routes = require("./routes/routes.js")({
 	Loan,
 	TypeOfLoan,
 	sequelize,
-  });
+});
 app.use("/", routes);
 
 sequelize
