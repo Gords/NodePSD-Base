@@ -243,5 +243,24 @@ module.exports = (User) => {
 		},
 	);
 
+// User logout
+router.post("/auth/logout", (req, res) => {
+	req.logout((err) => {
+	  if (err) {
+		console.error("Error logging out:", err);
+		return res.status(500).send(`
+		  <div id="logoutResponse">
+			<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+			  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+			  <span class="font-bold text-center">Ocurrió un error durante el proceso de cierre de sesión</span>
+			</div>
+		  </div>
+		`);
+	  }
+	  res.header("HX-Redirect", "/");
+	  res.sendStatus(200);
+	});
+  });
+
 	return router;
 };
