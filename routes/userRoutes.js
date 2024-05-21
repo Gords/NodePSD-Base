@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {isAuthenticated} = require("../services/authService")
+const { isAuthenticated } = require("../services/authService");
 const { Op } = require("sequelize");
 
-
 module.exports = (User) => {
-    	// Get logged in user details
+	// Get logged in user details
 	router.get("/users/user", (req, res) => {
 		if (req.isAuthenticated()) {
 			// Sending a partial HTML snippet to update the user-info div
@@ -69,25 +68,25 @@ module.exports = (User) => {
 		}
 	});
 
-// Get all users or search users by name
-router.get("/users", isAuthenticated, async (req, res) => {
-  try {
-    const searchQuery = req.query['search-input'];
-    let users;
+	// Get all users or search users by name
+	router.get("/users", isAuthenticated, async (req, res) => {
+		try {
+			const searchQuery = req.query["search-input"];
+			let users;
 
-    if (searchQuery) {
-      users = await User.findAll({
-        where: {
-          name: { [Op.iLike]: `%${searchQuery}%` },
-        },
-      });
-    } else {
-      users = await User.findAll();
-    }
+			if (searchQuery) {
+				users = await User.findAll({
+					where: {
+						name: { [Op.iLike]: `%${searchQuery}%` },
+					},
+				});
+			} else {
+				users = await User.findAll();
+			}
 
-    const tableRows = users
-      .map(
-        (user) => /*html*/ `
+			const tableRows = users
+				.map(
+					(user) => /*html*/ `
           <tr>
             <td>${user.name}</td>
             <td>0981-420-681</td>
@@ -102,13 +101,13 @@ router.get("/users", isAuthenticated, async (req, res) => {
             </td>
           </tr>
         `,
-      )
-      .join("");
+				)
+				.join("");
 
-    res.send(tableRows);
-  } catch (error) {
-    console.error("Error fetching users:", error);
-    res.status(500).send(/*html*/ `
+			res.send(tableRows);
+		} catch (error) {
+			console.error("Error fetching users:", error);
+			res.status(500).send(/*html*/ `
       <tr>
         <td colspan="4">
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
@@ -118,23 +117,23 @@ router.get("/users", isAuthenticated, async (req, res) => {
         </td>
       </tr>
     `);
-  }
-});
+		}
+	});
 
-// Search users by name
-router.get("/users/search", isAuthenticated, async (req, res) => {
-  try {
-    const searchQuery = req.query['search-input'] || ''; // Ensure a fallback to an empty string if undefined
+	// Search users by name
+	router.get("/users/search", isAuthenticated, async (req, res) => {
+		try {
+			const searchQuery = req.query["search-input"] || ""; // Ensure a fallback to an empty string if undefined
 
-    const users = await User.findAll({
-      where: {
-        name: { [Op.iLike]: `%${searchQuery}%` }
-      }
-    });
+			const users = await User.findAll({
+				where: {
+					name: { [Op.iLike]: `%${searchQuery}%` },
+				},
+			});
 
-    const tableRows = users
-      .map(
-        (user) => /*html*/ `
+			const tableRows = users
+				.map(
+					(user) => /*html*/ `
           <tr>
             <td>${user.name}</td>
             <td>0981-420-681</td>
@@ -149,13 +148,13 @@ router.get("/users/search", isAuthenticated, async (req, res) => {
             </td>
           </tr>
         `,
-      )
-      .join("");
+				)
+				.join("");
 
-    res.send(tableRows);
-  } catch (error) {
-    console.error("Error searching users:", error);
-    res.status(500).send(/*html*/ `
+			res.send(tableRows);
+		} catch (error) {
+			console.error("Error searching users:", error);
+			res.status(500).send(/*html*/ `
       <tr>
         <td colspan="4">
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
@@ -165,8 +164,8 @@ router.get("/users/search", isAuthenticated, async (req, res) => {
         </td>
       </tr>
     `);
-  }
-});
+		}
+	});
 
 	// Update a user
 	router.put("/users/:id", isAuthenticated, async (req, res) => {
@@ -209,5 +208,5 @@ router.get("/users/search", isAuthenticated, async (req, res) => {
       `);
 		}
 	});
-    return router;
-}
+	return router;
+};

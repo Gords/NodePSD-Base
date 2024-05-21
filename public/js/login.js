@@ -15,6 +15,5 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Handle successful login state
 	document.body.addEventListener("htmx:afterSwap", (event) => {
 		const loginSuccessMessage = document.getElementById("login-success");
-
 	});
 });
