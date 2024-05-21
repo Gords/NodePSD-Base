@@ -48,7 +48,8 @@
   </div>
   <div class="navbar-end">
     <div class="lg:flex">
-      <a href="#" hx-post="/auth/logout" id="logoutButton" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md mr-1">Cerrar Sesión</a>
+      <a href="#" hx-post="/auth/logout" id="logoutButton" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md mr-1">Cerrar
+        Sesión</a>
     </div>
   </div>
 </nav>
@@ -288,7 +289,7 @@
 <!-- Forms -->
 <section id="forms">
   <!-- Login Form -->
-  <div id="login-form-component" class="pt-28 pb-4">
+  <div id="login-form-component" class="pt-28 pb-4 max-w-full">
     <div class="card m-auto max-w-lg shadow-md">
       <form id="login-form" class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/auth/login"
         hx-target="#login-response" hx-target-4xx='#loginErrorResponse' hx-target-5xx='#loginErrorResponse'
@@ -301,14 +302,13 @@
           <div class="space-y-6">
             <div>
               <label for="username" class="text-base font-medium text-gray-600">Correo electrónico</label>
-              <input id="username" name="username" type="email" autocomplete="email" required
-                class="input input-bordered w-full" placeholder="Ingrese su correo electrónico"
-                title="Por favor, ingrese un correo electrónico válido" />
+              <input id="username" name="username" type="email" autocomplete="email" class="input input-bordered w-full"
+                placeholder="Ingrese su correo electrónico" title="Por favor, ingrese un correo electrónico válido" />
               <span id="username-error" class="text-red-500 text-sm"></span>
             </div>
             <div>
               <label for="login-password" class="text-base font-medium text-gray-600">Contraseña</label>
-              <input id="login-password" name="password" type="password" autocomplete="current-password" required
+              <input id="login-password" name="password" type="password" autocomplete="current-password"
                 class="input input-bordered w-full" placeholder="Ingrese su contraseña" />
               <span id="password-error" class="text-red-500 text-sm"></span>
             </div>
@@ -320,7 +320,7 @@
           </p>
         </div>
       </form>
-      <div id="loginErrorResponse" class="flex items-center">
+      <div id="loginErrorResponse" class="p-4">
         <!-- Here goes the response from the server -->
       </div>
     </div>
@@ -489,10 +489,9 @@
 </div>
 
 
-<!-- Error response component -->
+<!-- Error response component placeholder for Tailwind utilities -->
 <div id="error-response-component">
-  <div role="alert"
-    class="alert alert-error alert-warning border-black border-2 mb-2 mx-4 min-w-full max-w-full w-full">
+  <div role="alert" class="alert border-black border-2 mb-2 mx-4">
     <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
     <span class="font-bold"></span>
     <ul class="list-disc pl-5 font-semibold">

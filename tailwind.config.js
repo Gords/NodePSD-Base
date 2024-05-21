@@ -11,7 +11,10 @@ module.exports = {
     'display:grid',
     'table-pin-rows',
     'no-animation',
-    'overflow-x-auto'
+    'overflow-x-auto',
+    'alert-warning',
+    'alert-error',
+    'alert-success'
   ],
   plugins: [require('daisyui'), require('@tailwindcss/forms')],
   theme: {

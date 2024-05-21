@@ -187,13 +187,13 @@ module.exports = (User) => {
 			passport.authenticate("local", (err, user, info) => {
 				if (err) {
 					return res.status(500).send(`
-					<div id="login-form-component">
-						<div role="alert" class="alert alert-warning border-black border-2 mb-2 mx-4 max-w-fit w-full">
-							<img src="./assets/icons/warning.svg" alt="Warning Symbol" class="w-6 h-6 inline-block">
-							<p class="font-semibold">Usuario o contraseña incorrecto. Por favor intenta de nuevo</p>
+						<div id="login-form-component">
+							<div role="alert" id="login-form-component-response" class="alert alert-warning border-black border-2">
+								<img src="./assets/icons/warning.svg" alt="Warning Symbol" class="w-6 h-6 pl-4 inline-block">
+								<p class="font-semibold">Usuario o contraseña incorrecto. <br> Por favor intenta de nuevo</p>
+							</div>
 						</div>
-					</div>
-						`);
+					`);
 				}
 
 				if (!user) {
