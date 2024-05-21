@@ -78,10 +78,10 @@ module.exports = (User) => {
 				// Registration success modal
 				res.status(200).send(`
 					<div id="register-form-component">
-						<dialog id="modal-response" class="modal modal-open success">
+						<dialog class="modal modal-open success">
 							<div class="modal-box bg-success border-2 border-black text-center items-center">
 								<h3 class="font-bold text-lg">Registro de usuario exitoso!</h3>
-								<p class="py-4">Verifica tu correo electrónico para activar tu cuenta. <br><br> Redireccionando a la pagina principal...</p>
+								<p class="py-4">Verifica tu correo electrónico para activar tu cuenta.<br><br>Redireccionando a la pagina principal...</p>
 							</div>
 						</dialog>
 					</div>
@@ -138,7 +138,7 @@ module.exports = (User) => {
 			// Encode the succesful verification modal and pass it in the redirect URL
 			const successHtml = encodeURIComponent(`
 				<div id="register-response">
-					<dialog id="modal-response" class="modal modal-open auth-success">
+					<dialog id="modal-verification-response" class="modal modal-open auth-success">
 						<div class="modal-box bg-success border-2 border-black text-center items-center">
 							<h3 class="font-bold text-lg">Verificacion de cuenta exitosa!</h3>
 							<p class="py-4">Por favor inicia sesion para acceder a nuestros servicios.</p>
@@ -192,7 +192,7 @@ module.exports = (User) => {
 				if (err) {
 					return res.status(500).send(`
 						<div id="login-form-component">
-							<div role="alert" id="login-form-component-response" class="alert alert-warning border-black border-2 flex items-center">
+							<div role="alert" class="alert alert-warning border-black border-2 flex items-center">
 								<img src="./assets/icons/warning.svg" alt="Warning Symbol" class="w-6 h-6 pl-4 inline-block">
 								<div class="flex-grow text-center">
 									<p class="font-semibold">Usuario o contraseña incorrecto. <br> Por favor intenta de nuevo</p>

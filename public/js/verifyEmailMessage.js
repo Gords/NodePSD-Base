@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		targetElement.innerHTML = decodeURIComponent(successHtml);
 
 		// Remove the element after 3 seconds (adjust the delay as needed)
-		removeElementAfterDelay("modal-response", 3000);
+		removeElementAfterDelay("modal-verification-response", 3000);
 	}
 });
 
