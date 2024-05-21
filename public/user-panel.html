@@ -31,7 +31,7 @@
     <div id="user-panel-component"
       class="flex flex-col h-full min-h-screen justify-center items-center pt-32 pb-20 bg-neutral">
       <!-- Data and File Upload Container -->
-      <div class="w-full max-w-4xl py-4"> <!-- Adjust the width as needed -->
+      <div class="w-full max-w-3xl py-4"> <!-- Adjust the width as needed -->
         <!-- User personal info -->
         <div class="card bg-base-100 shadow-md">
           <div class="card-body mx-4">
@@ -92,40 +92,23 @@
           </div>
         </div>
 
-<!-- New multi-step file upload form component -->
-<div role="tablist" class="tabs tabs-lifted py-4">
-  <input type="radio" name="my_tabs_2" role="tab" class="tab my-auto" aria-label="Cédula" checked />
-  <div role="tabpanel" class="tab-content bg-base-100 rounded-box shadow-md border-base-300 p-10" id="cedula-tab">
-    <div hx-get="components.html" hx-select="#file-dropzone-component" hx-trigger="load" hx-vals='{"tabId": "cedula-tab"}'></div> 
-    <button class="btn btn-primary next-tab">Next</button>
-  </div>
 
-  <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Inforcomf" />
-  <div role="tabpanel" class="tab-content bg-base-100 rounded-box border-base-300 p-6" id="inforcomf-tab">
-    <div hx-get="components.html" hx-select="#file-dropzone-component" hx-trigger="load" hx-vals='{"tabId": "inforcomf-tab"}'></div>
-    <button class="btn btn-primary next-tab">Next</button>
-  </div>
-          <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Infocheck" />
-          <div role="tabpanel" class="tab-content bg-base-100 rounded-box border-base-300 p-6">
-            <input type="file" class="file-input file-input-bordered w-full max-w-xs" />
-          </div>
-          <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Comprobantes" />
-          <div role="tabpanel" class="tab-content bg-base-100 border-base-300 p-6"></div>
-
-          <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Informes" />
-          <div role="tabpanel" class="tab-content bg-base-100 border-base-300 p-6">
-          </div>
-
-          <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Facturas" />
-          <div role="tabpanel" class="tab-content bg-base-100 border-base-300 p-6">
+        <div id="file-drop-area" class="card bg-secondary shadow-md">
+          <div class="card-body items-center">
+            <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo o arrástralo aquí</h3>
+            <p class="text-base text-neutral mb-4">Puedes cargar hasta 4 archivos de 25 MB cada uno.</p>
+            <form hx-encoding="multipart/form-data" hx-post="/images" hx-target="#file-upload-list" hx-swap="outerHTML">
+              <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar
+                archivos</label>
+              <input type="file" id="files-to-upload" name="files" multiple
+                accept="image/jpeg, image/png, application/pdf" style="display: none">
+              <button id="submit-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" type="submit">Cargar
+                Archivos</button>
+            </form>
+            <div id="file-upload-list">
+              <!-- Response from /images will be inserted here -->
+            </div>
           </div>
         </div>
-
-      </div>
-
-
-    </div>
-
-
   </main>
 </body>
