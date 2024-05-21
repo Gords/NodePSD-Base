@@ -135,9 +135,10 @@ module.exports = (Image, User) => {
 								.map(
 									(image) => /*html*/ `
               <tr class="hover" id="image-${image.id}">
-                <td id="Archivo" onclick="window.open('/${
-									image.path
-								}', '_blank')">${path.basename(image.path)}</td>
+			  <td id="Archivo" onclick="window.open('/${image.path}', '_blank')" 
+			  class="file-name truncate w-full lg:w-2/3 xl:w-1/2"> 
+			${path.basename(image.path)}
+		  </td>
 
                 <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${
 									image.path
