@@ -334,7 +334,8 @@
     <div class="card m-auto max-w-lg shadow-md">
       <!-- add card-body below -->
       <form id="register-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
-        hx-post="/auth/register" hx-target="#register-response" hx-target-5xx='#errorResponse' hx-swap="innerHTML">
+        hx-post="/auth/register" hx-target="#register-response" hx-target-4xx='#errorResponse'
+        hx-target-5xx='#errorResponse' hx-swap="innerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
@@ -395,7 +396,7 @@
           </p>
         </div>
       </form>
-      <div id="errorResponse" class="flex justify-center max-w-fit">
+      <div id="errorResponse" class="flex items-center justify-center max-w-fit">
         <!-- Here goes the error response from the server -->
       </div>
     </div>
