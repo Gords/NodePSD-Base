@@ -52,8 +52,8 @@ html {
   border-radius: 2rem;
 }
 
-
-#register-content, #login-content {
+#register-content,
+#login-content {
   display: none;
 }
 
@@ -94,4 +94,91 @@ video {
   min-height: 100dvh;
   min-width: 177.77vh; /* 16:9 aspect ratio */
   background-image: url("../assets/videos/skyline.mp4");
+}
+
+/* File upload area styles */
+#drop-area {
+  background: #283048;
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 580px;
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.4s, border-color 0.4s;
+}
+
+#drop-area:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  background: linear-gradient(145deg, #9d50bb, #6e48aa);
+  border-radius: 21px;
+  transition: all 0.4s ease;
+}
+
+#drop-area.highlight {
+  background: #34495e;
+  border-color: #9b59b6;
+}
+
+.dropfile-form {
+  text-align: center;
+  width: 100%;
+}
+
+#file-upload-list {
+  margin-top: 10px;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.file-upload-list-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.file-upload-list-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.remove-file {
+  color: #e74c3c;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.remove-file:hover {
+  color: #c0392b;
+}
+
+#files-to-upload {
+  display: none;
+}
+
+.file-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+#login-form-component-response {
+  max-width: 100%;
 }

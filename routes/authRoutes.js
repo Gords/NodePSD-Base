@@ -38,11 +38,13 @@ module.exports = (User) => {
 				// Error response for invalid input in user registration
 				return res.status(500).send(`
 					<div id="register-form-component">
-						<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
-							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-							<ul class="list-disc pl-5 font-semibold">
-								${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
-							</ul>
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-8 h-8 inline-block">
+							<div class="flex-grow text-center">
+								<ul class="pl-5 font-semibold">
+									${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
+								</ul>
+							</div>
 						</div>
 					</div>
 				`);
@@ -90,25 +92,27 @@ module.exports = (User) => {
 					// Handle unique constraint violation error
 					res.status(400).send(
 						`
-				<div id="register-form-component">
-					<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
-						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-						<p class="font-semibold">El correo electrónico ya está registrado. Por favor, utiliza otro correo electrónico.</p>
-					</div>
-				</div>
+						<div id="register-form-component">
+							<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+								<div class="flex-grow text-center">
+									<p class="font-semibold">El correo electrónico ya está registrado.<br>Por favor utiliza otro correo electrónico.</p>
+								</div>
+							</div>
+						</div>
 				`.trim(),
 					);
 				} else {
 					// Error response for failed user registration (e.g. email already exists)
 					res.status(500).send(
 						`
-				<div id="register-form-component">
-					<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
-						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-						<p class="font-semibold">Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.</p>
-					</div>
-				</div>
-			`.trim(),
+						<div id="register-form-component">
+							<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
+								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+								<p class="font-semibold">Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.</p>
+							</div>
+						</div>
+					`.trim(),
 					);
 				}
 			}
@@ -187,13 +191,15 @@ module.exports = (User) => {
 			passport.authenticate("local", (err, user, info) => {
 				if (err) {
 					return res.status(500).send(`
-					<div id="login-form-component">
-						<div role="alert" class="alert alert-warning border-black border-2 mb-2 mx-4 max-w-fit w-full">
-							<img src="./assets/icons/warning.svg" alt="Warning Symbol" class="w-6 h-6 inline-block">
-							<p class="font-semibold">Usuario o contraseña incorrecto. Por favor intenta de nuevo</p>
+						<div id="login-form-component">
+							<div role="alert" id="login-form-component-response" class="alert alert-warning border-black border-2 flex items-center">
+								<img src="./assets/icons/warning.svg" alt="Warning Symbol" class="w-6 h-6 pl-4 inline-block">
+								<div class="flex-grow text-center">
+									<p class="font-semibold">Usuario o contraseña incorrecto. <br> Por favor intenta de nuevo</p>
+								</div>
+							</div>
 						</div>
-					</div>
-						`);
+					`);
 				}
 
 				if (!user) {
@@ -249,6 +255,25 @@ module.exports = (User) => {
 			})(req, res, next);
 		},
 	);
+
+	// User logout
+	router.post("/auth/logout", (req, res) => {
+		req.logout((err) => {
+			if (err) {
+				console.error("Error logging out:", err);
+				return res.status(500).send(`
+		  <div id="logoutResponse">
+			<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+			  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+			  <span class="font-bold text-center">Ocurrió un error durante el proceso de cierre de sesión</span>
+			</div>
+		  </div>
+		`);
+			}
+			res.header("HX-Redirect", "/");
+			res.sendStatus(200);
+		});
+	});
 
 	return router;
 };
