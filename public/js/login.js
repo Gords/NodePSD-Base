@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
   
 	const passwordResetForm = document.getElementById("password-reset-form");
 	if (passwordResetForm) {
+	  const currentUrl = window.location.href;
+	  passwordResetForm.setAttribute("hx-headers", JSON.stringify({ "X-Reset-URL": currentUrl }));
+  
 	  passwordResetForm.addEventListener("htmx:afterRequest", (event) => {
 		const responseDiv = document.getElementById("password-reset-response");
 		if (responseDiv.querySelector(".alert-success")) {

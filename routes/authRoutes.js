@@ -320,22 +320,21 @@ router.post("/auth/forgot-password", async (req, res) => {
 // Password reset form submission
 router.post("/auth/reset-password", async (req, res) => {
 	const { newPassword, confirmPassword } = req.body;
-	const currentUrl = req.headers.referer;
-	console.log(currentUrl);
+	const url = req.headers['hx-current-url'];
+	console.log(url)
   
-	if (!currentUrl) {
+	if (!url) {
 	  return res.status(400).send(`
 		<div id="password-reset-response">
 		  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
 			<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-			<span class="font-bold text-center">Invalid request</span>
+			<span class="font-bold text-center">Missing URL</span>
 		  </div>
 		</div>
 	  `);
 	}
   
-	const url = new URL(currentUrl, 'http://localhost'); // Provide a base URL
-	const token = url.hash.split('=')[1]; // Extract the token from the hash fragment
+	const token = new URL(url).hash.split('=')[1];
   
 	if (!token) {
 	  return res.status(400).send(`
