@@ -86,16 +86,31 @@ module.exports = (User) => {
 				`);
 			} catch (error) {
 				console.error("Error registering user:", error);
-
-				// Error response for failed user registration (e.g. email already exists)
-				return res.status(500).send(`
-					<div id="register-form-component">
-						<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
-							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-							<p class="font-semibold">Hubo un problema al crear tu cuenta, inténtalo de nuevo.</p>
-						</div>
+				if (error.name === "SequelizeUniqueConstraintError") {
+					// Handle unique constraint violation error
+					res.status(400).send(
+						`
+				<div id="register-form-component">
+					<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
+						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<p class="font-semibold">El correo electrónico ya está registrado. Por favor, utiliza otro correo electrónico.</p>
 					</div>
-				`);
+				</div>
+				`.trim(),
+					);
+				} else {
+					// Error response for failed user registration (e.g. email already exists)
+					res.status(500).send(
+						`
+				<div id="register-form-component">
+					<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
+						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<p class="font-semibold">Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.</p>
+					</div>
+				</div>
+			`.trim(),
+					);
+				}
 			}
 		},
 	);
