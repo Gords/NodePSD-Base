@@ -262,5 +262,149 @@ router.post("/auth/logout", (req, res) => {
 	});
   });
 
+// Password reset request
+router.post("/auth/forgot-password", async (req, res) => {
+	const email = req.body.username;
+  
+	if (!email) {
+	  return res.status(400).send(`
+		<div id="forgotPasswordResponse">
+		  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+			<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+			<span class="font-bold text-center">Please provide a valid email address.</span>
+		  </div>
+		</div>
+	  `);
+	}
+  
+	try {
+	  const user = await User.findOne({ where: { email } });
+	  if (!user) {
+		return res.status(404).send(`
+		  <div id="forgotPasswordResponse">
+			<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+			  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+			  <span class="font-bold text-center">User not found</span>
+			</div>
+		  </div>
+		`);
+	  }
+  
+	  // Generate password reset token
+	  const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+  
+	  // Send password reset email
+	  await emailService.sendPasswordResetEmail(email, resetToken);
+  
+	  res.send(`
+		<div id="forgotPasswordResponse">
+		  <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+			<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+			<span class="font-bold text-center">Password reset email sent. Please check your email for the reset link.</span>
+		  </div>
+		</div>
+	  `);
+	} catch (error) {
+	  console.error("Error sending password reset email:", error);
+	  res.status(500).send(`
+		<div id="forgotPasswordResponse">
+		  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+			<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+			<span class="font-bold text-center">Failed to send password reset email. Please try again later.</span>
+		  </div>
+		</div>
+	  `);
+	}
+  });
+
+// Password reset form submission
+router.post("/auth/reset-password", async (req, res) => {
+	const { newPassword, confirmPassword } = req.body;
+	const currentUrl = req.headers.referer;
+	console.log(currentUrl);
+  
+	if (!currentUrl) {
+	  return res.status(400).send(`
+		<div id="password-reset-response">
+		  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+			<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+			<span class="font-bold text-center">Invalid request</span>
+		  </div>
+		</div>
+	  `);
+	}
+  
+	const url = new URL(currentUrl, 'http://localhost'); // Provide a base URL
+	const token = url.hash.split('=')[1]; // Extract the token from the hash fragment
+  
+	if (!token) {
+	  return res.status(400).send(`
+		<div id="password-reset-response">
+		  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+			<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+			<span class="font-bold text-center">Missing reset token</span>
+		  </div>
+		</div>
+	  `);
+	}
+  
+	if (newPassword !== confirmPassword) {
+	  return res.status(400).send(`
+		<div id="password-reset-response">
+		  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+			<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+			<span class="font-bold text-center">Passwords do not match</span>
+		  </div>
+		</div>
+	  `);
+	}
+  
+	try {
+	  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+	  const userId = decoded.userId;
+  
+	  const user = await User.findByPk(userId);
+	  if (!user) {
+		return res.status(404).send(`
+		  <div id="password-reset-response">
+			<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+			  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+			  <span class="font-bold text-center">User not found</span>
+			</div>
+		  </div>
+		`);
+	  }
+  
+	  const hashedPassword = await bcrypt.hash(newPassword, 10);
+	  user.password = hashedPassword;
+	  await user.save();
+  
+	  req.login(user, (err) => {
+		if (err) {
+		  console.error("Error logging in user after password reset:", err);
+		}
+		res.header("HX-Redirect", "/");
+		res.send(`
+		  <div id="password-reset-response">
+			<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+			  <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+			  <span class="font-bold text-center">Password reset successful</span>
+			</div>
+		  </div>
+		`);
+	  });
+	} catch (error) {
+	  console.error("Error resetting password:", error);
+	  res.status(400).send(`
+		<div id="password-reset-response">
+		  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+			<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+			<span class="font-bold text-center">Invalid or expired reset token</span>
+		  </div>
+		</div>
+	  `);
+	}
+  });
+
 	return router;
 };
