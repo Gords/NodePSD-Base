@@ -10,6 +10,7 @@ This project demonstrates a web application built with Node.js, Express, Sequeli
 - HTMX: A library that allows you to add interactivity to your web pages using HTML attributes.
 - PostgreSQL: A powerful, open-source relational database system.
 - Docker: A platform for developing, shipping, and running applications using containers.
+- Passport: Authentication middleware for Node.js.
 
 ## Prerequisites
 
