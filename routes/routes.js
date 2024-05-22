@@ -8,11 +8,13 @@ const imageRoutes = require("./imageRoutes");
 const contactRoutes = require("./contactRoutes");
 
 module.exports = (models) => {
-  router.use(authRoutes(models.User));
-  router.use(userRoutes(models.User));
-  router.use(loanRoutes(models.Loan, models.TypeOfLoan, models.User, models.sequelize));
-  router.use(imageRoutes(models.Image, models.User));
-  router.use(contactRoutes());
+	router.use(authRoutes(models.User));
+	router.use(userRoutes(models.User));
+	router.use(
+		loanRoutes(models.Loan, models.TypeOfLoan, models.User, models.sequelize),
+	);
+	router.use(imageRoutes(models.Image, models.User));
+	router.use(contactRoutes());
 
-  return router;
+	return router;
 };
