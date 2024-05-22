@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { isAuthenticated } = require("../services/authService");
 const { Op } = require("sequelize");
+const he = require("he");
 
 module.exports = (User) => {
 	// Get logged in user details
@@ -13,15 +14,17 @@ module.exports = (User) => {
           <div class="flex flex-col md:flex-row items-center text-center justify-center md:text-start md:items-start md:pl-2">
             <div class="avatar text-center pb-2">
               <div class="w-16 h-16 rounded-full relative bg-primary">
-                <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">${req.user.name
-									.charAt(0)
-									.toUpperCase()}
+                <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">${he.encode(
+									req.user.name.charAt(0).toUpperCase(),
+								)}
                 </span>
               </div>
             </div>
             <div class="md:flex-col md:ml-4 md:justify-center md:items-center">
-              <div class="font-semibold text-lg md:mt-2">${req.user.name}</div>
-              <div class="text-sm mb-4">${req.user.email}</div>
+              <div class="font-semibold text-lg md:mt-2">${he.encode(
+								req.user.name,
+							)}</div>
+              <div class="text-sm mb-4">${he.encode(req.user.email)}</div>
             </div>
           </div>
           <div class="flex">
@@ -50,12 +53,12 @@ module.exports = (User) => {
         <div class="avatar text-center">
           <div class="w-16 h-16 rounded-full bg-primary">
             <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">
-              ${req.user.name.charAt(0).toUpperCase()}
+              ${he.encode(req.user.name.charAt(0).toUpperCase())}
             </span>
           </div>
         </div>
-          <div class="font-semibold text-lg">${req.user.name}</div>
-          <div class="text-sm">${req.user.email}</div>
+          <div class="font-semibold text-lg">${he.encode(req.user.name)}</div>
+          <div class="text-sm">${he.encode(req.user.email)}</div>
       </div>
       `);
 		} else {
@@ -88,9 +91,9 @@ module.exports = (User) => {
 				.map(
 					(user) => /*html*/ `
           <tr>
-            <td>${user.name}</td>
+            <td>${he.encode(user.name)}</td>
             <td>0981-420-681</td>
-            <td>${user.email}</td>
+            <td>${he.encode(user.email)}</td>
             <td>
               <a href="/images/user/${user.id}"
                 hx-get="/images/user/${user.id}"
@@ -135,9 +138,9 @@ module.exports = (User) => {
 				.map(
 					(user) => /*html*/ `
           <tr>
-            <td>${user.name}</td>
+            <td>${he.encode(user.name)}</td>
             <td>0981-420-681</td>
-            <td>${user.email}</td>
+            <td>${he.encode(user.email)}</td>
             <td>
               <a href="/images/user/${user.id}"
                 hx-get="/images/user/${user.id}"
@@ -172,7 +175,7 @@ module.exports = (User) => {
 		try {
 			const { email, password, name } = req.body;
 			await User.update(
-				{ email, password, name },
+				{ email: he.encode(email), password, name: he.encode(name) },
 				{ where: { id: req.params.id } },
 			);
 			res.send(`
@@ -197,7 +200,6 @@ module.exports = (User) => {
 		try {
 			await User.destroy({ where: { id: req.params.id } });
 			res.sendStatus(204);
-			res.sendStatus(204);
 		} catch (error) {
 			console.error("Error deleting user:", error);
 			res.status(500).send(`
@@ -208,5 +210,6 @@ module.exports = (User) => {
       `);
 		}
 	});
+
 	return router;
 };
