@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const emailService = require("../services/emailService");
 const { body, validationResult } = require("express-validator");
 const passport = require("passport");
-const he = require("he")
+const he = require("he");
 
 module.exports = (User) => {
 	// User registration
@@ -263,90 +263,94 @@ module.exports = (User) => {
 			if (err) {
 				console.error("Error logging out:", err);
 				return res.status(500).send(`
-		  <div id="logoutResponse">
-			<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-			  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-			  <span class="font-bold text-center">Ocurrió un error durante el proceso de cierre de sesión</span>
-			</div>
-		  </div>
-		`);
+					<div id="logoutResponse">
+						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<span class="font-bold text-center">Ocurrió un error durante el proceso de cierre de sesión</span>
+						</div>
+					</div>
+				`);
 			}
 			res.header("HX-Redirect", "/");
 			res.sendStatus(200);
 		});
 	});
 
-// Password reset request
-router.post("/auth/forgot-password", async (req, res) => {
-	const email = req.body.username;
-  
-	if (!email) {
-	  return res.status(400).send(`
-		<div id="forgotPasswordResponse">
-		  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-			<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-			<span class="font-bold text-center">Please provide a valid email address.</span>
-		  </div>
-		</div>
-	  `);
-	}
-  
-	try {
-	  const user = await User.findOne({ where: { email } });
-	  if (!user) {
-		return res.status(404).send(`
-		  <div id="forgotPasswordResponse">
-			<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-			  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-			  <span class="font-bold text-center">User not found</span>
-			</div>
-		  </div>
-		`);
-	  }
-  
-	  // Generate password reset token
-	  const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-  
-	  // Send password reset email
-	  await emailService.sendPasswordResetEmail(email, resetToken);
-  
-	  res.send(`
-		<div id="forgotPasswordResponse">
-		  <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-			<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-			<span class="font-bold text-center">Password reset email sent. Please check your email for the reset link.</span>
-		  </div>
-		</div>
-	  `);
-	} catch (error) {
-	  console.error("Error sending password reset email:", error);
-	  res.status(500).send(`
-		<div id="forgotPasswordResponse">
-		  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-			<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-			<span class="font-bold text-center">Failed to send password reset email. Please try again later.</span>
-		  </div>
-		</div>
-	  `);
-	}
-  });
+	// Password reset request
+	router.post("/auth/forgot-password", async (req, res) => {
+		const email = req.body.username;
 
+		if (!email) {
+			return res.status(400).send(`
+				<div id="forgotPasswordResponse">
+					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<span class="font-bold text-center">Please provide a valid email address.</span>
+					</div>
+				</div>
+			`);
+		}
 
-// Password reset form submission
-router.post("/auth/reset-password",
-  [
-    body("newPassword")
-      .isLength({ min: 6 })
-      .withMessage("Password must be at least 6 characters long"),
-    body("confirmPassword")
-      .custom((value, { req }) => value === req.body.newPassword)
-      .withMessage("Passwords do not match"),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const errorMessages = errors.array().map((error) => he.encode(error.msg));
-      return res.status(400).send(`
+		try {
+			const user = await User.findOne({ where: { email } });
+			if (!user) {
+				return res.status(404).send(`
+					<div id="forgotPasswordResponse">
+						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<span class="font-bold text-center">User not found</span>
+						</div>
+					</div>
+				`);
+			}
+
+			// Generate password reset token
+			const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+				expiresIn: "1h",
+			});
+
+			// Send password reset email
+			await emailService.sendPasswordResetEmail(email, resetToken);
+
+			res.send(`
+				<div id="forgotPasswordResponse">
+					<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+						<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+						<span class="font-bold text-center">Password reset email sent. Please check your email for the reset link.</span>
+					</div>
+				</div>
+			`);
+		} catch (error) {
+			console.error("Error sending password reset email:", error);
+			res.status(500).send(`
+				<div id="forgotPasswordResponse">
+					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<span class="font-bold text-center">Failed to send password reset email. Please try again later.</span>
+					</div>
+				</div>
+			`);
+		}
+	});
+
+	// Password reset form submission
+	router.post(
+		"/auth/reset-password",
+		[
+			body("newPassword")
+				.isLength({ min: 6 })
+				.withMessage("Password must be at least 6 characters long"),
+			body("confirmPassword")
+				.custom((value, { req }) => value === req.body.newPassword)
+				.withMessage("Passwords do not match"),
+		],
+		async (req, res) => {
+			const errors = validationResult(req);
+			if (!errors.isEmpty()) {
+				const errorMessages = errors
+					.array()
+					.map((error) => he.encode(error.msg));
+				return res.status(400).send(`
         <div id="password-reset-response">
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
             <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
@@ -357,15 +361,15 @@ router.post("/auth/reset-password",
           </div>
         </div>
       `);
-    }
+			}
 
-    const { newPassword } = req.body;
-    const encodedNewPassword = he.encode(newPassword);
+			const { newPassword } = req.body;
+			const encodedNewPassword = he.encode(newPassword);
 
-    const url = req.headers['hx-current-url'];
+			const url = req.headers["hx-current-url"];
 
-    if (!url) {
-      return res.status(400).send(`
+			if (!url) {
+				return res.status(400).send(`
         <div id="password-reset-response">
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
             <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
@@ -373,12 +377,12 @@ router.post("/auth/reset-password",
           </div>
         </div>
       `);
-    }
+			}
 
-    const token = new URL(url).hash.split('=')[1];
+			const token = new URL(url).hash.split("=")[1];
 
-    if (!token) {
-      return res.status(400).send(`
+			if (!token) {
+				return res.status(400).send(`
         <div id="password-reset-response">
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
             <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
@@ -386,15 +390,15 @@ router.post("/auth/reset-password",
           </div>
         </div>
       `);
-    }
+			}
 
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const userId = decoded.userId;
+			try {
+				const decoded = jwt.verify(token, process.env.JWT_SECRET);
+				const userId = decoded.userId;
 
-      const user = await User.findByPk(userId);
-      if (!user) {
-        return res.status(404).send(`
+				const user = await User.findByPk(userId);
+				if (!user) {
+					return res.status(404).send(`
           <div id="password-reset-response">
             <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
               <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
@@ -402,18 +406,18 @@ router.post("/auth/reset-password",
             </div>
           </div>
         `);
-      }
+				}
 
-      const hashedPassword = await bcrypt.hash(encodedNewPassword, 10);
-      user.password = hashedPassword;
-      await user.save();
+				const hashedPassword = await bcrypt.hash(encodedNewPassword, 10);
+				user.password = hashedPassword;
+				await user.save();
 
-      req.login(user, (err) => {
-        if (err) {
-          console.error("Error logging in user after password reset:", err);
-        }
-        res.header("HX-Redirect", "/");
-        res.send(`
+				req.login(user, (err) => {
+					if (err) {
+						console.error("Error logging in user after password reset:", err);
+					}
+					res.header("HX-Redirect", "/");
+					res.send(`
           <div id="password-reset-response">
             <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
               <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
@@ -421,10 +425,10 @@ router.post("/auth/reset-password",
             </div>
           </div>
         `);
-      });
-    } catch (error) {
-      console.error("Error resetting password:", error);
-      res.status(400).send(`
+				});
+			} catch (error) {
+				console.error("Error resetting password:", error);
+				res.status(400).send(`
         <div id="password-reset-response">
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
             <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
@@ -432,9 +436,9 @@ router.post("/auth/reset-password",
           </div>
         </div>
       `);
-    }
-  }
-);
+			}
+		},
+	);
 
 	return router;
 };
