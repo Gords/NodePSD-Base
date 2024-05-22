@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const emailService = require("../services/emailService");
 const { body, validationResult } = require("express-validator");
 const passport = require("passport");
+const he = require("he")
 
 module.exports = (User) => {
 	// User registration
@@ -54,12 +55,12 @@ module.exports = (User) => {
 					req.body;
 				const hashedPassword = await bcrypt.hash(password, 10);
 				const user = await User.create({
-					email,
+					email: he.encode(email),
 					password: hashedPassword,
-					name,
-					lastName,
-					idNumber,
-					phoneNumber,
+					name: he.encode(name),
+					lastName: he.encode(lastName),
+					idNumber: he.encode(idNumber),
+					phoneNumber: he.encode(phoneNumber),
 					isVerified: false,
 				});
 
