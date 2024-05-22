@@ -81,7 +81,40 @@ const sendContactEmail = async (formData) => {
 	}
 };
 
+const sendPasswordResetEmail = async (email, token) => {
+	const resetLink = `${process.env.PASSWORD_RESET_LINK}?token=${token}`;
+
+	const params = {
+		Destination: {
+			ToAddresses: [email],
+		},
+		Message: {
+			Body: {
+				Text: {
+					Data: `Please click the following link to reset your password: ${resetLink}`,
+				},
+				Html: {
+					Data: `<p>Please click the following link to reset your password:</p> <a href="${resetLink}">${resetLink}</a>`,
+				},
+			},
+			Subject: {
+				Data: "Reset your FlashCenter password",
+			},
+		},
+		Source: process.env.AWS_VERIFIED_EMAIL,
+	};
+
+	try {
+		await ses.send(new SendEmailCommand(params));
+		console.log("Password reset email sent successfully");
+	} catch (error) {
+		console.error("Error sending password reset email:", error);
+		throw new Error("Failed to send password reset email");
+	}
+};
+
 module.exports = {
 	sendVerificationEmail,
 	sendContactEmail,
+	sendPasswordResetEmail,
 };

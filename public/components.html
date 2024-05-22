@@ -319,10 +319,15 @@
             <a href="#register" class="link link-primary font-bold">Creala aqui!</a>
           </p>
         </div>
-      </form>
-      <div id="loginErrorResponse" class="p-4">
-        <!-- Here goes the response from the server -->
-      </div>
+        <div class="mt-4 text-center">
+          <a href="#" hx-post="/auth/forgot-password" hx-target="#forgotPasswordResponse" hx-swap="outerHTML"
+            hx-include="[name='username']" class="link link-primary">Olvidaste tu contraseña?</a>
+        </div>
+        <div id="forgotPasswordResponse"></div>
+    </div>
+    </form>
+    <div id="loginErrorResponse" class="p-4">
+      <!-- Here goes the response from the server -->
     </div>
   </div>
 
@@ -472,6 +477,34 @@
       width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
       referrerpolicy="no-referrer-when-downgrade" class="pt-8 lg:pt-0 lg:mx-4 lg:max-w-xl"></iframe>
   </div>
+
+  <!--Password reset form component-->
+  <div id="password-reset-form-component" class="pt-28">
+    <div class="card m-auto max-w-lg shadow-md">
+      <form id="password-reset-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
+        hx-post="/auth/reset-password" hx-target="#password-reset-response" hx-swap="outerHTML">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+          <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
+          <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Reinicia Tu Contraseña</h2>
+        </div>
+        <div class="mt-4 mx-auto w-full max-w-md">
+          <div class="space-y-6">
+            <div>
+              <label for="new-password" class="text-base font-medium text-gray-600">Nueva Contraseña</label>
+              <input id="new-password" name="newPassword" type="password" autocomplete="new-password" required
+                class="input input-bordered w-full" placeholder="Enter your new password" />
+            </div>
+            <div>
+              <label for="confirm-password" class="text-base font-medium text-gray-600">Confirmar Contraseña</label>
+              <input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" required
+                class="input input-bordered w-full" placeholder="Confirm your new password" />
+            </div>
+            <input id="token-input" type="hidden" name="token" value="">
+            <button type="submit" class="btn btn-primary w-full text-white">Reiniciar Contraseña</button>
+      </form>
+      <div id="password-reset-response"></div>
+    </div>
+  </div>
 </section>
 
 
@@ -503,9 +536,4 @@
       </ul>
     </div>
   </div>
-</div>
-
-
-<div class="flex-grow text-center">
-  <p class="font-semibold">Usuario o contraseña incorrecto. <br> Por favor intenta de nuevo</p>
 </div>

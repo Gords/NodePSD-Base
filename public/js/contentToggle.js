@@ -1,19 +1,28 @@
 const main = document.querySelector("main");
 
 const routes = {
-	"": "spa-content",
-	"#home": "spa-content",
-	"#products-and-calculator": "spa-content",
-	"#faq": "spa-content",
-	"#about": "spa-content",
-	"#contact": "spa-content",
+	"#password-reset": "password-reset-content",
 	"#register": "register-content",
 	"#login": "login-content",
+	"#contact": "spa-content",
+	"#about": "spa-content",
+	"#faq": "spa-content",
+	"#products-and-calculator": "spa-content",
+	"#home": "spa-content",
+	"": "spa-content",
 };
 
 const route = () => {
 	const path = location.hash;
-	const contentId = routes[path] || "";
+	let contentId = "";
+
+	for (const route in routes) {
+		if (path.includes(route)) {
+			contentId = routes[route];
+			break;
+		}
+	}
+
 	showContent(contentId);
 };
 
