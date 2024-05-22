@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const emailService = require("../services/emailService");
+const he = require("he")
 
 module.exports = () => {
   // Post contact form
@@ -17,12 +18,12 @@ module.exports = () => {
 
     try {
       await emailService.sendContactEmail({
-        firstName,
-        lastName,
-        idNumber,
-        email,
-        phone,
-        message,
+        firstName: he.encode(firstName),
+        lastName: he.encode(lastName),
+        idNumber: he.encode(idNumber),
+        email: he.encode(email),
+        phone: he.encode(phone),
+        message: he.encode(message),
       });
 
       res.send(`
