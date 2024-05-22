@@ -178,7 +178,3 @@ video {
   text-overflow: ellipsis;
   max-width: 250px;
 }
-
-#login-form-component-response {
-  max-width: 100%;
-}

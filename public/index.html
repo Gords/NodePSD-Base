@@ -18,7 +18,7 @@
   <script src="js/login.js"></script>
 </head>
 
-<body class="h-full flex flex-col" htmx:afterOnLoad="console.log('HTMX load event:', event.detail)" hx-ext="remove-me">
+<body class="h-full flex flex-col" htmx:afterOnLoad="console.log('HTMX load event:', event.detail)">
   <header>
     <nav hx-get="components.html" hx-select="#top-navigation-component" hx-trigger="load"></nav>
   </header>
@@ -55,7 +55,7 @@
       <div id="login-response"></div>
     </section>
     <!-- Element below is container for the verification modal provided in the verification URL send to the new user -->
-    <div id=" verification-response"></div>
+    <div id="verification-response"></div>
   </main>
   <footer>
     <nav hx-get="components.html" hx-select="#bottom-navigation-component" hx-trigger="load"></nav>

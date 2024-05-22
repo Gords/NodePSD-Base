@@ -26,9 +26,13 @@ module.exports = () => {
 			});
 
 			res.send(`
-        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold">Contact form submitted successfully!</span>
+        <div id="contact-and-location-component">
+          <dialog class="modal modal-open" hx-ext="remove-me" remove-me="3s">
+            <div class="modal-box bg-success border-2 border-black text-center items-center">
+              <h3 class="font-bold text-lg">Mensaje enviado</h3>
+              <p class="py-4">Nuestros agentes se pondran en contacto.</p>
+            </div>
+          </dialog>
         </div>
       `);
 		} catch (error) {

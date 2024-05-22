@@ -14,7 +14,9 @@ module.exports = {
     'overflow-x-auto',
     'alert-warning',
     'alert-error',
-    'alert-success'
+    'alert-success',
+    'modal',
+    'modal-open'
   ],
   plugins: [require('daisyui'), require('@tailwindcss/forms')],
   theme: {
