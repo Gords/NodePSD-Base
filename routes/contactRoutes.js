@@ -28,7 +28,7 @@ module.exports = () => {
 			res.send(`
         <div id="contact-and-location-component">
           <dialog class="modal modal-open" hx-ext="remove-me" remove-me="3s">
-            <div class="modal-box bg-success border-2 border-black text-center items-center">
+            <div class="modal-box border-2 border-black text-center items-center">
               <h3 class="font-bold text-lg">Mensaje enviado</h3>
               <p class="py-4">Nuestros agentes se pondran en contacto.</p>
             </div>
