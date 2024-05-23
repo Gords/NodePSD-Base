@@ -7,19 +7,19 @@ const { isAuthenticated } = require("../services/authService");
 
 // Configure Multer storage
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    cb(null, `${uniqueSuffix}-${file.originalname}`);
-  },
+	destination: (req, file, cb) => {
+		cb(null, "uploads/");
+	},
+	filename: (req, file, cb) => {
+		const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+		cb(null, `${uniqueSuffix}-${file.originalname}`);
+	},
 });
 
 const upload = multer({ storage });
 
 module.exports = (Image, User) => {
-    	// Post (Upload) a file within an array of files, max 4 files
+	// Post (Upload) a file within an array of files, max 4 files
 	router.post(
 		"/images",
 		isAuthenticated,
@@ -185,16 +185,16 @@ module.exports = (Image, User) => {
 	});
 
 	/// Get all images from a specific user
-router.get("/images/user/:userId", isAuthenticated, async (req, res) => {
-	try {
-	  const userId = req.params.userId;
-	  const user = await User.findOne({ where: { id: userId } });
-	  const userEmail = user ? user.email : "User not found";
-	  const images = await Image.findAll({
-		where: { userId },
-	  });
+	router.get("/images/user/:userId", isAuthenticated, async (req, res) => {
+		try {
+			const userId = req.params.userId;
+			const user = await User.findOne({ where: { id: userId } });
+			const userEmail = user ? user.email : "User not found";
+			const images = await Image.findAll({
+				where: { userId },
+			});
 
-				const userImagesHtml = /*html*/ `
+			const userImagesHtml = /*html*/ `
         <div class="card bg-base-100 shadow-md text-center my-10">
           <div class="card-body">
             <div class="flex justify-between items-center mx-4">
@@ -247,17 +247,17 @@ router.get("/images/user/:userId", isAuthenticated, async (req, res) => {
         </div>
       `;
 
-				res.send(userImagesHtml);
-			} catch (error) {
-				console.error("Error fetching user images:", error);
-				res.status(500).send(`
+			res.send(userImagesHtml);
+		} catch (error) {
+			console.error("Error fetching user images:", error);
+			res.status(500).send(`
 				  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
 					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 					<span class="font-bold text-center">Error fetching user images</span>
 				  </div>
 				`);
-			  }
-			});
+		}
+	});
 
 	// Download a single image from a specific user
 	router.get("/images/:imageId", isAuthenticated, async (req, res) => {
@@ -337,5 +337,5 @@ router.get("/images/user/:userId", isAuthenticated, async (req, res) => {
     `);
 		}
 	});
-    return router;
-}
+	return router;
+};

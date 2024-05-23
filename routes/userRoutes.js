@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const {isAuthenticated} = require("../services/authService")
+const { isAuthenticated } = require("../services/authService");
 const { Op } = require("sequelize");
-
+const he = require("he");
 
 module.exports = (User) => {
-    	// Get logged in user details
+	// Get logged in user details
 	router.get("/users/user", (req, res) => {
 		if (req.isAuthenticated()) {
 			// Sending a partial HTML snippet to update the user-info div
@@ -14,15 +14,17 @@ module.exports = (User) => {
           <div class="flex flex-col md:flex-row items-center text-center justify-center md:text-start md:items-start md:pl-2">
             <div class="avatar text-center pb-2">
               <div class="w-16 h-16 rounded-full relative bg-primary">
-                <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">${req.user.name
-									.charAt(0)
-									.toUpperCase()}
+                <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">${he.encode(
+									req.user.name.charAt(0).toUpperCase(),
+								)}
                 </span>
               </div>
             </div>
             <div class="md:flex-col md:ml-4 md:justify-center md:items-center">
-              <div class="font-semibold text-lg md:mt-2">${req.user.name}</div>
-              <div class="text-sm mb-4">${req.user.email}</div>
+              <div class="font-semibold text-lg md:mt-2">${he.encode(
+								req.user.name,
+							)}</div>
+              <div class="text-sm mb-4">${he.encode(req.user.email)}</div>
             </div>
           </div>
           <div class="flex">
@@ -51,12 +53,12 @@ module.exports = (User) => {
         <div class="avatar text-center">
           <div class="w-16 h-16 rounded-full bg-primary">
             <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-4xl font-semibold text-white">
-              ${req.user.name.charAt(0).toUpperCase()}
+              ${he.encode(req.user.name.charAt(0).toUpperCase())}
             </span>
           </div>
         </div>
-          <div class="font-semibold text-lg">${req.user.name}</div>
-          <div class="text-sm">${req.user.email}</div>
+          <div class="font-semibold text-lg">${he.encode(req.user.name)}</div>
+          <div class="text-sm">${he.encode(req.user.email)}</div>
       </div>
       `);
 		} else {
@@ -69,29 +71,29 @@ module.exports = (User) => {
 		}
 	});
 
-// Get all users or search users by name
-router.get("/users", isAuthenticated, async (req, res) => {
-  try {
-    const searchQuery = req.query['search-input'];
-    let users;
+	// Get all users or search users by name
+	router.get("/users", isAuthenticated, async (req, res) => {
+		try {
+			const searchQuery = req.query["search-input"];
+			let users;
 
-    if (searchQuery) {
-      users = await User.findAll({
-        where: {
-          name: { [Op.iLike]: `%${searchQuery}%` },
-        },
-      });
-    } else {
-      users = await User.findAll();
-    }
+			if (searchQuery) {
+				users = await User.findAll({
+					where: {
+						name: { [Op.iLike]: `%${searchQuery}%` },
+					},
+				});
+			} else {
+				users = await User.findAll();
+			}
 
-    const tableRows = users
-      .map(
-        (user) => /*html*/ `
+			const tableRows = users
+				.map(
+					(user) => /*html*/ `
           <tr>
-            <td>${user.name}</td>
+            <td>${he.encode(user.name)}</td>
             <td>0981-420-681</td>
-            <td>${user.email}</td>
+            <td>${he.encode(user.email)}</td>
             <td>
               <a href="/images/user/${user.id}"
                 hx-get="/images/user/${user.id}"
@@ -102,13 +104,13 @@ router.get("/users", isAuthenticated, async (req, res) => {
             </td>
           </tr>
         `,
-      )
-      .join("");
+				)
+				.join("");
 
-    res.send(tableRows);
-  } catch (error) {
-    console.error("Error fetching users:", error);
-    res.status(500).send(/*html*/ `
+			res.send(tableRows);
+		} catch (error) {
+			console.error("Error fetching users:", error);
+			res.status(500).send(/*html*/ `
       <tr>
         <td colspan="4">
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
@@ -118,27 +120,27 @@ router.get("/users", isAuthenticated, async (req, res) => {
         </td>
       </tr>
     `);
-  }
-});
+		}
+	});
 
-// Search users by name
-router.get("/users/search", isAuthenticated, async (req, res) => {
-  try {
-    const searchQuery = req.query['search-input'] || ''; // Ensure a fallback to an empty string if undefined
+	// Search users by name
+	router.get("/users/search", isAuthenticated, async (req, res) => {
+		try {
+			const searchQuery = req.query["search-input"] || ""; // Ensure a fallback to an empty string if undefined
 
-    const users = await User.findAll({
-      where: {
-        name: { [Op.iLike]: `%${searchQuery}%` }
-      }
-    });
+			const users = await User.findAll({
+				where: {
+					name: { [Op.iLike]: `%${searchQuery}%` },
+				},
+			});
 
-    const tableRows = users
-      .map(
-        (user) => /*html*/ `
+			const tableRows = users
+				.map(
+					(user) => /*html*/ `
           <tr>
-            <td>${user.name}</td>
+            <td>${he.encode(user.name)}</td>
             <td>0981-420-681</td>
-            <td>${user.email}</td>
+            <td>${he.encode(user.email)}</td>
             <td>
               <a href="/images/user/${user.id}"
                 hx-get="/images/user/${user.id}"
@@ -149,13 +151,13 @@ router.get("/users/search", isAuthenticated, async (req, res) => {
             </td>
           </tr>
         `,
-      )
-      .join("");
+				)
+				.join("");
 
-    res.send(tableRows);
-  } catch (error) {
-    console.error("Error searching users:", error);
-    res.status(500).send(/*html*/ `
+			res.send(tableRows);
+		} catch (error) {
+			console.error("Error searching users:", error);
+			res.status(500).send(/*html*/ `
       <tr>
         <td colspan="4">
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
@@ -165,15 +167,15 @@ router.get("/users/search", isAuthenticated, async (req, res) => {
         </td>
       </tr>
     `);
-  }
-});
+		}
+	});
 
 	// Update a user
 	router.put("/users/:id", isAuthenticated, async (req, res) => {
 		try {
 			const { email, password, name } = req.body;
 			await User.update(
-				{ email, password, name },
+				{ email: he.encode(email), password, name: he.encode(name) },
 				{ where: { id: req.params.id } },
 			);
 			res.send(`
@@ -198,7 +200,6 @@ router.get("/users/search", isAuthenticated, async (req, res) => {
 		try {
 			await User.destroy({ where: { id: req.params.id } });
 			res.sendStatus(204);
-			res.sendStatus(204);
 		} catch (error) {
 			console.error("Error deleting user:", error);
 			res.status(500).send(`
@@ -209,5 +210,6 @@ router.get("/users/search", isAuthenticated, async (req, res) => {
       `);
 		}
 	});
-    return router;
-}
+
+	return router;
+};
