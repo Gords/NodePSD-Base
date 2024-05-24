@@ -6,6 +6,8 @@ const emailService = require("../services/emailService");
 const { body, validationResult } = require("express-validator");
 const passport = require("passport");
 const he = require("he");
+const { isAuthenticated, isAdmin } = require("../services/authService");
+const path = require("node:path");
 
 module.exports = (User) => {
 	// User registration
@@ -123,6 +125,7 @@ module.exports = (User) => {
 	// Verify email
 	router.get("/auth/email", async (req, res) => {
 		const { token } = req.query;
+
 
 		try {
 			const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -277,8 +280,13 @@ module.exports = (User) => {
 	});
 
 	// Password reset request
-	router.post("/auth/forgot-password", async (req, res) => {
-		const email = req.body.username;
+	router.post("/auth/forgot-password", 		[
+		body("username").isEmail().withMessage("Invalid email address"),
+		body("password").notEmpty().withMessage("Password is required"),
+	],async (req, res) => {
+		let email = req.body.username;
+		email = he.decode(email);
+
 
 		if (!email) {
 			return res.status(400).send(`
@@ -292,7 +300,8 @@ module.exports = (User) => {
 		}
 
 		try {
-			const user = await User.findOne({ where: { email } });
+			let user = await User.findOne({ where: { email } });
+			user = he.decode(user);
 			if (!user) {
 				return res.status(404).send(`
 					<div id="forgotPasswordResponse">
@@ -439,6 +448,16 @@ module.exports = (User) => {
 			}
 		},
 	);
+
+	// User panel route
+	router.get("/user-panel.html", isAuthenticated, (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/user-panel.html"));
+	});
+
+	// Admin panel route
+	router.get("/admin-panel.html", isAdmin, (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/admin-panel.html"));
+	});
 
 	return router;
 };
