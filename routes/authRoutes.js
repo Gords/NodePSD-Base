@@ -284,10 +284,12 @@ module.exports = (User) => {
 
 		if (!email) {
 			return res.status(400).send(`
-				<div id="forgotPasswordResponse">
-					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+				<div id="login-form-component">
+					<div role="alert" class="alert alert-error border-black border-2 flex items-center">
 						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-						<span class="font-bold text-center">Please provide a valid email address.</span>
+						<div class="flex-grow text-center">
+							<p class="font-semibold">Por favor ingresa un email valido.</p>
+						</div>
 					</div>
 				</div>
 			`);
@@ -297,12 +299,14 @@ module.exports = (User) => {
 			const user = await User.findOne({ where: { email } });
 			if (!user) {
 				return res.status(404).send(`
-					<div id="forgotPasswordResponse">
-						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-							<span class="font-bold text-center">User not found</span>
+				<div id="login-form-component">
+					<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<div class="flex-grow text-center">
+							<p class="font-semibold">El usuario ingresado no existe</p>
 						</div>
 					</div>
+				</div>
 				`);
 			}
 
@@ -316,21 +320,23 @@ module.exports = (User) => {
 
 			res.send(`
 				<div id="login-form-component">
-					<div role="alert" class="alert alert-success border-black border-2 flex items-center">
-						<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-						<div class="flex-grow text-center">
-							<p class="font-semibold">Password reset email sent. Please check your email for the reset link.</p>
+					<dialog class="modal modal-open success" hx-ext="remove-me" remove-me="6s">
+						<div class="modal-box bg-success border-2 border-black text-center items-center">
+							<h3 class="font-bold text-lg">Correo de restablecimiento de contraseña enviado!</h3>
+							<p class="py-4">Por favor revisa tu correo electrónico para el enlace de restablecimiento.</p>
 						</div>
-					</div>
+					</dialog>
 				</div>
 			`);
 		} catch (error) {
 			console.error("Error sending password reset email:", error);
 			res.status(500).send(`
-				<div id="forgotPasswordResponse">
-					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+				<div id="login-form-component">
+					<div role="alert" class="alert alert-error border-black border-2 flex items-center">
 						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-						<span class="font-bold text-center">Failed to send password reset email. Please try again later.</span>
+						<div class="flex-grow text-center">
+							<p class="font-semibold">No pudimos enviar el correo de restablecimiento de contraseña. Por favor intenta de nuevo.</p>
+						</div>
 					</div>
 				</div>
 			`);

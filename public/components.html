@@ -292,8 +292,7 @@
   <div id="login-form-component" class="pt-28 pb-4 max-w-full">
     <div class="card m-auto max-w-lg shadow-md">
       <form id="login-form" class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/auth/login"
-        hx-target="#login-response" hx-target-4xx='#loginErrorResponse' hx-target-5xx='#loginErrorResponse'
-        hx-swap="innerHTML">
+        hx-target-4xx='#loginErrorResponse' hx-target-5xx='#loginErrorResponse' hx-swap="innerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Accede a tu cuenta</h2>
@@ -320,14 +319,15 @@
           </p>
         </div>
         <div class="mt-4 text-center">
-          <a href="#" hx-post="/auth/forgot-password" hx-target="#loginErrorResponse" hx-swap="innerHTML"
+          <a href="#" hx-post="/auth/forgot-password" hx-target="#forgot-password-response"
+            hx-target-4xx='#forgot-password-response' hx-target-5xx='#forgot-password-response' hx-swap="innerHTML"
             hx-include="[name='username']" class="link link-primary">Olvidaste tu contraseña?</a>
         </div>
-        <div id="forgotPasswordResponse"></div>
       </form>
       <div id="loginErrorResponse" class="p-4">
         <!-- Here goes the response from the server -->
       </div>
+      <div id="forgot-password-response" class="p-4"></div>
     </div>
   </div>
 
