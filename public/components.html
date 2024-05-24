@@ -319,7 +319,7 @@
           </p>
         </div>
         <div class="mt-4 text-center">
-          <a href="#" hx-post="/auth/forgot-password" hx-target="#forgot-password-response"
+          <a href="#" hx-post="/auth/forgot-password" hx-target="#reset-password-response"
             hx-target-4xx='#forgot-password-response' hx-target-5xx='#forgot-password-response' hx-swap="innerHTML"
             hx-include="[name='username']" class="link link-primary">Olvidaste tu contraseña?</a>
         </div>
@@ -327,7 +327,10 @@
       <div id="loginErrorResponse" class="p-4">
         <!-- Here goes the response from the server -->
       </div>
+      <!-- Error response -->
       <div id="forgot-password-response" class="p-4"></div>
+      <!-- Success response -->
+      <div id="reset-password-response" class="p-4"></div>
     </div>
   </div>
 
