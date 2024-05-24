@@ -315,10 +315,12 @@ module.exports = (User) => {
 			await emailService.sendPasswordResetEmail(email, resetToken);
 
 			res.send(`
-				<div id="forgotPasswordResponse">
-					<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+				<div id="login-form-component">
+					<div role="alert" class="alert alert-success border-black border-2 flex items-center">
 						<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-						<span class="font-bold text-center">Password reset email sent. Please check your email for the reset link.</span>
+						<div class="flex-grow text-center">
+							<p class="font-semibold">Password reset email sent. Please check your email for the reset link.</p>
+						</div>
 					</div>
 				</div>
 			`);
