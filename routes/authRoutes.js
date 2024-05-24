@@ -6,6 +6,8 @@ const emailService = require("../services/emailService");
 const { body, validationResult } = require("express-validator");
 const passport = require("passport");
 const he = require("he");
+const { isAuthenticated, isAdmin } = require("../services/authService");
+const path = require("node:path");
 
 module.exports = (User) => {
 	// User registration
@@ -439,6 +441,16 @@ module.exports = (User) => {
 			}
 		},
 	);
+
+	// User panel route
+	router.get("/user-panel.html", isAuthenticated, (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/user-panel.html"));
+	});
+
+	// Admin panel route
+	router.get("/admin-panel.html", isAdmin, (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/admin-panel.html"));
+	});
 
 	return router;
 };
