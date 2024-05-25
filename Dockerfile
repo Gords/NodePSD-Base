@@ -12,6 +12,7 @@ RUN npm install
 
 COPY . .
 RUN npm install -g sequelize-cli
+RUN npm run build:css
 
 EXPOSE 3000
 
