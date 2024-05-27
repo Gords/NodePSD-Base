@@ -123,51 +123,44 @@ module.exports = (Image, User) => {
 				userImagesHtml = /*html*/ `
           <div class="overflow-x-auto pt-8">
             <table class="table table-pin-rows w-full">
-            <thead>
-              <tr>
-                <th>Archivo</th>
-                <th class="text-center">Vista Previa</th>
-                <th class="text-center">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${images
-								.map(
-									(image) => /*html*/ `
-              <tr class="hover" id="image-${image.id}">
-			  <td id="Archivo" onclick="window.open('/${image.path}', '_blank')" 
-			  class="file-name truncate w-full lg:w-2/3 xl:w-1/2"> 
-			${path.basename(image.path)}
-		  </td>
-
-                <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${
-									image.path
-								}', '_blank')">
-                  <img class="img-thumbnail hover:pointer" src="/${
-										image.path
-									}" alt="Document ${image.id}">
-                </td>
-
-                <td id="Acciones">
-                  <div class="flex justify-center gap-1">
-
-                    <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
-                      <img src="/assets/icons/download.svg" alt="Descargar">
-                    </a>
-
-                    <button hx-delete="/images/${image.id}" hx-target="#image-${
-											image.id
-										}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
-                      <img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
-                    </button>
-
-                  </div>
-                </td>
-              </tr>
-              `,
-								)
-								.join("")}
-            </tbody>
+							<thead>
+								<tr>
+									<th>Archivo</th>
+									<th class="text-center">Vista Previa</th>
+									<th class="text-center">Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								${images
+									.map(
+										(image) => /*html*/ `
+									<tr class="hover" id="image-${image.id}">
+										<td id="Archivo" onclick="window.open('/${image.path}', '_blank')" class="file-name truncate w-full lg:w-2/3 xl:w-1/2">
+											${path.basename(image.path)}
+										</td>
+										<td id="Vista Previa" class="flex justify-center"
+										onclick="window.open('/${image.path}', '_blank')">
+											<img class="img-thumbnail hover:pointer" src="/${
+												image.path
+											}" alt="Document ${image.id}">
+										</td>
+										<td id="Acciones">
+											<div class="flex justify-center gap-1">
+												<a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
+													<img src="/assets/icons/download.svg" alt="Descargar">
+												</a>
+												<button hx-delete="/images/${
+													image.id
+												}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
+													<img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
+												</button>
+											</div>
+										</td>
+									</tr>
+								`,
+									)
+									.join("")}
+							</tbody>
             </table>
           </div>
         `;
@@ -198,7 +191,7 @@ module.exports = (Image, User) => {
         <div class="card bg-base-100 shadow-md text-center my-10">
           <div class="card-body">
             <div class="flex justify-between items-center mx-4">
-              <h2 class="card-title font-semibold">Documentos del usuario ${userEmail}</h2>
+              <h2 class="card-title font-semibold">Documentos del usuario "${userEmail}"</h2>
               <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
                 Descargar todo
               </button>
@@ -220,7 +213,6 @@ module.exports = (Image, User) => {
                   <td id="Archivo" onclick="window.open('/${
 										image.path
 									}', '_blank')">${path.basename(image.path)}</td>
-
                   <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${
 										image.path
 									}', '_blank')">
@@ -228,9 +220,8 @@ module.exports = (Image, User) => {
 											image.path
 										}" alt="Document ${image.id}">
                   </td>
-
                   <td id="Acciones">
-                    <div class="flex justify-center gap-1">
+                    <div class="tooltip flex justify-center gap-1" data-tip="Descargar">
                       <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
                         <img src="/assets/icons/download.svg" alt="Descargar">
                       </a>

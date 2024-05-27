@@ -424,9 +424,9 @@ module.exports = (User) => {
 				const user = await User.findByPk(userId);
 				if (!user) {
 					return res.status(404).send(`
-					<div id="password-reset-form-component">
-						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
-							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<div id="password-reset-form-component">
+							<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 								<span class="font-bold text-center">User not found</span>
 							</div>
 						</div>
@@ -443,14 +443,14 @@ module.exports = (User) => {
 					}
 					//res.header("HX-Redirect", "/");
 					res.send(`
-					<div id="password-reset-form-component">
-					<dialog class="modal modal-open success">
-						<div class="modal-box bg-success border-2 border-black text-center items-center">
-							<h3 class="font-bold text-lg">Restablecimiento de contraseña exitoso</h3>
-							<p class="py-4">Redireccionando a la pagina principal...</p>
+						<div id="password-reset-form-component">
+							<dialog class="modal modal-open success">
+								<div class="modal-box bg-success border-2 border-black text-center items-center">
+									<h3 class="font-bold text-lg">Restablecimiento de contraseña exitoso</h3>
+									<p class="py-4">Redireccionando a la pagina principal...</p>
+								</div>
+							</dialog>
 						</div>
-					</dialog>
-				</div>
 					`);
 				});
 			} catch (error) {

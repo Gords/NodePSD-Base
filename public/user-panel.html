@@ -33,10 +33,10 @@
       <!-- Data and File Upload Container -->
       <div class="w-full max-w-3xl py-4"> <!-- Adjust the width as needed -->
         <!-- User personal info -->
-        <div class="card bg-base-100 shadow-md">
+        <div class="card bg-base-100 shadow-md" id="user-info" hx-get="/users/user" hx-trigger="load"
+          hx-swap="innerHTML">
           <div class="card-body mx-4">
-            <div id="user-info" hx-get="/users/user" hx-trigger="load" hx-swap="innerHTML"
-              class="card-title items-center pb-4">
+            <div class="card-title items-center pb-4">
               <div class="flex flex-col md:flex-row justify-center items-center md:justify-between w-full">
                 <div
                   class="flex flex-col md:flex-row items-center text-center justify-center md:text-start md:items-start md:pl-2">
@@ -58,26 +58,27 @@
                 </div>
               </div>
             </div>
-            <div id="user-data" class="flex justify-between">
+            <div class="flex justify-between">
               <div class="flex flex-col font-semibold pl-2">
                 Nro. de cédula: <span id="user-cedula" class="font-normal">1.234.567.-</span>
                 Nro. de teléfono: <span id="user-phone" class="font-normal">+595 981 123 456</span>
-                Domicilio: <span id="user-address" class="font-normal">Dr. Vasconcellos 622 esq. Tte Luis Miranda</span>
               </div>
               <div>
                 <h1 class="font-bold">Documentos requeridos</h1>
                 <ul class="list-disc pl-3">
                   <li>Cédula de Identidad (ambos lados)</li>
-                  <li>Inforcomf e Infocheck</li>
                   <li>Comprobantes de Ingreso</li>
-                  <li>Informe de BICSA</li>
                   <li>Factura de servicio</li>
+                  <li>Referencias personales (3)</li>
+                  <li>Factura del Negocio de la Persona (persona c/ RUC)</li>
+                  <li>Patente Comercial</li>
                 </ul>
               </div>
             </div>
-            <div id="status-message"></div>
           </div>
         </div>
+
+        <!-- File management section -->
         <div class="card bg-base-100 shadow-md text-center my-10">
           <div class="card-body">
             <div class="flex justify-between items-center mx-4">
