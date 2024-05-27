@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
 		},
 		lastName: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: true,
 		},
 		idNumber: {
 			type: DataTypes.STRING,
@@ -42,6 +42,11 @@ module.exports = (sequelize) => {
 			type: DataTypes.BOOLEAN,
 			allowNull: false,
 			defaultValue: false,
+		},
+		userType: {
+			type: DataTypes.ENUM('individual', 'business'),
+			allowNull: false,
+			defaultValue: 'individual',
 		},
 	});
 

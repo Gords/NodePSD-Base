@@ -24,6 +24,7 @@ module.exports = (User) => {
 				.matches(/^[A-Za-z\s]+$/)
 				.withMessage("El nombre solo debe contener letras y espacios"),
 			body("lastName")
+				.if((value, { req }) => req.body.userType === "individual")
 				.matches(/^[A-Za-z\s]+$/)
 				.withMessage("El apellido solo debe contener letras y espacios"),
 			body("idNumber")
@@ -37,33 +38,41 @@ module.exports = (User) => {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
 				const errorMessages = errors.array().map((error) => error.msg);
-
 				// Error response for invalid input in user registration
 				return res.status(500).send(`
-					<div id="register-form-component">
-						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
-							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-8 h-8 inline-block">
-							<div class="flex-grow text-center">
-								<ul class="pl-5 font-semibold">
-									${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
-								</ul>
-							</div>
-						</div>
-					</div>
-				`);
+			  <div id="register-form-component">
+				<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+				  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-8 h-8 inline-block">
+				  <div class="flex-grow text-center">
+					<ul class="pl-5 font-semibold">
+					  ${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
+					</ul>
+				  </div>
+				</div>
+			  </div>
+			`);
 			}
 
 			try {
-				const { email, password, name, lastName, idNumber, phoneNumber } =
-					req.body;
+				const {
+					email,
+					password,
+					name,
+					lastName,
+					idNumber,
+					phoneNumber,
+					userType,
+				} = req.body;
 				const hashedPassword = await bcrypt.hash(password, 10);
+
 				const user = await User.create({
 					email: he.encode(email),
 					password: hashedPassword,
 					name: he.encode(name),
-					lastName: he.encode(lastName),
+					lastName: userType === "individual" ? he.encode(lastName) : null,
 					idNumber: he.encode(idNumber),
 					phoneNumber: he.encode(phoneNumber),
+					userType: he.encode(userType),
 					isVerified: false,
 				});
 
@@ -80,42 +89,42 @@ module.exports = (User) => {
 
 				// Registration success modal
 				res.status(200).send(`
-					<div id="register-form-component">
-						<dialog class="modal modal-open success">
-							<div class="modal-box bg-success border-2 border-black text-center items-center">
-								<h3 class="font-bold text-lg">Registro de usuario exitoso!</h3>
-								<p class="py-4">Verifica tu correo electrónico para activar tu cuenta.<br><br>Redireccionando a la pagina principal...</p>
-							</div>
-						</dialog>
-					</div>
-				`);
+			  <div id="register-form-component">
+				<dialog class="modal modal-open success">
+				  <div class="modal-box bg-success border-2 border-black text-center items-center">
+					<h3 class="font-bold text-lg">Registro de usuario exitoso!</h3>
+					<p class="py-4">Verifica tu correo electrónico para activar tu cuenta.<br><br>Redireccionando a la pagina principal...</p>
+				  </div>
+				</dialog>
+			  </div>
+			`);
 			} catch (error) {
 				console.error("Error registering user:", error);
 				if (error.name === "SequelizeUniqueConstraintError") {
 					// Handle unique constraint violation error
 					res.status(400).send(
 						`
-						<div id="register-form-component">
-							<div role="alert" class="alert alert-error border-black border-2 flex items-center">
-								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-								<div class="flex-grow text-center">
-									<p class="font-semibold">El correo electrónico ya está registrado.<br>Por favor utiliza otro correo electrónico.</p>
-								</div>
-							</div>
-						</div>
-				`.trim(),
+				<div id="register-form-component">
+				  <div role="alert" class="alert alert-error border-black border-2 flex items-center">
+					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					<div class="flex-grow text-center">
+					  <p class="font-semibold">El correo electrónico ya está registrado.<br>Por favor utiliza otro correo electrónico.</p>
+					</div>
+				  </div>
+				</div>
+			  `.trim(),
 					);
 				} else {
 					// Error response for failed user registration (e.g. email already exists)
 					res.status(500).send(
 						`
-						<div id="register-form-component">
-							<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
-								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-								<p class="font-semibold">Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.</p>
-							</div>
-						</div>
-					`.trim(),
+				<div id="register-form-component">
+				  <div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
+					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					<p class="font-semibold">Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.</p>
+				  </div>
+				</div>
+			  `.trim(),
 					);
 				}
 			}
@@ -466,6 +475,31 @@ module.exports = (User) => {
 			}
 		},
 	);
+
+	router.get("/auth/register-form", (req, res) => {
+		const userType = req.query.userType;
+		if (userType === "business") {
+			res.sendFile(path.join(__dirname, "../public/components.html"), {
+				headers: {
+					"Content-Type": "text/html",
+					"HX-Trigger": "load",
+					"HX-Target": "#register-form-container",
+					"HX-Reselect": "#business-register-form-component",
+					"HX-Reswap": "innerHTML",
+				},
+			});
+		} else {
+			res.sendFile(path.join(__dirname, "../public/components.html"), {
+				headers: {
+					"Content-Type": "text/html",
+					"HX-Trigger": "load",
+					"HX-Target": "#register-form-container",
+					"HX-Reselect": "#individual-register-form-component",
+					"HX-Reswap": "innerHTML",
+				},
+			});
+		}
+	});
 
 	// User panel route
 	router.get("/user-panel.html", isAuthenticated, (req, res) => {
