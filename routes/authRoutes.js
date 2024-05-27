@@ -287,19 +287,19 @@ module.exports = (User) => {
 		],
 		async (req, res) => {
 			let email = req.body.username;
-			email = he.decode(email);
+			email = he.encode(email);
 
 			if (!email) {
 				return res.status(400).send(`
-				<div id="login-form-component">
-					<div role="alert" class="alert alert-error border-black border-2 flex items-center">
-						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-						<div class="flex-grow text-center">
-							<p class="font-semibold">Por favor ingresa un email valido.</p>
+					<div id="login-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<div class="flex-grow text-center">
+								<p class="font-semibold">Por favor ingresa un email valido.</p>
+							</div>
 						</div>
 					</div>
-				</div>
-			`);
+				`);
 			}
 
 			try {
@@ -307,15 +307,15 @@ module.exports = (User) => {
 				user = he.decode(user);
 				if (!user) {
 					return res.status(404).send(`
-				<div id="login-form-component">
-					<div role="alert" class="alert alert-error border-black border-2 flex items-center">
-						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-						<div class="flex-grow text-center">
-							<p class="font-semibold">El usuario ingresado no existe</p>
+					<div id="login-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<div class="flex-grow text-center">
+								<p class="font-semibold">El usuario ingresado no existe</p>
+							</div>
 						</div>
 					</div>
-				</div>
-				`);
+					`);
 				}
 
 				// Generate password reset token
@@ -331,15 +331,15 @@ module.exports = (User) => {
 				await emailService.sendPasswordResetEmail(email, resetToken);
 
 				res.send(`
-				<div id="login-form-component">
-					<dialog class="modal modal-open success" hx-ext="remove-me" remove-me="6s">
-						<div class="modal-box bg-success border-2 border-black text-center items-center">
-							<h3 class="font-bold text-lg">Correo de restablecimiento de contraseña enviado!</h3>
-							<p class="py-4">Por favor revisa tu correo electrónico para el enlace de restablecimiento.</p>
-						</div>
-					</dialog>
-				</div>
-			`);
+					<div id="login-form-component">
+						<dialog class="modal modal-open success" hx-ext="remove-me" remove-me="6s">
+							<div class="modal-box bg-success border-2 border-black text-center items-center">
+								<h3 class="font-bold text-lg">Correo de restablecimiento de contraseña enviado!</h3>
+								<p class="py-4">Por favor revisa tu correo electrónico para el enlace de restablecimiento.</p>
+							</div>
+						</dialog>
+					</div>
+				`);
 			} catch (error) {
 				console.error("Error sending password reset email:", error);
 				res.status(500).send(`
