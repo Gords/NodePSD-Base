@@ -52,13 +52,10 @@
     <section id="login-content" hx-ext="response-targets">
       <section id="login" hx-trigger="load" hx-get="components.html" hx-select="#login-form-component"
         hx-swap="innerHTML"></section>
-      <div id="login-response"></div>
     </section>
-    <section id="password-reset-content">
+    <section id="password-reset-content" hx-ext="response-targets">
       <section id="password-reset" hx-trigger="load" hx-get="components.html" hx-select="#password-reset-form-component"
-        hx-swap="innerHTML">
-      </section>
-      <div id="password-reset-response" class="py-4"></div>
+        hx-swap="innerHTML"></section>
     </section>
     <!-- Element below is container for the verification modal provided in the verification URL send to the new user -->
     <div id="verification-response"></div>

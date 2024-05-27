@@ -6,6 +6,8 @@ const emailService = require("../services/emailService");
 const { body, validationResult } = require("express-validator");
 const passport = require("passport");
 const he = require("he");
+const { isAuthenticated, isAdmin } = require("../services/authService");
+const path = require("node:path");
 
 module.exports = (User) => {
 	// User registration
@@ -180,7 +182,7 @@ module.exports = (User) => {
 						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 							<span class="font-bold">Error en el inicio de sesión:</span>
-							<ul class="list-disc pl-5">
+							<ul class="pl-5 font-semibold">
 							${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
 							</ul>
 						</div>
@@ -205,9 +207,9 @@ module.exports = (User) => {
 
 				if (!user) {
 					return res.status(401).send(`
-						<div id="loginResponse">
-							<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<div id="login-form-component">
+							<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 pl-4 inline-block">
 								<span class="font-bold text-center">${
 									info.message || "Ese usuario no existe"
 								}</span>
@@ -219,10 +221,10 @@ module.exports = (User) => {
 				req.logIn(user, (loginErr) => {
 					if (loginErr) {
 						return res.status(500).send(`
-							<div id="loginResponse">
-								<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-									<span class="font-bold text-center">500 i see u not</span>
+							<div id="login-form-component">
+								<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 pl-4 inline-block">
+									<span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
 								</div>
 							</div>
 						`);
@@ -230,9 +232,9 @@ module.exports = (User) => {
 
 					if (!user.isVerified) {
 						return res.status(401).send(`
-							<div id="loginResponse">
-								<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<div id="login-form-component">
+								<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 pl-4 inline-block">
 									<span class="font-bold text-center">Por favor verifica tu correo electrónico</span>
 								</div>
 							</div>
@@ -244,6 +246,8 @@ module.exports = (User) => {
 						? "/admin-panel.html"
 						: "/user-panel.html";
 					res.header("HX-Redirect", redirectUrl);
+
+					// TODO: remove? since we do a redirect, this success response is never displayed to the user
 					return res.send(`
 						<div id="loginResponse">
 							<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
@@ -277,61 +281,81 @@ module.exports = (User) => {
 	});
 
 	// Password reset request
-	router.post("/auth/forgot-password", async (req, res) => {
-		const email = req.body.username;
+	router.post(
+		"/auth/forgot-password",
+		[
+			body("username").isEmail().withMessage("Invalid email address"),
+			body("password").notEmpty().withMessage("Password is required"),
+		],
+		async (req, res) => {
+			let email = req.body.username;
+			email = he.encode(email);
 
-		if (!email) {
-			return res.status(400).send(`
-				<div id="forgotPasswordResponse">
-					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-						<span class="font-bold text-center">Please provide a valid email address.</span>
-					</div>
-				</div>
-			`);
-		}
-
-		try {
-			const user = await User.findOne({ where: { email } });
-			if (!user) {
-				return res.status(404).send(`
-					<div id="forgotPasswordResponse">
-						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+			if (!email) {
+				return res.status(400).send(`
+					<div id="login-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-							<span class="font-bold text-center">User not found</span>
+							<div class="flex-grow text-center">
+								<p class="font-semibold">Por favor ingresa un email valido.</p>
+							</div>
 						</div>
 					</div>
 				`);
 			}
 
-			// Generate password reset token
-			const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-				expiresIn: "1h",
-			});
+			try {
+				const user = await User.findOne({ where: { email } });
+				if (!user) {
+					return res.status(404).send(`
+						<div id="login-form-component">
+							<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+								<div class="flex-grow text-center">
+									<p class="font-semibold">El usuario ingresado no existe</p>
+								</div>
+							</div>
+						</div>
+					`);
+				}
 
-			// Send password reset email
-			await emailService.sendPasswordResetEmail(email, resetToken);
+				// Generate password reset token
+				const resetToken = jwt.sign(
+					{ userId: user.id },
+					process.env.JWT_SECRET,
+					{
+						expiresIn: "1h",
+					},
+				);
 
-			res.send(`
-				<div id="forgotPasswordResponse">
-					<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-						<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-						<span class="font-bold text-center">Password reset email sent. Please check your email for the reset link.</span>
+				// Send password reset email
+				await emailService.sendPasswordResetEmail(email, resetToken);
+
+				res.send(`
+					<div id="login-form-component">
+						<dialog class="modal modal-open success" hx-ext="remove-me" remove-me="4s">
+							<div class="modal-box bg-success border-2 border-black text-center items-center">
+								<h3 class="font-bold text-lg">Correo de restablecimiento de contraseña enviado!</h3>
+								<p class="py-4">Por favor revisa tu correo electrónico para el enlace de restablecimiento.</p>
+							</div>
+						</dialog>
 					</div>
-				</div>
-			`);
-		} catch (error) {
-			console.error("Error sending password reset email:", error);
-			res.status(500).send(`
-				<div id="forgotPasswordResponse">
-					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-						<span class="font-bold text-center">Failed to send password reset email. Please try again later.</span>
+				`);
+			} catch (error) {
+				console.error("Error sending password reset email:", error);
+				res.status(500).send(`
+					<div id="login-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<div class="flex-grow text-center">
+								<p class="font-semibold">No pudimos enviar el correo de restablecimiento de contraseña. Por favor intenta de nuevo.</p>
+							</div>
+						</div>
 					</div>
-				</div>
-			`);
-		}
-	});
+				`);
+			}
+		},
+	);
 
 	// Password reset form submission
 	router.post(
@@ -339,10 +363,10 @@ module.exports = (User) => {
 		[
 			body("newPassword")
 				.isLength({ min: 6 })
-				.withMessage("Password must be at least 6 characters long"),
+				.withMessage("La contraseña debe contener al menos 6 caracteres"),
 			body("confirmPassword")
 				.custom((value, { req }) => value === req.body.newPassword)
-				.withMessage("Passwords do not match"),
+				.withMessage("Las contraseñas no coinciden"),
 		],
 		async (req, res) => {
 			const errors = validationResult(req);
@@ -351,16 +375,16 @@ module.exports = (User) => {
 					.array()
 					.map((error) => he.encode(error.msg));
 				return res.status(400).send(`
-        <div id="password-reset-response">
-          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-            <span class="font-bold">Error en el reinicio de contraseña:</span>
-            <ul class="list-disc pl-5">
-              ${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
-            </ul>
-          </div>
-        </div>
-      `);
+					<div id="password-reset-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<p class="font-semibold">Error:</p>
+							<ul class="pl-5 font-semibold">
+								${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
+							</ul>
+						</div>
+					</div>
+				`);
 			}
 
 			const { newPassword } = req.body;
@@ -370,26 +394,26 @@ module.exports = (User) => {
 
 			if (!url) {
 				return res.status(400).send(`
-        <div id="password-reset-response">
-          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-            <span class="font-bold text-center">Missing URL</span>
-          </div>
-        </div>
-      `);
+					<div id="password-reset-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<span class="font-bold text-center">Missing URL</span>
+						</div>
+					</div>
+				`);
 			}
 
 			const token = new URL(url).hash.split("=")[1];
 
 			if (!token) {
 				return res.status(400).send(`
-        <div id="password-reset-response">
-          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-            <span class="font-bold text-center">Missing reset token</span>
-          </div>
-        </div>
-      `);
+					<div id="password-reset-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<span class="font-bold text-center">Missing reset token</span>
+						</div>
+					</div>
+				`);
 			}
 
 			try {
@@ -399,13 +423,13 @@ module.exports = (User) => {
 				const user = await User.findByPk(userId);
 				if (!user) {
 					return res.status(404).send(`
-          <div id="password-reset-response">
-            <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-              <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-              <span class="font-bold text-center">User not found</span>
-            </div>
-          </div>
-        `);
+					<div id="password-reset-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+								<span class="font-bold text-center">User not found</span>
+							</div>
+						</div>
+					`);
 				}
 
 				const hashedPassword = await bcrypt.hash(encodedNewPassword, 10);
@@ -418,27 +442,37 @@ module.exports = (User) => {
 					}
 					res.header("HX-Redirect", "/");
 					res.send(`
-          <div id="password-reset-response">
-            <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-              <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-              <span class="font-bold text-center">Password reset successful</span>
-            </div>
-          </div>
-        `);
+					<div id="password-reset-form-component">
+							<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+								<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+								<span class="font-bold text-center">Password reset successful</span>
+							</div>
+						</div>
+					`);
 				});
 			} catch (error) {
 				console.error("Error resetting password:", error);
 				res.status(400).send(`
-        <div id="password-reset-response">
-          <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-            <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-            <span class="font-bold text-center">Invalid or expired reset token</span>
-          </div>
-        </div>
-      `);
+					<div id="password-reset-form-component">
+						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<span class="font-bold text-center">Invalid or expired reset token</span>
+						</div>
+					</div>
+				`);
 			}
 		},
 	);
+
+	// User panel route
+	router.get("/user-panel.html", isAuthenticated, (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/user-panel.html"));
+	});
+
+	// Admin panel route
+	router.get("/admin-panel.html", isAdmin, (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/admin-panel.html"));
+	});
 
 	return router;
 };

@@ -7,13 +7,13 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const bcrypt = require("bcrypt");
+const path = require("node:path");
 
 dotenv.config();
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
 
 // Configure session middleware
@@ -91,6 +91,7 @@ const routes = require("./routes/routes.js")({
 	sequelize,
 });
 app.use("/", routes);
+app.use(express.static(path.join(__dirname, "public")));
 
 sequelize
 	.authenticate()
