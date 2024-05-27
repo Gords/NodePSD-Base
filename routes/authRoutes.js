@@ -300,8 +300,7 @@ module.exports = (User) => {
 		}
 
 		try {
-			let user = await User.findOne({ where: { email } });
-			user = he.encode(user);
+			const user = await User.findOne({ where: { email } });
 			if (!user) {
 				return res.status(404).send(`
 					<div id="forgotPasswordResponse">
