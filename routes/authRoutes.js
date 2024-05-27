@@ -380,7 +380,7 @@ module.exports = (User) => {
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 							<div class="flex-grow text-center">
 								<ul class="pl-5 font-semibold">
-									${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
+									${errorMessages.map((msg) => `<li>${msg}.</li>`).join("")}
 								</ul>
 							</div>
 						</div>
@@ -441,9 +441,9 @@ module.exports = (User) => {
 					if (err) {
 						console.error("Error logging in user after password reset:", err);
 					}
-					res.header("HX-Redirect", "/");
+					// res.header("HX-Redirect", "/");
 					res.send(`
-					<div id="password-reset-form-component">
+						<div id="password-reset-form-component">
 							<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
 								<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
 								<span class="font-bold text-center">Password reset successful</span>
