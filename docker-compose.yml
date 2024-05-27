@@ -19,7 +19,6 @@ services:
       - ./migrations:/app/migrations
     networks:
       - app-network
-    stop_signal: SIGINT  # Add this line
 
   db:
     image: postgres:12

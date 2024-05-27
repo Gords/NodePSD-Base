@@ -441,14 +441,16 @@ module.exports = (User) => {
 					if (err) {
 						console.error("Error logging in user after password reset:", err);
 					}
-					res.header("HX-Redirect", "/");
+					//res.header("HX-Redirect", "/");
 					res.send(`
 					<div id="password-reset-form-component">
-							<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-								<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-								<span class="font-bold text-center">Password reset successful</span>
-							</div>
+					<dialog class="modal modal-open success">
+						<div class="modal-box bg-success border-2 border-black text-center items-center">
+							<h3 class="font-bold text-lg">Restablecimiento de contraseña exitoso</h3>
+							<p class="py-4">Redireccionando a la pagina principal...</p>
 						</div>
+					</dialog>
+				</div>
 					`);
 				});
 			} catch (error) {
