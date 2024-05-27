@@ -285,7 +285,7 @@ module.exports = (User) => {
 		body("password").notEmpty().withMessage("Password is required"),
 	],async (req, res) => {
 		let email = req.body.username;
-		email = he.decode(email);
+		email = he.encode(email);
 
 
 		if (!email) {
@@ -301,7 +301,7 @@ module.exports = (User) => {
 
 		try {
 			let user = await User.findOne({ where: { email } });
-			user = he.decode(user);
+			user = he.encode(user);
 			if (!user) {
 				return res.status(404).send(`
 					<div id="forgotPasswordResponse">
