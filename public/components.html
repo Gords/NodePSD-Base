@@ -303,14 +303,14 @@
             <div>
               <label for="username" class="text-base font-medium text-gray-600">Correo electrónico</label>
               <input id="username" name="username" type="email" autocomplete="email" class="input input-bordered w-full"
-                placeholder="Ingrese su correo electrónico" title="Por favor, ingrese un correo electrónico válido" />
-              <span id="username-error" class="text-red-500 text-sm"></span>
+                placeholder="Ingrese su correo electrónico" title="Por favor, ingrese un correo electrónico válido"
+                required />
             </div>
             <div>
               <label for="login-password" class="text-base font-medium text-gray-600">Contraseña</label>
               <input id="login-password" name="password" type="password" autocomplete="current-password"
-                class="input input-bordered w-full" placeholder="Ingrese su contraseña" />
-              <span id="password-error" class="text-red-500 text-sm"></span>
+                class="input input-bordered w-full" placeholder="Ingrese su contraseña" required minlength="6"
+                title="Por favor, ingrese una contraseña de al menos 6 caracteres" />
             </div>
             <button type="submit" class="btn btn-primary w-full text-white">Iniciar sesión</button>
           </div>
@@ -330,8 +330,6 @@
       </div>
     </div>
   </div>
-
-
 
   <!-- Register Form -->
   <div id="register-form-component" class="pt-28 pb-4">
