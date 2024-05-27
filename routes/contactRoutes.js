@@ -45,7 +45,7 @@ module.exports = () => {
           <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
             <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
             <span class="font-bold">Error en el formulario de contacto:</span>
-            <ul class="list-disc pl-5">
+						<ul class="pl-5 font-semibold">
               ${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
             </ul>
           </div>

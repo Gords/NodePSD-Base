@@ -292,7 +292,7 @@
   <div id="login-form-component" class="pt-28 pb-4 max-w-full">
     <div class="card m-auto max-w-lg shadow-md">
       <form id="login-form" class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/auth/login"
-        hx-target-4xx='#loginErrorResponse' hx-target-5xx='#loginErrorResponse' hx-swap="innerHTML">
+        hx-target-4xx='#login-error-response' hx-target-5xx='#login-error-response' hx-swap="innerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Accede a tu cuenta</h2>
@@ -319,18 +319,20 @@
           </p>
         </div>
         <div class="mt-4 text-center">
-          <a href="#" hx-post="/auth/forgot-password" hx-target="#reset-password-response"
+          <a href="#" hx-post="/auth/forgot-password" hx-target="#forgot-password-email-response"
             hx-target-4xx='#forgot-password-response' hx-target-5xx='#forgot-password-response' hx-swap="innerHTML"
             hx-include="[name='username']" class="link link-primary">Olvidaste tu contraseña?</a>
         </div>
       </form>
-      <div id="loginErrorResponse" class="p-4">
-        <!-- Here goes the response from the server -->
+      <div id="login-error-response" class="mx-2 my-1">
+        <!-- Container for server response -->
       </div>
-      <!-- Error response -->
-      <div id="forgot-password-response" class="p-4"></div>
-      <!-- Success response -->
-      <div id="reset-password-response"></div>
+      <div id="forgot-password-response" class="mx-2 my-1">
+        <!-- Error response -->
+      </div>
+      <div id="forgot-password-email-response" class="mx-2 my-1">
+        <!-- Success response -->
+      </div>
     </div>
   </div>
 
@@ -342,8 +344,8 @@
     <div class="card m-auto max-w-lg shadow-md">
       <!-- add card-body below -->
       <form id="register-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
-        hx-post="/auth/register" hx-target="#register-response" hx-target-4xx='#errorResponse'
-        hx-target-5xx='#errorResponse' hx-swap="innerHTML">
+        hx-post="/auth/register" hx-target="#register-response" hx-target-4xx='#register-error-response'
+        hx-target-5xx='#register-error-response' hx-swap="innerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
@@ -404,81 +406,7 @@
           </p>
         </div>
       </form>
-      <div id="errorResponse" class="p-4">
-        <!-- Here goes the error response from the server -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Register Form -->
-  <div id="register-form-component" class="pt-28 pb-4">
-    <!-- add card and shadow below -->
-    <div class="card m-auto max-w-lg shadow-md">
-      <!-- add card-body below -->
-      <form id="register-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
-        hx-post="/auth/register" hx-target="#register-response" hx-target-4xx='#errorResponse'
-        hx-target-5xx='#errorResponse' hx-swap="innerHTML">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
-          <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
-        </div>
-        <div class="mt-4 mx-auto w-full max-w-md">
-          <div class="grid grid-cols-2 gap-4">
-            <!-- Name and Last Name -->
-            <div>
-              <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
-              <input id="register-name" name="name" type="text" autocomplete="name" class="input input-bordered w-full"
-                required pattern="[A-Za-z\s]+" placeholder="Ingrese su nombre"
-                title="Por favor, ingrese solo letras y espacios" />
-              <span id="name-error" class="text-red-500 text-sm"></span>
-            </div>
-            <div>
-              <label for="register-lastName" class="text-base font-medium text-gray-600">Apellido</label>
-              <input id="register-lastName" name="lastName" type="text" class="input input-bordered w-full"
-                pattern="[A-Za-z\s]+" placeholder="Ingrese su apellido"
-                title="Por favor, ingrese solo letras y espacios" />
-              <span id="lastName-error" class="text-red-500 text-sm"></span>
-            </div>
-            <!-- ID Number and Phone -->
-            <div>
-              <label for="register-idNumber" class="text-base font-medium text-gray-600">Nro. de Cédula</label>
-              <input id="register-idNumber" name="idNumber" type="text" class="input input-bordered w-full" required
-                maxlength="8" placeholder="Ej: 3555555"
-                title="Por favor, ingrese un número de cédula válido (máximo 8 dígitos)" />
-              <span id="idNumber-error" class="text-red-500 text-sm"></span>
-            </div>
-            <div>
-              <label for="register-phoneNumber" class="text-base font-medium text-gray-600">Teléfono</label>
-              <input id="register-phoneNumber" name="phoneNumber" type="tel" class="input input-bordered w-full"
-                required pattern="^\+595\d{9}$"
-                title="Por favor, ingrese un número de teléfono válido en el formato +595981123456"
-                placeholder="Ej: +595981123456" />
-              <span id="phoneNumber-error" class="text-red-500 text-sm"></span>
-            </div>
-            <!-- Email and Password -->
-            <div class="col-span-2">
-              <label for="register-email" class="text-base font-medium text-gray-600">Correo electrónico</label>
-              <input id="register-email" name="email" type="email" autocomplete="email"
-                class="input input-bordered w-full" required placeholder="Ingrese su correo electrónico"
-                title="Por favor, ingrese un correo electrónico válido" />
-              <span id="email-error" class="text-red-500 text-sm"></span>
-            </div>
-            <div class="col-span-2">
-              <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
-              <input id="register-password" name="password" type="password" autocomplete="new-password"
-                class="input input-bordered w-full" required minlength="6" placeholder="Mínimo 6 caracteres"
-                title="Por favor, ingrese una contraseña de al menos 6 caracteres" />
-              <span id="password-error" class="text-red-500 text-sm"></span>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary w-full text-white mt-6">Registrarse</button>
-          <p class="mt-4 text-center text-sm text-gray-600">
-            Ya tienes una cuenta?
-            <a href="#login" class="link link-primary font-bold">Inicia sesión aquí!</a>
-          </p>
-        </div>
-      </form>
-      <div id="errorResponse" class="p-4">
+      <div id="register-error-response" class="mx-2 my-1">
         <!-- Here goes the error response from the server -->
       </div>
     </div>
@@ -558,7 +486,9 @@
           <button type="submit" class="btn btn-primary btn-md md:btn-wide text-white">SOLICITAR YA</button>
         </div>
       </div>
-      <div id="contact-form-response" hx-ext="remove-me"></div>
+      <div id="contact-form-response">
+        <!-- Container for the successful contact form submit modal -->
+      </div>
     </form>
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d830.6724838245427!2d-57.562132031261086!3d-25.282108083153144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da9085c8ed16f%3A0x64fa7eb3f1d80819!2sFlash%20Center!5e0!3m2!1ses-419!2sde!4v1713780956699!5m2!1ses-419!2sde"
@@ -570,7 +500,9 @@
   <div id="password-reset-form-component" class="pt-28">
     <div class="card m-auto max-w-lg shadow-md">
       <form id="password-reset-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
-        hx-post="/auth/reset-password" hx-target="#password-reset-response" hx-swap="outerHTML">
+        hx-post="/auth/reset-password" hx-target="#password-reset-response"
+        hx-target-4xx="#password-reset-error-response" hx-target-5xx="#password-reset-error-response"
+        hx-swap="innerHTML">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
           <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
           <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Reinicia Tu Contraseña</h2>
@@ -591,6 +523,7 @@
             <button type="submit" class="btn btn-primary w-full text-white">Reiniciar Contraseña</button>
       </form>
       <div id="password-reset-response"></div>
+      <div id="password-reset-error-response"></div>
     </div>
   </div>
 
@@ -616,7 +549,7 @@
 
 <!-- Error response component placeholder for Tailwind utilities -->
 <div id="error-response-component">
-  <div role="alert" class="alert border-black border-2 mb-2 mx-4">
+  <div role="alert" class="alert border-black border-2 m-4">
     <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
     <span class="font-bold"></span>
     <div class="flex-grow text-center">

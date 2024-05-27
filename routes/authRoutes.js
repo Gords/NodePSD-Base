@@ -182,7 +182,7 @@ module.exports = (User) => {
 						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 							<span class="font-bold">Error en el inicio de sesión:</span>
-							<ul class="list-disc pl-5">
+							<ul class="pl-5 font-semibold">
 							${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
 							</ul>
 						</div>
@@ -207,9 +207,9 @@ module.exports = (User) => {
 
 				if (!user) {
 					return res.status(401).send(`
-						<div id="loginResponse">
-							<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<div id="login-form-component">
+							<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 pl-4 inline-block">
 								<span class="font-bold text-center">${
 									info.message || "Ese usuario no existe"
 								}</span>
@@ -221,10 +221,10 @@ module.exports = (User) => {
 				req.logIn(user, (loginErr) => {
 					if (loginErr) {
 						return res.status(500).send(`
-							<div id="loginResponse">
-								<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-									<span class="font-bold text-center">500 i see u not</span>
+							<div id="login-form-component">
+								<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 pl-4 inline-block">
+									<span class="font-bold text-center">Ocurrió un error durante el proceso de inicio de sesión</span>
 								</div>
 							</div>
 						`);
@@ -232,9 +232,9 @@ module.exports = (User) => {
 
 					if (!user.isVerified) {
 						return res.status(401).send(`
-							<div id="loginResponse">
-								<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<div id="login-form-component">
+								<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+									<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 pl-4 inline-block">
 									<span class="font-bold text-center">Por favor verifica tu correo electrónico</span>
 								</div>
 							</div>
@@ -246,6 +246,8 @@ module.exports = (User) => {
 						? "/admin-panel.html"
 						: "/user-panel.html";
 					res.header("HX-Redirect", redirectUrl);
+
+					// TODO: remove? since we do a redirect, this success response is never displayed to the user
 					return res.send(`
 						<div id="loginResponse">
 							<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
@@ -303,18 +305,17 @@ module.exports = (User) => {
 			}
 
 			try {
-				let user = await User.findOne({ where: { email } });
-				user = he.decode(user);
+				const user = await User.findOne({ where: { email } });
 				if (!user) {
 					return res.status(404).send(`
-					<div id="login-form-component">
-						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
-							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-							<div class="flex-grow text-center">
-								<p class="font-semibold">El usuario ingresado no existe</p>
+						<div id="login-form-component">
+							<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+								<div class="flex-grow text-center">
+									<p class="font-semibold">El usuario ingresado no existe</p>
+								</div>
 							</div>
 						</div>
-					</div>
 					`);
 				}
 
@@ -332,7 +333,7 @@ module.exports = (User) => {
 
 				res.send(`
 					<div id="login-form-component">
-						<dialog class="modal modal-open success" hx-ext="remove-me" remove-me="6s">
+						<dialog class="modal modal-open success" hx-ext="remove-me" remove-me="4s">
 							<div class="modal-box bg-success border-2 border-black text-center items-center">
 								<h3 class="font-bold text-lg">Correo de restablecimiento de contraseña enviado!</h3>
 								<p class="py-4">Por favor revisa tu correo electrónico para el enlace de restablecimiento.</p>
@@ -362,10 +363,10 @@ module.exports = (User) => {
 		[
 			body("newPassword")
 				.isLength({ min: 6 })
-				.withMessage("Password must be at least 6 characters long"),
+				.withMessage("La contraseña debe contener al menos 6 caracteres"),
 			body("confirmPassword")
 				.custom((value, { req }) => value === req.body.newPassword)
-				.withMessage("Passwords do not match"),
+				.withMessage("Las contraseñas no coinciden"),
 		],
 		async (req, res) => {
 			const errors = validationResult(req);
@@ -374,11 +375,11 @@ module.exports = (User) => {
 					.array()
 					.map((error) => he.encode(error.msg));
 				return res.status(400).send(`
-					<div id="password-reset-response">
-						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+					<div id="password-reset-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-							<span class="font-bold">Error en el reinicio de contraseña:</span>
-							<ul class="list-disc pl-5">
+							<p class="font-semibold">Error:</p>
+							<ul class="pl-5 font-semibold">
 								${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
 							</ul>
 						</div>
@@ -393,8 +394,8 @@ module.exports = (User) => {
 
 			if (!url) {
 				return res.status(400).send(`
-					<div id="password-reset-response">
-						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+					<div id="password-reset-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 							<span class="font-bold text-center">Missing URL</span>
 						</div>
@@ -406,8 +407,8 @@ module.exports = (User) => {
 
 			if (!token) {
 				return res.status(400).send(`
-					<div id="password-reset-response">
-						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+					<div id="password-reset-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 							<span class="font-bold text-center">Missing reset token</span>
 						</div>
@@ -422,9 +423,9 @@ module.exports = (User) => {
 				const user = await User.findByPk(userId);
 				if (!user) {
 					return res.status(404).send(`
-						<div id="password-reset-response">
-							<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					<div id="password-reset-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 								<span class="font-bold text-center">User not found</span>
 							</div>
 						</div>
@@ -441,7 +442,7 @@ module.exports = (User) => {
 					}
 					res.header("HX-Redirect", "/");
 					res.send(`
-						<div id="password-reset-response">
+					<div id="password-reset-form-component">
 							<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
 								<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
 								<span class="font-bold text-center">Password reset successful</span>
@@ -452,7 +453,7 @@ module.exports = (User) => {
 			} catch (error) {
 				console.error("Error resetting password:", error);
 				res.status(400).send(`
-					<div id="password-reset-response">
+					<div id="password-reset-form-component">
 						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 							<span class="font-bold text-center">Invalid or expired reset token</span>
