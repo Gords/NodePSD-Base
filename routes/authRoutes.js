@@ -378,10 +378,11 @@ module.exports = (User) => {
 					<div id="password-reset-form-component">
 						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
 							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-							<p class="font-semibold">Error:</p>
-							<ul class="pl-5 font-semibold">
-								${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
-							</ul>
+							<div class="flex-grow text-center">
+								<ul class="pl-5 font-semibold">
+									${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
+								</ul>
+							</div>
 						</div>
 					</div>
 				`);
