@@ -121,7 +121,7 @@ module.exports = (User) => {
             <td>${user.name} ${user.lastName}</td>
             <td>${user.phoneNumber}</td>
             <td>${user.email}</td>
-            <td>
+            <td class="tooltip" data-tip="Ver documentos del usuario">
               <a href="/images/user/${user.id}"
                 hx-get="/images/user/${user.id}"
                 hx-target="#list-of-users"

@@ -16,7 +16,8 @@ module.exports = {
     'alert-error',
     'alert-success',
     'modal',
-    'modal-open'
+    'modal-open',
+    'tooltip'
   ],
   plugins: [require('daisyui'), require('@tailwindcss/forms')],
   theme: {

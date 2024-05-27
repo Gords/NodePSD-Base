@@ -146,12 +146,12 @@ module.exports = (Image, User) => {
 										</td>
 										<td id="Acciones">
 											<div class="flex justify-center gap-1">
-												<a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
+												<a href="/images/${image.id}" id="download-link" class="tooltip btn btn-square btn-md" data-tip="Descargar archivo">
 													<img src="/assets/icons/download.svg" alt="Descargar">
 												</a>
 												<button hx-delete="/images/${
 													image.id
-												}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
+												}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="tooltip btn btn-square btn-md" data-tip="Eliminar archivo">
 													<img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
 												</button>
 											</div>
