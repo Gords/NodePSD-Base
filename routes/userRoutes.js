@@ -53,8 +53,16 @@ module.exports = (User) => {
                 <li>Comprobantes de Ingreso</li>
                 <li>Factura de servicio</li>
                 <li>Referencias personales (3)</li>
-                <li>Factura del Negocio de la Persona (persona c/ RUC)</li>
-                <li>Patente Comercial</li>
+                ${
+									req.user.userType === "business"
+										? "<li>Factura del Negocio</li>"
+										: ""
+								}
+                ${
+									req.user.userType === "business"
+										? "<li>Patente Comercial</li>"
+										: ""
+								}
               </ul>
             </div>
           </div>
