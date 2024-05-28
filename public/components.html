@@ -346,21 +346,22 @@
         <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
         <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
       </div>
-      <div class="mt-4 mx-auto w-full max-w-md">
-        <div class="mb-4">
-          <label class="text-base font-medium text-gray-600">User Type</label>
-          <div class="mt-2">
+      <div class="mt-4 mb-4 mx-auto w-full max-w-md">
+          <div class="grid grid-cols-2 gap-4">
+          <label class="text-base font-medium text-gray-600 col-span-2">Tipo de Cliente</label>
+          <div>
             <label class="inline-flex items-center">
               <input type="radio" name="userType" value="individual" class="form-radio" hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
-              <span class="ml-2">Individual</span>
+              <span class="ml-2">Individuo</span>
             </label>
+            
             <label class="inline-flex items-center ml-6">
               <input type="radio" name="userType" value="business" class="form-radio" hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
-              <span class="ml-2">Business</span>
+              <span class="ml-2">Empresa</span>
             </label>
           </div>
-        </div>
-        <div id="register-form-container"></div>
+          </div>
+        <div id="register-form-container" class="mt-4"></div>
       </div>
     </div>
   </div>
@@ -369,16 +370,12 @@
 
 
     <!-- Individual Register Form -->
-    <div id="individual-register-form-component" class="pt-28 pb-4">
+    <div id="individual-register-form-component">
         <!-- add card-body below -->
-        <form id="register-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
+        <form id="register-form"
           hx-post="/auth/register" hx-target="#register-response" hx-target-4xx='#register-error-response'
           hx-target-5xx='#register-error-response' hx-swap="innerHTML">
-          <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-            <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
-          </div>
-          <div class="mt-4 mx-auto w-full max-w-md">
+          <div>
             <div class="grid grid-cols-2 gap-4">
               <!-- Name and Last Name -->
               <div>
@@ -442,16 +439,12 @@
     </div>
 
 <!-- Business Register Form -->
-  <div id="business-register-form-component" class="pt-28 pb-4">
+  <div id="business-register-form-component">
       <!-- add card-body below -->
-      <form id="register-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
+      <form id="register-form"
         hx-post="/auth/register" hx-target="#register-response" hx-target-4xx='#register-error-response'
         hx-target-5xx='#register-error-response' hx-swap="innerHTML">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
-          <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
-        </div>
-        <div class="mt-4 mx-auto w-full max-w-md">
+        <div>
           <div class="grid grid-cols-2 gap-4">
             <!-- Name -->
             <div class="col-span-2">
