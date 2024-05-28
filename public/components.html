@@ -349,14 +349,13 @@
       <div class="mt-4 mb-4 mx-auto w-full max-w-md">
           <div class="grid grid-cols-2 gap-4">
           <label class="text-base font-medium text-gray-600 col-span-2">Tipo de Cliente</label>
-          <div>
+          <div class="col-span-1">
             <label class="inline-flex items-center">
-              <input type="radio" name="userType" value="individual" class="form-radio" hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
+              <input type="radio" name="userType" value="individual" class="radio radio-primary" hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
               <span class="ml-2">Individuo</span>
             </label>
-            
-            <label class="inline-flex items-center ml-6">
-              <input type="radio" name="userType" value="business" class="form-radio" hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
+            <label class="inline-flex items-center ml-4">
+              <input type="radio" name="userType" value="business" class="radio radio-primary" hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
               <span class="ml-2">Empresa</span>
             </label>
           </div>
