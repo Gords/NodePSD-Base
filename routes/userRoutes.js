@@ -135,13 +135,14 @@ module.exports = (User) => {
                         <td>${user.name} ${user.lastName}</td>
                         <td>${user.phoneNumber}</td>
                         <td>${user.email}</td>
-                        <td class="tooltip" data-tip="Ver documentos del usuario">
+                        <td>
                             <a href="/images/user/${user.id}"
                                 hx-get="/images/user/${user.id}"
                                 hx-target="#list-of-users"
                                 hx-swap="outerHTML"
                                 hx-push-url="true"
-                                class="btn btn-md">Documentos del Usuario</a>
+                                class="btn btn-md">Documentos del Usuario
+                            </a>
                         </td>
                     </tr>
                 `,

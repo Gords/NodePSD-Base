@@ -53,7 +53,53 @@ module.exports = (Image, User) => {
 
 				await Promise.all(fileProcessingPromises);
 
-				res.header("HX-Redirect", "/images/user");
+				res.send();
+			} catch (error) {
+				console.error("Error uploading files:", error);
+				res.status(500).send(`
+					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<span class="font-bold text-center">Error processing your request</span>
+					</div>
+				`);
+			}
+		},
+	);
+
+	router.post(
+		"/images/user/:userId",
+		isAuthenticated,
+		upload.array("files", 4),
+		async (req, res) => {
+			try {
+				const userId = req.params.userId;
+
+				// Check if there are files to process
+				if (!req.files || req.files.length === 0) {
+					return res.status(400).send("No files uploaded.");
+				}
+
+				const fileProcessingPromises = req.files.map(async (file) => {
+					const imagePath = file.path;
+					const savedImagePath = path.join("uploads", file.filename);
+
+					try {
+						await fs.promises.rename(imagePath, savedImagePath);
+					} catch (error) {
+						console.error("Error moving file:", error);
+						throw new Error("Error processing file");
+					}
+
+					// Save the image record to the database
+					const image = await Image.create({
+						userId,
+						path: savedImagePath,
+					});
+				});
+
+				await Promise.all(fileProcessingPromises);
+
+				res.header("HX-Redirect", `/images/user/${userId}`);
 			} catch (error) {
 				console.error("Error uploading files:", error);
 				res.status(500).send(`
@@ -144,12 +190,12 @@ module.exports = (Image, User) => {
 													</td>
 													<td id="Acciones">
 														<div class="flex justify-center gap-1">
-															<a href="/images/${image.id}" id="download-link" class="tooltip btn btn-square btn-md" data-tip="Descargar archivo">
+															<a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
 																<img src="/assets/icons/download.svg" alt="Descargar">
 															</a>
 															<button hx-delete="/images/${
 																image.id
-															}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="tooltip btn btn-square btn-md" data-tip="Eliminar archivo">
+															}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
 																<img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
 															</button>
 														</div>
@@ -189,7 +235,7 @@ module.exports = (Image, User) => {
 					<div class="card-body">
 						<div class="flex justify-between items-center mx-4">
 							<h2 class="card-title font-semibold">Documentos del usuario "${userEmail}"</h2>
-							<form hx-encoding="multipart/form-data" hx-post="/images">
+							<form hx-encoding="multipart/form-data" hx-post="/images/user/${userId}">
 								<label for="upload-new-user-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar
 								archivos</label>
 								<input type="file" id="upload-new-user-files" name="files" multiple
@@ -226,13 +272,13 @@ module.exports = (Image, User) => {
 											}" alt="Document ${image.id}">
 										</td>
 										<td id="Acciones">
-											<div class="tooltip flex justify-center gap-1" data-tip="Descargar">
+											<div class="flex justify-center gap-1" data-tip="Descargar">
 												<a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
 													<img src="/assets/icons/download.svg" alt="Descargar">
 												</a>
 												<button hx-delete="/images/${
 													image.id
-												}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md" data-tip="Eliminar archivo">
+												}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md">
 													<img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
 												</button>
 											</div>
