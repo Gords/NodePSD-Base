@@ -185,55 +185,68 @@ module.exports = (Image, User) => {
 			});
 
 			const userImagesHtml = /*html*/ `
-        <div class="card bg-base-100 shadow-md text-center my-10">
-          <div class="card-body">
-            <div class="flex justify-between items-center mx-4">
-              <h2 class="card-title font-semibold">Documentos del usuario "${userEmail}"</h2>
-              <button id="download-all-files" class="btn btn-primary font-extrabold text-white">
-                Descargar todo
-              </button>
-            </div>
-            <div class="overflow-x-auto pt-8">
-              <table class="table table-pin-rows w-full">
-              <thead>
-                <tr>
-                  <th>Archivo</th>
-                  <th class="text-center">Vista Previa</th>
-                  <th class="text-center">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${images
-									.map(
-										(image) => /*html*/ `
-                <tr class="hover" id="image-${image.id}">
-                  <td id="Archivo" onclick="window.open('/${
-										image.path
-									}', '_blank')">${path.basename(image.path)}</td>
-                  <td id="Vista Previa" class="flex justify-center" onclick="window.open('/${
-										image.path
-									}', '_blank')">
-                    <img class="img-thumbnail hover:pointer" src="/${
+				<div class="card bg-base-100 shadow-md text-center my-10">
+					<div class="card-body">
+						<div class="flex justify-between items-center mx-4">
+							<h2 class="card-title font-semibold">Documentos del usuario "${userEmail}"</h2>
+							<form hx-encoding="multipart/form-data" hx-post="/images">
+								<label for="upload-new-user-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar
+								archivos</label>
+								<input type="file" id="upload-new-user-files" name="files" multiple
+								accept="image/jpeg, image/png, application/pdf" style="display: none">
+								<button id="submit-new-user-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" type="submit">Cargar
+								Archivos</button>
+							</form>
+							<button id="download-all-files" class="btn btn-primary font-extrabold text-white">
+								Descargar todo
+							</button>
+						</div>
+						<div class="overflow-x-auto pt-8">
+							<table class="table table-pin-rows w-full">
+								<thead>
+									<tr>
+										<th>Archivo</th>
+										<th class="text-center">Vista Previa</th>
+										<th class="text-center">Acciones</th>
+									</tr>
+								</thead>
+								<tbody>
+									${images
+										.map(
+											(image) => /*html*/ `
+									<tr class="hover" id="image-${image.id}">
+										<td id="Archivo" onclick="window.open('/${
 											image.path
-										}" alt="Document ${image.id}">
-                  </td>
-                  <td id="Acciones">
-                    <div class="tooltip flex justify-center gap-1" data-tip="Descargar">
-                      <a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
-                        <img src="/assets/icons/download.svg" alt="Descargar">
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                `,
-									)
-									.join("")}
-              </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      `;
+										}', '_blank')">${path.basename(image.path)}</td>
+										<td id="Vista Previa" class="flex justify-center" onclick="window.open('/${
+											image.path
+										}', '_blank')">
+											<img class="img-thumbnail hover:pointer" src="/${
+												image.path
+											}" alt="Document ${image.id}">
+										</td>
+										<td id="Acciones">
+											<div class="tooltip flex justify-center gap-1" data-tip="Descargar">
+												<a href="/images/${image.id}" id="download-link" class="btn btn-square btn-md">
+													<img src="/assets/icons/download.svg" alt="Descargar">
+												</a>
+												<button hx-delete="/images/${
+													image.id
+												}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="btn btn-square btn-md" data-tip="Eliminar archivo">
+													<img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
+												</button>
+											</div>
+										</td>
+									</tr>
+									`,
+										)
+										.join("")}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			`;
 
 			res.send(userImagesHtml);
 		} catch (error) {
