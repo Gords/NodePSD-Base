@@ -57,11 +57,11 @@ module.exports = (Image, User) => {
 			} catch (error) {
 				console.error("Error uploading files:", error);
 				res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">Error processing your request</span>
-        </div>
-      `);
+					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<span class="font-bold text-center">Error processing your request</span>
+					</div>
+				`);
 			}
 		},
 	);
@@ -73,27 +73,25 @@ module.exports = (Image, User) => {
 			const imagesHtml = images
 				.map(
 					(image) => /*html*/ `
-        <div>
-          <p>Image ID: ${image.id}</p>
-          <p>User ID: ${image.userId}</p>
-          <img src="${image.path}" alt="Image ${image.id}">
-        </div>
-      `,
+					<div>
+						<p>Image ID: ${image.id}</p>
+						<p>User ID: ${image.userId}</p>
+						<img src="${image.path}" alt="Image ${image.id}">
+					</div>
+				`,
 				)
 				.join("");
 			res.send(`
-        <div id="image-list">
-          ${imagesHtml}
-        </div>
-      `);
+				<div id="image-list">${imagesHtml}</div>
+			`);
 		} catch (error) {
 			console.error("Error fetching images:", error);
 			res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">Error fetching images</span>
-        </div>
-      `);
+				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					<span class="font-bold text-center">Error fetching images</span>
+				</div>
+			`);
 		}
 	});
 
@@ -105,79 +103,78 @@ module.exports = (Image, User) => {
 
 			if (images.length === 0) {
 				userImagesHtml = /*html*/ `
-          <div class="overflow-x-auto pt-8">
-            <table class="table w-full">
-              <thead>
-                <tr>
-                  <th>Archivo</th>
-                  <th class="flex flex-row justify-center">Vista Previa</th>
-                  <th class="flex flex-row justify-center">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-        `;
-			} else {
-				userImagesHtml = /*html*/ `
-          <div class="overflow-x-auto pt-8">
-            <table class="table table-pin-rows w-full">
+					<div class="overflow-x-auto pt-8">
+						<table class="table w-full">
 							<thead>
 								<tr>
-									<th>Archivo</th>
-									<th class="text-center">Vista Previa</th>
-									<th class="text-center">Acciones</th>
+								<th>Archivo</th>
+								<th class="flex flex-row justify-center">Vista Previa</th>
+								<th class="flex flex-row justify-center">Acciones</th>
 								</tr>
 							</thead>
 							<tbody>
-								${images
-									.map(
-										(image) => /*html*/ `
-									<tr class="hover" id="image-${image.id}">
-										<td id="Archivo" onclick="window.open('/${image.path}', '_blank')" class="file-name truncate w-full lg:w-2/3 xl:w-1/2">
-											${path.basename(image.path)}
-										</td>
-										<td id="Vista Previa" class="flex justify-center"
-										onclick="window.open('/${image.path}', '_blank')">
-											<img class="img-thumbnail hover:pointer" src="/${
-												image.path
-											}" alt="Document ${image.id}">
-										</td>
-										<td id="Acciones">
-											<div class="flex justify-center gap-1">
-												<a href="/images/${image.id}" id="download-link" class="tooltip btn btn-square btn-md" data-tip="Descargar archivo">
-													<img src="/assets/icons/download.svg" alt="Descargar">
-												</a>
-												<button hx-delete="/images/${
-													image.id
-												}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="tooltip btn btn-square btn-md" data-tip="Eliminar archivo">
-													<img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
-												</button>
-											</div>
-										</td>
-									</tr>
-								`,
-									)
-									.join("")}
 							</tbody>
-            </table>
-          </div>
-        `;
+						</table>
+					</div>
+					`;
+			} else {
+				userImagesHtml = /*html*/ `
+					<div class="overflow-x-auto pt-8">
+						<table class="table table-pin-rows w-full">
+										<thead>
+											<tr>
+												<th>Archivo</th>
+												<th class="text-center">Vista Previa</th>
+												<th class="text-center">Acciones</th>
+											</tr>
+										</thead>
+										<tbody>
+											${images
+												.map(
+													(image) => /*html*/ `
+												<tr class="hover" id="image-${image.id}">
+													<td id="Archivo" onclick="window.open('/${image.path}', '_blank')" class="file-name truncate w-full lg:w-2/3 xl:w-1/2">
+														${path.basename(image.path)}
+													</td>
+													<td id="Vista Previa" class="flex justify-center"
+													onclick="window.open('/${image.path}', '_blank')">
+														<img class="img-thumbnail hover:pointer" src="/${
+															image.path
+														}" alt="Document ${image.id}">
+													</td>
+													<td id="Acciones">
+														<div class="flex justify-center gap-1">
+															<a href="/images/${image.id}" id="download-link" class="tooltip btn btn-square btn-md" data-tip="Descargar archivo">
+																<img src="/assets/icons/download.svg" alt="Descargar">
+															</a>
+															<button hx-delete="/images/${
+																image.id
+															}" hx-target="#image-${image.id}" hx-confirm="Estas seguro que quieres eliminar este archivo?" class="tooltip btn btn-square btn-md" data-tip="Eliminar archivo">
+																<img src="/assets/icons/trashbin.svg" alt="Eliminar"/>
+															</button>
+														</div>
+													</td>
+												</tr>
+											`,
+												)
+												.join("")}
+										</tbody>
+						</table>
+					</div>
+				`;
 			}
 			res.send(userImagesHtml);
 		} catch (error) {
 			console.error("Error fetching user images:", error);
 			res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">Error fetching user images</span>
-        </div>
-      `);
+				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					<span class="font-bold text-center">Error fetching user images</span>
+				</div>
+			`);
 		}
 	});
-
-	/// Get all images from a specific user
+	/// Get all images from a specific user (FOR ADMIN PANEL VIEW)
 	router.get("/images/user/:userId", isAuthenticated, async (req, res) => {
 		try {
 			const userId = req.params.userId;
@@ -242,11 +239,11 @@ module.exports = (Image, User) => {
 		} catch (error) {
 			console.error("Error fetching user images:", error);
 			res.status(500).send(`
-				  <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
 					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 					<span class="font-bold text-center">Error fetching user images</span>
-				  </div>
-				`);
+				</div>
+			`);
 		}
 	});
 
@@ -272,21 +269,21 @@ module.exports = (Image, User) => {
 					// Handle error, but do not expose the internal path
 					console.error("File download error:", err);
 					res.status(500).send(`
-            <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-              <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-              <span class="font-bold text-center">Error processing your download request</span>
-            </div>
-          `);
+						<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+							<span class="font-bold text-center">Error processing your download request</span>
+						</div>
+					`);
 				}
 			});
 		} catch (error) {
 			console.error("Error fetching images:", error);
 			res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">Error fetching images</span>
-        </div>
-      `);
+				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					<span class="font-bold text-center">Error fetching images</span>
+				</div>
+			`);
 		}
 	});
 
@@ -297,11 +294,11 @@ module.exports = (Image, User) => {
 			const image = await Image.findByPk(imageId);
 			if (!image) {
 				return res.status(404).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">No se han encontrado archivos</span>
-        </div>
-      `);
+					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<span class="font-bold text-center">No se han encontrado archivos</span>
+					</div>
+				`);
 			}
 			// Delete the image file from the file system
 			if (image.path) {
@@ -309,11 +306,11 @@ module.exports = (Image, User) => {
 			} else {
 				console.error("Error: image.path is undefined");
 				return res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">Error eliminando archivo</span>
-        </div>
-      `);
+					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<span class="font-bold text-center">Error eliminando archivo</span>
+					</div>
+				`);
 			}
 			// Delete the image record from the database
 			await image.destroy();
@@ -321,11 +318,11 @@ module.exports = (Image, User) => {
 		} catch (error) {
 			console.error("Error deleting image:", error);
 			res.status(500).send(`
-      <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-        <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-        <span class="font-bold text-center">Error deleting image</span>
-      </div>
-    `);
+				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					<span class="font-bold text-center">Error deleting image</span>
+				</div>
+			`);
 		}
 	});
 	return router;
