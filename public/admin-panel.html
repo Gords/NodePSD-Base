@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <!-- List of all Flash Center users -->
-                <div id="list-of-users" class="card bg-base-100 shadow-md my-10">
+                <div id="list-of-users" class="card bg-base-100 my-10">
                     <div class="card-body">
                         <h2 class="card-title font-semibold pl-2 pb-4 justify-center">
                             Lista de Usuarios
@@ -46,19 +46,20 @@
                             <input type="search" id="search-input" name="search-input" class="input input-bordered"
                                 placeholder="Search by name" hx-get="/users/search"
                                 hx-trigger="keyup changed delay:500ms" hx-target="#user-table-body" hx-include="this"
-                                hx-indicator=".htmx-indicator">
+                                hx-indicator="#spinner">
                         </div>
                         <div class="overflow-x-auto">
                             <table class="table max-w-4xl text-l text-center">
                                 <thead>
                                     <tr>
-                                        <th>Nro. C.I.</th>
-                                        <th>Nombre y Apellido</th>
+                                        <th>C.I. o RUC</th>
+                                        <th>Nombre</th>
                                         <th>Teléfono</th>
                                         <th>Email</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
+                                <!-- Container for list of users -->
                                 <tbody id="user-table-body" hx-get="/users" hx-trigger="load">
                                     <!-- User table rows will be dynamically inserted here -->
                                 </tbody>

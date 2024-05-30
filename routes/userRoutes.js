@@ -27,7 +27,7 @@ module.exports = (User) => {
                                     <div id="user-name" class="font-semibold text-lg md:mt-2">
                                         ${req.user.name} ${
 																					req.user.userType === "individual"
-																						? "${req.user.lastName}"
+																						? `${req.user.lastName}`
 																						: ""
 																				}
                                     </div>
@@ -45,7 +45,7 @@ module.exports = (User) => {
                     </div>
                     <div class="flex justify-between">
                         <div class="flex flex-col font-semibold pl-2">
-                        Cédula de Identidad: <span id="user-cedula" class="font-normal pb-2">${
+                        Cédula de Identidad / RUC: <span id="user-cedula" class="font-normal pb-2">${
 													req.user.idNumber
 												}</span>
                         Teléfono: <span id="user-phone" class="font-normal">${
@@ -111,7 +111,7 @@ module.exports = (User) => {
 		}
 	});
 
-	// Get all users or search users by name
+	// Get all users
 	router.get("/users", isAuthenticated, async (req, res) => {
 		try {
 			const searchQuery = req.query["search-input"];
@@ -132,17 +132,21 @@ module.exports = (User) => {
 					(user) => /*html*/ `
                     <tr class="hover">
                         <td>${user.idNumber}</td>
-                        <td>${user.name} ${user.lastName}</td>
+                        <td>${user.name} ${
+													user.userType === "individual"
+														? `${user.lastName}`
+														: ""
+												}</td>
                         <td>${user.phoneNumber}</td>
                         <td>${user.email}</td>
                         <td>
-                            <a href="/images/user/${user.id}"
+                            <button
                                 hx-get="/images/user/${user.id}"
                                 hx-target="#list-of-users"
-                                hx-swap="outerHTML"
+                                hx-swap="innerHTML"
                                 hx-push-url="true"
                                 class="btn btn-md">Documentos del Usuario
-                            </a>
+                            </button>
                         </td>
                     </tr>
                 `,
@@ -181,10 +185,9 @@ module.exports = (User) => {
 					(user) => /*html*/ `
                     <tr class="hover">
                         <td>${user.idNumber}</td>
-                        <td>
-                        ${req.user.name} ${
-													req.user.userType === "individual"
-														? "${req.user.lastName}"
+                        <td>${user.name} ${
+													user.userType === "individual"
+														? `${user.lastName}`
 														: ""
 												}
                         </td>

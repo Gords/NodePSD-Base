@@ -231,21 +231,22 @@ module.exports = (Image, User) => {
 			});
 
 			const userImagesHtml = /*html*/ `
-				<div class="card bg-base-100 shadow-md text-center my-10">
+				<div class="card bg-base-100 text-center my-10">
 					<div class="card-body">
-						<div class="flex justify-between items-center mx-4">
-							<h2 class="card-title font-semibold">Documentos del usuario "${userEmail}"</h2>
-							<form hx-encoding="multipart/form-data" hx-post="/images/user/${userId}">
-								<label for="upload-new-user-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar
-								archivos</label>
-								<input type="file" id="upload-new-user-files" name="files" multiple
-								accept="image/jpeg, image/png, application/pdf" style="display: none">
-								<button id="submit-new-user-files" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" type="submit">Cargar
-								Archivos</button>
-							</form>
-							<button id="download-all-files" class="btn btn-primary font-extrabold text-white">
-								Descargar todo
-							</button>
+						<div class="flex justify-between mx-4">
+							<h2 class="card-title font-semibold">Usuario: "${userEmail}"</h2>
+							<div class="flex space-x-2">
+								<form hx-encoding="multipart/form-data" hx-post="/images/user/${userId}" class="flex space-x-2">
+									<label for="upload-new-user-files" class="btn btn-xs sm:btn-sm md:btn-sm lg:btn-md btn-primary font-extrabold text-white">Seleccionar<br>
+									archivos</label>
+									<input type="file" id="upload-new-user-files" name="files" multiple
+									accept="image/jpeg, image/png, application/pdf" style="display: none">
+									<button id="submit-new-user-files" class="btn btn-xs sm:btn-sm md:btn-sm lg:btn-md btn-primary font-extrabold text-white" type="submit">Cargar<br>archivos</button>
+								</form>
+								<button id="download-all-files" class="btn btn-xs sm:btn-sm md:btn-sm lg:btn-md btn-primary font-extrabold text-white">
+									Descargar<br>todo
+								</button>
+							</div>
 						</div>
 						<div class="overflow-x-auto pt-8">
 							<table class="table table-pin-rows w-full">
