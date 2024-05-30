@@ -147,6 +147,10 @@ module.exports = (User) => {
                                 hx-push-url="true"
                                 class="btn btn-md">Ver documentos
                             </button>
+                            <details class="dropdown">
+                                <summary class="m-1 btn" hx-get="/users/admins" hx-trigger="click" hx-target="#admin-users-container" hx-swap="outerHTML">Encargado</summary>
+                                <div id="admin-users-container"></div>
+                            </details>
                         </td>
                     </tr>
                 `,
@@ -218,6 +222,34 @@ module.exports = (User) => {
                         </div>
                     </td>
                 </tr>
+            `);
+		}
+	});
+
+	// Get all admin users
+	router.get("/users/admins", isAuthenticated, async (req, res) => {
+		try {
+			const adminUsers = await User.findAll({
+				where: { isAdmin: true },
+				attributes: ["id", "name"],
+			});
+			const dropdownContent = `
+                <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                    ${adminUsers
+											.map((user) => `<li><a>${user.name}</a></li>`)
+											.join("")}
+                </ul>
+            `;
+			res.send(dropdownContent);
+		} catch (error) {
+			console.error("Error fetching admin users:", error);
+			res.status(500).send(`
+                <li>
+                    <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+                    <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+                    <span class="font-bold text-center">Error fetching admin users</span>
+                    </div>
+                </li>
             `);
 		}
 	});
