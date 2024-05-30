@@ -99,7 +99,7 @@ module.exports = (Image, User) => {
 
 				await Promise.all(fileProcessingPromises);
 
-				res.header("HX-Redirect", `/images/user/${userId}`);
+				res.send();
 			} catch (error) {
 				console.error("Error uploading files:", error);
 				res.status(500).send(`
@@ -230,7 +230,7 @@ module.exports = (Image, User) => {
 				where: { userId },
 			});
 
-			const userImagesHtml = /*html*/ `
+			res.send(/*html*/ `
 				<div class="card bg-base-100 text-center my-10">
 					<div class="card-body">
 						<div class="flex justify-between mx-4">
@@ -293,9 +293,7 @@ module.exports = (Image, User) => {
 						</div>
 					</div>
 				</div>
-			`;
-
-			res.send(userImagesHtml);
+			`);
 		} catch (error) {
 			console.error("Error fetching user images:", error);
 			res.status(500).send(`

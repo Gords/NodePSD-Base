@@ -145,7 +145,7 @@ module.exports = (User) => {
                                 hx-target="#list-of-users"
                                 hx-swap="innerHTML"
                                 hx-push-url="true"
-                                class="btn btn-md">Documentos del Usuario
+                                class="btn btn-md">Ver documentos
                             </button>
                         </td>
                     </tr>
