@@ -37,9 +37,31 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+  ackee:
+    image: electerious/ackee
+    container_name: ackee
+    restart: always
+    ports:
+      - "3001:3000"
+    environment:
+      - ACKEE_USERNAME=${ACKEE_USER}
+      - ACKEE_PASSWORD=${ACKEE_PASSWORD}
+      - ACKEE_MONGODB=mongodb://mongo:27017/ackee
+      - ACKEE_ALLOW_ORIGIN=http://http://184.73.230.40/:3000
+      - ACKEE_ALLOW_ORIGIN=http://http://184.73.230.40/:3001
+      - ACKEE_IGNORE_LOCALHOST=false
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:4
+    container_name: mongo
+    restart: always
+    volumes:
+      - mongo_data:/data/db
 
 volumes:
   postgres-data:
+  mongo_data:
 
 networks:
   app-network:
