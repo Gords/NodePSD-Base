@@ -147,10 +147,15 @@ module.exports = (User) => {
                                 hx-push-url="true"
                                 class="btn btn-md">Ver documentos
                             </button>
-                            <details class="dropdown">
-                                <summary class="m-1 btn" hx-get="/users/admins" hx-trigger="click" hx-target="#admin-users-container" hx-swap="outerHTML">Encargado</summary>
+                            <div class="dropdown dropdown-top dropdown-end">
+                                <div tabindex="0" role="button" class="btn m-1"
+                                    hx-get="/users/admins"
+                                    hx-trigger="click"
+                                    hx-target="#admin-users-container"
+                                    hx-swap="outerHTML">Encargado
+                                </div>
                                 <div id="admin-users-container"></div>
-                            </details>
+                            </div>
                         </td>
                     </tr>
                 `,
@@ -234,10 +239,10 @@ module.exports = (User) => {
 				attributes: ["id", "name"],
 			});
 			const dropdownContent = `
-                <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                    ${adminUsers
-											.map((user) => `<li><a>${user.name}</a></li>`)
-											.join("")}
+                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-sm w-52">
+                ${adminUsers
+									.map((user) => `<li><a>${user.name}</a></li>`)
+									.join("")}
                 </ul>
             `;
 			res.send(dropdownContent);

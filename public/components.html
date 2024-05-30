@@ -1,616 +1,639 @@
 <!-- Navbar -->
 <nav id="top-navigation-component" class="navbar bg-primary font-bold text-white shadow-md flex">
-  <div class="navbar-start">
-    <div class="dropdown opacity-90">
-      <button id="dropdown-toggle" tabindex="0" class="btn btn-ghost lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
-        </svg>
-      </button>
-      <ul id="dropdown-menu" tabindex="0"
-        class="menu dropdown-content mt-4 p-2 shadow bg-accent rounded-md w-52 hidden">
-        <li><a href="#home">Inicio</a></li>
-        <li><a href="#products-and-calculator">Productos</a></li>
-        <li><a href="#faq">Preguntas Frecuentes</a></li>
-        <li><a href="#about">Nosotros</a></li>
-        <li><a href="#contact">Solicitar Ya</a></li>
-      </ul>
+    <div class="navbar-start">
+        <div class="dropdown opacity-90">
+            <button id="dropdown-toggle" tabindex="0" class="btn btn-ghost lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+                </svg>
+            </button>
+            <ul id="dropdown-menu" tabindex="0"
+                class="menu dropdown-content mt-4 p-2 shadow bg-accent rounded-md w-52 hidden">
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#products-and-calculator">Productos</a></li>
+                <li><a href="#faq">Preguntas Frecuentes</a></li>
+                <li><a href="#about">Nosotros</a></li>
+                <li><a href="#contact">Solicitar Ya</a></li>
+            </ul>
+        </div>
+        <a href="/" class="btn btn-ghost flex-initial w-80">
+            <img src="./assets/img/logo-blanco.png" alt="Flash Center" id="navbar-logo" class="object-scale-down w-75">
+        </a>
     </div>
-    <a href="/" class="btn btn-ghost flex-initial w-80">
-      <img src="./assets/img/logo-blanco.png" alt="Flash Center" id="navbar-logo" class="object-scale-down w-75">
-    </a>
-  </div>
-  <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal lg:text-xs lg:font-[1000] xl:text-base">
-      <li><a href="#home">Inicio</a></li>
-      <li><a href="#products-and-calculator">Productos</a></li>
-      <li><a href="#faq">Preguntas Frecuentes</a></li>
-      <li><a href="#about">Nosotros</a></li>
-      <li><a href="#contact">Solicitar Ya</a></li>
-    </ul>
-  </div>
-  <div class="navbar-end">
-    <div class="flex">
-      <a class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md mr-2" id="registerButton" href="#register">Registro</a>
-      <a class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" id="loginButton" href="#login">Iniciar
-        sesión</a>
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal lg:text-xs lg:font-[1000] xl:text-base">
+            <li><a href="#home">Inicio</a></li>
+            <li><a href="#products-and-calculator">Productos</a></li>
+            <li><a href="#faq">Preguntas Frecuentes</a></li>
+            <li><a href="#about">Nosotros</a></li>
+            <li><a href="#contact">Solicitar Ya</a></li>
+        </ul>
     </div>
-  </div>
+    <div class="navbar-end">
+        <div class="flex">
+            <a class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md mr-2" id="registerButton" href="#register">Registro</a>
+            <a class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" id="loginButton" href="#login">Iniciar
+                sesión</a>
+        </div>
+    </div>
 </nav>
 
 
 <!-- User/Admin Panel Navbar -->
 <nav id="user-panel-navbar-component" class="navbar bg-primary font-bold text-white shadow-md flex">
-  <div class="navbar-start">
-    <a href="/" class="btn btn-ghost flex-initial w-80">
-      <img src="./assets/img/logo-blanco.png" alt="Flash Center" class="navbar-logo object-scale-down w-80 h-6">
-    </a>
-  </div>
-  <div class="navbar-end">
-    <div class="lg:flex">
-      <a href="#" hx-post="/auth/logout" id="logoutButton" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md mr-1">Cerrar
-        Sesión</a>
+    <div class="navbar-start">
+        <a href="/" class="btn btn-ghost flex-initial w-80">
+            <img src="./assets/img/logo-blanco.png" alt="Flash Center" class="navbar-logo object-scale-down w-80 h-6">
+        </a>
     </div>
-  </div>
+    <div class="navbar-end">
+        <div class="lg:flex">
+            <a href="#" hx-post="/auth/logout" id="logoutButton"
+                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md mr-1">Cerrar
+                Sesión</a>
+        </div>
+    </div>
 </nav>
 
 
 <!-- Home section with background-->
 <div id="home-component" class="relative hero min-h-screen">
-  <div class="absolute inset-0 overflow-hidden">
-    <div id="safari-video">
+    <div class="absolute inset-0 overflow-hidden">
+        <div id="safari-video">
+        </div>
+        <video autoplay muted loop id="skyline-video">
+            <source src="./assets/videos/skyline.mp4" type="video/mp4">
+        </video>
     </div>
-    <video autoplay muted loop id="skyline-video">
-      <source src="./assets/videos/skyline.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="z-10 mx-4 mt-[17rem] mb-8 lg:my-auto">
-    <div class="hero-content bg-neutral/70 text-center text-neutral p-6">
-      <div class="max-w-3xl">
-        <h1 class="mb-5 text-2xl md:text-3xl font-semibold text-accent">Obtén tu crédito preaprobado en menos de 24 hs
-        </h1>
-        <p class="mb-5 text-xl text-accent">Acompañamos en la búsqueda del producto ideal.
-          Salvaguardamos su interes,
-          garantizando un trato simple y efectivo. En menos de 5 minutos te decimos si contas con una pre-aprobacion</p>
-        <a href="#register" class="btn btn-primary btn-md md:btn-lg text-white font-bold">SOLICITA TU CREDITO</a>
-      </div>
+    <div class="z-10 mx-4 mt-[17rem] mb-8 lg:my-auto">
+        <div class="hero-content bg-neutral/70 text-center text-neutral p-6">
+            <div class="max-w-3xl">
+                <h1 class="mb-5 text-2xl md:text-3xl font-semibold text-accent">Obtén tu crédito preaprobado en menos de
+                    24 hs
+                </h1>
+                <p class="mb-5 text-xl text-accent">Acompañamos en la búsqueda del producto ideal.
+                    Salvaguardamos su interes,
+                    garantizando un trato simple y efectivo. En menos de 5 minutos te decimos si contas con una
+                    pre-aprobacion</p>
+                <a href="#register" class="btn btn-primary btn-md md:btn-lg text-white font-bold">SOLICITA TU
+                    CREDITO</a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 
 <!-- Products Section -->
 <div id="products-component" class="text-center">
-  <h1 class="text-3xl font-bold tracking-widest pt-2 pb-16">NUESTROS PRODUCTOS</h1>
-  <div class="grid md:grid-cols-2 pt-4">
-    <div class="px-0 mb-4">
-      <img src="./assets/icons/dollar-bills.svg" alt="Icono de Billetes" class="mx-auto mb-6 w-20 h-20">
-      <h3 class="text-xl font-bold mb-1">Prestamos Personales</h3>
-      <p class="text-lg">Mínimo: Gs. 500.000</p>
-      <p class="text-lg">Máximo: Gs 15.000.000</p>
+    <h1 class="text-3xl font-bold tracking-widest pt-2 pb-16">NUESTROS PRODUCTOS</h1>
+    <div class="grid md:grid-cols-2 pt-4">
+        <div class="px-0 mb-4">
+            <img src="./assets/icons/dollar-bills.svg" alt="Icono de Billetes" class="mx-auto mb-6 w-20 h-20">
+            <h3 class="text-xl font-bold mb-1">Prestamos Personales</h3>
+            <p class="text-lg">Mínimo: Gs. 500.000</p>
+            <p class="text-lg">Máximo: Gs 15.000.000</p>
+        </div>
+        <div class="px-0 mb-4">
+            <img src="./assets/icons/piggy-bank.svg" alt="Icono de Alcancia" class="mx-auto mb-6 w-20 h-20">
+            <h3 class="text-xl font-bold mb-1">Financiamiento</h3>
+            <p class="text-lg">Plazos de pago desde 6 meses<br>hasta 15 meses</p>
+        </div>
     </div>
-    <div class="px-0 mb-4">
-      <img src="./assets/icons/piggy-bank.svg" alt="Icono de Alcancia" class="mx-auto mb-6 w-20 h-20">
-      <h3 class="text-xl font-bold mb-1">Financiamiento</h3>
-      <p class="text-lg">Plazos de pago desde 6 meses<br>hasta 15 meses</p>
+    <div class="mt-8">
+        <img src="./assets/icons/bank-building.svg" alt="Icono de Edificio Bancario" class="mx-auto mb-5 w-20 h-22">
+        <h3 class="text-xl font-bold mb-1">Tasa Efectiva Anual (TEA):</h3>
+        <p class="text-lg">Máximo permitido por el<br />Banco Central de Paraguay y<br />la normativa correspondiente:
+            30.27%
+        </p>
     </div>
-  </div>
-  <div class="mt-8">
-    <img src="./assets/icons/bank-building.svg" alt="Icono de Edificio Bancario" class="mx-auto mb-5 w-20 h-22">
-    <h3 class="text-xl font-bold mb-1">Tasa Efectiva Anual (TEA):</h3>
-    <p class="text-lg">Máximo permitido por el<br />Banco Central de Paraguay y<br />la normativa correspondiente:
-      30.27%
-    </p>
-  </div>
 </div>
 
 
 <!-- Loan Calculator -->
 <div id="loan-calculator-component" class="text-center lg:mx-10">
-  <h1 class="text-3xl font-bold tracking-widest pt-2 pb-16">SIMULÁ TU PRÉSTAMO</h1>
-  <div class="form-control w-full max-w-md mx-auto mt-4">
-    <label class="label" for="amount">
-      <span class="label-text text-lg font-semibold">Monto Prestamo (Gs)</span>
-      <span id="loanOutput" class="label-text-alt text-lg font-semibold"></span>
-    </label>
-    <input type="range" id="amount" min="1000000" max="10000000" value="1000000" class="range range-primary"
-      step="500000" />
-    <div class="w-full flex justify-between text-xs px-2">
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
+    <h1 class="text-3xl font-bold tracking-widest pt-2 pb-16">SIMULÁ TU PRÉSTAMO</h1>
+    <div class="form-control w-full max-w-md mx-auto mt-4">
+        <label class="label" for="amount">
+            <span class="label-text text-lg font-semibold">Monto Prestamo (Gs)</span>
+            <span id="loanOutput" class="label-text-alt text-lg font-semibold"></span>
+        </label>
+        <input type="range" id="amount" min="1000000" max="10000000" value="1000000" class="range range-primary"
+            step="500000" />
+        <div class="w-full flex justify-between text-xs px-2">
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+        </div>
     </div>
-  </div>
-  <div class="form-control w-full max-w-md mx-auto mt-4">
-    <label class="label" for="days">
-      <span class="label-text text-lg font-semibold">¿En cuántas cuotas querés pagarlo?</span>
-      <span id="monthsOutput" class="label-text-alt text-lg font-semibold"></span>
-    </label>
-    <input type="range" id="days" min="1" max="12" value="1" class="range range-secondary" step="1" />
-    <div class="w-full flex justify-between text-xs px-2">
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
-      <span>|</span>
+    <div class="form-control w-full max-w-md mx-auto mt-4">
+        <label class="label" for="days">
+            <span class="label-text text-lg font-semibold">¿En cuántas cuotas querés pagarlo?</span>
+            <span id="monthsOutput" class="label-text-alt text-lg font-semibold"></span>
+        </label>
+        <input type="range" id="days" min="1" max="12" value="1" class="range range-secondary" step="1" />
+        <div class="w-full flex justify-between text-xs px-2">
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+            <span>|</span>
+        </div>
     </div>
-  </div>
-  <div class="mt-4 text-center">
-    <p class="py-2">T.A.E: <span id="apr"></span></p>
-    <p class="py-2">T.A.N: <span id="interest-rate"></span></p>
-    <p class="py-2">Gastos administrativos: 10% || Comisión: 18%</p>
-    <p class="py-2 font-bold text-xl">Cuota estimada de: <span id="amount2"></span></p>
-    <p class="pb-8 italic">Sujeto a política crediticia de la entidad</p>
-  </div>
-  <a id="registerRedirect" href="#register" class="btn btn-primary btn-wide font-extrabold text-white">¡SOLICITAR
-    YA!</a>
+    <div class="mt-4 text-center">
+        <p class="py-2">T.A.E: <span id="apr"></span></p>
+        <p class="py-2">T.A.N: <span id="interest-rate"></span></p>
+        <p class="py-2">Gastos administrativos: 10% || Comisión: 18%</p>
+        <p class="py-2 font-bold text-xl">Cuota estimada de: <span id="amount2"></span></p>
+        <p class="pb-8 italic">Sujeto a política crediticia de la entidad</p>
+    </div>
+    <a id="registerRedirect" href="#register" class="btn btn-primary btn-wide font-extrabold text-white">¡SOLICITAR
+        YA!</a>
 </div>
 
 
 <!-- FAQ Section -->
 <div id="faq-component" class="mx-auto pt-40 pb-36 bg-gradient-to-b from-secondary to-[#01112A] text-base-100">
-  <div class="max-w-3xl mx-auto text-center pb-16">
-    <h1 class="text-3xl font-bold tracking-widest pb-6">PREGUNTAS FRECUENTES</h1>
-    <div class="justify-center">
-      <div class="divider divider-neutral mx-20"></div>
+    <div class="max-w-3xl mx-auto text-center pb-16">
+        <h1 class="text-3xl font-bold tracking-widest pb-6">PREGUNTAS FRECUENTES</h1>
+        <div class="justify-center">
+            <div class="divider divider-neutral mx-20"></div>
+        </div>
     </div>
-  </div>
-  <div id="accordion-item-list" class="space-y-4 max-w-3xl mx-4 sm:mx-auto">
-    <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
-      <summary class="collapse-title text-xl font-bold text-center bg-accent">
-        ¿POR QUÉ CRÉDITO FLASH?
-      </summary>
-      <div class="collapse-content py-6 bg-neutral">
-        <p class="text-center text-lg text-black">Porque tenemos la respuesta mas inmediata del mercado, ya
-          que contamos con un
-          proceso de
-          aprobación de créditos 100% digital.</p>
-      </div>
-    </details>
-    <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
-      <summary class="collapse-title text-xl font-bold text-center bg-accent">
-        ¿QUÉ DOCUMENTACIÓN NECESITO?
-      </summary>
-      <div class="collapse-content py-6 bg-neutral">
-        <p class="text-center text-lg text-black">Necesitás cédula de identidad, comprobante de ingresos, Inforcomf e
-          Infocheck,factura de servicios
-          (como Copaco,
-          ANDE,
-          ESSAP, etc.) e informe de BICSA.</p>
-      </div>
-    </details>
-    <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
-      <summary class="collapse-title text-xl font-bold text-center bg-accent">
-        ¿CÓMO LO SOLICITO?
-      </summary>
-      <div class="collapse-content py-6 bg-neutral">
-        <p class="text-center text-lg text-black">¡Es muy fácil!<br>Creas tu cuenta aquí, cargas los documentos
-          requeridos y te
-          damos el monto habilitado en menos de 24 hs.</p>
-      </div>
-    </details>
-    <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
-      <summary class="collapse-title text-xl font-bold text-center bg-accent">
-        ¿DÓNDE LO RETIRO?
-      </summary>
-      <div class="collapse-content py-6 bg-neutral">
-        <p class="text-center text-lg text-black">Lo retirás en cualquiera de los locales que tenemos disponibles.</p>
-      </div>
-    </details>
-  </div>
+    <div id="accordion-item-list" class="space-y-4 max-w-3xl mx-4 sm:mx-auto">
+        <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
+            <summary class="collapse-title text-xl font-bold text-center bg-accent">
+                ¿POR QUÉ CRÉDITO FLASH?
+            </summary>
+            <div class="collapse-content py-6 bg-neutral">
+                <p class="text-center text-lg text-black">Porque tenemos la respuesta mas inmediata del mercado, ya
+                    que contamos con un
+                    proceso de
+                    aprobación de créditos 100% digital.</p>
+            </div>
+        </details>
+        <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
+            <summary class="collapse-title text-xl font-bold text-center bg-accent">
+                ¿QUÉ DOCUMENTACIÓN NECESITO?
+            </summary>
+            <div class="collapse-content py-6 bg-neutral">
+                <p class="text-center text-lg text-black">Necesitás cédula de identidad, comprobante de ingresos,
+                    Inforcomf e
+                    Infocheck,factura de servicios
+                    (como Copaco,
+                    ANDE,
+                    ESSAP, etc.) e informe de BICSA.</p>
+            </div>
+        </details>
+        <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
+            <summary class="collapse-title text-xl font-bold text-center bg-accent">
+                ¿CÓMO LO SOLICITO?
+            </summary>
+            <div class="collapse-content py-6 bg-neutral">
+                <p class="text-center text-lg text-black">¡Es muy fácil!<br>Creas tu cuenta aquí, cargas los documentos
+                    requeridos y te
+                    damos el monto habilitado en menos de 24 hs.</p>
+            </div>
+        </details>
+        <details class="collapse collapse-arrow shadow mx-auto max-w-3xl">
+            <summary class="collapse-title text-xl font-bold text-center bg-accent">
+                ¿DÓNDE LO RETIRO?
+            </summary>
+            <div class="collapse-content py-6 bg-neutral">
+                <p class="text-center text-lg text-black">Lo retirás en cualquiera de los locales que tenemos
+                    disponibles.</p>
+            </div>
+        </details>
+    </div>
 </div>
 
 
 <!-- About Section -->
 <div id="about-component" class="bg-cover pt-40 pb-32 flex justify-center items-center"
-  style="background-image: url('./assets/img/cde-skyline.jpg')">
-  <div class="flex justify-center items-center max-w-xl xs:mx-4">
-    <div class="card bg-base-100 opacity-80 shadow-md">
-      <div class="card-body justify-start">
-        <h1 class="text-3xl font-bold text-center">ACERCA DE FLASH CENTER</h1>
-        <div class="divider"></div>
-        <p class="text-lg xs:text-center">Flash Center es una empresa paraguaya 100% digital centrada en el microcrédito
-          Otorgamos
-          préstamos al consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación</p>
-        <div class="text-center">
-          <h2 class="text-xl font-bold mt-6">MISIÓN</h2>
-          <p class="text-lg">Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a
-            la
-            sociedad, a través de productos financieros</p>
+    style="background-image: url('./assets/img/cde-skyline.jpg')">
+    <div class="flex justify-center items-center max-w-xl xs:mx-4">
+        <div class="card bg-base-100 opacity-80 shadow-md">
+            <div class="card-body justify-start">
+                <h1 class="text-3xl font-bold text-center">ACERCA DE FLASH CENTER</h1>
+                <div class="divider"></div>
+                <p class="text-lg xs:text-center">Flash Center es una empresa paraguaya 100% digital centrada en el
+                    microcrédito
+                    Otorgamos
+                    préstamos al consumidor a través de un proceso 100% digital, agilizando el proceso de aprobación</p>
+                <div class="text-center">
+                    <h2 class="text-xl font-bold mt-6">MISIÓN</h2>
+                    <p class="text-lg">Impulsar la calidad de vida de nuestros colaboradores, clientes, accionistas y a
+                        la
+                        sociedad, a través de productos financieros</p>
+                </div>
+                <div class="text-center">
+                    <h2 class="text-xl font-bold mt-6">VISIÓN</h2>
+                    <p class="text-lg">Ser una banca contribuyente al estado y su gente</p>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mt-6 text-center">VALORES</h2>
+                    <p class="text-lg text-center">Accesibilidad<br>Agilidad<br>Amabilidad<br>Lealtad<br>Respeto</p>
+                </div>
+            </div>
         </div>
-        <div class="text-center">
-          <h2 class="text-xl font-bold mt-6">VISIÓN</h2>
-          <p class="text-lg">Ser una banca contribuyente al estado y su gente</p>
-        </div>
-        <div>
-          <h2 class="text-xl font-bold mt-6 text-center">VALORES</h2>
-          <p class="text-lg text-center">Accesibilidad<br>Agilidad<br>Amabilidad<br>Lealtad<br>Respeto</p>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 
 
 <!-- Footer -->
 <div id="bottom-navigation-component">
-  <footer class="footer footer-center pt-6 pb-4 bg-secondary text-white">
-    <nav class="hidden sm:grid grid-flow-col gap-4 font-bold text-base">
-      <a href="#home">Inicio</a></li>
-      <li><a href="#products-and-calculator">Productos</a></li>
-      <li><a href="#faq">Preguntas Frecuentes</a></li>
-      <li><a href="#about">Nosotros</a></li>
-      <li><a href="#contact">Solicitar Ya</a></li>
-    </nav>
-    <nav>
-      <div class="grid grid-flow-col gap-6">
-        <!-- WhatsApp -->
-        <a onclick="window.open('https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20', '_blank')"
-          class="link link-hover">
-          <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-6 h-6" />
-        </a>
-        <!-- Instagram -->
-        <a onclick="window.open('https://www.instagram.com/flashcenter_py/', '_blank')" class="link link-hover">
-          <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-6 h-6" />
-        </a>
-        <!-- Facebook -->
-        <a onclick="window.open('https://www.facebook.com/Flashcenterpy', '_blank')" class="link link-hover">
-          <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-6 h-6" />
-        </a>
-      </div>
-    </nav>
-    <aside>
-      <a onclick="window.open('https://maps.app.goo.gl/qgH35BhhbNsH9mvw6', '_blank')" class="text-xs link link-hover">
-        Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay
-      </a>
-      <p class="text-xs italic text-gray-200 px-4 text-center">La información proporcionada sobre los préstamos es
-        únicamente a título
-        informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar los
-        préstamos. <br />Está sujeta a las políticas de mercado y/o internas de la entidad financiera
-      </p>
-      </nav>
-    </aside>
-  </footer>
+    <footer class="footer footer-center pt-6 pb-4 bg-secondary text-white">
+        <nav class="hidden sm:grid grid-flow-col gap-4 font-bold text-base">
+            <a href="#home">Inicio</a></li>
+            <li><a href="#products-and-calculator">Productos</a></li>
+            <li><a href="#faq">Preguntas Frecuentes</a></li>
+            <li><a href="#about">Nosotros</a></li>
+            <li><a href="#contact">Solicitar Ya</a></li>
+        </nav>
+        <nav>
+            <div class="grid grid-flow-col gap-6">
+                <!-- WhatsApp -->
+                <a onclick="window.open('https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20', '_blank')"
+                    class="link link-hover">
+                    <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-6 h-6" />
+                </a>
+                <!-- Instagram -->
+                <a onclick="window.open('https://www.instagram.com/flashcenter_py/', '_blank')" class="link link-hover">
+                    <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-6 h-6" />
+                </a>
+                <!-- Facebook -->
+                <a onclick="window.open('https://www.facebook.com/Flashcenterpy', '_blank')" class="link link-hover">
+                    <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-6 h-6" />
+                </a>
+            </div>
+        </nav>
+        <aside>
+            <a onclick="window.open('https://maps.app.goo.gl/qgH35BhhbNsH9mvw6', '_blank')"
+                class="text-xs link link-hover">
+                Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay
+            </a>
+            <p class="text-xs italic text-gray-200 px-4 text-center">La información proporcionada sobre los préstamos es
+                únicamente a título
+                informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar
+                los
+                préstamos. <br />Está sujeta a las políticas de mercado y/o internas de la entidad financiera
+            </p>
+            </nav>
+        </aside>
+    </footer>
 </div>
 
 
 <!-- Forms -->
 <section id="forms">
-  <!-- Login Form -->
-  <div id="login-form-component" class="pt-28 pb-4 max-w-full">
-    <div class="card m-auto max-w-lg shadow-md">
-      <form id="login-form" class="card-body flex min-h-full flex-col justify-center lg:px-8" hx-post="/auth/login"
-        hx-target-4xx='#login-error-response' hx-target-5xx='#login-error-response' hx-swap="innerHTML">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
-          <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Accede a tu cuenta</h2>
+    <!-- Login Form -->
+    <div id="login-form-component" class="pt-28 pb-4 max-w-full">
+        <div class="card m-auto max-w-lg shadow-md">
+            <form id="login-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
+                hx-post="/auth/login" hx-target-4xx='#login-error-response' hx-target-5xx='#login-error-response'
+                hx-swap="innerHTML">
+                <div class="sm:mx-auto sm:w-full sm:max-w-md">
+                    <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
+                    <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Accede a tu cuenta</h2>
+                </div>
+                <div class="mt-4 mx-auto w-full max-w-md">
+                    <div class="space-y-6">
+                        <div>
+                            <label for="username" class="text-base font-medium text-gray-600">Correo electrónico</label>
+                            <input id="username" name="username" type="email" autocomplete="email"
+                                class="input input-bordered w-full" placeholder="Ingrese su correo electrónico"
+                                title="Por favor, ingrese un correo electrónico válido" />
+                            <span id="username-error" class="text-red-500 text-sm"></span>
+                        </div>
+                        <div>
+                            <label for="login-password" class="text-base font-medium text-gray-600">Contraseña</label>
+                            <input id="login-password" name="password" type="password" autocomplete="current-password"
+                                class="input input-bordered w-full" placeholder="Ingrese su contraseña" />
+                            <span id="password-error" class="text-red-500 text-sm"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-full text-white">Iniciar sesión</button>
+                    </div>
+                    <p class="mt-4 text-center text-sm text-gray-600">
+                        No tienes una cuenta?
+                        <a href="#register" class="link link-primary font-bold">Creala aqui!</a>
+                    </p>
+                </div>
+                <div class="mt-4 text-center text-sm">
+                    <a href="#" hx-post="/auth/forgot-password" hx-target="#forgot-password-email-response"
+                        hx-target-4xx='#forgot-password-response' hx-target-5xx='#forgot-password-response'
+                        hx-swap="innerHTML" hx-include="[name='username']" class="link link-primary font-bold">Olvidaste
+                        tu contraseña?</a>
+                </div>
+            </form>
+            <div id="login-error-response" class="mx-2 my-1">
+                <!-- Container for server response -->
+            </div>
+            <div id="forgot-password-response" class="mx-2 my-1">
+                <!-- Error response -->
+            </div>
+            <div id="forgot-password-email-response" class="mx-2 my-1">
+                <!-- Success response -->
+            </div>
         </div>
-        <div class="mt-4 mx-auto w-full max-w-md">
-          <div class="space-y-6">
+    </div>
+
+
+
+    <!-- Register Form -->
+    <div id="register-form-component" class="pt-28 pb-4">
+        <div class="card m-auto max-w-lg shadow-md">
+            <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
+                <div class="sm:mx-auto sm:w-full sm:max-w-md">
+                    <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
+                    <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
+                </div>
+                <div class="mt-4 mb-4 mx-auto w-full max-w-md">
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="text-base font-medium text-gray-600 col-span-2">Tipo de Cliente</label> <label
+                            class="inline-flex items-center">
+                            <input type="radio" name="userType" value="individual" class="radio radio-primary"
+                                hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
+                            <span class="ml-2">Individuo</span>
+                        </label>
+                        <label class="inline-flex items-center ml-4">
+                            <input type="radio" name="userType" value="business" class="radio radio-primary"
+                                hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
+                            <span class="ml-2">Empresa</span>
+                        </label>
+                    </div>
+                    <div id="register-form-container" class="mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Individual Register Form -->
+    <div id="individual-register-form-component">
+        <!-- add card-body below -->
+        <form id="register-form" hx-post="/auth/register" hx-target="#register-response"
+            hx-target-4xx='#register-error-response' hx-target-5xx='#register-error-response' hx-swap="innerHTML">
             <div>
-              <label for="username" class="text-base font-medium text-gray-600">Correo electrónico</label>
-              <input id="username" name="username" type="email" autocomplete="email" class="input input-bordered w-full"
-                placeholder="Ingrese su correo electrónico" title="Por favor, ingrese un correo electrónico válido" />
-              <span id="username-error" class="text-red-500 text-sm"></span>
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Name and Last Name -->
+                    <div>
+                        <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
+                        <input id="register-name" name="name" type="text" autocomplete="name"
+                            class="input input-bordered w-full" required pattern="[A-Za-z\s]+"
+                            placeholder="Ingrese su nombre" title="Por favor, ingrese solo letras y espacios" />
+                        <span id="name-error" class="text-red-500 text-sm"></span>
+                    </div>
+                    <div>
+                        <label for="register-lastName" class="text-base font-medium text-gray-600">Apellido</label>
+                        <input id="register-lastName" name="lastName" type="text" class="input input-bordered w-full"
+                            pattern="[A-Za-z\s]+" placeholder="Ingrese su apellido"
+                            title="Por favor, ingrese solo letras y espacios" />
+                        <span id="lastName-error" class="text-red-500 text-sm"></span>
+                    </div>
+                    <!-- ID Number and Phone -->
+                    <div>
+                        <label for="register-idNumber" class="text-base font-medium text-gray-600">Nro. de
+                            Cédula</label>
+                        <input id="register-idNumber" name="idNumber" type="text" class="input input-bordered w-full"
+                            required maxlength="8" placeholder="Ej: 3555555"
+                            title="Por favor, ingrese un número de cédula válido (máximo 8 dígitos)" />
+                        <span id="idNumber-error" class="text-red-500 text-sm"></span>
+                    </div>
+                    <div>
+                        <label for="register-phoneNumber" class="text-base font-medium text-gray-600">Teléfono</label>
+                        <input id="register-phoneNumber" name="phoneNumber" type="tel"
+                            class="input input-bordered w-full" required pattern="^\+595\d{9}$"
+                            title="Por favor, ingrese un número de teléfono válido en el formato +595981123456"
+                            placeholder="Ej: +595981123456" />
+                        <span id="phoneNumber-error" class="text-red-500 text-sm"></span>
+                    </div>
+                    <!-- Email and Password -->
+                    <div class="col-span-2">
+                        <label for="register-email" class="text-base font-medium text-gray-600">Correo
+                            electrónico</label>
+                        <input id="register-email" name="email" type="email" autocomplete="email"
+                            class="input input-bordered w-full" required placeholder="Ingrese su correo electrónico"
+                            title="Por favor, ingrese un correo electrónico válido" />
+                        <span id="email-error" class="text-red-500 text-sm"></span>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
+                        <input id="register-password" name="password" type="password" autocomplete="new-password"
+                            class="input input-bordered w-full" required minlength="6" placeholder="Mínimo 6 caracteres"
+                            title="Por favor, ingrese una contraseña de al menos 6 caracteres" />
+                        <span id="password-error" class="text-red-500 text-sm"></span>
+                    </div>
+                </div>
+                <input type="hidden" name="userType" value="individual">
+                <button type="submit" class="btn btn-primary w-full text-white mt-6">Registrarse</button>
+                <p class="mt-4 text-center text-sm text-gray-600">
+                    Ya tienes una cuenta?
+                    <a href="#login" class="link link-primary font-bold">Inicia sesión aquí!</a>
+                </p>
             </div>
+        </form>
+        <div id="register-response"></div>
+        <div id="register-error-response" class="mx-2 my-1">
+            <!-- Here goes the error response from the server -->
+        </div>
+    </div>
+
+    <!-- Business Register Form -->
+    <div id="business-register-form-component">
+        <!-- add card-body below -->
+        <form id="register-form" hx-post="/auth/register" hx-target="#register-response"
+            hx-target-4xx='#register-error-response' hx-target-5xx='#register-error-response' hx-swap="innerHTML">
             <div>
-              <label for="login-password" class="text-base font-medium text-gray-600">Contraseña</label>
-              <input id="login-password" name="password" type="password" autocomplete="current-password"
-                class="input input-bordered w-full" placeholder="Ingrese su contraseña" />
-              <span id="password-error" class="text-red-500 text-sm"></span>
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Name -->
+                    <div class="col-span-2">
+                        <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
+                        <input id="register-name" name="name" type="text" autocomplete="name"
+                            class="input input-bordered w-full" required pattern="[A-Za-z\s]+"
+                            placeholder="Ingrese su nombre" title="Por favor, ingrese solo letras y espacios" />
+                        <span id="name-error" class="text-red-500 text-sm"></span>
+                    </div>
+                    <!-- ID Number and Phone -->
+                    <div>
+                        <label for="register-idNumber" class="text-base font-medium text-gray-600">RUC</label>
+                        <input id="register-idNumber" name="idNumber" type="text" class="input input-bordered w-full"
+                            required maxlength="8" placeholder="Ej: 3555555"
+                            title="Por favor, ingrese un número de cédula válido (máximo 8 dígitos)" />
+                        <span id="idNumber-error" class="text-red-500 text-sm"></span>
+                    </div>
+                    <div>
+                        <label for="register-phoneNumber" class="text-base font-medium text-gray-600">Teléfono</label>
+                        <input id="register-phoneNumber" name="phoneNumber" type="tel"
+                            class="input input-bordered w-full" required pattern="^\+595\d{9}$"
+                            title="Por favor, ingrese un número de teléfono válido en el formato +595981123456"
+                            placeholder="Ej: +595981123456" />
+                        <span id="phoneNumber-error" class="text-red-500 text-sm"></span>
+                    </div>
+                    <!-- Email and Password -->
+                    <div class="col-span-2">
+                        <label for="register-email" class="text-base font-medium text-gray-600">Correo
+                            electrónico</label>
+                        <input id="register-email" name="email" type="email" autocomplete="email"
+                            class="input input-bordered w-full" required placeholder="Ingrese su correo electrónico"
+                            title="Por favor, ingrese un correo electrónico válido" />
+                        <span id="email-error" class="text-red-500 text-sm"></span>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
+                        <input id="register-password" name="password" type="password" autocomplete="new-password"
+                            class="input input-bordered w-full" required minlength="6" placeholder="Mínimo 6 caracteres"
+                            title="Por favor, ingrese una contraseña de al menos 6 caracteres" />
+                        <span id="password-error" class="text-red-500 text-sm"></span>
+                    </div>
+                </div>
+                <input type="hidden" name="userType" value="business">
+                <button type="submit" class="btn btn-primary w-full text-white mt-6">Registrarse</button>
+                <p class="mt-4 text-center text-sm text-gray-600">
+                    Ya tienes una cuenta?
+                    <a href="#login" class="link link-primary font-bold">Inicia sesión aquí!</a>
+                </p>
             </div>
-            <button type="submit" class="btn btn-primary w-full text-white">Iniciar sesión</button>
-          </div>
-          <p class="mt-4 text-center text-sm text-gray-600">
-            No tienes una cuenta?
-            <a href="#register" class="link link-primary font-bold">Creala aqui!</a>
-          </p>
+        </form>
+        <div id="register-response"></div>
+        <div id="register-error-response" class="mx-2 my-1">
+            <!-- Here goes the error response from the server -->
         </div>
-        <div class="mt-4 text-center text-sm">
-          <a href="#" hx-post="/auth/forgot-password" hx-target="#forgot-password-email-response"
-            hx-target-4xx='#forgot-password-response' hx-target-5xx='#forgot-password-response' hx-swap="innerHTML"
-            hx-include="[name='username']" class="link link-primary font-bold">Olvidaste tu contraseña?</a>
-        </div>
-      </form>
-      <div id="login-error-response" class="mx-2 my-1">
-        <!-- Container for server response -->
-      </div>
-      <div id="forgot-password-response" class="mx-2 my-1">
-        <!-- Error response -->
-      </div>
-      <div id="forgot-password-email-response" class="mx-2 my-1">
-        <!-- Success response -->
-      </div>
     </div>
-  </div>
 
 
-
-  <!-- Register Form -->
-  <div id="register-form-component" class="pt-28 pb-4">
-    <div class="card m-auto max-w-lg shadow-md">
-      <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
-          <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
-        </div>
-        <div class="mt-4 mb-4 mx-auto w-full max-w-md">
-          <div class="grid grid-cols-2 gap-4">
-            <label class="text-base font-medium text-gray-600 col-span-2">Tipo de Cliente</label>
-            <div class="col-span-1">
-              <label class="inline-flex items-center">
-                <input type="radio" name="userType" value="individual" class="radio radio-primary"
-                  hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
-                <span class="ml-2">Individuo</span>
-              </label>
-              <label class="inline-flex items-center ml-4">
-                <input type="radio" name="userType" value="business" class="radio radio-primary"
-                  hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
-                <span class="ml-2">Empresa</span>
-              </label>
+    <!-- Contact Form -->
+    <div id="contact-and-location-component"
+        class="flex flex-col lg:flex-row justify-center items-center bg-neutral pt-24 pb-12 px-4">
+        <form id="contact-form-component" hx-post="/contact" hx-target="#contact-form-response" hx-swap="afterbegin"
+            class="w-full lg:w-1/2">
+            <div class="mx-auto max-w-2xl text-center">
+                <h2 class="text-3xl font-bold pb-3">Solicitá tu Crédito Flash</h2>
+                <div class="divider mx-20"></div>
             </div>
-          </div>
-          <div id="register-form-container" class="mt-4"></div>
-        </div>
-      </div>
+            <div class="mx-auto max-w-2xl text-center items-center">
+                <div class="mx-auto grid grid-cols-2 max-w-lg gap-x-12 gap-y-8">
+                    <!-- Name Input -->
+                    <label for="contact-first-name" class="form-control max-w-[16rem]">
+                        <div class="label">
+                            <span class="label-text">Nombre</span>
+                        </div>
+                        <input id="contact-first-name" name="contact-first-name" type="text"
+                            class="input input-bordered w-full max-w-[16rem]" required pattern="[A-Za-z\s]+"
+                            title="Por favor, ingrese solo letras y espacios" />
+                        <span class="text-red-500 text-sm"></span>
+                    </label>
+                    <!-- Last Name Input -->
+                    <label for="contact-last-name" class="form-control max-w-[16rem]">
+                        <div class="label">
+                            <span class="label-text">Apellido</span>
+                        </div>
+                        <input id="contact-last-name" name="contact-last-name" type="text"
+                            class="input input-bordered max-w-[16rem]" required pattern="[A-Za-z\s]+"
+                            title="Por favor, ingrese solo letras y espacios" />
+                        <span class="text-red-500 text-sm"></span>
+                    </label>
+                    <!-- Id Number Input-->
+                    <label for="contact-id" class="form-control max-w-[16rem]">
+                        <div class="label">
+                            <span class="label-text">Nro. de Documento</span>
+                        </div>
+                        <input id="contact-id" name="contact-id" type="text" class="input input-bordered max-w-[16rem]"
+                            required maxlength="8"
+                            title="Por favor, ingrese un número de documento válido (máximo 8 dígitos)" />
+                        <span class="text-red-500 text-sm"></span>
+                    </label>
+                    <!-- Email Input -->
+                    <label for="contact-email" class="form-control max-w-[16rem]">
+                        <div class="label">
+                            <span class="label-text">E-mail</span>
+                        </div>
+                        <input id="contact-email" name="contact-email" type="email"
+                            class="input input-bordered max-w-[16rem]" required
+                            title="Por favor, ingrese un correo electrónico válido" />
+                        <span class="text-red-500 text-sm"></span>
+                    </label>
+                    <!-- Phone Input -->
+                    <label for="contact-phone" class="form-control max-w-[16rem]">
+                        <div class="label">
+                            <span class="label-text">Nro. de Teléfono</span>
+                        </div>
+                        <input id="contact-phone" name="contact-phone" type="tel"
+                            class="input input-bordered max-w-[16rem]" required pattern="^\+595\d{9}$"
+                            title="Por favor, ingrese un número de teléfono válido en el formato +595981123456" />
+                        <span class="text-red-500 text-sm"></span>
+                    </label>
+                    <!-- Message Input -->
+                    <label for="contact-message" class="form-control">
+                        <div class="label">
+                            <span class="label-text">Mensaje</span>
+                        </div>
+                        <textarea id="contact-message" name="contact-message"
+                            class="textarea textarea-bordered h-12"></textarea>
+                        <span class="text-red-500 text-sm"></span>
+                    </label>
+                </div>
+                <!-- Submit Button -->
+                <div class="mt-10">
+                    <button type="submit" class="btn btn-primary btn-md md:btn-wide text-white">SOLICITAR YA</button>
+                </div>
+            </div>
+            <div id="contact-form-response">
+                <!-- Container for the successful contact form submit modal -->
+            </div>
+        </form>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d830.6724838245427!2d-57.562132031261086!3d-25.282108083153144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da9085c8ed16f%3A0x64fa7eb3f1d80819!2sFlash%20Center!5e0!3m2!1ses-419!2sde!4v1713780956699!5m2!1ses-419!2sde"
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" class="pt-8 lg:pt-0 lg:mx-4 lg:max-w-xl"></iframe>
     </div>
-  </div>
 
-
-
-  <!-- Individual Register Form -->
-  <div id="individual-register-form-component">
-    <!-- add card-body below -->
-    <form id="register-form" hx-post="/auth/register" hx-target="#register-response"
-      hx-target-4xx='#register-error-response' hx-target-5xx='#register-error-response' hx-swap="innerHTML">
-      <div>
-        <div class="grid grid-cols-2 gap-4">
-          <!-- Name and Last Name -->
-          <div>
-            <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
-            <input id="register-name" name="name" type="text" autocomplete="name" class="input input-bordered w-full"
-              required pattern="[A-Za-z\s]+" placeholder="Ingrese su nombre"
-              title="Por favor, ingrese solo letras y espacios" />
-            <span id="name-error" class="text-red-500 text-sm"></span>
-          </div>
-          <div>
-            <label for="register-lastName" class="text-base font-medium text-gray-600">Apellido</label>
-            <input id="register-lastName" name="lastName" type="text" class="input input-bordered w-full"
-              pattern="[A-Za-z\s]+" placeholder="Ingrese su apellido"
-              title="Por favor, ingrese solo letras y espacios" />
-            <span id="lastName-error" class="text-red-500 text-sm"></span>
-          </div>
-          <!-- ID Number and Phone -->
-          <div>
-            <label for="register-idNumber" class="text-base font-medium text-gray-600">Nro. de Cédula</label>
-            <input id="register-idNumber" name="idNumber" type="text" class="input input-bordered w-full" required
-              maxlength="8" placeholder="Ej: 3555555"
-              title="Por favor, ingrese un número de cédula válido (máximo 8 dígitos)" />
-            <span id="idNumber-error" class="text-red-500 text-sm"></span>
-          </div>
-          <div>
-            <label for="register-phoneNumber" class="text-base font-medium text-gray-600">Teléfono</label>
-            <input id="register-phoneNumber" name="phoneNumber" type="tel" class="input input-bordered w-full" required
-              pattern="^\+595\d{9}$" title="Por favor, ingrese un número de teléfono válido en el formato +595981123456"
-              placeholder="Ej: +595981123456" />
-            <span id="phoneNumber-error" class="text-red-500 text-sm"></span>
-          </div>
-          <!-- Email and Password -->
-          <div class="col-span-2">
-            <label for="register-email" class="text-base font-medium text-gray-600">Correo electrónico</label>
-            <input id="register-email" name="email" type="email" autocomplete="email"
-              class="input input-bordered w-full" required placeholder="Ingrese su correo electrónico"
-              title="Por favor, ingrese un correo electrónico válido" />
-            <span id="email-error" class="text-red-500 text-sm"></span>
-          </div>
-          <div class="col-span-2">
-            <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
-            <input id="register-password" name="password" type="password" autocomplete="new-password"
-              class="input input-bordered w-full" required minlength="6" placeholder="Mínimo 6 caracteres"
-              title="Por favor, ingrese una contraseña de al menos 6 caracteres" />
-            <span id="password-error" class="text-red-500 text-sm"></span>
-          </div>
+    <!--Password reset form component-->
+    <div id="password-reset-form-component" class="pt-28">
+        <div class="card m-auto max-w-lg shadow-md">
+            <form id="password-reset-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
+                hx-post="/auth/reset-password" hx-target="#password-reset-response"
+                hx-target-4xx="#password-reset-error-response" hx-target-5xx="#password-reset-error-response"
+                hx-swap="innerHTML">
+                <div class="sm:mx-auto sm:w-full sm:max-w-md">
+                    <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
+                    <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Reinicia Tu Contraseña</h2>
+                </div>
+                <div class="mt-4 mx-auto w-full max-w-md">
+                    <div class="space-y-6">
+                        <div>
+                            <label for="new-password" class="text-base font-medium text-gray-600">Nueva
+                                Contraseña</label>
+                            <input id="new-password" name="newPassword" type="password" autocomplete="new-password"
+                                required class="input input-bordered w-full"
+                                placeholder="Ingresa tu nueva contraseña" />
+                        </div>
+                        <div>
+                            <label for="confirm-password" class="text-base font-medium text-gray-600">Confirmar
+                                Contraseña</label>
+                            <input id="confirm-password" name="confirmPassword" type="password"
+                                autocomplete="new-password" required class="input input-bordered w-full"
+                                placeholder="Confirma tu nueva contraseña" />
+                        </div>
+                        <input id="token-input" type="hidden" name="token" value="">
+                        <button type="submit" class="btn btn-primary w-full text-white">Reiniciar Contraseña</button>
+            </form>
+            <div id="password-reset-response"></div>
+            <div id="password-reset-error-response"></div>
         </div>
-        <input type="hidden" name="userType" value="individual">
-        <button type="submit" class="btn btn-primary w-full text-white mt-6">Registrarse</button>
-        <p class="mt-4 text-center text-sm text-gray-600">
-          Ya tienes una cuenta?
-          <a href="#login" class="link link-primary font-bold">Inicia sesión aquí!</a>
-        </p>
-      </div>
-    </form>
-    <div id="register-response"></div>
-    <div id="register-error-response" class="mx-2 my-1">
-      <!-- Here goes the error response from the server -->
     </div>
-  </div>
-
-  <!-- Business Register Form -->
-  <div id="business-register-form-component">
-    <!-- add card-body below -->
-    <form id="register-form" hx-post="/auth/register" hx-target="#register-response"
-      hx-target-4xx='#register-error-response' hx-target-5xx='#register-error-response' hx-swap="innerHTML">
-      <div>
-        <div class="grid grid-cols-2 gap-4">
-          <!-- Name -->
-          <div class="col-span-2">
-            <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
-            <input id="register-name" name="name" type="text" autocomplete="name" class="input input-bordered w-full"
-              required pattern="[A-Za-z\s]+" placeholder="Ingrese su nombre"
-              title="Por favor, ingrese solo letras y espacios" />
-            <span id="name-error" class="text-red-500 text-sm"></span>
-          </div>
-          <!-- ID Number and Phone -->
-          <div>
-            <label for="register-idNumber" class="text-base font-medium text-gray-600">RUC</label>
-            <input id="register-idNumber" name="idNumber" type="text" class="input input-bordered w-full" required
-              maxlength="8" placeholder="Ej: 3555555"
-              title="Por favor, ingrese un número de cédula válido (máximo 8 dígitos)" />
-            <span id="idNumber-error" class="text-red-500 text-sm"></span>
-          </div>
-          <div>
-            <label for="register-phoneNumber" class="text-base font-medium text-gray-600">Teléfono</label>
-            <input id="register-phoneNumber" name="phoneNumber" type="tel" class="input input-bordered w-full" required
-              pattern="^\+595\d{9}$" title="Por favor, ingrese un número de teléfono válido en el formato +595981123456"
-              placeholder="Ej: +595981123456" />
-            <span id="phoneNumber-error" class="text-red-500 text-sm"></span>
-          </div>
-          <!-- Email and Password -->
-          <div class="col-span-2">
-            <label for="register-email" class="text-base font-medium text-gray-600">Correo electrónico</label>
-            <input id="register-email" name="email" type="email" autocomplete="email"
-              class="input input-bordered w-full" required placeholder="Ingrese su correo electrónico"
-              title="Por favor, ingrese un correo electrónico válido" />
-            <span id="email-error" class="text-red-500 text-sm"></span>
-          </div>
-          <div class="col-span-2">
-            <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
-            <input id="register-password" name="password" type="password" autocomplete="new-password"
-              class="input input-bordered w-full" required minlength="6" placeholder="Mínimo 6 caracteres"
-              title="Por favor, ingrese una contraseña de al menos 6 caracteres" />
-            <span id="password-error" class="text-red-500 text-sm"></span>
-          </div>
-        </div>
-        <input type="hidden" name="userType" value="business">
-        <button type="submit" class="btn btn-primary w-full text-white mt-6">Registrarse</button>
-        <p class="mt-4 text-center text-sm text-gray-600">
-          Ya tienes una cuenta?
-          <a href="#login" class="link link-primary font-bold">Inicia sesión aquí!</a>
-        </p>
-      </div>
-    </form>
-    <div id="register-response"></div>
-    <div id="register-error-response" class="mx-2 my-1">
-      <!-- Here goes the error response from the server -->
-    </div>
-  </div>
-
-
-  <!-- Contact Form -->
-  <div id="contact-and-location-component"
-    class="flex flex-col lg:flex-row justify-center items-center bg-neutral pt-24 pb-12 px-4">
-    <form id="contact-form-component" hx-post="/contact" hx-target="#contact-form-response" hx-swap="afterbegin"
-      class="w-full lg:w-1/2">
-      <div class="mx-auto max-w-2xl text-center">
-        <h2 class="text-3xl font-bold pb-3">Solicitá tu Crédito Flash</h2>
-        <div class="divider mx-20"></div>
-      </div>
-      <div class="mx-auto max-w-2xl text-center items-center">
-        <div class="mx-auto grid grid-cols-2 max-w-lg gap-x-12 gap-y-8">
-          <!-- Name Input -->
-          <label for="contact-first-name" class="form-control max-w-[16rem]">
-            <div class="label">
-              <span class="label-text">Nombre</span>
-            </div>
-            <input id="contact-first-name" name="contact-first-name" type="text"
-              class="input input-bordered w-full max-w-[16rem]" required pattern="[A-Za-z\s]+"
-              title="Por favor, ingrese solo letras y espacios" />
-            <span class="text-red-500 text-sm"></span>
-          </label>
-          <!-- Last Name Input -->
-          <label for="contact-last-name" class="form-control max-w-[16rem]">
-            <div class="label">
-              <span class="label-text">Apellido</span>
-            </div>
-            <input id="contact-last-name" name="contact-last-name" type="text"
-              class="input input-bordered max-w-[16rem]" required pattern="[A-Za-z\s]+"
-              title="Por favor, ingrese solo letras y espacios" />
-            <span class="text-red-500 text-sm"></span>
-          </label>
-          <!-- Id Number Input-->
-          <label for="contact-id" class="form-control max-w-[16rem]">
-            <div class="label">
-              <span class="label-text">Nro. de Documento</span>
-            </div>
-            <input id="contact-id" name="contact-id" type="text" class="input input-bordered max-w-[16rem]" required
-              maxlength="8" title="Por favor, ingrese un número de documento válido (máximo 8 dígitos)" />
-            <span class="text-red-500 text-sm"></span>
-          </label>
-          <!-- Email Input -->
-          <label for="contact-email" class="form-control max-w-[16rem]">
-            <div class="label">
-              <span class="label-text">E-mail</span>
-            </div>
-            <input id="contact-email" name="contact-email" type="email" class="input input-bordered max-w-[16rem]"
-              required title="Por favor, ingrese un correo electrónico válido" />
-            <span class="text-red-500 text-sm"></span>
-          </label>
-          <!-- Phone Input -->
-          <label for="contact-phone" class="form-control max-w-[16rem]">
-            <div class="label">
-              <span class="label-text">Nro. de Teléfono</span>
-            </div>
-            <input id="contact-phone" name="contact-phone" type="tel" class="input input-bordered max-w-[16rem]"
-              required pattern="^\+595\d{9}$"
-              title="Por favor, ingrese un número de teléfono válido en el formato +595981123456" />
-            <span class="text-red-500 text-sm"></span>
-          </label>
-          <!-- Message Input -->
-          <label for="contact-message" class="form-control">
-            <div class="label">
-              <span class="label-text">Mensaje</span>
-            </div>
-            <textarea id="contact-message" name="contact-message" class="textarea textarea-bordered h-12"></textarea>
-            <span class="text-red-500 text-sm"></span>
-          </label>
-        </div>
-        <!-- Submit Button -->
-        <div class="mt-10">
-          <button type="submit" class="btn btn-primary btn-md md:btn-wide text-white">SOLICITAR YA</button>
-        </div>
-      </div>
-      <div id="contact-form-response">
-        <!-- Container for the successful contact form submit modal -->
-      </div>
-    </form>
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d830.6724838245427!2d-57.562132031261086!3d-25.282108083153144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da9085c8ed16f%3A0x64fa7eb3f1d80819!2sFlash%20Center!5e0!3m2!1ses-419!2sde!4v1713780956699!5m2!1ses-419!2sde"
-      width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade" class="pt-8 lg:pt-0 lg:mx-4 lg:max-w-xl"></iframe>
-  </div>
-
-  <!--Password reset form component-->
-  <div id="password-reset-form-component" class="pt-28">
-    <div class="card m-auto max-w-lg shadow-md">
-      <form id="password-reset-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
-        hx-post="/auth/reset-password" hx-target="#password-reset-response"
-        hx-target-4xx="#password-reset-error-response" hx-target-5xx="#password-reset-error-response"
-        hx-swap="innerHTML">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
-          <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-          <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Reinicia Tu Contraseña</h2>
-        </div>
-        <div class="mt-4 mx-auto w-full max-w-md">
-          <div class="space-y-6">
-            <div>
-              <label for="new-password" class="text-base font-medium text-gray-600">Nueva Contraseña</label>
-              <input id="new-password" name="newPassword" type="password" autocomplete="new-password" required
-                class="input input-bordered w-full" placeholder="Ingresa tu nueva contraseña" />
-            </div>
-            <div>
-              <label for="confirm-password" class="text-base font-medium text-gray-600">Confirmar Contraseña</label>
-              <input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" required
-                class="input input-bordered w-full" placeholder="Confirma tu nueva contraseña" />
-            </div>
-            <input id="token-input" type="hidden" name="token" value="">
-            <button type="submit" class="btn btn-primary w-full text-white">Reiniciar Contraseña</button>
-      </form>
-      <div id="password-reset-response"></div>
-      <div id="password-reset-error-response"></div>
-    </div>
-  </div>
 
 </section>
 
@@ -618,41 +641,41 @@
 
 <!-- Modal component placeholder for Tailwind utilities -->
 <div id="modal-component">
-  <dialog class="modal">
-    <div class="modal-box bg-success">
-      <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-      </form>
-      <!-- Title -->
-      <h3 class="font-bold text-lg"></h3>
-      <!-- Body -->
-      <p class="py-4"></p>
-    </div>
-  </dialog>
+    <dialog class="modal">
+        <div class="modal-box bg-success">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <!-- Title -->
+            <h3 class="font-bold text-lg"></h3>
+            <!-- Body -->
+            <p class="py-4"></p>
+        </div>
+    </dialog>
 </div>
 
 
 <!-- Error response component placeholder for Tailwind utilities -->
 <div id="error-response-component">
-  <div role="alert" class="alert border-black border-2 m-4">
-    <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-    <span class="font-bold"></span>
-    <div class="flex-grow text-center">
-      <ul class="list-disc pl-5 font-semibold">
-        <li></li>
-      </ul>
+    <div role="alert" class="alert border-black border-2 m-4">
+        <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+        <span class="font-bold"></span>
+        <div class="flex-grow text-center">
+            <ul class="list-disc pl-5 font-semibold">
+                <li></li>
+            </ul>
+        </div>
     </div>
-  </div>
 </div>
 
 
 <!-- Dropdown component placeholder for Tailwind utilities -->
 <div id="assign-admin-dropdown-component">
-  <details class="dropdown">
-    <summary class="m-1 btn">open or close</summary>
-    <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-      <li><a>Item 1</a></li>
-      <li><a>Item 2</a></li>
-    </ul>
-  </details>
+    <details class="dropdown">
+        <summary class="m-1 btn">open or close</summary>
+        <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+        </ul>
+    </details>
 </div>
