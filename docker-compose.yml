@@ -49,7 +49,7 @@ services:
       - ACKEE_MONGODB=mongodb://mongo:27017/ackee
       - ACKEE_ALLOW_ORIGIN=http://184.73.230.40/:3000
       - ACKEE_IGNORE_LOCALHOST=false
-      - ACKEE_CORS_ORIGIN_LIST=http://184.73.230.40:3000
+      - ACKEE_CORS_HEADERS=Access-Control-Allow-Origin,Access-Control-Allow-Methods,Access-Control-Allow-Headers,Content-Type
     depends_on:
       - mongo
   mongo:
