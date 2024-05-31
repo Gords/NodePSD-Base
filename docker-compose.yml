@@ -42,7 +42,7 @@ services:
     container_name: ackee
     restart: always
     ports:
-      - "3001:3001"
+      - "3001:3000"
     environment:
       - ACKEE_USERNAME=${ACKEE_USER}
       - ACKEE_PASSWORD=${ACKEE_PASSWORD}
