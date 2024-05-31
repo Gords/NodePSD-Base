@@ -262,6 +262,19 @@
             <li><a href="#about">Nosotros</a></li>
             <li><a href="#contact">Solicitar Ya</a></li>
         </nav>
+        <nav class="sm:grid grid-flow-col gap-4 font-bold text-base">
+            <a onclick="window.open('https://www.bcp.gov.py/otorgantes-de-credito-dinerario-casas-de-credito-i878', '_blank')"
+                class="text-xs link link-hover">
+                Banco Cental del Paraguay
+            </a>
+            <li><a onclick="window.open('https://www.seprelad.gov.py/', '_blank')" class="text-xs link link-hover">
+                    SEPRELAD
+                </a></li>
+            <li><a href="./assets/files/paquete-de-leyes-decretos-enlaces.pdf" target="_blank"
+                    class="text-xs link link-hover">
+                    Paquete de Leyes, Decretos y Enlaces
+                </a></li>
+        </nav>
         <nav>
             <div class="grid grid-flow-col gap-6">
                 <!-- WhatsApp -->
@@ -279,6 +292,7 @@
                 </a>
             </div>
         </nav>
+
         <aside>
             <a onclick="window.open('https://maps.app.goo.gl/qgH35BhhbNsH9mvw6', '_blank')"
                 class="text-xs link link-hover">
@@ -300,7 +314,7 @@
 <section id="forms">
     <!-- Login Form -->
     <div id="login-form-component" class="pt-28 pb-4 max-w-full">
-        <div class="card m-auto max-w-lg shadow-md">
+        <div class="card m-auto max-w-lg md:shadow-md lg:shadow-md">
             <form id="login-form" class="card-body flex min-h-full flex-col justify-center lg:px-8"
                 hx-post="/auth/login" hx-target-4xx='#login-error-response' hx-target-5xx='#login-error-response'
                 hx-swap="innerHTML">
@@ -353,16 +367,17 @@
 
     <!-- Register Form -->
     <div id="register-form-component" class="pt-28 pb-4">
-        <div class="card m-auto max-w-lg shadow-md">
+        <div class="card m-auto max-w-lg md:shadow-md lg:shadow-md">
             <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
                 <div class="sm:mx-auto sm:w-full sm:max-w-md">
                     <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
                     <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
                 </div>
                 <div class="mt-4 mb-4 mx-auto w-full max-w-md">
+                    <label class="text-base font-medium text-gray-600 col-span-2">Tipo de Cliente</label>
+
                     <div class="grid grid-cols-2 gap-4">
-                        <label class="text-base font-medium text-gray-600 col-span-2">Tipo de Cliente</label> <label
-                            class="inline-flex items-center">
+                        <label class="inline-flex items-center">
                             <input type="radio" name="userType" value="individual" class="radio radio-primary"
                                 hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
                             <span class="ml-2">Individuo</span>
