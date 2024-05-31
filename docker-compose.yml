@@ -42,12 +42,12 @@ services:
     container_name: ackee
     restart: always
     ports:
-      - "3001:3000"
+      - "3001:3001"
     environment:
       - ACKEE_USERNAME=${ACKEE_USER}
       - ACKEE_PASSWORD=${ACKEE_PASSWORD}
       - ACKEE_MONGODB=mongodb://mongo:27017/ackee
-      - ACKEE_ALLOW_ORIGIN=http://184.73.230.40,
+      - ACKEE_ALLOW_ORIGIN=http://184.73.230.40
       - ACKEE_CORS_ORIGIN_LIST=http://184.73.230.40
       - ACKEE_CORS_HEADERS=Content-Type, Authorization, Time-Zone
     depends_on:
