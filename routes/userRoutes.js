@@ -151,10 +151,10 @@ module.exports = (User) => {
                                 <div tabindex="0" role="button" class="btn m-1"
                                     hx-get="/users/all-admins?userId=${user.id}"
                                     hx-trigger="click"
-                                    hx-target="#admin-users-container"
+                                    hx-target="#admin-users-dropdown-container"
                                     hx-swap="outerHTML">Encargado
                                 </div>
-                                <div id="admin-users-container"></div>
+                                <div id="admin-users-dropdown-container"></div>
                             </div>
                         </td>
                     </tr>
@@ -313,8 +313,6 @@ module.exports = (User) => {
 				user.assignedAdmin = adminId;
 				await user.save();
 
-				// Refresh the user list
-				res.header("HX-Trigger", "load");
 				res.send();
 			} catch (error) {
 				console.error("Error assigning admin to user:", error);
