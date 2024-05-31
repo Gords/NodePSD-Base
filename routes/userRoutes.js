@@ -87,7 +87,6 @@ module.exports = (User) => {
 	// Get admin details
 	router.get("/users/admin", (req, res) => {
 		if (req.isAuthenticated()) {
-			// Sending a partial HTML snippet to update the user-info div
 			res.send(/*html*/ `
                 <div class="flex flex-col items-center justify-center">
                     <div class="avatar text-center">
@@ -139,6 +138,7 @@ module.exports = (User) => {
 												}</td>
                         <td>${user.phoneNumber}</td>
                         <td>${user.email}</td>
+                        <td>${user.assignedAdmin}</td>
                         <td>
                             <button
                                 hx-get="/images/user/${user.id}"
@@ -149,7 +149,7 @@ module.exports = (User) => {
                             </button>
                             <div class="dropdown dropdown-top dropdown-end">
                                 <div tabindex="0" role="button" class="btn m-1"
-                                    hx-get="/users/admins"
+                                    hx-get="/users/all-admins?userId=${user.id}"
                                     hx-trigger="click"
                                     hx-target="#admin-users-container"
                                     hx-swap="outerHTML">Encargado
@@ -232,30 +232,37 @@ module.exports = (User) => {
 	});
 
 	// Get all admin users
-	router.get("/users/admins", isAuthenticated, async (req, res) => {
+	router.get("/users/all-admins", isAuthenticated, async (req, res) => {
 		try {
+			const userId = req.query.userId; // Get the user ID from the query parameter
 			const adminUsers = await User.findAll({
 				where: { isAdmin: true },
 				attributes: ["id", "name"],
 			});
 			const dropdownContent = `
-                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-sm w-52">
-                ${adminUsers
-									.map((user) => `<li><a>${user.name}</a></li>`)
+                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-sm w-52">${adminUsers
+									.map(
+										(adminUser) => `
+                    <li>
+                        <div hx-put="/users/${userId}/assign-admin/${adminUser.id}">
+                        ${adminUser.name}
+                        </div>
+                    </li>`,
+									)
 									.join("")}
-                </ul>
-            `;
+                </ul>`;
+
 			res.send(dropdownContent);
 		} catch (error) {
 			console.error("Error fetching admin users:", error);
 			res.status(500).send(`
                 <li>
                     <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-                    <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-                    <span class="font-bold text-center">Error fetching admin users</span>
+                        <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+                        <span class="font-bold text-center">Error fetching admin users</span>
                     </div>
                 </li>
-            `);
+                `);
 		}
 	});
 
@@ -283,6 +290,43 @@ module.exports = (User) => {
             `);
 		}
 	});
+
+	// Assign admin to user
+	router.put(
+		"/users/:userId/assign-admin/:adminId",
+		isAuthenticated,
+		async (req, res) => {
+			try {
+				const { userId, adminId } = req.params;
+				const user = await User.findByPk(userId);
+				const admin = await User.findByPk(adminId);
+
+				if (!user || !admin) {
+					return res.status(404).send(`
+                    <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+                        <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+                        <span class="font-bold text-center">User or admin not found</span>
+                    </div>
+                `);
+				}
+
+				user.assignedAdmin = adminId;
+				await user.save();
+
+				// Refresh the user list
+				res.header("HX-Trigger", "load");
+				res.send();
+			} catch (error) {
+				console.error("Error assigning admin to user:", error);
+				res.status(500).send(`
+                <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+                    <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+                    <span class="font-bold text-center">Error assigning admin to user</span>
+                </div>
+                `);
+			}
+		},
+	);
 
 	// Delete a user
 	router.delete("/users/:id", isAuthenticated, async (req, res) => {

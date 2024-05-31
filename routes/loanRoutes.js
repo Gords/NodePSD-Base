@@ -12,19 +12,19 @@ module.exports = (Loan, TypeOfLoan, User, sequelize) => {
 			});
 
 			res.status(201).send(`
-        <div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
-          <img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold">Type of loan created successfully</span>
-        </div>
-      `);
+				<div role="alert" class="alert alert-success max-w-sm mx-auto border-black">
+					<img src="./assets/icons/success.svg" alt="Success Symbol" class="w-6 h-6 inline-block">
+					<span class="font-bold">Type of loan created successfully</span>
+				</div>
+			`);
 		} catch (error) {
 			console.error("Failed to create type of loan:", error);
 			res.status(500).send(`
-        <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-          <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-          <span class="font-bold text-center">Failed to create type of loan</span>
-        </div>
-      `);
+				<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					<span class="font-bold text-center">Failed to create type of loan</span>
+				</div>
+			`);
 		}
 	});
 
@@ -70,17 +70,17 @@ module.exports = (Loan, TypeOfLoan, User, sequelize) => {
 			});
 
 			res.status(201).send(`
-        <button class="btn btn-success no-animation" self-center text-white">
-          Solicitud enviada
-        </button>
-      `);
+				<button class="btn btn-success no-animation" self-center text-white">
+					Solicitud enviada
+				</button>
+			`);
 		} catch (error) {
 			console.error("Failed to create loan and update user:", error);
 			res.status(500).send(`
-        <button disabled class="btn btn-accent no-animation text-white self-center ml-auto">
-          Error al enviar
-        </button>
-      `);
+				<button disabled class="btn btn-accent no-animation text-white self-center ml-auto">
+					Error al enviar
+				</button>
+			`);
 		}
 	});
 
