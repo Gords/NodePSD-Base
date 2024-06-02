@@ -12,15 +12,15 @@ const sendVerificationEmail = async (email, token) => {
 		Message: {
 			Body: {
 				Text: {
-					Data: `Por favor, haga clic en el enlace para verificar su cuenta: ${verificationLink}`,
+					Data: `Please click the following link to verify your account: ${verificationLink}`,
 				},
 				Html: {
-					Data: `<p>Por favor, haga clic en el enlace para verificar su cuenta:</p>
+					Data: `<p>Please click the following link to verify your account:</p>
                  <a href="${verificationLink}">${verificationLink}</a>`,
 				},
 			},
 			Subject: {
-				Data: "Verifique su cuenta de FlashCenter",
+				Data: "Verify your FlashCenter account",
 			},
 		},
 		Source: process.env.AWS_VERIFIED_EMAIL,
@@ -91,14 +91,14 @@ const sendPasswordResetEmail = async (email, token) => {
 		Message: {
 			Body: {
 				Text: {
-					Data: `Por favor, haga clic en el enlace para restablecer su contraseña: ${resetLink}`,
+					Data: `Please click the following link to reset your password: ${resetLink}`,
 				},
 				Html: {
-					Data: `<p>Por favor, haga clic en el enlace para restablecer su contraseña:</p> <a href="${resetLink}">${resetLink}</a>`,
+					Data: `<p>Please click the following link to reset your password:</p> <a href="${resetLink}">${resetLink}</a>`,
 				},
 			},
 			Subject: {
-				Data: "Restablezca su contraseña de FlashCenter",
+				Data: "Reset your FlashCenter password",
 			},
 		},
 		Source: process.env.AWS_VERIFIED_EMAIL,
