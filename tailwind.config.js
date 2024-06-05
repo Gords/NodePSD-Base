@@ -19,7 +19,8 @@ module.exports = {
     'modal-open',
     'tooltip',
     'space-x-2',
-    'gap-2'
+    'gap-2',
+    'z-[100]',
   ],
   plugins: [require('daisyui'), require('@tailwindcss/forms')],
   theme: {

@@ -148,7 +148,7 @@ module.exports = (User) => {
                                     hx-push-url="true"
                                     class="btn btn-sm flex-1 text-center">Ver documentos
                                 </button>
-                                <div class="dropdown dropdown-top dropdown-end">
+                                <div class="dropdown dropdown-left dropdown-end">
                                     <div tabindex="0" role="button"
                                         hx-get="/users/admins?userId=${user.id}"
                                         hx-trigger="click"
@@ -251,34 +251,49 @@ module.exports = (User) => {
 	router.get("/users/admins", isAuthenticated, async (req, res) => {
 		try {
 			const userId = req.query.userId; // Get the user ID from the query parameter
-			const adminUsers = await User.findAll({
+			const admins = await User.findAll({
 				where: { isAdmin: true },
 				attributes: ["id", "name"],
 			});
+
+			// Create a dropdown item for clearing the selection
+			const clearSelectionItem = `
+            <li>
+                <div hx-put="/users/${userId}/clear-admin">
+                    Borrar selección
+                </div>
+            </li>`;
+
+			// Create the admin users list
+			const adminUsersList = admins
+				.map(
+					(admin) => `
+                <li>
+                    <div hx-put="/users/${userId}/assign-admin/${admin.id}">
+                        ${admin.name}
+                    </div>
+                </li>`,
+				)
+				.join("");
+
+			// Combine the clear selection item and admin users list
 			const dropdownContent = `
-                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-sm w-52">${adminUsers
-									.map(
-										(adminUser) => `
-                    <li>
-                        <div hx-put="/users/${userId}/assign-admin/${adminUser.id}">
-                        ${adminUser.name}
-                        </div>
-                    </li>`,
-									)
-									.join("")}
-                </ul>`;
+            <ul tabindex="0" class="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-sm w-52">
+                ${clearSelectionItem}
+                ${adminUsersList}
+            </ul>`;
 
 			res.send(dropdownContent);
 		} catch (error) {
 			console.error("Error fetching admin users:", error);
 			res.status(500).send(`
-                <li>
-                    <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-                        <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-                        <span class="font-bold text-center">Error fetching admin users</span>
-                    </div>
-                </li>
-                `);
+            <li>
+                <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
+                    <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+                    <span class="font-bold text-center">Error fetching admin users</span>
+                </div>
+            </li>
+        `);
 		}
 	});
 
@@ -338,6 +353,25 @@ module.exports = (User) => {
                     <span class="font-bold text-center">Error assigning admin to user</span>
                 </div>
                 `);
+			}
+		},
+	);
+
+	// Clear assigned admin
+	router.put(
+		"/users/:userId/clear-admin",
+		isAuthenticated,
+		async (req, res) => {
+			try {
+				const userId = req.params.userId;
+
+				// Assuming there is a field assignedAdmin in the User model that stores the admin ID
+				await User.update({ assignedAdmin: null }, { where: { id: userId } });
+
+				res.send();
+			} catch (error) {
+				console.error("Error clearing admin assignment:", error);
+				res.status(500).send({ message: "Error clearing admin assignment" });
 			}
 		},
 	);
