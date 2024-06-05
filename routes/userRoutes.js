@@ -150,9 +150,7 @@ module.exports = (User) => {
                                 </button>
                                 <div class="dropdown dropdown-top dropdown-end">
                                     <div tabindex="0" role="button"
-                                        hx-get="/users/all-admins?userId=${
-																					user.id
-																				}"
+                                        hx-get="/users/admins?userId=${user.id}"
                                         hx-trigger="click"
                                         hx-target="#admin-users-dropdown-container"
                                         hx-swap="outerHTML"
@@ -218,9 +216,7 @@ module.exports = (User) => {
                                 </button>
                                 <div class="dropdown dropdown-top dropdown-end">
                                     <div tabindex="0" role="button"
-                                        hx-get="/users/all-admins?userId=${
-																					user.id
-																				}"
+                                        hx-get="/users/admins?userId=${user.id}"
                                         hx-trigger="click"
                                         hx-target="#admin-users-dropdown-container"
                                         hx-swap="outerHTML"
@@ -252,7 +248,7 @@ module.exports = (User) => {
 	});
 
 	// Get all admin users
-	router.get("/users/all-admins", isAuthenticated, async (req, res) => {
+	router.get("/users/admins", isAuthenticated, async (req, res) => {
 		try {
 			const userId = req.query.userId; // Get the user ID from the query parameter
 			const adminUsers = await User.findAll({
