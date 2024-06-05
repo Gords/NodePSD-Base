@@ -138,23 +138,28 @@ module.exports = (User) => {
 												}</td>
                         <td>${user.phoneNumber}</td>
                         <td>${user.email}</td>
-                        <td>${user.assignedAdmin}</td>
+                        <td>${user.assignedAdmin ? user.assignedAdmin : ""}</td>
                         <td>
-                            <button
-                                hx-get="/images/user/${user.id}"
-                                hx-target="#list-of-users"
-                                hx-swap="innerHTML"
-                                hx-push-url="true"
-                                class="btn btn-md">Ver documentos
-                            </button>
-                            <div class="dropdown dropdown-top dropdown-end">
-                                <div tabindex="0" role="button" class="btn m-1"
-                                    hx-get="/users/all-admins?userId=${user.id}"
-                                    hx-trigger="click"
-                                    hx-target="#admin-users-dropdown-container"
-                                    hx-swap="outerHTML">Encargado
+                            <div class="flex gap-2">
+                                <button
+                                    hx-get="/images/user/${user.id}"
+                                    hx-target="#list-of-users"
+                                    hx-swap="innerHTML"
+                                    hx-push-url="true"
+                                    class="btn btn-sm flex-1 text-center">Ver documentos
+                                </button>
+                                <div class="dropdown dropdown-top dropdown-end">
+                                    <div tabindex="0" role="button"
+                                        hx-get="/users/all-admins?userId=${
+																					user.id
+																				}"
+                                        hx-trigger="click"
+                                        hx-target="#admin-users-dropdown-container"
+                                        hx-swap="outerHTML"
+                                        class="btn btn-sm flex-1 text-center">Encargado
+                                    </div>
+                                    <div id="admin-users-dropdown-container"></div>
                                 </div>
-                                <div id="admin-users-dropdown-container"></div>
                             </div>
                         </td>
                     </tr>
@@ -198,17 +203,32 @@ module.exports = (User) => {
 													user.userType === "individual"
 														? `${user.lastName}`
 														: ""
-												}
-                        </td>
+												}</td>
                         <td>${user.phoneNumber}</td>
                         <td>${user.email}</td>
+                        <td>${user.assignedAdmin ? user.assignedAdmin : ""}</td>
                         <td>
-                            <a href="/images/user/${user.id}"
-                                hx-get="/images/user/${user.id}"
-                                hx-target="#list-of-users"
-                                hx-swap="outerHTML"
-                                hx-push-url="true"
-                                class="btn btn-md">Datos del Usuario</a>
+                            <div class="flex gap-2">
+                                <button
+                                    hx-get="/images/user/${user.id}"
+                                    hx-target="#list-of-users"
+                                    hx-swap="innerHTML"
+                                    hx-push-url="true"
+                                    class="btn btn-sm flex-1 text-center">Ver documentos
+                                </button>
+                                <div class="dropdown dropdown-top dropdown-end">
+                                    <div tabindex="0" role="button"
+                                        hx-get="/users/all-admins?userId=${
+																					user.id
+																				}"
+                                        hx-trigger="click"
+                                        hx-target="#admin-users-dropdown-container"
+                                        hx-swap="outerHTML"
+                                        class="btn btn-sm flex-1 text-center">Encargado
+                                    </div>
+                                    <div id="admin-users-dropdown-container"></div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 `,
