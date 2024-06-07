@@ -20,6 +20,9 @@ module.exports = (User) => {
 			body("password")
 				.isLength({ min: 6 })
 				.withMessage("La contraseña debe tener al menos 6 caracteres"),
+			body("confirmPassword")
+      			.custom((value, { req }) => value === req.body.password)
+      			.withMessage("Las contraseñas no coinciden"),
 			body("name")
 				.matches(/^[A-Za-z\s]+$/)
 				.withMessage("El nombre solo debe contener letras y espacios"),
