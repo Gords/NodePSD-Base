@@ -7,6 +7,7 @@ const { body, validationResult } = require("express-validator");
 const passport = require("passport");
 const he = require("he");
 const { isAuthenticated, isAdmin } = require("../services/authService");
+const { validateRUC } = require("../services/rucService");
 const path = require("node:path");
 
 module.exports = (User) => {
@@ -21,8 +22,8 @@ module.exports = (User) => {
 				.isLength({ min: 6 })
 				.withMessage("La contraseña debe tener al menos 6 caracteres"),
 			body("confirmPassword")
-      			.custom((value, { req }) => value === req.body.password)
-      			.withMessage("Las contraseñas no coinciden"),
+				.custom((value, { req }) => value === req.body.password)
+				.withMessage("Las contraseñas no coinciden"),
 			body("name")
 				.matches(/^[A-Za-z\s]+$/)
 				.withMessage("El nombre solo debe contener letras y espacios"),
@@ -31,11 +32,18 @@ module.exports = (User) => {
 				.matches(/^[A-Za-z\s]+$/)
 				.withMessage("El apellido solo debe contener letras y espacios"),
 			body("idNumber")
+				.if((value, { req }) => req.body.userType === "individual")
 				.isLength({ min: 6, max: 8 })
 				.withMessage("El número de cédula debe tener entre 6 y 8 dígitos"),
+				body("ruc")
+				.if((value, { req }) => req.body.userType === "business")
+				.matches(/^\d{6,8}-\d{1}$/)
+				.withMessage("Por favor, ingrese un número de RUC válido en el formato 1234567-1"),
 			body("phoneNumber")
-				.matches(/^\+595\d{9}$/)
-				.withMessage("Número de teléfono de Paraguay no válido"),
+				.matches(/^(\+595\d{9}|\d{10}|\d{6})$/)
+				.withMessage(
+					"Número de teléfono no válido. Formatos permitidos: +5959815502250, 0981502250, 021221149, 221149",
+				),
 		],
 		async (req, res) => {
 			const errors = validationResult(req);
@@ -63,17 +71,20 @@ module.exports = (User) => {
 					name,
 					lastName,
 					idNumber,
+					ruc,
 					phoneNumber,
 					userType,
 				} = req.body;
 				const hashedPassword = await bcrypt.hash(password, 10);
+
+				const idNumberValue = userType === "individual" ? idNumber : ruc;
 
 				const user = await User.create({
 					email: he.encode(email),
 					password: hashedPassword,
 					name: he.encode(name),
 					lastName: userType === "individual" ? he.encode(lastName) : null,
-					idNumber: he.encode(idNumber),
+					idNumber: he.encode(idNumberValue),
 					phoneNumber: he.encode(phoneNumber),
 					userType: he.encode(userType),
 					isVerified: false,
