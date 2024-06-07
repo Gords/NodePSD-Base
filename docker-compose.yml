@@ -38,6 +38,17 @@ services:
       timeout: 5s
       retries: 5
 
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    networks:
+      - app-network
+
 volumes:
   postgres-data:
 
