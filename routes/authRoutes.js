@@ -35,10 +35,12 @@ module.exports = (User) => {
 				.if((value, { req }) => req.body.userType === "individual")
 				.isLength({ min: 6, max: 8 })
 				.withMessage("El número de cédula debe tener entre 6 y 8 dígitos"),
-				body("ruc")
+			body("ruc")
 				.if((value, { req }) => req.body.userType === "business")
 				.matches(/^\d{6,8}-\d{1}$/)
-				.withMessage("Por favor, ingrese un número de RUC válido en el formato 1234567-1"),
+				.withMessage(
+					"Por favor, ingrese un número de RUC válido en el formato 1234567-1",
+				),
 			body("phoneNumber")
 				.matches(/^(\+595\d{9}|\d{10}|\d{6})$/)
 				.withMessage(
