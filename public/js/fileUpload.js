@@ -83,6 +83,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			handleFiles(this.files);
 		});
 
+	// document.getElementById("submit-files").addEventListener("click", () => {
+	// 	document.getElementById("files-to-upload").value = ""; // Reset the file input
+	// 	fileList.length = 0; // Clear the fileList array
+	// 	updateUploadFileList(); // Update the file list display
+	// });
+
 	// Drag and drop functionality and styling
 	// Why the heck is the color being manipulated here?
 	const dropArea = document.getElementById("drop-area");
