@@ -255,57 +255,64 @@
 <!-- Footer -->
 <div id="bottom-navigation-component">
     <footer class="footer footer-center pt-6 pb-4 bg-secondary text-white">
-        <nav class="hidden sm:grid grid-flow-col gap-4 font-bold text-base">
-            <a href="#home">Inicio</a></li>
-            <li><a href="#products-and-calculator">Productos</a></li>
-            <li><a href="#faq">Preguntas Frecuentes</a></li>
-            <li><a href="#about">Nosotros</a></li>
-            <li><a href="#contact">Solicitar Ya</a></li>
-        </nav>
-        <nav class="sm:grid grid-flow-col gap-4 font-bold text-base">
-            <a onclick="window.open('https://www.bcp.gov.py/otorgantes-de-credito-dinerario-casas-de-credito-i878', '_blank')"
-                class="text-xs link link-hover">
-                Banco Cental del Paraguay
-            </a>
-            <li><a onclick="window.open('https://www.seprelad.gov.py/', '_blank')" class="text-xs link link-hover">
-                    SEPRELAD
-                </a></li>
-            <li><a href="./assets/files/paquete-de-leyes-decretos-enlaces.pdf" target="_blank"
-                    class="text-xs link link-hover">
-                    Paquete de Leyes, Decretos y Enlaces
-                </a></li>
-        </nav>
-        <nav>
-            <div class="grid grid-flow-col gap-6">
-                <!-- WhatsApp -->
-                <a onclick="window.open('https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20', '_blank')"
-                    class="link link-hover">
-                    <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-6 h-6" />
-                </a>
-                <!-- Instagram -->
-                <a onclick="window.open('https://www.instagram.com/flashcenter_py/', '_blank')" class="link link-hover">
-                    <img src="./assets/icons/instagram.svg" alt="Instagram" class="w-6 h-6" />
-                </a>
-                <!-- Facebook -->
-                <a onclick="window.open('https://www.facebook.com/Flashcenterpy', '_blank')" class="link link-hover">
-                    <img src="./assets/icons/facebook.svg" alt="Facebook" class="w-6 h-6" />
-                </a>
-            </div>
-        </nav>
-
-        <aside>
-            <a onclick="window.open('https://maps.app.goo.gl/qgH35BhhbNsH9mvw6', '_blank')"
-                class="text-xs link link-hover">
-                Edificio Sky Park Torre 2 - piso 15C<br />San Juan XXIII 2581, Asunción - Paraguay
-            </a>
-            <p class="text-xs italic text-gray-200 px-4 text-center">La información proporcionada sobre los préstamos es
-                únicamente a título
-                informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al momento de solicitar
-                los
-                préstamos. <br />Está sujeta a las políticas de mercado y/o internas de la entidad financiera
-            </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4 items-start text-center sm:text-left">
+            <nav class="text-base">
+                <ul class="space-y-1">
+                    <li>
+                        <h6 class="font-bold pb-4"><a href="#home" class="link-hover cursor-pointer">Empresa</a></h6>
+                    </li>
+                    <li><a href="#products-and-calculator" class="link-hover cursor-pointer">Productos</a></li>
+                    <li><a href="#faq" class="link-hover cursor-pointer">Preguntas Frecuentes</a></li>
+                    <li><a href="#about" class="link-hover cursor-pointer">Nosotros</a></li>
+                    <li><a href="#contact" class="link-hover cursor-pointer">Solicitar Ya</a></li>
+                </ul>
             </nav>
-        </aside>
+            <nav class="text-base">
+                <ul class="space-y-1">
+                    <li>
+                        <h6 class="font-bold pb-4">Legal</h6>
+                    </li>
+                    <li><a href="https://www.bcp.gov.py/otorgantes-de-credito-dinerario-casas-de-credito-i878"
+                            onclick="window.open('https://www.bcp.gov.py/otorgantes-de-credito-dinerario-casas-de-credito-i878', '_blank'); return false;"
+                            class="link-hover cursor-pointer">Banco Cental del Paraguay</a></li>
+                    <li><a href="https://www.seprelad.gov.py/"
+                            onclick="window.open('https://www.seprelad.gov.py/', '_blank'); return false;"
+                            class="link-hover cursor-pointer">SEPRELAD</a></li>
+                    <li><a href="./assets/files/paquete-de-leyes-decretos-enlaces.pdf" target="_blank"
+                            class="link-hover cursor-pointer">Paquete de Leyes y Decretos</a></li>
+                </ul>
+            </nav>
+            <nav class="text-base">
+                <ul class="space-y-2">
+                    <li>
+                        <h6 class="font-bold pb-2">Social</h6>
+                    </li>
+                    <li><a href="https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20"
+                            onclick="window.open('https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20', '_blank'); return false;"
+                            class="flex items-center justify-start link-hover cursor-pointer">
+                            <img src="./assets/icons/whatsapp.svg" alt="WhatsApp Icon" class="w-6 h-6 mr-2" />+595 981
+                            221177</a></li>
+                    <li><a href="https://www.instagram.com/flashcenter_py/"
+                            onclick="window.open('https://www.instagram.com/flashcenter_py/', '_blank'); return false;"
+                            class="flex items-center justify-start link-hover cursor-pointer">
+                            <img src="./assets/icons/instagram.svg" alt="Instagram Icon"
+                                class="w-6 h-6 mr-2" />@flashcenter_py</a></li>
+                    <li><a href="https://www.facebook.com/Flashcenterpy"
+                            onclick="window.open('https://www.facebook.com/Flashcenterpy', '_blank'); return false;"
+                            class="flex items-center justify-start link-hover cursor-pointer">
+                            <img src="./assets/icons/facebook.svg" alt="Facebook Icon" class="w-6 h-6 mr-2" />Flash
+                            Center</a></li>
+                </ul>
+            </nav>
+        </div>
+        <a href="https://maps.app.goo.gl/qgH35BhhbNsH9mvw6"
+            onclick="window.open('https://maps.app.goo.gl/qgH35BhhbNsH9mvw6', '_blank'); return false;"
+            class="link-hover text-xs cursor-pointer block text-center">Edificio Sky Park Torre 2 - piso 15C San
+            Juan XXIII 2581, Asunción - Paraguay</a>
+        <p class="text-xs italic text-gray-200 px-4 text-center">La información proporcionada sobre los préstamos
+            es únicamente a título informativo. No constituye una oferta y está sujeta a cambios sin previo aviso al
+            momento de solicitar los préstamos. <br />Está sujeta a las políticas de mercado y/o internas de la entidad
+            financiera</p>
     </footer>
 </div>
 

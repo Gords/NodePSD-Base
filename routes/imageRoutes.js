@@ -220,6 +220,7 @@ module.exports = (Image, User) => {
 			`);
 		}
 	});
+
 	/// Get all images from a specific user (FOR ADMIN PANEL VIEW)
 	router.get("/images/user/:userId", isAuthenticated, async (req, res) => {
 		try {
