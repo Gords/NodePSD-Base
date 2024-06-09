@@ -270,7 +270,7 @@
             <nav class="text-base">
                 <ul class="space-y-1">
                     <li>
-                        <h6 class="font-bold pb-4">Legal</h6>
+                        <h6 class="font-bold pb-4">Enlaces de Transparencia</h6>
                     </li>
                     <li><a href="https://www.bcp.gov.py/otorgantes-de-credito-dinerario-casas-de-credito-i878"
                             onclick="window.open('https://www.bcp.gov.py/otorgantes-de-credito-dinerario-casas-de-credito-i878', '_blank'); return false;"
@@ -285,7 +285,7 @@
             <nav class="text-base">
                 <ul class="space-y-2">
                     <li>
-                        <h6 class="font-bold pb-2">Social</h6>
+                        <h6 class="font-bold pb-2">Redes Sociales</h6>
                     </li>
                     <li><a href="https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20"
                             onclick="window.open('https://wa.me/595981221177?text=Te%20escribo%20desde%20la%20web%20', '_blank'); return false;"
@@ -690,14 +690,14 @@
     </div>
 </div>
 
-
+<!-- TODO: clean the fat of the component once we're done testing it -->
 <!-- Dropdown component placeholder for Tailwind utilities -->
 <div id="assign-admin-dropdown-component">
-    <details class="dropdown dropdown-left dropdown-top dropdown-end">
-        <summary class="m-1 btn">open or close</summary>
-        <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-            <li><a>Item 1</a></li>
-            <li><a>Item 2</a></li>
-        </ul>
-    </details>
+    <div class="dropdown dropdown-right overflow-visible">
+        <div tabindex="0" role="button" class="btn btn-sm flex-1 text-center overflow-visible">
+            <ul tabindex="0" class="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-sm w-52">
+                <div id="admin-users-dropdown-container"></div>
+            </ul>
+        </div>
+    </div>
 </div>

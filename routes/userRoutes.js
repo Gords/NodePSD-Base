@@ -148,7 +148,7 @@ module.exports = (User) => {
                                     hx-push-url="true"
                                     class="btn btn-sm flex-1 text-center">Ver documentos
                                 </button>
-                                <div class="dropdown dropdown-left dropdown-end">
+                                <div class="dropdown dropdown-right overscroll-x-none">
                                     <div tabindex="0" role="button"
                                         hx-get="/users/admins?userId=${user.id}"
                                         hx-trigger="click"
@@ -156,7 +156,9 @@ module.exports = (User) => {
                                         hx-swap="outerHTML"
                                         class="btn btn-sm flex-1 text-center">Encargado
                                     </div>
-                                    <div id="admin-users-dropdown-container"></div>
+                                    <ul tabindex="0" class="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-sm w-52 overscroll-x-none">
+                                        <div id="admin-users-dropdown-container" class="overscroll-x-none"></div>
+                                    </ul>
                                 </div>
                             </div>
                         </td>
@@ -256,34 +258,19 @@ module.exports = (User) => {
 				attributes: ["id", "name"],
 			});
 
-			// Create a dropdown item for clearing the selection
-			const clearSelectionItem = `
-            <li>
-                <div hx-put="/users/${userId}/clear-admin">
-                    Borrar selección
-                </div>
-            </li>`;
-
 			// Create the admin users list
 			const adminUsersList = admins
 				.map(
 					(admin) => `
-                <li>
-                    <div hx-put="/users/${userId}/assign-admin/${admin.id}">
+                <li hx-patch="/users/${userId}/assign-admin/${admin.id}" hx-target="#admin-name-list" hx-swap="innerHTML">
+                    <div id="admin-name-list">
                         ${admin.name}
                     </div>
                 </li>`,
 				)
 				.join("");
 
-			// Combine the clear selection item and admin users list
-			const dropdownContent = `
-            <ul tabindex="0" class="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-sm w-52">
-                ${clearSelectionItem}
-                ${adminUsersList}
-            </ul>`;
-
-			res.send(dropdownContent);
+			res.send(adminUsersList);
 		} catch (error) {
 			console.error("Error fetching admin users:", error);
 			res.status(500).send(`
@@ -323,28 +310,18 @@ module.exports = (User) => {
 	});
 
 	// Assign admin to user
-	router.put(
+	router.patch(
 		"/users/:userId/assign-admin/:adminId",
 		isAuthenticated,
 		async (req, res) => {
 			try {
 				const { userId, adminId } = req.params;
 				const user = await User.findByPk(userId);
-				const admin = await User.findByPk(adminId);
-
-				if (!user || !admin) {
-					return res.status(404).send(`
-                    <div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-                        <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-                        <span class="font-bold text-center">User or admin not found</span>
-                    </div>
-                `);
-				}
 
 				user.assignedAdmin = adminId;
 				await user.save();
 
-				res.send();
+				res.header("HX-Reswap", innerHTML).status(200).send();
 			} catch (error) {
 				console.error("Error assigning admin to user:", error);
 				res.status(500).send(`

@@ -44,11 +44,11 @@
                         </h2>
                         <div class="flex justify-center mb-4">
                             <input type="search" id="search-input" name="search-input" class="input input-bordered"
-                                placeholder="Search by name" hx-get="/users/search"
+                                placeholder="Buscar por nombre" hx-get="/users/search"
                                 hx-trigger="keyup changed delay:500ms" hx-target="#user-table-body" hx-include="this"
                                 hx-indicator="#spinner">
                         </div>
-                        <div class="overflow-x-auto">
+                        <div class="overflow-x-auto md:overflow-visible">
                             <table class="table text-l text-center">
                                 <thead>
                                     <tr>
