@@ -97,7 +97,7 @@
           <div class="card-body items-center">
             <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo o arrástralo aquí</h3>
             <p class="text-base text-neutral mb-4">Puedes cargar hasta 4 archivos de 25 MB cada uno.</p>
-            <form hx-encoding="multipart/form-data" hx-post="/images" hx-target="#user-files" hx-swap="outerHTML">              <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar
+            <form hx-encoding="multipart/form-data" hx-post="/images" hx-target="#user-files" hx-swap="innerHTML">              <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar
                 archivos</label>
               <input type="file" id="files-to-upload" name="files" multiple
                 accept="image/jpeg, image/png, application/pdf" style="display: none">
