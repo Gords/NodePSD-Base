@@ -3,6 +3,7 @@ const router = express.Router();
 const { isAuthenticated } = require("../services/authService");
 const { Op } = require("sequelize");
 const he = require("he");
+const path = require("node:path");
 
 module.exports = (User) => {
 	// Get logged in user details
@@ -152,12 +153,16 @@ module.exports = (User) => {
                                     <div tabindex="0" role="button"
                                         hx-get="/users/admins?userId=${user.id}"
                                         hx-trigger="click"
-                                        hx-target="#admin-users-dropdown-container"
+                                        hx-target="#admin-users-dropdown-container-${
+																					user.id
+																				}"
                                         hx-swap="outerHTML"
                                         class="btn btn-sm flex-1 text-center">Encargado
                                     </div>
                                     <ul tabindex="0" class="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-sm w-52 overscroll-x-none">
-                                        <div id="admin-users-dropdown-container" class="overscroll-x-none"></div>
+                                        <div id="admin-users-dropdown-container-${
+																					user.id
+																				}" class="overscroll-x-none"></div>
                                     </ul>
                                 </div>
                             </div>
@@ -262,8 +267,8 @@ module.exports = (User) => {
 			const adminUsersList = admins
 				.map(
 					(admin) => `
-                <li hx-patch="/users/${userId}/assign-admin/${admin.id}" hx-target="#admin-name-list" hx-swap="innerHTML">
-                    <div id="admin-name-list">
+                <li hx-patch="/users/${userId}/assign-admin/${admin.id}" hx-target="#admin-name-list-${userId}" hx-swap="innerHTML">
+                    <div id="admin-name-list-${userId}">
                         ${admin.name}
                     </div>
                 </li>`,
@@ -321,7 +326,20 @@ module.exports = (User) => {
 				user.assignedAdmin = adminId;
 				await user.save();
 
-				res.header("HX-Reswap", innerHTML).status(200).send();
+				res
+					.sendFile(path.join(__dirname, "../public/admin-panel.html"), {
+						headers: {
+							"Content-Type": "text/html",
+							"HX-Trigger": "click",
+							"HX-Target": `#admin-users-dropdown-container-${userId}`,
+							"HX-Reselect": "#user-table-body",
+							"HX-Reswap": "innerHTML",
+						},
+					})
+					.status(200)
+					.send();
+
+				// res.header("HX-Reswap", innerHTML).status(200).send();
 			} catch (error) {
 				console.error("Error assigning admin to user:", error);
 				res.status(500).send(`
@@ -330,25 +348,6 @@ module.exports = (User) => {
                     <span class="font-bold text-center">Error assigning admin to user</span>
                 </div>
                 `);
-			}
-		},
-	);
-
-	// Clear assigned admin
-	router.put(
-		"/users/:userId/clear-admin",
-		isAuthenticated,
-		async (req, res) => {
-			try {
-				const userId = req.params.userId;
-
-				// Assuming there is a field assignedAdmin in the User model that stores the admin ID
-				await User.update({ assignedAdmin: null }, { where: { id: userId } });
-
-				res.send();
-			} catch (error) {
-				console.error("Error clearing admin assignment:", error);
-				res.status(500).send({ message: "Error clearing admin assignment" });
 			}
 		},
 	);

@@ -229,7 +229,7 @@ module.exports = (User) => {
 						</div>
 					`);
 				}
-
+				// TODO: creo que este no funciona? si el user no existe, directamente tira el error de arriba
 				if (!user) {
 					return res.status(401).send(`
 						<div id="login-form-component">
