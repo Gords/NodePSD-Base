@@ -267,8 +267,8 @@ module.exports = (User) => {
 			const adminUsersList = admins
 				.map(
 					(admin) => `
-                <li hx-patch="/users/${userId}/assign-admin/${admin.id}" hx-target="#admin-name-list-${userId}" hx-swap="innerHTML">
-                    <div id="admin-name-list-${userId}">
+                <li hx-patch="/users/${userId}/assign-admin/${admin.id}" hx-target="#admin-name-list" hx-swap="innerHTML">
+                    <div id="admin-name-list">
                         ${admin.name}
                     </div>
                 </li>`,
@@ -326,20 +326,21 @@ module.exports = (User) => {
 				user.assignedAdmin = adminId;
 				await user.save();
 
-				res
-					.sendFile(path.join(__dirname, "../public/admin-panel.html"), {
-						headers: {
-							"Content-Type": "text/html",
-							"HX-Trigger": "click",
-							"HX-Target": `#admin-users-dropdown-container-${userId}`,
-							"HX-Reselect": "#user-table-body",
-							"HX-Reswap": "innerHTML",
-						},
-					})
-					.status(200)
-					.send();
+				// res
+				// 	.sendFile(path.join(__dirname, "../public/admin-panel.html"), {
+				// 		headers: {
+				// 			"Content-Type": "text/html",
+				// 			"HX-Trigger": "click",
+				// 			"HX-Target": `#admin-users-dropdown-container-${userId}`,
+				// 			"HX-Reselect": "#user-table-body",
+				// 			"HX-Reswap": "innerHTML",
+				// 		},
+				// 	})
+				// 	.send();
 
-				// res.header("HX-Reswap", innerHTML).status(200).send();
+				res.header("HX-Redirect", "/admin-panel.html").status(200).send();
+
+				// res.send();
 			} catch (error) {
 				console.error("Error assigning admin to user:", error);
 				res.status(500).send(`
