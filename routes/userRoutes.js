@@ -218,18 +218,23 @@ module.exports = (User) => {
                                     hx-get="/images/user/${user.id}"
                                     hx-target="#list-of-users"
                                     hx-swap="innerHTML"
-                                    hx-push-url="true"
                                     class="btn btn-sm flex-1 text-center">Ver documentos
                                 </button>
-                                <div class="dropdown dropdown-top dropdown-end">
+                                <div class="dropdown dropdown-right overscroll-x-none">
                                     <div tabindex="0" role="button"
                                         hx-get="/users/admins?userId=${user.id}"
                                         hx-trigger="click"
-                                        hx-target="#admin-users-dropdown-container"
+                                        hx-target="#admin-users-dropdown-container-${
+																					user.id
+																				}"
                                         hx-swap="outerHTML"
                                         class="btn btn-sm flex-1 text-center">Encargado
                                     </div>
-                                    <div id="admin-users-dropdown-container"></div>
+                                    <ul tabindex="0" class="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-sm w-52 overscroll-x-none">
+                                        <div id="admin-users-dropdown-container-${
+																					user.id
+																				}" class="overscroll-x-none"></div>
+                                    </ul>
                                 </div>
                             </div>
                         </td>
