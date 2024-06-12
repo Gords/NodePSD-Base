@@ -372,168 +372,190 @@
 
 
 
-    <!-- Register Form -->
-    <div id="register-form-component" class="pt-28 pb-4">
-        <div class="card m-auto max-w-lg md:shadow-md lg:shadow-md">
-            <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
-                <div class="sm:mx-auto sm:w-full sm:max-w-md">
-                    <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
-                    <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
-                </div>
-                <div class="mt-4 mb-4 mx-auto w-full max-w-md">
-                    <label class="text-base font-medium text-gray-600 col-span-2">Tipo de Cliente</label>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <label class="inline-flex items-center">
-                            <input type="radio" name="userType" value="individual" class="radio radio-primary"
-                                hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
-                            <span class="ml-2">Individuo</span>
-                        </label>
-                        <label class="inline-flex items-center ml-4">
-                            <input type="radio" name="userType" value="business" class="radio radio-primary"
-                                hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
-                            <span class="ml-2">Empresa</span>
-                        </label>
-                    </div>
-                    <div id="register-form-container" class="mt-4"></div>
-                </div>
-            </div>
+  <!-- Register Form -->
+  <div id="register-form-component" class="pt-28 pb-4">
+    <div class="card m-auto max-w-lg shadow-md">
+      <div class="card-body flex min-h-full flex-col justify-center lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+          <img class="mx-auto object-scale-down" src="./assets/img/logo-color.png" alt="Flash Center Logo">
+          <h2 class="mt-6 text-center text-2xl font-bold text-gray-600">Registra tu cuenta</h2>
         </div>
-    </div>
-
-
-
-    <!-- Individual Register Form -->
-    <div id="individual-register-form-component">
-        <!-- add card-body below -->
-        <form id="register-form" hx-post="/auth/register" hx-target="#register-response"
-            hx-target-4xx='#register-error-response' hx-target-5xx='#register-error-response' hx-swap="innerHTML">
-            <div>
-                <div class="grid grid-cols-2 gap-4">
-                    <!-- Name and Last Name -->
-                    <div>
-                        <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
-                        <input id="register-name" name="name" type="text" autocomplete="name"
-                            class="input input-bordered w-full" required pattern="[A-Za-z\s]+"
-                            placeholder="Ingrese su nombre" title="Por favor, ingrese solo letras y espacios" />
-                        <span id="name-error" class="text-red-500 text-sm"></span>
-                    </div>
-                    <div>
-                        <label for="register-lastName" class="text-base font-medium text-gray-600">Apellido</label>
-                        <input id="register-lastName" name="lastName" type="text" class="input input-bordered w-full"
-                            pattern="[A-Za-z\s]+" placeholder="Ingrese su apellido"
-                            title="Por favor, ingrese solo letras y espacios" />
-                        <span id="lastName-error" class="text-red-500 text-sm"></span>
-                    </div>
-                    <!-- ID Number and Phone -->
-                    <div>
-                        <label for="register-idNumber" class="text-base font-medium text-gray-600">Nro. de
-                            Cédula</label>
-                        <input id="register-idNumber" name="idNumber" type="text" class="input input-bordered w-full"
-                            required maxlength="8" placeholder="Ej: 3555555"
-                            title="Por favor, ingrese un número de cédula válido (máximo 8 dígitos)" />
-                        <span id="idNumber-error" class="text-red-500 text-sm"></span>
-                    </div>
-                    <div>
-                        <label for="register-phoneNumber" class="text-base font-medium text-gray-600">Teléfono</label>
-                        <input id="register-phoneNumber" name="phoneNumber" type="tel"
-                            class="input input-bordered w-full" required pattern="^\+595\d{9}$"
-                            title="Por favor, ingrese un número de teléfono válido en el formato +595981123456"
-                            placeholder="Ej: +595981123456" />
-                        <span id="phoneNumber-error" class="text-red-500 text-sm"></span>
-                    </div>
-                    <!-- Email and Password -->
-                    <div class="col-span-2">
-                        <label for="register-email" class="text-base font-medium text-gray-600">Correo
-                            electrónico</label>
-                        <input id="register-email" name="email" type="email" autocomplete="email"
-                            class="input input-bordered w-full" required placeholder="Ingrese su correo electrónico"
-                            title="Por favor, ingrese un correo electrónico válido" />
-                        <span id="email-error" class="text-red-500 text-sm"></span>
-                    </div>
-                    <div class="col-span-2">
-                        <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
-                        <input id="register-password" name="password" type="password" autocomplete="new-password"
-                            class="input input-bordered w-full" required minlength="6" placeholder="Mínimo 6 caracteres"
-                            title="Por favor, ingrese una contraseña de al menos 6 caracteres" />
-                        <span id="password-error" class="text-red-500 text-sm"></span>
-                    </div>
-                </div>
-                <input type="hidden" name="userType" value="individual">
-                <button type="submit" class="btn btn-primary w-full text-white mt-6">Registrarse</button>
-                <p class="mt-4 text-center text-sm text-gray-600">
-                    Ya tienes una cuenta?
-                    <a href="#login" class="link link-primary font-bold">Inicia sesión aquí!</a>
-                </p>
+        <div class="mt-4 mb-4 mx-auto w-full max-w-md">
+          <div class="grid grid-cols-2 gap-4">
+            <label class="text-base font-medium text-gray-600 col-span-2">Tipo de Cliente</label>
+            <div class="col-span-1">
+              <label class="inline-flex items-center">
+                <input type="radio" name="userType" value="individual" class="radio radio-primary"
+                  hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
+                <span class="ml-2">Individuo</span>
+              </label>
+              <label class="inline-flex items-center ml-4">
+                <input type="radio" name="userType" value="business" class="radio radio-primary"
+                  hx-get="/auth/register-form" hx-target="#register-form-container" hx-trigger="click">
+                <span class="ml-2">Empresa</span>
+              </label>
             </div>
-        </form>
-        <div id="register-response"></div>
-        <div id="register-error-response" class="mx-2 my-1">
-            <!-- Here goes the error response from the server -->
+          </div>
+          <div id="register-form-container" class="mt-4"></div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Business Register Form -->
-    <div id="business-register-form-component">
-        <!-- add card-body below -->
-        <form id="register-form" hx-post="/auth/register" hx-target="#register-response"
-            hx-target-4xx='#register-error-response' hx-target-5xx='#register-error-response' hx-swap="innerHTML">
-            <div>
-                <div class="grid grid-cols-2 gap-4">
-                    <!-- Name -->
-                    <div class="col-span-2">
-                        <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
-                        <input id="register-name" name="name" type="text" autocomplete="name"
-                            class="input input-bordered w-full" required pattern="[A-Za-z\s]+"
-                            placeholder="Ingrese su nombre" title="Por favor, ingrese solo letras y espacios" />
-                        <span id="name-error" class="text-red-500 text-sm"></span>
-                    </div>
-                    <!-- ID Number and Phone -->
-                    <div>
-                        <label for="register-idNumber" class="text-base font-medium text-gray-600">RUC</label>
-                        <input id="register-idNumber" name="idNumber" type="text" class="input input-bordered w-full"
-                            required maxlength="8" placeholder="Ej: 3555555"
-                            title="Por favor, ingrese un número de cédula válido (máximo 8 dígitos)" />
-                        <span id="idNumber-error" class="text-red-500 text-sm"></span>
-                    </div>
-                    <div>
-                        <label for="register-phoneNumber" class="text-base font-medium text-gray-600">Teléfono</label>
-                        <input id="register-phoneNumber" name="phoneNumber" type="tel"
-                            class="input input-bordered w-full" required pattern="^\+595\d{9}$"
-                            title="Por favor, ingrese un número de teléfono válido en el formato +595981123456"
-                            placeholder="Ej: +595981123456" />
-                        <span id="phoneNumber-error" class="text-red-500 text-sm"></span>
-                    </div>
-                    <!-- Email and Password -->
-                    <div class="col-span-2">
-                        <label for="register-email" class="text-base font-medium text-gray-600">Correo
-                            electrónico</label>
-                        <input id="register-email" name="email" type="email" autocomplete="email"
-                            class="input input-bordered w-full" required placeholder="Ingrese su correo electrónico"
-                            title="Por favor, ingrese un correo electrónico válido" />
-                        <span id="email-error" class="text-red-500 text-sm"></span>
-                    </div>
-                    <div class="col-span-2">
-                        <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
-                        <input id="register-password" name="password" type="password" autocomplete="new-password"
-                            class="input input-bordered w-full" required minlength="6" placeholder="Mínimo 6 caracteres"
-                            title="Por favor, ingrese una contraseña de al menos 6 caracteres" />
-                        <span id="password-error" class="text-red-500 text-sm"></span>
-                    </div>
-                </div>
-                <input type="hidden" name="userType" value="business">
-                <button type="submit" class="btn btn-primary w-full text-white mt-6">Registrarse</button>
-                <p class="mt-4 text-center text-sm text-gray-600">
-                    Ya tienes una cuenta?
-                    <a href="#login" class="link link-primary font-bold">Inicia sesión aquí!</a>
-                </p>
-            </div>
-        </form>
-        <div id="register-response"></div>
-        <div id="register-error-response" class="mx-2 my-1">
-            <!-- Here goes the error response from the server -->
+
+
+  <!-- Individual Register Form -->
+  <div id="individual-register-form-component">
+    <!-- add card-body below -->
+    <form id="register-form" hx-post="/auth/register" hx-target="#register-response"
+      hx-target-4xx='#register-error-response' hx-target-5xx='#register-error-response' hx-swap="innerHTML">
+      <div>
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Name -->
+          <div>
+            <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
+            <input id="register-name" name="name" type="text" autocomplete="name" class="input input-bordered w-full"
+              required pattern="[A-Za-z\s]+" placeholder="Ingrese su nombre"
+              title="Por favor, ingrese solo letras y espacios" />
+            <span id="name-error" class="text-red-500 text-sm"></span>
+          </div>
+          <!-- Last Name -->
+          <div>
+            <label for="register-lastName" class="text-base font-medium text-gray-600">Apellido</label>
+            <input id="register-lastName" name="lastName" type="text" class="input input-bordered w-full"
+              pattern="[A-Za-z\s]+" placeholder="Ingrese su apellido"
+              title="Por favor, ingrese solo letras y espacios" />
+            <span id="lastName-error" class="text-red-500 text-sm"></span>
+          </div>
+          <!-- ID Number -->
+          <div>
+            <label for="register-idNumber" class="text-base font-medium text-gray-600">Nro. de Cédula</label>
+            <input id="register-idNumber" name="idNumber" type="text" class="input input-bordered w-full" required
+              maxlength="8" placeholder="Ej: 3555555"
+              title="Por favor, ingrese un número de cédula válido (máximo 8 dígitos)" />
+            <span id="idNumber-error" class="text-red-500 text-sm"></span>
+          </div>
+          <!-- Phone -->
+          <div>
+            <label for="register-phoneNumber" class="text-base font-medium text-gray-600">Teléfono</label>
+            <input id="register-phoneNumber" name="phoneNumber" type="tel" class="input input-bordered w-full" required
+              pattern="^\+595\d{9}$" title="Por favor, ingrese un número de teléfono válido en el formato +595981123456"
+              placeholder="Ej: +595981123456" />
+            <span id="phoneNumber-error" class="text-red-500 text-sm"></span>
+          </div>
+          <!-- Email -->
+          <div class="col-span-2">
+            <label for="register-email" class="text-base font-medium text-gray-600">Correo electrónico</label>
+            <input id="register-email" name="email" type="email" autocomplete="email"
+              class="input input-bordered w-full" required placeholder="Ingrese su correo electrónico"
+              title="Por favor, ingrese un correo electrónico válido" />
+            <span id="email-error" class="text-red-500 text-sm"></span>
+          </div>
+          <!-- Password -->
+          <div class="col-span-2">
+            <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
+            <input id="register-password" name="password" type="password" autocomplete="new-password"
+              class="input input-bordered w-full" required minlength="6" placeholder="Mínimo 6 caracteres"
+              title="Por favor, ingrese una contraseña de al menos 6 caracteres" />
+            <span id="password-error" class="text-red-500 text-sm"></span>
+          </div>
+          <!-- Confirm Password -->
+          <div class="col-span-2">
+            <label for="register-confirm-password" class="text-base font-medium text-gray-600">Confirme su
+              contraseña</label>
+            <input id="register-confirm-password" name="confirmPassword" type="password" autocomplete="new-password"
+              class="input input-bordered w-full" required minlength="6" placeholder="Confirme su contraseña"
+              title="Por favor, confirme su contraseña" />
+            <span id="confirm-password-error" class="text-red-500 text-sm"></span>
+          </div>
+
         </div>
+        <input type="hidden" name="userType" value="individual">
+        <button type="submit" class="btn btn-primary w-full text-white mt-6">Registrarse</button>
+        <p class="mt-4 text-center text-sm text-gray-600">
+          Ya tienes una cuenta?
+          <a href="#login" class="link link-primary font-bold">Inicia sesión aquí!</a>
+        </p>
+      </div>
+    </form>
+    <div id="register-response"></div>
+    <div id="register-error-response" class="mx-2 my-1">
+      <!-- Here goes the error response from the server -->
     </div>
+  </div>
+
+  <!-- Business Register Form -->
+  <div id="business-register-form-component">
+    <!-- add card-body below -->
+    <form id="register-form" hx-post="/auth/register" hx-target="#register-response"
+      hx-target-4xx='#register-error-response' hx-target-5xx='#register-error-response' hx-swap="innerHTML">
+      <div>
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Name -->
+          <div class="col-span-2">
+            <label for="register-name" class="text-base font-medium text-gray-600">Nombre</label>
+            <input id="register-name" name="name" type="text" autocomplete="name" class="input input-bordered w-full"
+              required pattern="[A-Za-z\s]+" placeholder="Ingrese su nombre"
+              title="Por favor, ingrese solo letras y espacios" />
+            <span id="name-error" class="text-red-500 text-sm"></span>
+          </div>
+          <!-- RUC Number -->
+          <div>
+            <label for="register-ruc" class="text-base font-medium text-gray-600">RUC</label>
+            <input id="register-ruc" name="ruc" type="text" class="input input-bordered w-full"
+            pattern="^\d{6,8}-\d{1}$" placeholder="Ej: 123456-1"
+            title="Por favor, ingrese un número de RUC válido en el formato 1234567-1" />
+            <span id="ruc-error" class="text-red-500 text-sm"></span>
+          </div>
+          <!-- Phone -->
+          <div>
+            <label for="register-phoneNumber" class="text-base font-medium text-gray-600">Teléfono</label>
+            <input id="register-phoneNumber" name="phoneNumber" type="tel" class="input input-bordered w-full"
+            pattern="^(\+595\d{9}|\d{10}|\d{6})$"
+            title="Por favor, ingrese número de teléfono válido. Formatos permitidos: +595981112233, 0981111222, 021111222, 111222"
+            placeholder="Ej: +595981123456" />
+            <span id="phoneNumber-error" class="text-red-500 text-sm"></span>
+          </div>
+          <!-- Email -->
+          <div class="col-span-2">
+            <label for="register-email" class="text-base font-medium text-gray-600">Correo electrónico</label>
+            <input id="register-email" name="email" type="email" autocomplete="email"
+              class="input input-bordered w-full" required placeholder="Ingrese su correo electrónico"
+              title="Por favor, ingrese un correo electrónico válido" />
+            <span id="email-error" class="text-red-500 text-sm"></span>
+          </div>
+          <!-- Password -->
+          <div class="col-span-2">
+            <label for="register-password" class="text-base font-medium text-gray-600">Contraseña</label>
+            <input id="register-password" name="password" type="password" autocomplete="new-password"
+              class="input input-bordered w-full" required minlength="6" placeholder="Mínimo 6 caracteres"
+              title="Por favor, ingrese una contraseña de al menos 6 caracteres" />
+            <span id="password-error" class="text-red-500 text-sm"></span>
+          </div>
+          <!-- Confirm Password -->
+          <div class="col-span-2">
+            <label for="register-confirm-password" class="text-base font-medium text-gray-600">Confirme su
+              contraseña</label>
+            <input id="register-confirm-password" name="confirmPassword" type="password" autocomplete="new-password"
+              class="input input-bordered w-full" required minlength="6" placeholder="Confirme su contraseña"
+              title="Por favor, confirme su contraseña" />
+            <span id="confirm-password-error" class="text-red-500 text-sm"></span>
+          </div>
+
+        </div>
+        <input type="hidden" name="userType" value="business">
+        <button type="submit" class="btn btn-primary w-full text-white mt-6">Registrarse</button>
+        <p class="mt-4 text-center text-sm text-gray-600">
+          Ya tienes una cuenta?
+          <a href="#login" class="link link-primary font-bold">Inicia sesión aquí!</a>
+        </p>
+      </div>
+    </form>
+    <div id="register-response"></div>
+    <div id="register-error-response" class="mx-2 my-1">
+      <!-- Here goes the error response from the server -->
+    </div>
+  </div>
 
 
     <!-- Contact Form -->

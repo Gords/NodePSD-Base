@@ -1,4 +1,4 @@
-document.addEventListener("htmx:afterOnLoad", () => {
+document.addEventListener("htmx:afterSettle", () => {
 	function calculateLoan() {
 		const loanAmount = Number.parseInt(document.getElementById("amount").value);
 		const installments = Number.parseInt(document.getElementById("days").value);
