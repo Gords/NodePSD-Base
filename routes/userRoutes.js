@@ -4,6 +4,7 @@ const { isAuthenticated } = require("../services/authService");
 const { Op } = require("sequelize");
 const he = require("he");
 const path = require("node:path");
+const Sequelize = require("sequelize");
 
 module.exports = (User) => {
 	// Get logged in user details
@@ -146,7 +147,6 @@ module.exports = (User) => {
                                     hx-get="/images/user/${user.id}"
                                     hx-target="#list-of-users"
                                     hx-swap="innerHTML"
-                                    hx-push-url="true"
                                     class="btn btn-sm flex-1 text-center">Ver documentos
                                 </button>
                                 <div class="dropdown dropdown-right overscroll-x-none">
