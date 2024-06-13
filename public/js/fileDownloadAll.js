@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-	// Attach the event listener to the document or a static parent element so that it can handle events from dynamically added elements
 	document.body.addEventListener("click", async (event) => {
 		if (event.target.id === "download-all-files") {
 			const links = document.querySelectorAll('a[id="download-link"]');

@@ -53,17 +53,17 @@ module.exports = (User) => {
 				const errorMessages = errors.array().map((error) => error.msg);
 				// Error response for invalid input in user registration
 				return res.status(500).send(`
-			  <div id="register-form-component">
-				<div role="alert" class="alert alert-error border-black border-2 flex items-center">
-				  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-8 h-8 inline-block">
-				  <div class="flex-grow text-center">
-					<ul class="pl-5 font-semibold">
-					  ${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
-					</ul>
-				  </div>
+				<div id="register-form-component">
+					<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-8 h-8 inline-block">
+						<div class="flex-grow text-center">
+							<ul class="pl-5 font-semibold">
+							${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
+							</ul>
+						</div>
+					</div>
 				</div>
-			  </div>
-			`);
+				`);
 			}
 
 			try {
@@ -105,42 +105,42 @@ module.exports = (User) => {
 
 				// Registration success modal
 				res.status(200).send(`
-			  <div id="register-form-component">
-				<dialog class="modal modal-open success">
-				  <div class="modal-box bg-success border-2 border-black text-center items-center">
-					<h3 class="font-bold text-lg">Registro de usuario exitoso!</h3>
-					<p class="py-4">Verifica tu correo electrónico para activar tu cuenta.<br><br>Redireccionando a la pagina principal...</p>
-				  </div>
-				</dialog>
-			  </div>
-			`);
+					<div id="register-form-component">
+						<dialog class="modal modal-open success">
+							<div class="modal-box bg-success border-2 border-black text-center items-center">
+								<h3 class="font-bold text-lg">Registro de usuario exitoso!</h3>
+								<p class="py-4">Verifica tu correo electrónico para activar tu cuenta.<br><br>Redireccionando a la pagina principal...</p>
+							</div>
+						</dialog>
+					</div>
+				`);
 			} catch (error) {
 				console.error("Error registering user:", error);
 				if (error.name === "SequelizeUniqueConstraintError") {
 					// Handle unique constraint violation error
 					res.status(400).send(
 						`
-				<div id="register-form-component">
-				  <div role="alert" class="alert alert-error border-black border-2 flex items-center">
-					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-					<div class="flex-grow text-center">
-					  <p class="font-semibold">El correo electrónico ya está registrado.<br>Por favor utiliza otro correo electrónico.</p>
-					</div>
-				  </div>
-				</div>
-			  `.trim(),
+						<div id="register-form-component">
+							<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+								<div class="flex-grow text-center">
+									<p class="font-semibold">El correo electrónico ya está registrado.<br>Por favor utiliza otro correo electrónico.</p>
+								</div>
+							</div>
+						</div>
+					`.trim(),
 					);
 				} else {
 					// Error response for failed user registration (e.g. email already exists)
 					res.status(500).send(
 						`
-				<div id="register-form-component">
-				  <div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
-					<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-					<p class="font-semibold">Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.</p>
-				  </div>
-				</div>
-			  `.trim(),
+						<div id="register-form-component">
+							<div role="alert" class="alert alert-error border-black border-2 mb-2 mx-4 max-w-fit">
+								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+								<p class="font-semibold">Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.</p>
+							</div>
+						</div>
+					`.trim(),
 					);
 				}
 			}
@@ -229,7 +229,7 @@ module.exports = (User) => {
 						</div>
 					`);
 				}
-
+				// TODO: creo que este no funciona? si el user no existe, directamente tira el error de arriba
 				if (!user) {
 					return res.status(401).send(`
 						<div id="login-form-component">
@@ -449,9 +449,9 @@ module.exports = (User) => {
 				const user = await User.findByPk(userId);
 				if (!user) {
 					return res.status(404).send(`
-					<div id="password-reset-form-component">
-						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
-							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+						<div id="password-reset-form-component">
+							<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+								<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
 								<span class="font-bold text-center">User not found</span>
 							</div>
 						</div>
@@ -468,14 +468,14 @@ module.exports = (User) => {
 					}
 					//res.header("HX-Redirect", "/");
 					res.send(`
-					<div id="password-reset-form-component">
-					<dialog class="modal modal-open success">
-						<div class="modal-box bg-success border-2 border-black text-center items-center">
-							<h3 class="font-bold text-lg">Restablecimiento de contraseña exitoso</h3>
-							<p class="py-4">Redireccionando a la pagina principal...</p>
+						<div id="password-reset-form-component">
+							<dialog class="modal modal-open success">
+								<div class="modal-box bg-success border-2 border-black text-center items-center">
+									<h3 class="font-bold text-lg">Restablecimiento de contraseña exitoso</h3>
+									<p class="py-4">Redireccionando a la pagina principal...</p>
+								</div>
+							</dialog>
 						</div>
-					</dialog>
-				</div>
 					`);
 				});
 			} catch (error) {
