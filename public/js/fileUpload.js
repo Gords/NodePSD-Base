@@ -32,19 +32,30 @@ function updateUploadFileList() {
 			"bg-neutral p-2 flex justify-between items-center rounded-lg mb-2";
 		listItem.setAttribute("data-index", index);
 		listItem.innerHTML = `
-			<span>${fileIcon}</span>
-			<div>${file.name}</div>
-			<div class="remove-file">${removeIcon}</div>
-			`;
+      <span>${fileIcon}</span>
+      <div>${file.name}</div>
+      <div class="remove-file">${removeIcon}</div>
+    `;
+
 		// Attach click event listener to the remove button of each file
-		//TODO: ITS NOT WORKING! Linked to issue https://github.com/Runewerk/flashcenter/issues/32
 		listItem.querySelector(".remove-file").addEventListener("click", () => {
 			fileList.splice(index, 1);
 			updateUploadFileList();
+			updateFileInput();
 		});
 
 		fileListElement.appendChild(listItem);
 	});
+}
+
+// Update the files in the file input element
+function updateFileInput() {
+	const fileInput = document.getElementById("files-to-upload");
+	const dataTransfer = new DataTransfer();
+	for (const file of fileList) {
+		dataTransfer.items.add(file);
+	}
+	fileInput.files = dataTransfer.files;
 }
 
 // Initialize the file list
@@ -52,7 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	// TODO: Currently, we only check allowed types client-side
 	const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
 
-	function handleFiles(files) {
+	function handleFiles(files, replaceFiles = false) {
+		if (replaceFiles) {
+			fileList.length = 0;
+		}
 		for (let i = 0; i < files.length; i++) {
 			const file = files[i];
 			const isFileTypeAllowed = allowedTypes.includes(file.type);
@@ -71,25 +85,34 @@ document.addEventListener("DOMContentLoaded", () => {
 	document
 		.getElementById("files-to-upload")
 		.addEventListener("change", function () {
-			handleFiles(this.files);
+			handleFiles(this.files, true);
 		});
 
-		const submitFilesButton = document.getElementById("submit-files");
+	const submitFilesButton = document.getElementById("submit-files");
 
-		if (submitFilesButton) {
-		  submitFilesButton.addEventListener("click", () => {
+	if (submitFilesButton) {
+		submitFilesButton.addEventListener("click", () => {
 			// Wait for the response to be processed and the user files to be updated
-			document.body.addEventListener("htmx:afterSettle", function handler(event) {
-			  if (event.detail.target.id === "user-files") {
-				// Clear the fileList array
-				fileList.length = 0;
-	  
-				// Update the file list display
-				updateUploadFileList();
-			  }
-			});
-		  });
-		}
+			document.body.addEventListener(
+				"htmx:afterSettle",
+				function handler(event) {
+					if (event.detail.target.id === "user-files") {
+						// Clear the fileList array
+						fileList.length = 0;
+
+						// Update the file list display
+						updateUploadFileList();
+
+						// Update the file input element
+						updateFileInput();
+
+						// Remove the event listener to avoid multiple triggers
+						document.body.removeEventListener("htmx:afterSettle", handler);
+					}
+				},
+			);
+		});
+	}
 
 	// Drag and drop functionality and styling
 	// Why the heck is the color being manipulated here?
