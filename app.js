@@ -7,6 +7,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const bcrypt = require("bcrypt");
+const urlRewrite = require("express-urlrewrite");
 const path = require("node:path");
 
 dotenv.config();
@@ -15,6 +16,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
+
+
 
 // Configure session middleware
 app.use(
@@ -92,6 +95,10 @@ const routes = require("./routes/routes.js")({
 });
 app.use("/", routes);
 app.use(express.static(path.join(__dirname, "public")));
+
+// URL rewriting rules
+app.use(urlRewrite(/^\/admin-panel$/, "/admin-panel.html"));
+app.use(urlRewrite(/^\/user-panel$/, "/user-panel.html"));
 
 sequelize
 	.authenticate()

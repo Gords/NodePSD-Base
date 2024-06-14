@@ -332,7 +332,7 @@ module.exports = (User) => {
 				await user.save();
 
 				// res
-				// 	.sendFile(path.join(__dirname, "../public/admin-panel.html"), {
+				// 	.sendFile(path.join(__dirname, "../public/admin-panel"), {
 				// 		headers: {
 				// 			"Content-Type": "text/html",
 				// 			"HX-Trigger": "click",
@@ -343,7 +343,7 @@ module.exports = (User) => {
 				// 	})
 				// 	.send();
 
-				res.header("HX-Redirect", "/admin-panel.html").status(200).send();
+				res.header("HX-Redirect", "/admin-panel").status(200).send();
 
 				// res.send();
 			} catch (error) {
