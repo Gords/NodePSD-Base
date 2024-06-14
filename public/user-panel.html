@@ -30,7 +30,8 @@
    <main>
       <!-- User Panel Component -->
       <div id="user-panel-component"
-         class="flex flex-col h-full min-h-screen justify-center items-center pt-32 pb-20 bg-neutral">
+         class="flex flex-col h-full min-h-screen justify-center items-center pt-32 pb-20 bg-neutral"
+         hx-ext="response-targets">
          <!-- Data and File Upload Container -->
          <div class="w-full max-w-3xl py-4"> <!-- Adjust the width as needed -->
             <!-- User personal info -->
@@ -100,7 +101,8 @@
                <div class="card-body items-center">
                   <h3 class="text-white font-semibold text-lg mb-4">Sube un archivo aquí</h3>
                   <p class="text-base text-neutral mb-4">Puedes cargar hasta 10 archivos de hasta 10 MB cada uno.</p>
-                  <form hx-encoding="multipart/form-data" hx-post="/images" hx-ext="response-targets" hx-target="#user-files" hx-target-4xx="#file-upload-error" hx-target-5xx="#file-upload-error" hx-swap="innerHTML">
+                  <form hx-encoding="multipart/form-data" hx-post="/images" hx-target="#user-files"
+                     hx-target-4xx="#file-upload-error" hx-target-5xx="#file-upload-error" hx-swap="innerHTML">
                      <label for="files-to-upload" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md">Seleccionar
                         archivos</label>
                      <input type="file" id="files-to-upload" name="files" multiple
