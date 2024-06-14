@@ -518,13 +518,13 @@ module.exports = (User) => {
 	});
 
 	// User panel route
-	router.get("/user-panel", isAuthenticated, (req, res) => {
-		res.sendFile(path.join(__dirname, "../public/user-panel"));
+	router.get(["/user-panel.html", "/user-panel"], isAuthenticated, (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/user-panel.html"));
 	});
 
 	// Admin panel route
-	router.get("/admin-panel", isAdmin, (req, res) => {
-		res.sendFile(path.join(__dirname, "../public/admin-panel"));
+	router.get(["/admin-panel.html", "/admin-panel"], isAdmin, (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/admin-panel.html"));
 	});
 
 	return router;
