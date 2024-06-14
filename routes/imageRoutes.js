@@ -490,7 +490,7 @@ module.exports = (Image, User) => {
 		try {
 			const imageId = req.params.imageId;
 
-			// Might have to add admin privileges check here, or straight up not allow access to admin-panel.html unless the user is an admin
+			// Might have to add admin privileges check here, or straight up not allow access to admin-panel unless the user is an admin
 			const image = await Image.findOne({
 				where: {
 					id: imageId,

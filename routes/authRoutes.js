@@ -268,8 +268,8 @@ module.exports = (User) => {
 
 					// Set the appropriate redirect URL based on user role
 					const redirectUrl = user.isAdmin
-						? "/admin-panel.html"
-						: "/user-panel.html";
+						? "/admin-panel"
+						: "/user-panel";
 					res.header("HX-Redirect", redirectUrl);
 
 					// TODO: remove? since we do a redirect, this success response is never displayed to the user
@@ -518,13 +518,13 @@ module.exports = (User) => {
 	});
 
 	// User panel route
-	router.get("/user-panel.html", isAuthenticated, (req, res) => {
-		res.sendFile(path.join(__dirname, "../public/user-panel.html"));
+	router.get("/user-panel", isAuthenticated, (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/user-panel"));
 	});
 
 	// Admin panel route
-	router.get("/admin-panel.html", isAdmin, (req, res) => {
-		res.sendFile(path.join(__dirname, "../public/admin-panel.html"));
+	router.get("/admin-panel", isAdmin, (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/admin-panel"));
 	});
 
 	return router;
