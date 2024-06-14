@@ -87,6 +87,16 @@ document.addEventListener("DOMContentLoaded", () => {
 		.addEventListener("change", function () {
 			handleFiles(this.files, true);
 		});
+// Event listener for file upload error
+document.body.addEventListener("file-upload-error", (event) => {
+	if (event.detail.length > 0) {
+	  const errorMessage = event.detail[0];
+	  window.alert(errorMessage);
+	} else {
+	  console.error("Invalid file upload error event:", event);
+	}
+  });
+  
 
 	const submitFilesButton = document.getElementById("submit-files");
 

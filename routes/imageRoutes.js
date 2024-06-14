@@ -5,28 +5,54 @@ const path = require("node:path");
 const fs = require("node:fs");
 const { isAuthenticated } = require("../services/authService");
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_FILES_PER_USER = 10;
+const MAX_FILES_PER_UPLOAD = 4;
+
 // Configure Multer storage
 const storage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, "uploads/");
-	},
-	filename: (req, file, cb) => {
-		const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-		cb(null, `${uniqueSuffix}-${file.originalname}`);
-	},
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    cb(null, `${uniqueSuffix}-${file.originalname}`);
+  },
 });
 
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  limits: {
+    fileSize: MAX_FILE_SIZE,
+  },
+});
+
 
 module.exports = (Image, User) => {
 	// Post (Upload) a file within an array of files, max 4 files
 	router.post(
 		"/images",
 		isAuthenticated,
-		upload.array("files", 4),
+		upload.array("files", MAX_FILES_PER_UPLOAD),
 		async (req, res) => {
-			try {
-				const userId = req.user.id;
+		  try {
+			const userId = req.user.id;
+
+      // Check if the user has already uploaded the maximum allowed files
+      const userFileCount = await Image.count({ where: { userId } });
+      if (userFileCount >= MAX_FILES_PER_USER) {
+        return res.send(`
+          <div id="file-upload-error-alert">
+            <div role="alert" class="alert alert-error border-black border-2 m-4">
+              <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+              <span class="font-bold">Error al subir archivos:</span>
+              <div class="flex-grow text-center">
+                <p class="font-semibold">Ya has alcanzado el límite máximo de archivos permitidos en tu cuenta.</p>
+              </div>
+            </div>
+          </div>
+        `);
+      }
 
 				// Check if there are files to process
 				if (!req.files || req.files.length === 0) {
@@ -132,14 +158,19 @@ module.exports = (Image, User) => {
 			} catch (error) {
 				console.error("Error uploading files:", error);
 				res.status(500).send(`
-					<div role="alert" class="alert alert-error max-w-sm mx-auto border-black">
-						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-						<span class="font-bold text-center">Error processing your request</span>
+				  <div id="file-upload-error-alert">
+					<div role="alert" class="alert alert-error border-black border-2 m-4">
+					  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
+					  <span class="font-bold">Error al procesar tu solicitud:</span>
+					  <div class="flex-grow text-center">
+						<p class="font-semibold">Ocurrió un error al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.</p>
+					  </div>
 					</div>
-			`);
+				  </div>
+				`);
+			  }
 			}
-		},
-	);
+		  );
 
 	router.post(
 		"/images/user/:userId",
