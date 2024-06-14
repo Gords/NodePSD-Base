@@ -41,17 +41,11 @@ module.exports = (Image, User) => {
       // Check if the user has already uploaded the maximum allowed files
       const userFileCount = await Image.count({ where: { userId } });
       if (userFileCount >= MAX_FILES_PER_USER) {
-        return res.send(`
-          <div id="file-upload-error-alert">
-            <div role="alert" class="alert alert-error border-black border-2 m-4">
-              <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-              <span class="font-bold">Error al subir archivos:</span>
-              <div class="flex-grow text-center">
-                <p class="font-semibold">Ya has alcanzado el límite máximo de archivos permitidos en tu cuenta.</p>
-              </div>
+        return res.status(400).send(`
+            <div id="file-upload-error" class="alert alert-error" hx-ext="remove-me" remove-me="2s">
+              Ya has alcanzado el límite máximo de archivos permitidos en tu cuenta.
             </div>
-          </div>
-        `);
+          `);
       }
 
 				// Check if there are files to process
@@ -154,20 +148,14 @@ module.exports = (Image, User) => {
 				}
 
 				// Send the updated user files list as the response
-				res.send(userImagesHtml);
+				res.status(200).send(userImagesHtml);
 			} catch (error) {
 				console.error("Error uploading files:", error);
 				res.status(500).send(`
-				  <div id="file-upload-error-alert">
-					<div role="alert" class="alert alert-error border-black border-2 m-4">
-					  <img src="./assets/icons/error.svg" alt="Error Symbol" class="w-6 h-6 inline-block">
-					  <span class="font-bold">Error al procesar tu solicitud:</span>
-					  <div class="flex-grow text-center">
-						<p class="font-semibold">Ocurrió un error al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.</p>
-					  </div>
+					<div id="file-upload-error" class="alert alert-error" hx-ext="remove-me" remove-me="2s">
+					  Ocurrió un error al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.
 					</div>
-				  </div>
-				`);
+				  `);
 			  }
 			}
 		  );
