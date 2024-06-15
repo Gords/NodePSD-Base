@@ -8,13 +8,11 @@
     <link rel="icon" href="./assets/icons/favicon.ico" type="image/x-icon">
     <script src="https://unpkg.com/htmx.org@1.7.0"></script>
     <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
-    <link rel="preload"
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
         as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="./css/output.css" rel="stylesheet">
-    <script src="./js/fileDownloadAll.js"></script>
+    <script src="./js/fileDownloadAll.js" defer></script>
     <script src="./js/login.js"></script>
 </head>
 
@@ -44,9 +42,8 @@
                         </h2>
                         <div class="flex justify-center mb-4">
                             <input type="search" id="search-input" name="search-input" class="input input-bordered"
-                                placeholder="Buscar por nombre" hx-get="/users/search"
-                                hx-trigger="keyup changed delay:500ms" hx-target="#user-table-body" hx-include="this"
-                                hx-indicator="#spinner">
+                                placeholder="Buscar por nombre" hx-get="/users/search" hx-trigger="keyup changed delay:500ms"
+                                hx-target="#user-table-body" hx-include="this" hx-indicator="#spinner">
                         </div>
                         <div class="overflow-x-auto md:overflow-visible">
                             <table class="table text-l text-center">
