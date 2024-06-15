@@ -28,4 +28,22 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		}
 	});
+
+	// Listen for total # of selected files for upload
+	document.addEventListener("htmx:afterSettle", () => {
+		const filesButton = document.getElementById("select-files-btn");
+		console.log(`the button is selected ${filesButton}`);
+
+		const filesCounter = document.getElementById("upload-new-user-files");
+		console.log(`the counter is selected ${filesCounter}`);
+
+		filesCounter.addEventListener("change", () => {
+			const fileCount = filesCounter.files.length;
+			if (fileCount === 0) {
+				filesButton.innerHTML = "Seleccionar archivos";
+			} else {
+				filesButton.innerHTML = `${fileCount} archivo(s) seleccionado(s)`;
+			}
+		});
+	});
 });

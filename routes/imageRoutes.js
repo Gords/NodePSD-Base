@@ -234,7 +234,7 @@ module.exports = (Image, User) => {
 									<h2 class="card-title font-semibold">Usuario: "${userEmail}"</h2>
 										<div class="flex space-x-2">
 											<form hx-encoding="multipart/form-data" hx-post="/images/user/${userId}" hx-target="#list-of-users" hx-swap="innerHTML" class="flex space-x-2">
-												<label for="upload-new-user-files" class="btn btn-xs sm:btn-sm md:btn-sm lg:btn-md btn-primary font-extrabold text-white">Seleccionar<br>
+												<label id="select-files-btn" for="upload-new-user-files" class="btn btn-xs sm:btn-sm md:btn-sm lg:btn-md btn-primary font-extrabold text-white">Seleccionar<br>
 												archivos</label>
 												<input type="file" id="upload-new-user-files" name="files" multiple
 												accept="image/jpeg, image/png, application/pdf" style="display: none">
@@ -442,7 +442,7 @@ module.exports = (Image, User) => {
 							<h2 class="card-title font-semibold">Usuario: "${userEmail}"</h2>
 							<div class="flex space-x-2">
 								<form hx-encoding="multipart/form-data" hx-post="/images/user/${userId}" hx-target="#list-of-users" hx-swap="innerHTML" class="flex space-x-2">
-									<label for="upload-new-user-files" class="btn btn-xs sm:btn-sm md:btn-sm lg:btn-md btn-primary font-extrabold text-white">Seleccionar<br>
+									<label id="select-files-btn" for="upload-new-user-files" class="btn btn-xs sm:btn-sm md:btn-sm lg:btn-md btn-primary font-extrabold text-white">Seleccionar<br>
 									archivos</label>
 									<input type="file" id="upload-new-user-files" name="files" multiple
 									accept="image/jpeg, image/png, application/pdf" style="display: none">
