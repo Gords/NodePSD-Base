@@ -200,7 +200,7 @@ module.exports = (Image, User) => {
 				await Promise.all(fileProcessingPromises);
 
 				// Fetch the updated list of user images
-				const images = await Image.findAll({ where: { userId: req.user.id } });
+				const images = await Image.findAll({ where: { userId } });
 				let userImagesHtml = "";
 
 				if (images.length === 0) {
