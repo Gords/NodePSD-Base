@@ -113,8 +113,42 @@ const sendPasswordResetEmail = async (email, token) => {
 	}
 };
 
+const sendLoanRequestEmail = async (userEmail) => {
+	const loanRequestEmail = process.env.LOAN_REQUEST_EMAIL;
+  
+	const params = {
+	  Destination: {
+		ToAddresses: [loanRequestEmail],
+	  },
+	  Message: {
+		Body: {
+		  Text: {
+			Data: `El usuario ${userEmail} ha solicitado una prestamo.`,
+		  },
+		  Html: {
+			Data: `<p>El usuario ${userEmail} ha solicitado un prestamo.</p>`,
+		  },
+		},
+		Subject: {
+		  Data: "Solicitud de Prestamo",
+		},
+	  },
+	  Source: process.env.AWS_VERIFIED_EMAIL,
+	};
+  
+	try {
+	  await ses.send(new SendEmailCommand(params));
+	  console.log("Loan request email sent successfully");
+	} catch (error) {
+	  console.error("Error sending loan request email:", error);
+	  throw new Error("Failed to send loan request email");
+	}
+  };
+  
+
 module.exports = {
 	sendVerificationEmail,
 	sendContactEmail,
 	sendPasswordResetEmail,
+	sendLoanRequestEmail,
 };

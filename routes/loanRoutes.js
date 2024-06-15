@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { isAuthenticated } = require("../services/authService");
+const emailService = require("../services/emailService");
 
 module.exports = (Loan, TypeOfLoan, User, sequelize) => {
 	// Create new Loan type
@@ -65,6 +66,9 @@ module.exports = (Loan, TypeOfLoan, User, sequelize) => {
 					},
 					{ transaction: t },
 				);
+
+				// Send loan request email
+				await emailService.sendLoanRequestEmail(req.user.email);
 
 				return loan;
 			});
