@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		.addEventListener("change", function () {
 			handleFiles(this.files, true);
 		});
+  
 
 	const submitFilesButton = document.getElementById("submit-files");
 

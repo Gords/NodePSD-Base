@@ -53,17 +53,17 @@ module.exports = (User) => {
 				const errorMessages = errors.array().map((error) => error.msg);
 				// Error response for invalid input in user registration
 				return res.status(500).send(`
-				<div id="register-form-component">
-					<div role="alert" class="alert alert-error border-black border-2 flex items-center">
-						<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-8 h-8 inline-block">
-						<div class="flex-grow text-center">
-							<ul class="pl-5 font-semibold">
-							${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
-							</ul>
+					<div id="register-form-component">
+						<div role="alert" class="alert alert-error border-black border-2 flex items-center">
+							<img src="./assets/icons/error.svg" alt="Error Symbol" class="w-8 h-8 inline-block">
+							<div class="flex-grow text-center">
+								<ul class="pl-5 font-semibold">
+								${errorMessages.map((msg) => `<li>${msg}</li>`).join("")}
+								</ul>
+							</div>
 						</div>
 					</div>
-				</div>
-				`);
+					`);
 			}
 
 			try {
@@ -267,9 +267,7 @@ module.exports = (User) => {
 					}
 
 					// Set the appropriate redirect URL based on user role
-					const redirectUrl = user.isAdmin
-						? "/admin-panel"
-						: "/user-panel";
+					const redirectUrl = user.isAdmin ? "/admin-panel" : "/user-panel";
 					res.header("HX-Redirect", redirectUrl);
 
 					// TODO: remove? since we do a redirect, this success response is never displayed to the user
@@ -518,9 +516,13 @@ module.exports = (User) => {
 	});
 
 	// User panel route
-	router.get(["/user-panel.html", "/user-panel"], isAuthenticated, (req, res) => {
-		res.sendFile(path.join(__dirname, "../public/user-panel.html"));
-	});
+	router.get(
+		["/user-panel.html", "/user-panel"],
+		isAuthenticated,
+		(req, res) => {
+			res.sendFile(path.join(__dirname, "../public/user-panel.html"));
+		},
+	);
 
 	// Admin panel route
 	router.get(["/admin-panel.html", "/admin-panel"], isAdmin, (req, res) => {
