@@ -101,7 +101,7 @@ The project uses Sequelize migrations to manage database schema changes. To crea
 npx sequelize-cli migration:generate --name migration-name
 ```
 
-Replace `migration-name` with a descriptive name for your migration.
+Replace `migration-name` with a descriptive name for your migration
 
 To run the pending migrations and update the database schema, use the following command:
 
